@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'dart:async';
 import 'dart:convert';
@@ -66,6 +66,10 @@ var haberurl =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/kullaniciadi/kullaniciparola/haberler/0/0/";
 var oturumkontrolurl =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
+
+// burası gonderi beğeniyi siteye yollama yeri postid sini linke çekemedik(${AnaSayfa.gonderibegeniyollanan})
+// var gonderibegeni =
+//     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/${AnaSayfa.gonderibegeniyollanan}/begen/";
 
 Widget bodyPageDegis() {
   switch (mevcutpage) {
@@ -428,30 +432,30 @@ class MyHomePageState extends State<MyHomePage> {
             },
           ),
           actions: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return Sabit(
-                        veri5: dataanasayfa[0]["begenisay"],
-                        veri6: dataanasayfa[0]["yorumsay"],
-                        veri7: dataanasayfa[0]["repostsay"],
-                        veri8: dataanasayfa[0]["sikayetsay"],
-                        veri9: gonderifotolar[0]["fotourl"],
-                      );
-                    },
-                  ),
-                );
-              },
-              child: Hero(
-                tag: 'imageHero',
-                child: Image.network(
-                  'https://picsum.photos/250?image=9',
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) {
+            //           return Sabit(
+            //             veri5: dataanasayfa[0]["begenisay"],
+            //             veri6: dataanasayfa[0]["yorumsay"],
+            //             veri7: dataanasayfa[0]["repostsay"],
+            //             veri8: dataanasayfa[0]["sikayetsay"],
+            //             veri9: gonderifotolar[0]["fotourl"],
+            //           );
+            //         },
+            //       ),
+            //     );
+            //   },
+            //   child: Hero(
+            //     tag: 'imageHero',
+            //     child: Image.network(
+            //       'https://picsum.photos/250?image=9',
+            //     ),
+            //   ),
+            // ),
             IconButton(
               onPressed: () {},
               icon: Icon(Icons.question_answer_outlined),

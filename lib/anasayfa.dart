@@ -241,7 +241,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          // burası beğeni için yapılcak yer postid nin index ine başka bir yerden ulaşamadık.
+                                          // print(gonderibegeni);
+                                          // String gonderibegeniyollananic =
+                                          //     dataanasayfa[index]["postID"];
+                                          // print(dataanasayfa[index]["postID"]);
+                                        },
                                         child: Padding(
                                           padding: EdgeInsets.all(8.0),
                                           child: Row(
