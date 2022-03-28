@@ -33,7 +33,7 @@ class AnaSayfaState extends State<AnaSayfa> {
   gonderifotocek() {
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
-    int a = 0;
+
     if (gonderifotolar.length == 1) {
       return Row(
         children: [
@@ -110,10 +110,11 @@ class AnaSayfaState extends State<AnaSayfa> {
     var screenheight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() {
+      print("ddddd    " + gonderifotolar[0]["fotourl"]);
       return gondericek();
     }
 
-    final items = List<int>.generate(10, (i) => i);
+    // final items = List<int>.generate(10, (i) => i);
     return RefreshIndicator(
       onRefresh: _refresh,
       child: Container(
@@ -161,9 +162,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                             ),
                             backgroundColor: Colors.transparent,
                           ),
-                          SizedBox(
-                            width: screenwidth / 35,
-                          ),
+                          SizedBox(width: screenwidth / 35),
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -201,11 +200,14 @@ class AnaSayfaState extends State<AnaSayfa> {
                                 SizedBox(height: screenheight / 90),
                                 Text(
                                   dataanasayfa[index]["sosyalicerik"],
-                                  style: TextStyle(),
                                 ),
                                 SizedBox(height: screenheight / 50),
                                 InkWell(
                                   onTap: () {
+                                    print(
+                                      "***************************************" +
+                                          gonderifotolar[index]["fotourl"],
+                                    );
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -228,6 +230,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                     visible: visible,
                                     child: Container(
                                       child: gonderifotocek(),
+                                      // child: Flexible(
+                                      //   child: Image.network(
+                                      //     gonderifotolar[index]["fotourl"],
+                                      //     fit: BoxFit.cover,
+                                      //     filterQuality: FilterQuality.high,
+                                      //   ),
+                                      // ),
                                     ),
                                   ),
                                 ),

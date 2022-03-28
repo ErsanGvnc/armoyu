@@ -260,7 +260,7 @@ class MyHomePageState extends State<MyHomePage> {
     return ThemeConsumer(
       child: Scaffold(
         drawer: Drawer(
-          backgroundColor: Color.fromRGBO(0, 0, 0, 1),
+          // backgroundColor: Color.fromRGBO(0, 0, 0, 1),
           child: Column(
             children: [
               Expanded(
@@ -322,36 +322,36 @@ class MyHomePageState extends State<MyHomePage> {
                         Navigator.pop(context);
                       },
                     ),
-                    ListTile(
-                      leading: Icon(Icons.event),
-                      title: Text("Etkinlikler"),
-                      onTap: () {
-                        setState(() {
-                          mevcutpage = "etkinlik";
-                        });
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.redeem),
-                      title: Text("Çekiliş"),
-                      onTap: () {
-                        setState(() {
-                          mevcutpage = "cekilis";
-                        });
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.forum),
-                      title: Text("Forum"),
-                      onTap: () {
-                        setState(() {
-                          mevcutpage = "forum";
-                        });
-                        Navigator.pop(context);
-                      },
-                    ),
+                    // ListTile(
+                    //   leading: Icon(Icons.event),
+                    //   title: Text("Etkinlikler"),
+                    //   onTap: () {
+                    //     setState(() {
+                    //       mevcutpage = "etkinlik";
+                    //     });
+                    //     Navigator.pop(context);
+                    //   },
+                    // ),
+                    // ListTile(
+                    //   leading: Icon(Icons.redeem),
+                    //   title: Text("Çekiliş"),
+                    //   onTap: () {
+                    //     setState(() {
+                    //       mevcutpage = "cekilis";
+                    //     });
+                    //     Navigator.pop(context);
+                    //   },
+                    // ),
+                    // ListTile(
+                    //   leading: Icon(Icons.forum),
+                    //   title: Text("Forum"),
+                    //   onTap: () {
+                    //     setState(() {
+                    //       mevcutpage = "forum";
+                    //     });
+                    //     Navigator.pop(context);
+                    //   },
+                    // ),
                   ],
                 ),
               ),

@@ -48,7 +48,8 @@ class _AnaDetailState extends State<AnaDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Divider(),
+                    SizedBox(height: screenheight / 60),
+                    //Divider(),
                     Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Row(
@@ -84,12 +85,16 @@ class _AnaDetailState extends State<AnaDetail> {
                       ),
                     ),
                     SizedBox(height: screenheight / 35),
-                    IconButton(
-                      onPressed: () {
-                        print(widget.veri9);
-                      },
-                      icon: Icon(Icons.ac_unit),
-                    ),
+                    // IconButton(
+                    //   onPressed: () {
+                    //     print(widget.veri9);
+                    //   },
+                    //   icon: Icon(Icons.ac_unit),
+                    // ),
+
+                    // detail sayfasında resimin gözükeceği yer.
+                    ////////////////////////////////////////////////////////////
+
                     Visibility(
                       visible: visible,
                       child: Container(
@@ -100,6 +105,7 @@ class _AnaDetailState extends State<AnaDetail> {
                         ),
                       ),
                     ),
+                    SizedBox(height: screenheight / 35),
                     Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Row(

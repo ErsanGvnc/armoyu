@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors, unused_local_variable, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:jsonekleme/main.dart';
 import 'package:jsonekleme/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,13 +47,18 @@ class LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: screenheight / 15,
-              ),
+              SizedBox(height: screenheight / 15),
               Text("E-Mail"),
               SizedBox(height: screenheight / 80),
               TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(
+                        "[abcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0-9-_]"),
+                  ),
+                ],
                 controller: ad,
+                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -67,8 +73,15 @@ class LoginState extends State<Login> {
               Text("Şifre"),
               SizedBox(height: screenheight / 80),
               TextField(
-                obscureText: true,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(
+                        "[abcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                  ),
+                ],
                 controller: sifre,
+                keyboardType: TextInputType.text,
+                obscureText: true,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
