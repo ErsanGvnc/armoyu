@@ -110,7 +110,6 @@ class AnaSayfaState extends State<AnaSayfa> {
     var screenheight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() {
-      print("ddddd    " + gonderifotolar[0]["fotourl"]);
       return gondericek();
     }
 
