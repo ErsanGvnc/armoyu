@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, avoid_print, unused_import, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, curly_braces_in_flow_control_structures
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, avoid_print, unused_import, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, curly_braces_in_flow_control_structures, prefer_if_null_operators
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -145,7 +145,9 @@ class AnaSayfaState extends State<AnaSayfa> {
                             veri6: dataanasayfa[index]["yorumsay"],
                             veri7: dataanasayfa[index]["repostsay"],
                             veri8: dataanasayfa[index]["sikayetsay"],
-                            veri9: gonderifotolar[index]["fotourl"],
+                            // veri9: gonderifotolar[index]["fotourl"] != null
+                            //     ? gonderifotolar[index]["fotourl"]
+                            //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
                           ),
                         ),
                       );
@@ -202,44 +204,56 @@ class AnaSayfaState extends State<AnaSayfa> {
                                   dataanasayfa[index]["sosyalicerik"],
                                 ),
                                 SizedBox(height: screenheight / 50),
-                                InkWell(
-                                  onTap: () {
-                                    print(
-                                      "***************************************" +
-                                          gonderifotolar[index]["fotourl"],
-                                    );
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => FotoIcerik(
-                                          veri5: dataanasayfa[index]
-                                              ["begenisay"],
-                                          veri6: dataanasayfa[index]
-                                              ["yorumsay"],
-                                          veri7: dataanasayfa[index]
-                                              ["repostsay"],
-                                          veri8: dataanasayfa[index]
-                                              ["sikayetsay"],
-                                          veri9: gonderifotolar[index]
-                                              ["fotourl"],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: Visibility(
-                                    visible: visible,
-                                    child: Container(
-                                      child: gonderifotocek(),
-                                      // child: Flexible(
-                                      //   child: Image.network(
-                                      //     gonderifotolar[index]["fotourl"],
-                                      //     fit: BoxFit.cover,
-                                      //     filterQuality: FilterQuality.high,
-                                      //   ),
-                                      // ),
-                                    ),
+                                Visibility(
+                                  visible: visible,
+                                  child: Container(
+                                    child: gonderifotocek(),
                                   ),
                                 ),
+
+                                // Fotograflara basınca hata veriyordu şimdilik çözüm için böyle yaptım.
+
+                                // InkWell(
+                                //   onTap: () {
+                                //     print(
+                                //       "***************************************" +
+                                //           gonderifotolar[index]["fotourl"],
+                                //     );
+                                //     Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //         builder: (context) => FotoIcerik(
+                                //           veri5: dataanasayfa[index]
+                                //               ["begenisay"],
+                                //           veri6: dataanasayfa[index]
+                                //               ["yorumsay"],
+                                //           veri7: dataanasayfa[index]
+                                //               ["repostsay"],
+                                //           veri8: dataanasayfa[index]
+                                //               ["sikayetsay"],
+                                //           veri9: gonderifotolar[index]
+                                //               ["fotourl"],
+                                //         ),
+                                //       ),
+                                //     );
+                                //   },
+                                //   child: Visibility(
+                                //     visible: visible,
+                                //     child: Container(
+                                //       // burası fotografların gozuktugu yer
+
+                                //       child: gonderifotocek(),
+
+                                //       // child: Flexible(
+                                //       //   child: Image.network(
+                                //       //     gonderifotolar[index]["fotourl"],
+                                //       //     fit: BoxFit.cover,
+                                //       //     filterQuality: FilterQuality.high,
+                                //       //   ),
+                                //       // ),
+                                //     ),
+                                //   ),
+                                // ),
                                 SizedBox(height: screenheight / 65),
                                 Container(
                                   color: Colors.transparent,

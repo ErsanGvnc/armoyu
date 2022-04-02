@@ -8,7 +8,7 @@ import 'anasayfa.dart';
 import 'main.dart';
 
 class AnaDetail extends StatefulWidget {
-  String veri1, veri2, veri3, veri4, veri5, veri6, veri7, veri8, veri9;
+  String veri1, veri2, veri3, veri4, veri5, veri6, veri7, veri8;
   AnaDetail({
     required this.veri1,
     required this.veri2,
@@ -18,7 +18,7 @@ class AnaDetail extends StatefulWidget {
     required this.veri6,
     required this.veri7,
     required this.veri8,
-    required this.veri9,
+    // required this.veri9,
   });
   @override
   _AnaDetailState createState() => _AnaDetailState();
@@ -95,16 +95,16 @@ class _AnaDetailState extends State<AnaDetail> {
                     // detail sayfasında resimin gözükeceği yer.
                     ////////////////////////////////////////////////////////////
 
-                    Visibility(
-                      visible: visible,
-                      child: Container(
-                        child: Image.network(
-                          widget.veri9,
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.high,
-                        ),
-                      ),
-                    ),
+                    // Visibility(
+                    //   visible: visible,
+                    //   child: Container(
+                    //     child: Image.network(
+                    //       widget.veri9,
+                    //       fit: BoxFit.cover,
+                    //       filterQuality: FilterQuality.high,
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(height: screenheight / 35),
                     Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
