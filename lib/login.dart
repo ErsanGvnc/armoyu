@@ -54,7 +54,7 @@ class LoginState extends State<Login> {
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(
-                        "[abcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0-9-_]"),
+                        "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_]"),
                   ),
                 ],
                 controller: ad,
@@ -76,7 +76,7 @@ class LoginState extends State<Login> {
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(
-                        "[abcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                        "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
                   ),
                 ],
                 controller: sifre,

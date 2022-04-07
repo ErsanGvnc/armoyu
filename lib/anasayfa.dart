@@ -174,7 +174,6 @@ class AnaSayfaState extends State<AnaSayfa> {
                                     Text(
                                       dataanasayfa[index]["sahipad"],
                                       style: TextStyle(
-                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),

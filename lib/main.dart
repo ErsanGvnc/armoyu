@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty
 
 import 'dart:async';
 import 'dart:convert';
@@ -44,6 +44,7 @@ void main() async {
 
 var girisdata;
 var datahaber;
+List gruplarim = [];
 List dataanasayfa = [];
 List gonderifotolar = [];
 
@@ -66,6 +67,8 @@ var haberurl =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/kullaniciadi/kullaniciparola/haberler/0/0/";
 var oturumkontrolurl =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
+var grupurl =
+    "https://aramizdakioyuncu.com/botlar/c99e178d83cdfea3c167bc1d15f9b47ff8f80145/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/gruplarim/0/0/";
 
 // burası gonderi beğeniyi siteye yollama yeri postid sini linke çekemedik(${AnaSayfa.gonderibegeniyollanan})
 // var gonderibegeni =
@@ -112,6 +115,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    grupcek();
+  }
+
   girisKontrol(BuildContext context) async {
     var giris =
         "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
@@ -178,6 +187,19 @@ class MyHomePageState extends State<MyHomePage> {
       );
       qrsite();
     });
+  }
+
+  grupcek() async {
+    var gelengrup = await http.get(
+      Uri.parse(grupurl),
+    );
+    try {
+      gruplarim = jsonDecode(gelengrup.body);
+    } catch (e) {
+      print('Unknown exception: $e');
+    }
+
+    setState(() {});
   }
 
   showAlertDialog(BuildContext context) {
@@ -255,161 +277,414 @@ class MyHomePageState extends State<MyHomePage> {
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
 
-    final items = List<String>.generate(15, (i) => "Item $i");
+    bool? _isExpanded;
 
+    final items = List<String>.generate(15, (i) => "Item $i");
+    final ScrollController drawergrup = ScrollController();
     return ThemeConsumer(
       child: Scaffold(
         drawer: Drawer(
           // backgroundColor: Color.fromRGBO(0, 0, 0, 1),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(0, 0, 0, 1),
-                        image: DecorationImage(
-                          image: NetworkImage(girisdata["parkaresim"]),
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.high,
-                        ),
-                      ),
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Flexible(
-                              child: CircleAvatar(
-                                radius: screenwidth / 8,
-                                backgroundImage: NetworkImage(
-                                  girisdata["presim"],
-                                ),
-                                backgroundColor: Colors.transparent,
-                              ),
-                            ),
-                            SizedBox(
-                              height: screenheight / 50,
-                            ),
-                            Text(
-                              girisdata["adim"],
-                              style: TextStyle(
-                                fontSize: 18,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.home),
-                      title: Text("Ana Sayfa"),
-                      onTap: () {
-                        setState(() {
-                          mevcutpage = "anasayfa";
-                        });
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.article),
-                      title: Text("Haberler"),
-                      onTap: () {
-                        setState(() {
-                          mevcutpage = "news";
-                        });
-                        Navigator.pop(context);
-                      },
-                    ),
-                    // ListTile(
-                    //   leading: Icon(Icons.event),
-                    //   title: Text("Etkinlikler"),
-                    //   onTap: () {
-                    //     setState(() {
-                    //       mevcutpage = "etkinlik";
-                    //     });
-                    //     Navigator.pop(context);
-                    //   },
-                    // ),
-                    // ListTile(
-                    //   leading: Icon(Icons.redeem),
-                    //   title: Text("Çekiliş"),
-                    //   onTap: () {
-                    //     setState(() {
-                    //       mevcutpage = "cekilis";
-                    //     });
-                    //     Navigator.pop(context);
-                    //   },
-                    // ),
-                    // ListTile(
-                    //   leading: Icon(Icons.forum),
-                    //   title: Text("Forum"),
-                    //   onTap: () {
-                    //     setState(() {
-                    //       mevcutpage = "forum";
-                    //     });
-                    //     Navigator.pop(context);
-                    //   },
-                    // ),
-                  ],
-                ),
-              ),
-              // Align(
-              //   alignment: Alignment.bottomCenter,
-              //   child: ListTile(
-              //     leading: Icon(Icons.logout),
-              //     title: Text('Çıkış Yap'),
-              //     onTap: () async {
-              //       showAlertDialog(context);
-              //     },
-              //   ),
-              // ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            showAlertDialog(context);
-                          },
-                          child: Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.logout),
-                                  SizedBox(width: screenwidth / 13),
-                                  Text('Çıkış Yap'),
-                                ],
-                              ),
-                            ),
+          child: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      DrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(0, 0, 0, 1),
+                          image: DecorationImage(
+                            image: NetworkImage(girisdata["parkaresim"]),
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.high,
                           ),
                         ),
-                        Spacer(),
-                        IconButton(
-                          onPressed:
-                              ThemeProvider.controllerOf(context).nextTheme,
-                          icon: _brightness
-                              ? Icon(Icons.dark_mode)
-                              : Icon(Icons.dark_mode_outlined),
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Flexible(
+                                child: CircleAvatar(
+                                  radius: screenwidth / 8,
+                                  backgroundImage: NetworkImage(
+                                    girisdata["presim"],
+                                  ),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              ),
+                              SizedBox(
+                                height: screenheight / 50,
+                              ),
+                              Text(
+                                girisdata["adim"],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            scanQrCode();
-                          },
-                          icon: Icon(Icons.qr_code_scanner),
-                        ),
-                      ],
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.home),
+                        title: Text("Ana Sayfa"),
+                        onTap: () {
+                          setState(() {
+                            mevcutpage = "anasayfa";
+                          });
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.article),
+                        title: Text("Haberler"),
+                        onTap: () {
+                          setState(() {
+                            mevcutpage = "news";
+                          });
+                          Navigator.pop(context);
+                        },
+                      ),
+                      // ListTile(
+                      //   leading: Icon(Icons.event),
+                      //   title: Text("Etkinlikler"),
+                      //   onTap: () {
+                      //     setState(() {
+                      //       mevcutpage = "etkinlik";
+                      //     });
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
+                      // ListTile(
+                      //   leading: Icon(Icons.redeem),
+                      //   title: Text("Çekiliş"),
+                      //   onTap: () {
+                      //     setState(() {
+                      //       mevcutpage = "cekilis";
+                      //     });
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
+                      // ListTile(
+                      //   leading: Icon(Icons.forum),
+                      //   title: Text("Forum"),
+                      //   onTap: () {
+                      //     setState(() {
+                      //       mevcutpage = "forum";
+                      //     });
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
+                    ],
+                  ),
+                ),
+                // Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: ListTile(
+                //     leading: Icon(Icons.logout),
+                //     title: Text('Çıkış Yap'),
+                //     onTap: () async {
+                //       showAlertDialog(context);
+                //     },
+                //   ),
+                // ),
+                Visibility(
+                  visible: gruplarim.length >= 1 ? true : false,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        child: gruplarim.length == 1
+                            ? Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Gruplarım"),
+                                    ],
+                                  ),
+                                  Stack(
+                                    children: [
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: BouncingScrollPhysics(),
+                                        scrollDirection: Axis.vertical,
+                                        controller: drawergrup,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: () {},
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  height: 50,
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 8),
+                                                    child: Row(
+                                                      children: [
+                                                        Image.network(
+                                                          gruplarim[index]
+                                                              ["gruplogo"],
+                                                          fit: BoxFit.cover,
+                                                          width: 35,
+                                                          height: 35,
+                                                        ),
+                                                        SizedBox(
+                                                            width: screenwidth /
+                                                                25),
+                                                        Text(gruplarim[index]
+                                                            ["grupadi"]),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                // Spacer(),
+                                                // IconButton(
+                                                //   onPressed: () {},
+                                                //   icon: Icon(Icons.arrow_drop_down),
+                                                // ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                        itemCount: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Gruplarım"),
+                                    ],
+                                  ),
+                                  Stack(
+                                    children: [
+                                      // PopupMenuButton(
+                                      //   child: ListTile(
+                                      //     leading: Image.network(
+                                      //       gruplarim[0]["gruplogo"],
+                                      //       fit: BoxFit.cover,
+                                      //       width: 35,
+                                      //       height: 35,
+                                      //     ),
+                                      //     title: Text(gruplarim[0]["grupadi"]),
+                                      //     trailing: Icon(Icons.arrow_drop_down),
+                                      //   ),
+                                      //   itemBuilder: (context) => [
+                                      //     PopupMenuItem(
+                                      //       child: ListTile(
+                                      //         leading: Image.network(
+                                      //           gruplarim[1]["gruplogo"],
+                                      //           fit: BoxFit.cover,
+                                      //           width: 35,
+                                      //           height: 35,
+                                      //         ),
+                                      //         title: Text(gruplarim[1]["grupadi"]),
+                                      //       ),
+                                      //       value: 1,
+                                      //     ),
+                                      //     PopupMenuItem(
+                                      //       child: ListTile(
+                                      //         leading: Image.network(
+                                      //           gruplarim[2]["gruplogo"],
+                                      //           fit: BoxFit.cover,
+                                      //           width: 35,
+                                      //           height: 35,
+                                      //         ),
+                                      //         title: Text(gruplarim[2]["grupadi"]),
+                                      //       ),
+                                      //       value: 2,
+                                      //     ),
+                                      //   ],
+                                      // )
+                                      // ExpansionPanelList(
+                                      //   expansionCallback:
+                                      //       (int index, bool isExpanded) {},
+                                      //   children: [
+                                      //     ExpansionPanel(
+                                      //       headerBuilder: (BuildContext context,
+                                      //           bool isExpanded) {
+                                      //         return ListTile(
+                                      //           onTap: () {
+                                      //             setState(() {
+                                      //               _isExpanded == false ? true : false;
+                                      //             });
+                                      //             print(_isExpanded);
+                                      //             print("object");
+                                      //           },
+                                      //           title: Text('Item 1'),
+                                      //         );
+                                      //       },
+                                      //       body: ListTile(
+                                      //         title: Text('Item 1 child'),
+                                      //         subtitle: Text('Details goes here'),
+                                      //       ),
+                                      //       isExpanded: _isExpanded,
+                                      //     ),
+                                      //   ],
+                                      // ),
+
+                                      // ListView.builder(
+                                      //   shrinkWrap: true,
+                                      //   physics: BouncingScrollPhysics(),
+                                      //   scrollDirection: Axis.vertical,
+                                      //   controller: drawergrup,
+                                      //   itemBuilder: (context, index) {
+                                      //     return PopupMenuButton(
+                                      //       child: ListTile(
+                                      //         leading: Image.network(
+                                      //           gruplarim[index]["gruplogo"],
+                                      //           fit: BoxFit.cover,
+                                      //           width: 35,
+                                      //           height: 35,
+                                      //         ),
+                                      //         title: Text(gruplarim[index]["grupadi"]),
+                                      //         trailing: Icon(Icons.arrow_drop_down),
+                                      //       ),
+                                      //       itemBuilder: (context) => [
+                                      //         PopupMenuItem(
+                                      //           child: ListTile(
+                                      //             leading: Image.network(
+                                      //               gruplarim[index]["gruplogo"],
+                                      //               fit: BoxFit.cover,
+                                      //               width: 35,
+                                      //               height: 35,
+                                      //             ),
+                                      //             title:
+                                      //                 Text(gruplarim[index]["grupadi"]),
+                                      //           ),
+                                      //           value: 1,
+                                      //         ),
+                                      //         PopupMenuItem(
+                                      //           child: ListTile(
+                                      //             leading: Image.network(
+                                      //               gruplarim[index]["gruplogo"],
+                                      //               fit: BoxFit.cover,
+                                      //               width: 35,
+                                      //               height: 35,
+                                      //             ),
+                                      //             title:
+                                      //                 Text(gruplarim[index]["grupadi"]),
+                                      //           ),
+                                      //           value: 2,
+                                      //         ),
+                                      //       ],
+                                      //     );
+                                      //   },
+                                      //   itemCount: gruplarim.length,
+                                      // ),
+
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: BouncingScrollPhysics(),
+                                        scrollDirection: Axis.vertical,
+                                        controller: drawergrup,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: () {},
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  height: 50,
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 8),
+                                                    child: Row(
+                                                      children: [
+                                                        Image.network(
+                                                          gruplarim[index]
+                                                              ["gruplogo"],
+                                                          fit: BoxFit.cover,
+                                                          width: 35,
+                                                          height: 35,
+                                                        ),
+                                                        SizedBox(
+                                                            width: screenwidth /
+                                                                25),
+                                                        Text(gruplarim[index]
+                                                            ["grupadi"]),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                // Spacer(),
+                                                // IconButton(
+                                                //   onPressed: () {},
+                                                //   icon: Icon(Icons.arrow_drop_down),
+                                                // ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                        itemCount: gruplarim.length,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Divider(thickness: 2),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              showAlertDialog(context);
+                            },
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.logout),
+                                    SizedBox(width: screenwidth / 13),
+                                    Text('Çıkış Yap'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          IconButton(
+                            onPressed:
+                                ThemeProvider.controllerOf(context).nextTheme,
+                            icon: _brightness
+                                ? Icon(Icons.dark_mode)
+                                : Icon(Icons.dark_mode_outlined),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              scanQrCode();
+                            },
+                            icon: Icon(Icons.qr_code_scanner),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         appBar: AppBar(
