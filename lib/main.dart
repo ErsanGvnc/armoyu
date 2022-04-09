@@ -610,6 +610,8 @@ class MyHomePageState extends State<MyHomePage> {
                                           print(grupdetail);
                                         });
 
+                                        Navigator.pop(context);
+
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -621,7 +623,7 @@ class MyHomePageState extends State<MyHomePage> {
                                           ),
                                         );
 
-                                        Navigator.pop(context);
+                                        ////////////////////////////////////////////////////////////////
 
                                         // gidilen sayfada kalıyorum, orada initstate i bir daha çalıştırmaya çalış. // yukarıdaki kod ile çözüldü.
 

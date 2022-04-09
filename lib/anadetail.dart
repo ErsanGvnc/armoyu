@@ -136,7 +136,7 @@ class _AnaDetailState extends State<AnaDetail> {
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Row(
                         children: [
-                          Text(widget.veri6),
+                          Text(widget.veri5),
                           Text(
                             "  Beğeni",
                             style: TextStyle(
