@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'package:jsonekleme/detail.dart';
+import 'package:jsonekleme/grup.dart';
 import 'package:jsonekleme/login.dart';
 import 'package:jsonekleme/register.dart';
 import 'package:jsonekleme/sabit.dart';
@@ -44,6 +45,8 @@ void main() async {
 
 var girisdata;
 var datahaber;
+var datagrup;
+var grupid;
 List gruplarim = [];
 List dataanasayfa = [];
 List gonderifotolar = [];
@@ -58,6 +61,7 @@ bool _brightness = false;
 bool visible = false;
 
 Timer? timer;
+String baslik = "";
 
 var qrlink =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
@@ -69,6 +73,8 @@ var oturumkontrolurl =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
 var grupurl =
     "https://aramizdakioyuncu.com/botlar/c99e178d83cdfea3c167bc1d15f9b47ff8f80145/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/gruplarim/0/0/";
+var grupdetail =
+    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
 
 // burası gonderi beğeniyi siteye yollama yeri postid sini linke çekemedik(${AnaSayfa.gonderibegeniyollanan})
 // var gonderibegeni =
@@ -80,10 +86,8 @@ Widget bodyPageDegis() {
       return AnaSayfa();
     case "news":
       return News();
-    case "etkinlik":
-      return News();
-    case "cekilis":
-      return News();
+    // case "grup":
+    //   return Grup();
     default:
       return AnaSayfa();
   }
@@ -397,240 +401,287 @@ class MyHomePageState extends State<MyHomePage> {
                     child: Container(
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                        child: gruplarim.length == 1
-                            ? Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Gruplarım"),
-                                    ],
-                                  ),
-                                  Stack(
-                                    children: [
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: BouncingScrollPhysics(),
-                                        scrollDirection: Axis.vertical,
-                                        controller: drawergrup,
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            onTap: () {},
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  height: 50,
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 8),
-                                                    child: Row(
-                                                      children: [
-                                                        Image.network(
-                                                          gruplarim[index]
-                                                              ["gruplogo"],
-                                                          fit: BoxFit.cover,
-                                                          width: 35,
-                                                          height: 35,
-                                                        ),
-                                                        SizedBox(
-                                                            width: screenwidth /
-                                                                25),
-                                                        Text(gruplarim[index]
-                                                            ["grupadi"]),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                // Spacer(),
-                                                // IconButton(
-                                                //   onPressed: () {},
-                                                //   icon: Icon(Icons.arrow_drop_down),
-                                                // ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        itemCount: 1,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            : Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Gruplarım"),
-                                    ],
-                                  ),
-                                  Stack(
-                                    children: [
-                                      // PopupMenuButton(
-                                      //   child: ListTile(
-                                      //     leading: Image.network(
-                                      //       gruplarim[0]["gruplogo"],
-                                      //       fit: BoxFit.cover,
-                                      //       width: 35,
-                                      //       height: 35,
-                                      //     ),
-                                      //     title: Text(gruplarim[0]["grupadi"]),
-                                      //     trailing: Icon(Icons.arrow_drop_down),
-                                      //   ),
-                                      //   itemBuilder: (context) => [
-                                      //     PopupMenuItem(
-                                      //       child: ListTile(
-                                      //         leading: Image.network(
-                                      //           gruplarim[1]["gruplogo"],
-                                      //           fit: BoxFit.cover,
-                                      //           width: 35,
-                                      //           height: 35,
-                                      //         ),
-                                      //         title: Text(gruplarim[1]["grupadi"]),
-                                      //       ),
-                                      //       value: 1,
-                                      //     ),
-                                      //     PopupMenuItem(
-                                      //       child: ListTile(
-                                      //         leading: Image.network(
-                                      //           gruplarim[2]["gruplogo"],
-                                      //           fit: BoxFit.cover,
-                                      //           width: 35,
-                                      //           height: 35,
-                                      //         ),
-                                      //         title: Text(gruplarim[2]["grupadi"]),
-                                      //       ),
-                                      //       value: 2,
-                                      //     ),
-                                      //   ],
-                                      // )
-                                      // ExpansionPanelList(
-                                      //   expansionCallback:
-                                      //       (int index, bool isExpanded) {},
-                                      //   children: [
-                                      //     ExpansionPanel(
-                                      //       headerBuilder: (BuildContext context,
-                                      //           bool isExpanded) {
-                                      //         return ListTile(
-                                      //           onTap: () {
-                                      //             setState(() {
-                                      //               _isExpanded == false ? true : false;
-                                      //             });
-                                      //             print(_isExpanded);
-                                      //             print("object");
-                                      //           },
-                                      //           title: Text('Item 1'),
-                                      //         );
-                                      //       },
-                                      //       body: ListTile(
-                                      //         title: Text('Item 1 child'),
-                                      //         subtitle: Text('Details goes here'),
-                                      //       ),
-                                      //       isExpanded: _isExpanded,
-                                      //     ),
-                                      //   ],
-                                      // ),
+                        // child: gruplarim.length == 1
+                        //     ? Column(
+                        //         children: [
+                        //           Row(
+                        //             mainAxisAlignment: MainAxisAlignment.center,
+                        //             children: [
+                        //               Text("Gruplarım"),
+                        //             ],
+                        //           ),
+                        //           Stack(
+                        //             children: [
+                        //               ListView.builder(
+                        //                 shrinkWrap: true,
+                        //                 physics: BouncingScrollPhysics(),
+                        //                 scrollDirection: Axis.vertical,
+                        //                 controller: drawergrup,
+                        //                 itemBuilder: (context, index) {
+                        //                   return InkWell(
+                        //                     onTap: () {
+                        //                       grupid =
+                        //                           gruplarim[index]["grupID"];
+                        //                       setState(() {
+                        //                         mevcutpage = "grup";
+                        //                       });
+                        //                       Navigator.pop(context);
+                        //                     },
+                        //                     child: Row(
+                        //                       children: [
+                        //                         Container(
+                        //                           height: 50,
+                        //                           child: Padding(
+                        //                             padding:
+                        //                                 EdgeInsets.symmetric(
+                        //                                     horizontal: 8),
+                        //                             child: Row(
+                        //                               children: [
+                        //                                 Image.network(
+                        //                                   gruplarim[index]
+                        //                                       ["gruplogo"],
+                        //                                   fit: BoxFit.cover,
+                        //                                   width: 35,
+                        //                                   height: 35,
+                        //                                 ),
+                        //                                 SizedBox(
+                        //                                     width: screenwidth /
+                        //                                         25),
+                        //                                 Text(gruplarim[index]
+                        //                                     ["grupadi"]),
+                        //                               ],
+                        //                             ),
+                        //                           ),
+                        //                         ),
+                        //                         // Spacer(),
+                        //                         // IconButton(
+                        //                         //   onPressed: () {},
+                        //                         //   icon: Icon(Icons.arrow_drop_down),
+                        //                         // ),
+                        //                       ],
+                        //                     ),
+                        //                   );
+                        //                 },
+                        //                 itemCount: 1,
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ],
+                        //       )
+                        //    :
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Gruplarım"),
+                              ],
+                            ),
+                            Stack(
+                              children: [
+                                // PopupMenuButton(
+                                //   child: ListTile(
+                                //     leading: Image.network(
+                                //       gruplarim[0]["gruplogo"],
+                                //       fit: BoxFit.cover,
+                                //       width: 35,
+                                //       height: 35,
+                                //     ),
+                                //     title: Text(gruplarim[0]["grupadi"]),
+                                //     trailing: Icon(Icons.arrow_drop_down),
+                                //   ),
+                                //   itemBuilder: (context) => [
+                                //     PopupMenuItem(
+                                //       child: ListTile(
+                                //         leading: Image.network(
+                                //           gruplarim[1]["gruplogo"],
+                                //           fit: BoxFit.cover,
+                                //           width: 35,
+                                //           height: 35,
+                                //         ),
+                                //         title: Text(gruplarim[1]["grupadi"]),
+                                //       ),
+                                //       value: 1,
+                                //     ),
+                                //     PopupMenuItem(
+                                //       child: ListTile(
+                                //         leading: Image.network(
+                                //           gruplarim[2]["gruplogo"],
+                                //           fit: BoxFit.cover,
+                                //           width: 35,
+                                //           height: 35,
+                                //         ),
+                                //         title: Text(gruplarim[2]["grupadi"]),
+                                //       ),
+                                //       value: 2,
+                                //     ),
+                                //   ],
+                                // )
+                                // ExpansionPanelList(
+                                //   expansionCallback:
+                                //       (int index, bool isExpanded) {},
+                                //   children: [
+                                //     ExpansionPanel(
+                                //       headerBuilder: (BuildContext context,
+                                //           bool isExpanded) {
+                                //         return ListTile(
+                                //           onTap: () {
+                                //             setState(() {
+                                //               _isExpanded == false ? true : false;
+                                //             });
+                                //             print(_isExpanded);
+                                //             print("object");
+                                //           },
+                                //           title: Text('Item 1'),
+                                //         );
+                                //       },
+                                //       body: ListTile(
+                                //         title: Text('Item 1 child'),
+                                //         subtitle: Text('Details goes here'),
+                                //       ),
+                                //       isExpanded: _isExpanded,
+                                //     ),
+                                //   ],
+                                // ),
 
-                                      // ListView.builder(
-                                      //   shrinkWrap: true,
-                                      //   physics: BouncingScrollPhysics(),
-                                      //   scrollDirection: Axis.vertical,
-                                      //   controller: drawergrup,
-                                      //   itemBuilder: (context, index) {
-                                      //     return PopupMenuButton(
-                                      //       child: ListTile(
-                                      //         leading: Image.network(
-                                      //           gruplarim[index]["gruplogo"],
-                                      //           fit: BoxFit.cover,
-                                      //           width: 35,
-                                      //           height: 35,
-                                      //         ),
-                                      //         title: Text(gruplarim[index]["grupadi"]),
-                                      //         trailing: Icon(Icons.arrow_drop_down),
-                                      //       ),
-                                      //       itemBuilder: (context) => [
-                                      //         PopupMenuItem(
-                                      //           child: ListTile(
-                                      //             leading: Image.network(
-                                      //               gruplarim[index]["gruplogo"],
-                                      //               fit: BoxFit.cover,
-                                      //               width: 35,
-                                      //               height: 35,
-                                      //             ),
-                                      //             title:
-                                      //                 Text(gruplarim[index]["grupadi"]),
-                                      //           ),
-                                      //           value: 1,
-                                      //         ),
-                                      //         PopupMenuItem(
-                                      //           child: ListTile(
-                                      //             leading: Image.network(
-                                      //               gruplarim[index]["gruplogo"],
-                                      //               fit: BoxFit.cover,
-                                      //               width: 35,
-                                      //               height: 35,
-                                      //             ),
-                                      //             title:
-                                      //                 Text(gruplarim[index]["grupadi"]),
-                                      //           ),
-                                      //           value: 2,
-                                      //         ),
-                                      //       ],
-                                      //     );
-                                      //   },
-                                      //   itemCount: gruplarim.length,
-                                      // ),
+                                // ListView.builder(
+                                //   shrinkWrap: true,
+                                //   physics: BouncingScrollPhysics(),
+                                //   scrollDirection: Axis.vertical,
+                                //   controller: drawergrup,
+                                //   itemBuilder: (context, index) {
+                                //     return PopupMenuButton(
+                                //       child: ListTile(
+                                //         leading: Image.network(
+                                //           gruplarim[index]["gruplogo"],
+                                //           fit: BoxFit.cover,
+                                //           width: 35,
+                                //           height: 35,
+                                //         ),
+                                //         title: Text(gruplarim[index]["grupadi"]),
+                                //         trailing: Icon(Icons.arrow_drop_down),
+                                //       ),
+                                //       itemBuilder: (context) => [
+                                //         PopupMenuItem(
+                                //           child: ListTile(
+                                //             leading: Image.network(
+                                //               gruplarim[index]["gruplogo"],
+                                //               fit: BoxFit.cover,
+                                //               width: 35,
+                                //               height: 35,
+                                //             ),
+                                //             title:
+                                //                 Text(gruplarim[index]["grupadi"]),
+                                //           ),
+                                //           value: 1,
+                                //         ),
+                                //         PopupMenuItem(
+                                //           child: ListTile(
+                                //             leading: Image.network(
+                                //               gruplarim[index]["gruplogo"],
+                                //               fit: BoxFit.cover,
+                                //               width: 35,
+                                //               height: 35,
+                                //             ),
+                                //             title:
+                                //                 Text(gruplarim[index]["grupadi"]),
+                                //           ),
+                                //           value: 2,
+                                //         ),
+                                //       ],
+                                //     );
+                                //   },
+                                //   itemCount: gruplarim.length,
+                                // ),
 
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: BouncingScrollPhysics(),
-                                        scrollDirection: Axis.vertical,
-                                        controller: drawergrup,
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            onTap: () {},
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  height: 50,
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 8),
-                                                    child: Row(
-                                                      children: [
-                                                        Image.network(
-                                                          gruplarim[index]
-                                                              ["gruplogo"],
-                                                          fit: BoxFit.cover,
-                                                          width: 35,
-                                                          height: 35,
-                                                        ),
-                                                        SizedBox(
-                                                            width: screenwidth /
-                                                                25),
-                                                        Text(gruplarim[index]
-                                                            ["grupadi"]),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                // Spacer(),
-                                                // IconButton(
-                                                //   onPressed: () {},
-                                                //   icon: Icon(Icons.arrow_drop_down),
-                                                // ),
-                                              ],
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: BouncingScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  controller: drawergrup,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          grupid = gruplarim[index]["grupID"];
+                                          grupdetail =
+                                              "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+
+                                          print(grupdetail);
+                                        });
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Grup(
+                                              veri1: gruplarim[index]
+                                                  ["grupadi"],
+                                              veri2: grupdetail,
                                             ),
-                                          );
-                                        },
-                                        itemCount: gruplarim.length,
+                                          ),
+                                        );
+
+                                        Navigator.pop(context);
+
+                                        // gidilen sayfada kalıyorum, orada initstate i bir daha çalıştırmaya çalış. // yukarıdaki kod ile çözüldü.
+
+                                        // print(
+                                        //     "*****************************************" +
+                                        //         grupid);
+
+                                        // print(
+                                        //     "*****************************************" +
+                                        //         grupdetail);
+
+                                        // setState(() {
+                                        //   grupid = gruplarim[index]["grupID"];
+                                        //   grupdetail =
+                                        //       "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                        //   print(grupdetail);
+                                        //   mevcutpage = "grup";
+                                        // });
+
+                                        // Navigator.pop(context);
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 50,
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 8),
+                                              child: Row(
+                                                children: [
+                                                  Image.network(
+                                                    gruplarim[index]
+                                                        ["gruplogo"],
+                                                    fit: BoxFit.cover,
+                                                    width: 35,
+                                                    height: 35,
+                                                  ),
+                                                  SizedBox(
+                                                      width: screenwidth / 25),
+                                                  Text(gruplarim[index]
+                                                      ["grupadi"]),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          // Spacer(),
+                                          // IconButton(
+                                          //   onPressed: () {},
+                                          //   icon: Icon(Icons.arrow_drop_down),
+                                          // ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    );
+                                  },
+                                  itemCount: gruplarim.length,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -706,6 +757,8 @@ class MyHomePageState extends State<MyHomePage> {
               );
             },
           ),
+          // title:
+          //     mevcutpage == "grup" ? Text(gruplarim[0]["grupadi"]) : Text(""),
           actions: [
             // GestureDetector(
             //   onTap: () {
