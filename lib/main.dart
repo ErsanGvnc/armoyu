@@ -16,12 +16,19 @@ import 'package:jsonekleme/skelaton.dart';
 import 'package:jsonekleme/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
-
+import 'package:flutter/foundation.dart' as Foundation;
 import 'anasayfa.dart';
 import 'news.dart';
 
 void main() async {
   runApp(MyApp());
+
+  if (Foundation.kReleaseMode) {
+    print('app release mode');
+  } else {
+    print('App debug mode');
+  }
+
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.transparent,
