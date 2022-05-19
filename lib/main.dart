@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty, library_prefixes
 
 import 'dart:async';
 import 'dart:convert';
@@ -10,15 +10,16 @@ import 'package:http/http.dart' as http;
 import 'package:jsonekleme/detail.dart';
 import 'package:jsonekleme/grup.dart';
 import 'package:jsonekleme/login.dart';
+import 'package:jsonekleme/post.dart';
 import 'package:jsonekleme/register.dart';
 import 'package:jsonekleme/sabit.dart';
 import 'package:jsonekleme/skelaton.dart';
 import 'package:jsonekleme/splash.dart';
+import 'package:jsonekleme/anasayfa.dart';
+import 'package:jsonekleme/news.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter/foundation.dart' as Foundation;
-import 'anasayfa.dart';
-import 'news.dart';
 
 void main() async {
   runApp(MyApp());
@@ -93,6 +94,8 @@ Widget bodyPageDegis() {
       return AnaSayfa();
     case "news":
       return News();
+    // case "post":
+    //   return Post();
     // case "grup":
     //   return Grup();
     default:
@@ -808,7 +811,21 @@ class MyHomePageState extends State<MyHomePage> {
           child: Icon(
             Icons.add,
           ),
-          onPressed: () {},
+          onPressed: () {
+            // setState(() {
+            //   mevcutpage = "post";
+            // });
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Post(
+                  veri1: girisdata["presim"],
+                  veri2: girisdata["adim"],
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

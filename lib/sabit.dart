@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, must_be_immutable, use_key_in_widget_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';

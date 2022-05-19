@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, unused_local_variable, must_be_immutable, sized_box_for_whitespace
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, unused_local_variable, must_be_immutable, sized_box_for_whitespace, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:jsonekleme/main.dart';
