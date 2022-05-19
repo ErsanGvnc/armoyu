@@ -82,7 +82,7 @@ class _PostState extends State<Post> {
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
                         RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)* ]"),
                       ),
                     ],
                     keyboardType: TextInputType.text,
@@ -103,8 +103,7 @@ class _PostState extends State<Post> {
                     padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                     child: InkWell(
                       onTap: () {
-                        // null controlü çalışmıyor !
-                        if (post.text != null) {
+                        if (post.text.isNotEmpty) {
                           postgonder();
                           post.clear();
                         } else {
