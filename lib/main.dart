@@ -74,9 +74,9 @@ String baslik = "";
 var qrlink =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
 var gonderiurl =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/kullaniciadi/kullaniciparola/sosyal/0/0/";
+    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/";
 var haberurl =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/kullaniciadi/kullaniciparola/haberler/0/0/";
+    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/haberler/0/0/";
 var oturumkontrolurl =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
 var grupurl =
@@ -361,6 +361,23 @@ class MyHomePageState extends State<MyHomePage> {
                           Navigator.pop(context);
                         },
                       ),
+                      // Toplantı
+                      // ListTile(
+                      //   leading: Icon(Icons.group),
+                      //   title: Text("Toplantı"),
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //mevcutpage = "news";
+                      //       ScaffoldMessenger.of(context).showSnackBar(
+                      //         SnackBar(
+                      //           content: Text("Henüz Aktif Değil"),
+                      //         ),
+                      //       );
+                      //     });
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
+
                       // ListTile(
                       //   leading: Icon(Icons.event),
                       //   title: Text("Etkinlikler"),

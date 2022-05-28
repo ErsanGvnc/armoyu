@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:jsonekleme/anadetail.dart';
 import 'package:jsonekleme/detail.dart';
 import 'package:jsonekleme/fotoicerik.dart';
+import 'package:jsonekleme/login.dart';
 import 'package:jsonekleme/main.dart';
 import 'package:jsonekleme/sabit.dart';
 import 'package:share_plus/share_plus.dart';
@@ -113,6 +114,52 @@ class AnaSayfaState extends State<AnaSayfa> {
       return gondericek();
     }
 
+    var postsildengiden;
+
+    var postID;
+
+    postsil() {
+      http.post(
+        Uri.parse(
+          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/",
+        ),
+        body: {
+          "postID": postID,
+        },
+      ).then((cevap) {
+        print(cevap.statusCode);
+        print(cevap.body);
+        setState(() {
+          postsildengiden = cevap.body;
+        });
+      });
+      print("post");
+      print(
+          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/");
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    postlike() {
+      http.post(
+        Uri.parse(
+          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/",
+        ),
+        body: {
+          "postID": postID,
+        },
+      ).then((cevap) {
+        print(cevap.statusCode);
+        print(cevap.body);
+        setState(() {
+          postsildengiden = cevap.body;
+        });
+      });
+      print("post");
+      print(
+          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
+    }
+
     // final items = List<int>.generate(10, (i) => i);
     return RefreshIndicator(
       onRefresh: _refresh,
@@ -187,12 +234,24 @@ class AnaSayfaState extends State<AnaSayfa> {
                                       ),
                                     ),
                                     Spacer(),
-                                    InkWell(
-                                      onTap: () {},
-                                      child: Icon(
-                                        Icons.more_vert,
-                                        size: 20,
-                                        color: Colors.grey,
+                                    Visibility(
+                                      visible: dataanasayfa[index]["sahipID"] ==
+                                              girisdata["oyuncuID"]
+                                          ? true
+                                          : false,
+                                      child: InkWell(
+                                        onTap: () {
+                                          print(dataanasayfa[index]["sahipID"]);
+                                          print(girisdata["oyuncuID"]);
+                                          postID =
+                                              dataanasayfa[index]["postID"];
+                                          postsil();
+                                        },
+                                        child: Icon(
+                                          Icons.more_vert,
+                                          size: 20,
+                                          color: Colors.grey,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -268,15 +327,33 @@ class AnaSayfaState extends State<AnaSayfa> {
                                           // String gonderibegeniyollananic =
                                           //     dataanasayfa[index]["postID"];
                                           // print(dataanasayfa[index]["postID"]);
+
+                                          postID =
+                                              dataanasayfa[index]["postID"];
+                                          postlike();
+                                          print(
+                                              "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
+                                          print(
+                                              "--------------------------------" +
+                                                  dataanasayfa[index]
+                                                          ["benbegendim"]
+                                                      .toString());
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.all(8.0),
                                           child: Row(
                                             children: [
-                                              Icon(
-                                                Icons.favorite_border,
-                                                color: Colors.grey,
-                                              ),
+                                              (dataanasayfa[index]
+                                                          ["benbegendim"] !=
+                                                      0)
+                                                  ? Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.red,
+                                                    )
+                                                  : Icon(
+                                                      Icons.favorite_border,
+                                                      color: Colors.grey,
+                                                    ),
                                               SizedBox(width: 10),
                                               (dataanasayfa[index]
                                                           ["begenisay"] !=

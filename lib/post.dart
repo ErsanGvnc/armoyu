@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_unnecessary_containers, must_be_immutable, use_key_in_widget_constructors, unnecessary_null_comparison, avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_unnecessary_containers, must_be_immutable, use_key_in_widget_constructors, unnecessary_null_comparison, avoid_print, prefer_typing_uninitialized_variables, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, valid_regexps
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:jsonekleme/login.dart';
 import 'package:jsonekleme/main.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -82,7 +83,12 @@ class _PostState extends State<Post> {
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
                         RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)* ]"),
+                          r"[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)* ]",
+                          //r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
+                          caseSensitive: true,
+                          unicode: true,
+                          dotAll: true,
+                        ),
                       ),
                     ],
                     keyboardType: TextInputType.text,
@@ -104,8 +110,15 @@ class _PostState extends State<Post> {
                     child: InkWell(
                       onTap: () {
                         if (post.text.isNotEmpty) {
+                          print("Paylaşıldı !");
                           postgonder();
                           post.clear();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Paylaşıldı ! " +
+                                  "${DateFormat('EEE d MMM kk:mm').format(DateTime.now())}"),
+                            ),
+                          );
                         } else {
                           print("Paylaşım boş olamaz !");
                           ScaffoldMessenger.of(context).showSnackBar(
