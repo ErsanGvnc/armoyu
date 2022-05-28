@@ -34,8 +34,8 @@ dependencies:
   http: ^0.13.4
   webview_flutter: ^3.0.0
   theme_provider: ^0.5.0
-  share_plus: ^3.0.4
-  shared_preferences: ^2.0.13
+  share_plus: ^4.0.4
+  shared_preferences: ^2.0.15
   flutter_barcode_scanner: ^2.0.0
   flutter_datetime_picker: ^1.5.1
   intl: ^0.17.0
@@ -63,7 +63,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
