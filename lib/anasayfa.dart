@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, avoid_print, unused_import, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, curly_braces_in_flow_control_structures, prefer_if_null_operators, prefer_typing_uninitialized_variables
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, avoid_print, unused_import, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, curly_braces_in_flow_control_structures, prefer_if_null_operators, prefer_typing_uninitialized_variables, unrelated_type_equality_checks, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class AnaSayfaState extends State<AnaSayfa> {
         children: [
           Flexible(
             child: Image.network(
-              gonderifotolar[0]["fotourl"],
+              gonderifotolar[0]["fotoufakurl"],
               fit: BoxFit.cover,
               filterQuality: FilterQuality.high,
             ),
@@ -52,14 +52,14 @@ class AnaSayfaState extends State<AnaSayfa> {
         children: [
           Flexible(
             child: Image.network(
-              gonderifotolar[0]["fotourl"],
+              gonderifotolar[0]["fotoufakurl"],
               fit: BoxFit.cover,
               filterQuality: FilterQuality.high,
             ),
           ),
           Flexible(
             child: Image.network(
-              gonderifotolar[1]["fotourl"],
+              gonderifotolar[1]["fotoufakurl"],
               fit: BoxFit.cover,
               filterQuality: FilterQuality.high,
             ),
@@ -71,7 +71,7 @@ class AnaSayfaState extends State<AnaSayfa> {
         children: [
           Flexible(
             child: Image.network(
-              gonderifotolar[0]["fotourl"],
+              gonderifotolar[0]["fotoufakurl"],
               fit: BoxFit.cover,
               filterQuality: FilterQuality.high,
             ),
@@ -84,7 +84,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                 ColorFiltered(
                   colorFilter: ColorFilter.srgbToLinearGamma(),
                   child: Image.network(
-                    gonderifotolar[1]["fotourl"],
+                    gonderifotolar[1]["fotoufakurl"],
                     fit: BoxFit.cover,
                     filterQuality: FilterQuality.high,
                   ),
@@ -114,10 +114,6 @@ class AnaSayfaState extends State<AnaSayfa> {
       return gondericek();
     }
 
-    var postsildengiden;
-
-    var postID;
-
     postsil() {
       http.post(
         Uri.parse(
@@ -127,15 +123,15 @@ class AnaSayfaState extends State<AnaSayfa> {
           "postID": postID,
         },
       ).then((cevap) {
-        print(cevap.statusCode);
-        print(cevap.body);
+        // print(cevap.statusCode);
+        // print(cevap.body);
         setState(() {
           postsildengiden = cevap.body;
         });
       });
-      print("post");
-      print(
-          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/");
+      // print("post");
+      // print(
+      //     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/");
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -149,20 +145,23 @@ class AnaSayfaState extends State<AnaSayfa> {
           "postID": postID,
         },
       ).then((cevap) {
-        print(cevap.statusCode);
-        print(cevap.body);
+        // print(cevap.statusCode);
+        // print(cevap.body);
         setState(() {
           postsildengiden = cevap.body;
         });
       });
       print("post");
-      print(
-          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
+      // print(
+      //     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
     }
 
     // final items = List<int>.generate(10, (i) => i);
+
     return RefreshIndicator(
       onRefresh: _refresh,
+      // child: ConnectivityResult != ConnectivityResult.none
+      //     ?
       child: Container(
         child: dataanasayfa != null
             ? ListView.separated(
@@ -172,7 +171,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                   if (dataanasayfa[index]["paylasimfoto"] != null) {
                     gonderifotolar = dataanasayfa[index]["paylasimfoto"];
                     // alttaki printin çıktısına bak orda foto ıd leride var.
-                    print("-----$gonderifotolar");
+                    // print("-----$gonderifotolar");
                     visible = true;
                   } else {
                     visible = false;
@@ -191,13 +190,16 @@ class AnaSayfaState extends State<AnaSayfa> {
                             veri6: dataanasayfa[index]["yorumsay"],
                             veri7: dataanasayfa[index]["repostsay"],
                             veri8: dataanasayfa[index]["sikayetsay"],
+                            veri9: dataanasayfa[index]["benbegendim"],
+                            veri10: dataanasayfa[index]["postID"],
+                            veri11: dataanasayfa[index]["sahipID"],
+
                             // veri9: gonderifotolar[index]["fotourl"] != null
                             //     ? gonderifotolar[index]["fotourl"]
                             //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
                           ),
                         ),
                       );
-                      print("gelmeden: $gonderifotolar");
                     },
                     child: Container(
                       child: Row(
@@ -241,8 +243,6 @@ class AnaSayfaState extends State<AnaSayfa> {
                                           : false,
                                       child: InkWell(
                                         onTap: () {
-                                          print(dataanasayfa[index]["sahipID"]);
-                                          print(girisdata["oyuncuID"]);
                                           postID =
                                               dataanasayfa[index]["postID"];
                                           postsil();
@@ -322,22 +322,9 @@ class AnaSayfaState extends State<AnaSayfa> {
                                     children: [
                                       InkWell(
                                         onTap: () {
-                                          // burası beğeni için yapılcak yer postid nin index ine başka bir yerden ulaşamadık.
-                                          // print(gonderibegeni);
-                                          // String gonderibegeniyollananic =
-                                          //     dataanasayfa[index]["postID"];
-                                          // print(dataanasayfa[index]["postID"]);
-
                                           postID =
                                               dataanasayfa[index]["postID"];
                                           postlike();
-                                          print(
-                                              "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
-                                          print(
-                                              "--------------------------------" +
-                                                  dataanasayfa[index]
-                                                          ["benbegendim"]
-                                                      .toString());
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.all(8.0),
@@ -471,6 +458,19 @@ class AnaSayfaState extends State<AnaSayfa> {
                 itemCount: 10,
               ),
       ),
+      // : Center(
+      //     child: InkWell(
+      //       onTap: (() => print(ConnectivityResult)),
+      //       child: Text(
+      //         "İnternet Bağlantınızı Kontrol Ediniz !",
+      //         textAlign: TextAlign.center,
+      //         style: TextStyle(
+      //           fontSize: 32,
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+
       // child: Container(
       //   child: dataanasayfa != null
       //       ? ListView.separated(

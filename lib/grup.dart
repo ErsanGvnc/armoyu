@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, must_be_immutable, avoid_print, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, must_be_immutable, avoid_print, avoid_unnecessary_containers, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
 
@@ -62,8 +62,7 @@ class _GrupState extends State<Grup> {
                     itemBuilder: (context, index) {
                       if (dataanasayfa[index]["paylasimfoto"] != null) {
                         gonderifotolar = dataanasayfa[index]["paylasimfoto"];
-                        // alttaki printin çıktısına bak orda foto ıd leride var.
-                        print("-----$gonderifotolar");
+                        print(datagrup[index]["benbegendim"]);
                         visible = true;
                       } else {
                         visible = false;
@@ -82,13 +81,17 @@ class _GrupState extends State<Grup> {
                                 veri6: datagrup[index]["yorumsay"],
                                 veri7: datagrup[index]["repostsay"],
                                 veri8: datagrup[index]["sikayetsay"],
+                                veri9: datagrup[index]["benbegendim"],
+                                veri10: dataanasayfa[index]["postID"],
+                                veri11: dataanasayfa[index]["sahipID"],
+
                                 // veri9: gonderifotolar[index]["fotourl"] != null
                                 //     ? gonderifotolar[index]["fotourl"]
                                 //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
                               ),
                             ),
                           );
-                          print("gelmeden: $gonderifotolar");
+                          print(datagrup[index]["benbegendim"]);
                         },
                         child: Container(
                           child: Row(
@@ -200,21 +203,22 @@ class _GrupState extends State<Grup> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           InkWell(
-                                            onTap: () {
-                                              // burası beğeni için yapılcak yer postid nin index ine başka bir yerden ulaşamadık.
-                                              // print(gonderibegeni);
-                                              // String gonderibegeniyollananic =
-                                              //     dataanasayfa[index]["postID"];
-                                              // print(dataanasayfa[index]["postID"]);
-                                            },
+                                            onTap: () {},
                                             child: Padding(
                                               padding: EdgeInsets.all(8.0),
                                               child: Row(
                                                 children: [
-                                                  Icon(
-                                                    Icons.favorite_border,
-                                                    color: Colors.grey,
-                                                  ),
+                                                  (datagrup[index]
+                                                              ["benbegendim"] !=
+                                                          0)
+                                                      ? Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.red,
+                                                        )
+                                                      : Icon(
+                                                          Icons.favorite_border,
+                                                          color: Colors.grey,
+                                                        ),
                                                   SizedBox(width: 10),
                                                   (datagrup[index]
                                                               ["begenisay"] !=

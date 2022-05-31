@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty, library_prefixes
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty, library_prefixes, use_build_context_synchronously, no_leading_underscores_for_local_identifiers
 
 import 'dart:async';
 import 'dart:convert';
@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
+import 'package:in_app_notification/in_app_notification.dart';
 import 'package:jsonekleme/detail.dart';
 import 'package:jsonekleme/grup.dart';
 import 'package:jsonekleme/login.dart';
@@ -55,6 +56,7 @@ var girisdata;
 var datahaber;
 var datagrup;
 var grupid;
+
 List gruplarim = [];
 List dataanasayfa = [];
 List gonderifotolar = [];
@@ -70,6 +72,9 @@ bool visible = false;
 
 Timer? timer;
 String baslik = "";
+
+var postID;
+var postsildengiden;
 
 var qrlink =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
@@ -113,10 +118,12 @@ class MyApp extends StatelessWidget {
         AppTheme.light(),
         AppTheme.dark(),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: ThemeConsumer(
-          child: Splash(),
+      child: InAppNotification(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: ThemeConsumer(
+            child: Splash(),
+          ),
         ),
       ),
     );
@@ -200,6 +207,76 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       );
       qrsite();
+      InAppNotification.show(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.8),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/logo.png',
+                        width: 35,
+                        height: 35,
+                      ),
+                      SizedBox(width: 5),
+                      Flexible(
+                        child: Text(
+                          "ARMOYU",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Giriş Yapılıyor !",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              "Lütfen web sayfanızın yenilenmesini bekleyin...",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        context: context,
+        onTap: () => print('Notification tapped!'),
+        duration: Duration(seconds: 5),
+      );
     });
   }
 
@@ -634,7 +711,7 @@ class MyHomePageState extends State<MyHomePage> {
                                           grupdetail =
                                               "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
 
-                                          print(grupdetail);
+                                          // print(grupdetail);
                                         });
 
                                         Navigator.pop(context);
