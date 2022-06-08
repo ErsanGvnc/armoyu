@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -26,9 +27,9 @@ void main() async {
   runApp(MyApp());
 
   if (Foundation.kReleaseMode) {
-    print('app release mode');
+    print('App release mode.');
   } else {
-    print('App debug mode');
+    print('App debug mode.');
   }
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -75,6 +76,8 @@ String baslik = "";
 
 var postID;
 var postsildengiden;
+
+late ConfettiController _confettiController;
 
 var qrlink =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
@@ -140,6 +143,7 @@ class MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     grupcek();
+    _confettiController = ConfettiController(duration: Duration(seconds: 1));
   }
 
   girisKontrol(BuildContext context) async {
@@ -193,91 +197,93 @@ class MyHomePageState extends State<MyHomePage> {
 
   void scanQrCode() {
     FlutterBarcodeScanner.scanBarcode("#000000", "Cancel", true, ScanMode.QR)
-        .then((value) {
-      setState(() {
-        gelenID = value;
-        qrlink =
-            "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
-      });
+        .then(
+      (value) {
+        setState(() {
+          gelenID = value;
+          qrlink =
+              "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
+        });
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MyHomePage(),
-        ),
-      );
-      qrsite();
-      InAppNotification.show(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/logo.png',
-                        width: 35,
-                        height: 35,
-                      ),
-                      SizedBox(width: 5),
-                      Flexible(
-                        child: Text(
-                          "ARMOYU",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MyHomePage(),
+          ),
+        );
+        qrsite();
+        InAppNotification.show(
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.8),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/logo.png',
+                          width: 35,
+                          height: 35,
+                        ),
+                        SizedBox(width: 5),
+                        Flexible(
+                          child: Text(
+                            "ARMOYU",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Giriş Yapılıyor !",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Giriş Yapılıyor !",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              "Lütfen web sayfanızın yenilenmesini bekleyin...",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                              SizedBox(height: 5),
+                              Text(
+                                "Lütfen web sayfanızın yenilenmesini bekleyin...",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        context: context,
-        onTap: () => print('Notification tapped!'),
-        duration: Duration(seconds: 5),
-      );
-    });
+          context: context,
+          onTap: () => print('Notification tapped!'),
+          duration: Duration(seconds: 5),
+        );
+      },
+    );
   }
 
   grupcek() async {
@@ -891,14 +897,32 @@ class MyHomePageState extends State<MyHomePage> {
             //   ),
             // ),
             IconButton(
+              onPressed: () {
+                _confettiController.play();
+              },
+              icon: Icon(
+                Icons.celebration,
+                color: Colors.red,
+              ),
+            ),
+            IconButton(
               onPressed: () {},
               icon: Icon(Icons.question_answer_outlined),
             ),
             SizedBox(width: screenwidth / 70),
           ],
         ),
-        body: Builder(
-          builder: (BuildContext context) => bodyPageDegis(),
+        body: ConfettiWidget(
+          confettiController: _confettiController,
+          blastDirection: 0.5,
+          emissionFrequency: 1,
+          numberOfParticles: 10,
+          shouldLoop: false,
+          blastDirectionality: BlastDirectionality.explosive,
+          // displayTarget: true,
+          child: Builder(
+            builder: (BuildContext context) => bodyPageDegis(),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.red,

@@ -50,7 +50,7 @@ class LoginState extends State<Login> {
                   ],
                 ),
                 SizedBox(height: screenheight / 15),
-                Text("E-Mail"),
+                Text("Kullanıcı Adı"),
                 SizedBox(height: screenheight / 80),
                 TextField(
                   inputFormatters: [
@@ -60,8 +60,9 @@ class LoginState extends State<Login> {
                     ),
                   ],
                   controller: ad,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.next,
+                  autofillHints: [AutofillHints.username],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(),
@@ -82,9 +83,10 @@ class LoginState extends State<Login> {
                     ),
                   ],
                   controller: sifre,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                   textInputAction: TextInputAction.next,
+                  autofillHints: [AutofillHints.password],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(),
@@ -93,6 +95,7 @@ class LoginState extends State<Login> {
                     prefixIconColor: Colors.white,
                     hintText: "Şifre",
                   ),
+                  onEditingComplete: () => TextInput.finishAutofillContext(),
                 ),
                 SizedBox(height: screenheight / 75),
                 Row(
