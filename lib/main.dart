@@ -57,10 +57,12 @@ var girisdata;
 var datahaber;
 var datagrup;
 var grupid;
+var yorumid;
 
 List gruplarim = [];
 List dataanasayfa = [];
 List gonderifotolar = [];
+List detaylar = [];
 
 String mevcutpage = "anasayfa";
 String? gelenID;
@@ -91,8 +93,10 @@ var grupurl =
     "https://aramizdakioyuncu.com/botlar/c99e178d83cdfea3c167bc1d15f9b47ff8f80145/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/gruplarim/0/0/";
 var grupdetail =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+var detaylink =
+    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$yorumid/";
 
-// burası gonderi beğeniyi siteye yollama yeri postid sini linke çekemedik(${AnaSayfa.gonderibegeniyollanan})
+// burası gonderi beğeniyi siteye yollama yeri post idsini linke çekemedik(${AnaSayfa.gonderibegeniyollanan})
 // var gonderibegeni =
 //     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/${AnaSayfa.gonderibegeniyollanan}/begen/";
 
@@ -405,7 +409,7 @@ class MyHomePageState extends State<MyHomePage> {
                                 child: CircleAvatar(
                                   radius: screenwidth / 8,
                                   backgroundImage: NetworkImage(
-                                    girisdata["presim"],
+                                    girisdata["presimufak"],
                                   ),
                                   backgroundColor: Colors.transparent,
                                 ),
@@ -766,7 +770,7 @@ class MyHomePageState extends State<MyHomePage> {
                                                 children: [
                                                   Image.network(
                                                     gruplarim[index]
-                                                        ["gruplogo"],
+                                                        ["grupufaklogo"],
                                                     fit: BoxFit.cover,
                                                     width: 35,
                                                     height: 35,
@@ -858,7 +862,7 @@ class MyHomePageState extends State<MyHomePage> {
                   padding: EdgeInsets.all(4),
                   child: CircleAvatar(
                     radius: 30.0,
-                    backgroundImage: NetworkImage(girisdata["presim"]),
+                    backgroundImage: NetworkImage(girisdata["presimminnak"]),
                     backgroundColor: Colors.transparent,
                   ),
                 ),
@@ -896,34 +900,43 @@ class MyHomePageState extends State<MyHomePage> {
             //     ),
             //   ),
             // ),
-            IconButton(
-              onPressed: () {
-                _confettiController.play();
-              },
-              icon: Icon(
-                Icons.celebration,
-                color: Colors.red,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.question_answer_outlined),
-            ),
+
+            // confetti parti
+
+            // IconButton(
+            //   onPressed: () {
+            //     _confettiController.play();
+            //   },
+            //   icon: Icon(
+            //     Icons.celebration,
+            //     color: Colors.red,
+            //   ),
+            // ),
+
+            // sohbet chat
+
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: Icon(Icons.question_answer_outlined),
+            // ),
             SizedBox(width: screenwidth / 70),
           ],
         ),
-        body: ConfettiWidget(
-          confettiController: _confettiController,
-          blastDirection: 0.5,
-          emissionFrequency: 1,
-          numberOfParticles: 10,
-          shouldLoop: false,
-          blastDirectionality: BlastDirectionality.explosive,
-          // displayTarget: true,
-          child: Builder(
-            builder: (BuildContext context) => bodyPageDegis(),
-          ),
+        body: Builder(
+          builder: (BuildContext context) => bodyPageDegis(),
         ),
+        // body: ConfettiWidget(
+        //   confettiController: _confettiController,
+        //   blastDirection: 0.5,
+        //   emissionFrequency: 1,
+        //   numberOfParticles: 10,
+        //   shouldLoop: false,
+        //   blastDirectionality: BlastDirectionality.explosive,
+        //   // displayTarget: true,
+        //   child: Builder(
+        //     builder: (BuildContext context) => bodyPageDegis(),
+        //   ),
+        // ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.red,
           child: Icon(

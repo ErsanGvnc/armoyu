@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, unnecessary_new, prefer_const_literals_to_create_immutables, unused_local_variable, use_key_in_widget_constructors, must_be_immutable, avoid_print, unnecessary_string_interpolations, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:intl/intl.dart';
 
@@ -184,18 +184,18 @@ class _RegisterState extends State<Register> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    DatePicker.showDatePicker(context,
-                                        showTitleActions: true,
-                                        minTime: DateTime(1905, 3, 5),
-                                        maxTime: DateTime.now(),
-                                        onConfirm: (date) {
-                                      DateFormat formatter =
-                                          DateFormat('yyyy-MM-dd');
-                                      String formatted = formatter.format(date);
-                                      setState(() {
-                                        tarih = "$formatted";
-                                      });
-                                    }, locale: LocaleType.tr);
+                                    // DatePicker.showDatePicker(context,
+                                    //     showTitleActions: true,
+                                    //     minTime: DateTime(1905, 3, 5),
+                                    //     maxTime: DateTime.now(),
+                                    //     onConfirm: (date) {
+                                    //   DateFormat formatter =
+                                    //       DateFormat('yyyy-MM-dd');
+                                    //   String formatted = formatter.format(date);
+                                    //   setState(() {
+                                    //     tarih = "$formatted";
+                                    //   });
+                                    // }, locale: LocaleType.tr);
                                   },
                                   child: Container(
                                       child: Row(

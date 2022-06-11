@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jsonekleme/main.dart';
 import 'package:jsonekleme/register.dart';
+import 'package:jsonekleme/site.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -269,12 +270,26 @@ class LoginState extends State<Login> {
                     ),
                     InkWell(
                       onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => Register(),
+                        //   ),
+                        // );
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Register(),
+                            builder: (context) => Site(
+                              verilink: "https://aramizdakioyuncu.com/",
+                            ),
                           ),
                         );
+
+                        // const snackBar = SnackBar(
+                        //   content: Text('Yakında !'),
+                        // );
+
+                        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Text(
                         "Kayıt Ol",

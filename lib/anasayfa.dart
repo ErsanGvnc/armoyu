@@ -137,6 +137,8 @@ class AnaSayfaState extends State<AnaSayfa> {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     postlike() {
+      // like işleminin direk ekranda görünmesi için, http.post işlemi komple setState((){}) içine alınabilir. / denendi olmadı. / butona basınca
+      // setstate içinde gondericek(); fonksiyonu çağrılıyor.
       http.post(
         Uri.parse(
           "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/",
@@ -193,6 +195,8 @@ class AnaSayfaState extends State<AnaSayfa> {
                             veri9: dataanasayfa[index]["benbegendim"],
                             veri10: dataanasayfa[index]["postID"],
                             veri11: dataanasayfa[index]["sahipID"],
+                            // veri12: dataanasayfa[index]["paylasimfoto"][0]
+                            //     ["fotoufakurl"],
 
                             // veri9: gonderifotolar[index]["fotourl"] != null
                             //     ? gonderifotolar[index]["fotourl"]
@@ -200,6 +204,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                           ),
                         ),
                       );
+
+                      setState(() {
+                        yorumid = dataanasayfa[index]["postID"];
+                        // print(detaylink);
+                        detaylink =
+                            "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$yorumid/&postislem=yorumlarim";
+                      });
                     },
                     child: Container(
                       child: Row(
@@ -325,6 +336,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                                           postID =
                                               dataanasayfa[index]["postID"];
                                           postlike();
+
+                                          setState(() {
+                                            gondericek();
+                                          });
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.all(8.0),

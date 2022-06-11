@@ -23,6 +23,8 @@ class _PostState extends State<Post> {
   final post = TextEditingController();
   var setstatedegiden;
 
+  var now = DateTime.now();
+
   postgonder() {
     http.post(
       Uri.parse(
@@ -72,6 +74,14 @@ class _PostState extends State<Post> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    Text(
+                      "  -  " +
+                          "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 15),
@@ -116,7 +126,7 @@ class _PostState extends State<Post> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text("Paylaşıldı ! " +
-                                  "${DateFormat('EEE d MMM kk:mm').format(DateTime.now())}"),
+                                  "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
                             ),
                           );
                         } else {

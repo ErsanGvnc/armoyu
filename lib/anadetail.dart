@@ -1,4 +1,7 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_import, must_be_immutable, avoid_print, library_private_types_in_public_api, unrelated_type_equality_checks, unused_element
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_import, must_be_immutable, avoid_print, library_private_types_in_public_api, unrelated_type_equality_checks, unused_element, unnecessary_null_comparison, prefer_if_null_operators, prefer_typing_uninitialized_variables
+
+import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:jsonekleme/login.dart';
@@ -9,7 +12,10 @@ import 'anasayfa.dart';
 import 'main.dart';
 
 class AnaDetail extends StatefulWidget {
-  String veri1, veri2, veri3, veri4, veri5, veri6, veri7, veri8, veri10, veri11;
+  String veri1, veri2, veri3, veri4, veri5, veri6, veri7, veri8, veri10, veri11
+      //veri12
+      ;
+
   int veri9;
   AnaDetail({
     required this.veri1,
@@ -23,20 +29,42 @@ class AnaDetail extends StatefulWidget {
     required this.veri9,
     required this.veri10,
     required this.veri11,
+    //required this.veri12,
   });
+
   @override
   _AnaDetailState createState() => _AnaDetailState();
 }
 
+Future<String> callAsyncFetch() =>
+    Future.delayed(Duration(seconds: 3), () => "hi");
+
 class _AnaDetailState extends State<AnaDetail> {
-  // @override
-  // void initState() {
-  //   List gonderidengelenfotolar = [widget.veri9];
-  //   print("gelince: $gonderidengelenfotolar");
-  //   String a = dataanasayfa[0] = gonderifotolar[0]["fotourl"];
-  //   print("bune: $a");
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    detaycek();
+    super.initState();
+  }
+
+  var resimler;
+
+  detaycek() async {
+    var gelen = await http.get(
+      Uri.parse(detaylink),
+    );
+    detaylar = jsonDecode(gelen.body);
+
+    if (detaylar[0]["paylasimfoto"] != null) {
+      for (var i = 0; i < detaylar[0]["paylasimfoto"].length; i++) {
+        resimler = detaylar[0]["paylasimfoto"][i]["fotoufakurl"];
+
+        print(detaylar[0]["paylasimfoto"][i]["fotoufakurl"]);
+      }
+    }
+    print("resimler: ");
+    print(resimler);
+    setState(() {});
+  }
 
   postsil() {
     http.post(
@@ -110,7 +138,6 @@ class _AnaDetailState extends State<AnaDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: screenheight / 60),
-                    //Divider(),
                     Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Row(
@@ -134,6 +161,7 @@ class _AnaDetailState extends State<AnaDetail> {
                         ],
                       ),
                     ),
+
                     SizedBox(height: screenheight / 35),
                     Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -146,6 +174,45 @@ class _AnaDetailState extends State<AnaDetail> {
                       ),
                     ),
                     SizedBox(height: screenheight / 35),
+
+                    // FutureBuilder(
+                    //   future: detaycek(),
+                    //   builder:
+                    //       (BuildContext context, AsyncSnapshot<Image> image) {
+                    //     if (image.hasData) {
+                    //       return Image.network(
+                    //         detaylar[0]["paylasimfoto"][0]["fotoufakurl"],
+                    //         fit: BoxFit.cover,
+                    //         filterQuality: FilterQuality.high,
+                    //       );
+                    //       ; // image is ready
+                    //     } else {
+                    //       return CircularProgressIndicator();
+                    //     }
+                    //   },
+                    // ),
+
+                    // FutureBuilder<String>(
+                    //   future: callAsyncFetch(),
+                    //   builder: (context, AsyncSnapshot<String> snapshot) {
+                    //     return Image.network(
+                    //       "https://aramizdakioyuncu.com/galeri/images/11orijinal11640118395.jpg",
+                    //       fit: BoxFit.cover,
+                    //       filterQuality: FilterQuality.high,
+                    //     );
+                    //   },
+                    // ),
+
+                    // buraya 1x1 transparent foto koyulacak.
+
+                    Image.network(
+                      resimler != null
+                          ? resimler
+                          : "https://aramizdakioyuncu.com/galeri/images/11orijinal11654971338.png",
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                    ),
+
                     // IconButton(
                     //   onPressed: () {
                     //     print(widget.veri9);
@@ -231,7 +298,9 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              print("");
+                            },
                             icon: Icon(
                               Icons.chat_bubble_outline,
                               color: Colors.grey,
