@@ -112,24 +112,7 @@ class _AnaDetailState extends State<AnaDetail> {
     var screenheight = MediaQuery.of(context).size.height;
     return ThemeConsumer(
       child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            Visibility(
-              visible: widget.veri11 == girisdata["oyuncuID"] ? true : false,
-              child: InkWell(
-                onTap: () {
-                  postID = widget.veri10;
-                  postsil();
-                },
-                child: Icon(
-                  Icons.more_vert,
-                  size: 20,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          ],
-        ),
+        appBar: AppBar(),
         body: Container(
           child: ListView(
             children: [
@@ -154,8 +137,105 @@ class _AnaDetailState extends State<AnaDetail> {
                           Text(
                             widget.veri2,
                             style: TextStyle(
-                              color: Colors.white,
+                              // color: Colors.white,
                               fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Spacer(),
+                          InkWell(
+                            onTap: () {
+                              showModalBottomSheet<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Wrap(
+                                    children: [
+                                      Container(
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[900],
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(30),
+                                                  ),
+                                                ),
+                                                width: screenwidth / 4,
+                                                height: 5,
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: ListTile(
+                                                leading: Icon(Icons.post_add),
+                                                title: Text(
+                                                    "Postu favorilere ekle."),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: widget.veri11 ==
+                                                      girisdata["oyuncuID"]
+                                                  ? true
+                                                  : false,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  postID = widget.veri10;
+                                                  // postsil();
+                                                  Navigator.pop(context);
+                                                },
+                                                child: ListTile(
+                                                  leading:
+                                                      Icon(Icons.edit_note),
+                                                  title: Text("Postu düzenle."),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: widget.veri11 ==
+                                                      girisdata["oyuncuID"]
+                                                  ? true
+                                                  : false,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  postID = widget.veri10;
+                                                  postsil();
+                                                  Navigator.pop(context);
+                                                },
+                                                child: ListTile(
+                                                  leading: Icon(Icons
+                                                      .delete_sweep_outlined),
+                                                  title: Text("Postu kaldır."),
+                                                ),
+                                              ),
+                                            ),
+                                            Divider(),
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: ListTile(
+                                                leading:
+                                                    Icon(Icons.flag_outlined),
+                                                title: Text("Postu bildir."),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Icon(
+                              Icons.more_vert,
+                              size: 20,
+                              // color: Colors.grey,
                             ),
                           ),
                         ],
@@ -168,7 +248,7 @@ class _AnaDetailState extends State<AnaDetail> {
                       child: Text(
                         widget.veri3,
                         style: TextStyle(
-                          color: Colors.white,
+                          // color: Colors.white,
                           fontSize: 16,
                         ),
                       ),
@@ -205,12 +285,18 @@ class _AnaDetailState extends State<AnaDetail> {
 
                     // buraya 1x1 transparent foto koyulacak.
 
-                    Image.network(
-                      resimler != null
-                          ? resimler
-                          : "https://aramizdakioyuncu.com/galeri/images/11orijinal11654971338.png",
-                      fit: BoxFit.cover,
-                      filterQuality: FilterQuality.high,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          resimler != null
+                              ? resimler
+                              : "https://aramizdakioyuncu.com/galeri/images/11orijinal11654971338.png",
+                          fit: BoxFit.cover,
+                          filterQuality: FilterQuality.high,
+                        ),
+                      ),
                     ),
 
                     // IconButton(
@@ -263,13 +349,40 @@ class _AnaDetailState extends State<AnaDetail> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(widget.veri5),
-                          Text(
-                            "  Beğeni",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
+                          Container(
+                            child: Row(children: [
+                              Text(widget.veri5),
+                              Text(
+                                "  Beğeni",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ]),
+                          ),
+                          Container(
+                            child: Row(children: [
+                              Text(widget.veri6),
+                              Text(
+                                "  Yorum",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ]),
+                          ),
+                          Container(
+                            child: Row(children: [
+                              Text(widget.veri7),
+                              Text(
+                                "  Repost",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ]),
                           ),
                         ],
                       ),
