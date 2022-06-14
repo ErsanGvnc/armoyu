@@ -397,7 +397,7 @@ class MyHomePageState extends State<MyHomePage> {
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(0, 0, 0, 1),
                           image: DecorationImage(
-                            image: NetworkImage(girisdata["parkaresim"]),
+                            image: NetworkImage(girisdata["parkaresimufak"]),
                             fit: BoxFit.cover,
                             filterQuality: FilterQuality.high,
                           ),

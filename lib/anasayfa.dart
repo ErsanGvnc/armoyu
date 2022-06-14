@@ -211,6 +211,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                             veri9: dataanasayfa[index]["benbegendim"],
                             veri10: dataanasayfa[index]["postID"],
                             veri11: dataanasayfa[index]["sahipID"],
+                            veri12: dataanasayfa[index]["paylasimnereden"],
                             // veri12: dataanasayfa[index]["paylasimfoto"][0]
                             //     ["fotoufakurl"],
 
@@ -235,7 +236,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                           CircleAvatar(
                             radius: screenwidth / 12,
                             backgroundImage: NetworkImage(
-                              dataanasayfa[index]["sahipavatar"],
+                              dataanasayfa[index]["sahipavatarminnak"],
                             ),
                             backgroundColor: Colors.transparent,
                           ),
@@ -379,6 +380,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                               "Postu bildir."),
                                                         ),
                                                       ),
+                                                      SizedBox(height: 10),
                                                     ],
                                                   ),
                                                 ),

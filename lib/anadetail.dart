@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_import, must_be_immutable, avoid_print, library_private_types_in_public_api, unrelated_type_equality_checks, unused_element, unnecessary_null_comparison, prefer_if_null_operators, prefer_typing_uninitialized_variables
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_import, must_be_immutable, avoid_print, library_private_types_in_public_api, unrelated_type_equality_checks, unused_element, unnecessary_null_comparison, prefer_if_null_operators, prefer_typing_uninitialized_variables, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
 import 'dart:ffi';
@@ -12,9 +12,17 @@ import 'anasayfa.dart';
 import 'main.dart';
 
 class AnaDetail extends StatefulWidget {
-  String veri1, veri2, veri3, veri4, veri5, veri6, veri7, veri8, veri10, veri11
-      //veri12
-      ;
+  String veri1,
+      veri2,
+      veri3,
+      veri4,
+      veri5,
+      veri6,
+      veri7,
+      veri8,
+      veri10,
+      veri11,
+      veri12;
 
   int veri9;
   AnaDetail({
@@ -29,7 +37,7 @@ class AnaDetail extends StatefulWidget {
     required this.veri9,
     required this.veri10,
     required this.veri11,
-    //required this.veri12,
+    required this.veri12,
   });
 
   @override
@@ -43,10 +51,12 @@ class _AnaDetailState extends State<AnaDetail> {
   @override
   void initState() {
     detaycek();
+    yorumcek();
     super.initState();
   }
 
-  var resimler;
+  List resimler = [];
+  List yorumlar = [];
 
   detaycek() async {
     var gelen = await http.get(
@@ -56,13 +66,39 @@ class _AnaDetailState extends State<AnaDetail> {
 
     if (detaylar[0]["paylasimfoto"] != null) {
       for (var i = 0; i < detaylar[0]["paylasimfoto"].length; i++) {
-        resimler = detaylar[0]["paylasimfoto"][i]["fotoufakurl"];
+        resimler.add(detaylar[0]["paylasimfoto"][i]["fotoufakurl"]);
 
-        print(detaylar[0]["paylasimfoto"][i]["fotoufakurl"]);
+        // print(detaylar[0]["paylasimfoto"][i]["fotoufakurl"]);
       }
     }
-    print("resimler: ");
-    print(resimler);
+    // print("detaylar: ");
+    // print(detaylar);
+
+    // print("resimler: ");
+    // print(resimler);
+
+    setState(() {});
+  }
+
+  yorumcek() async {
+    var gelen = await http.get(
+      Uri.parse(detaylink),
+    );
+    detaylar = jsonDecode(gelen.body);
+
+    if (detaylar[0]["yorumlar"] != null) {
+      for (var i = 0; i < detaylar[0]["yorumlar"].length; i++) {
+        yorumlar.add(detaylar[0]["yorumlar"][i]);
+
+        print(detaylar[0]["yorumlar"][i]);
+      }
+    }
+    print("detaylar: ");
+    print(detaylar);
+
+    print("yorumlar: ");
+    print(yorumlar);
+
     setState(() {});
   }
 
@@ -227,6 +263,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                           ],
                                         ),
                                       ),
+                                      SizedBox(height: 10),
                                     ],
                                   );
                                 },
@@ -283,21 +320,23 @@ class _AnaDetailState extends State<AnaDetail> {
                     //   },
                     // ),
 
-                    // buraya 1x1 transparent foto koyulacak.
+                    // buraya 1x1 transparent foto koyulacak. / yapıldı.
 
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          resimler != null
-                              ? resimler
-                              : "https://aramizdakioyuncu.com/galeri/images/11orijinal11654971338.png",
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.high,
+                    for (int i = 0; i < resimler.length; i++)
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 10, bottom: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            resimler[i] != null
+                                ? resimler[i]
+                                : "https://aramizdakioyuncu.com/galeri/images/11orijinal11654971338.png",
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.high,
+                          ),
                         ),
                       ),
-                    ),
 
                     // IconButton(
                     //   onPressed: () {
@@ -337,7 +376,7 @@ class _AnaDetailState extends State<AnaDetail> {
                             ),
                           ),
                           Text(
-                            "For Mobile",
+                            widget.veri12 == "" ? "For Web" : "For Mobile",
                             style: TextStyle(
                               color: Colors.blue,
                             ),
@@ -441,6 +480,193 @@ class _AnaDetailState extends State<AnaDetail> {
                       ),
                     ),
                     Divider(),
+                    for (int i = 0; i < yorumlar.length; i++)
+                      Column(
+                        children: [
+                          ListTile(
+                            leading: CircleAvatar(
+                              radius: screenwidth / 12,
+                              backgroundImage: NetworkImage(
+                                yorumlar[i]["yorumcuminnakavatar"],
+                              ),
+                              backgroundColor: Colors.transparent,
+                            ),
+                            title: Row(
+                              children: [
+                                Text(yorumlar[i]["yorumcuadsoyad"]),
+                                Text(
+                                  "  -  " + yorumlar[i]["yorumcuzaman"],
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                Spacer(),
+                                InkWell(
+                                  onTap: () {
+                                    showModalBottomSheet<void>(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Wrap(
+                                          children: [
+                                            Container(
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.grey[900],
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                          Radius.circular(30),
+                                                        ),
+                                                      ),
+                                                      width: screenwidth / 4,
+                                                      height: 5,
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: ListTile(
+                                                      leading:
+                                                          Icon(Icons.post_add),
+                                                      title: Text(
+                                                          "Yorumu favorilere ekle."),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: widget.veri11 ==
+                                                            girisdata[
+                                                                "oyuncuID"]
+                                                        ? true
+                                                        : false,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        postID = widget.veri10;
+                                                        // postsil();
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: ListTile(
+                                                        leading: Icon(
+                                                            Icons.edit_note),
+                                                        title: Text(
+                                                            "Yorumu düzenle."),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: widget.veri11 ==
+                                                            girisdata[
+                                                                "oyuncuID"]
+                                                        ? true
+                                                        : false,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        postID = widget.veri10;
+                                                        postsil();
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: ListTile(
+                                                        leading: Icon(Icons
+                                                            .delete_sweep_outlined),
+                                                        title: Text(
+                                                            "Yorumu kaldır."),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Divider(),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: ListTile(
+                                                      leading: Icon(
+                                                          Icons.flag_outlined),
+                                                      title: Text(
+                                                          "Yorumu bildir."),
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.more_vert,
+                                    size: 15,
+                                    // color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            subtitle: Text(
+                              yorumlar[i]["yorumcuicerik"],
+                            ),
+                            // contentPadding: EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          Container(
+                            color: Colors.transparent,
+                            width: screenwidth,
+                            height: screenheight / 20,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.grey,
+                                    size: 19,
+                                  ),
+                                  // icon: widget.veri9 != 0
+                                  //     ? Icon(
+                                  //         Icons.favorite,
+                                  //         color: Colors.red,
+                                  //       )
+                                  //     : Icon(
+                                  //         Icons.favorite_border,
+                                  //         color: Colors.grey,
+                                  //       ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    print("");
+                                  },
+                                  icon: Icon(
+                                    Icons.chat_bubble_outline,
+                                    color: Colors.grey,
+                                    size: 19,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Share.share(
+                                      widget.veri3,
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.share_outlined,
+                                    color: Colors.grey,
+                                    size: 19,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                        ],
+                      ),
+
+                    // yorumcuzaman: "2022-06-13 22:52:29",
+                    // Text(
+                    //   yorumlar[i] != null ? yorumlar[i] : "",
+                    // ),
                   ],
                 ),
               ),

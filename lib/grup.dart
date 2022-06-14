@@ -84,6 +84,7 @@ class _GrupState extends State<Grup> {
                                 veri9: datagrup[index]["benbegendim"],
                                 veri10: dataanasayfa[index]["postID"],
                                 veri11: dataanasayfa[index]["sahipID"],
+                                veri12: dataanasayfa[index]["paylasimnereden"],
                                 // veri12: dataanasayfa[index]["paylasimfoto"],
 
                                 // veri9: gonderifotolar[index]["fotourl"] != null
