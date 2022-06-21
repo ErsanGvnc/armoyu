@@ -4,6 +4,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
 import 'package:confetti/confetti.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -24,6 +26,20 @@ import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter/foundation.dart' as Foundation;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: true,
+    badge: true,
+    carPlay: true,
+    sound: true,
+    criticalAlert: true,
+    provisional: true,
+  );
+  print(settings.authorizationStatus);
+
   runApp(MyApp());
 
   if (Foundation.kReleaseMode) {
@@ -231,7 +247,7 @@ class MyHomePageState extends State<MyHomePage> {
                     Row(
                       children: [
                         Image.asset(
-                          'assets/images/logo.png',
+                          'assets/images/yenilogo.png',
                           width: 35,
                           height: 35,
                         ),

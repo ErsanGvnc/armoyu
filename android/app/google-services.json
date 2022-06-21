@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "763916284039",
+    "project_id": "armoyu-bc30f",
+    "storage_bucket": "armoyu-bc30f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763916284039:android:e83923cff0d16af9f24822",
+        "android_client_info": {
+          "package_name": "com.ARMOYU"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763916284039-1fjfn6ceic9hclqdoqv9avpiv3vnf3pn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ARMOYU",
+            "certificate_hash": "f12a0409975a7b0f18fdf28434a7c66af15f1477"
+          }
+        },
+        {
+          "client_id": "763916284039-ic9nlpnoc2it2ebc7g1dmmgj4vu6dktu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC-RfkZKuus_mPED9ejtsyXC0OwP7nhN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763916284039-ic9nlpnoc2it2ebc7g1dmmgj4vu6dktu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

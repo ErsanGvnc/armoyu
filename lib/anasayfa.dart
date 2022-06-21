@@ -28,7 +28,11 @@ class AnaSayfaState extends State<AnaSayfa> {
     var gelen = await http.get(
       Uri.parse(gonderiurl),
     );
-    dataanasayfa = jsonDecode(gelen.body);
+    try {
+      dataanasayfa = jsonDecode(gelen.body);
+    } catch (e) {
+      print(e);
+    }
     setState(() {});
   }
 
@@ -64,6 +68,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
+          SizedBox(width: screenwidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
