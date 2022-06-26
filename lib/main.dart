@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty, library_prefixes, use_build_context_synchronously, no_leading_underscores_for_local_identifiers
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty, library_prefixes, use_build_context_synchronously, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings
 
 import 'dart:async';
 import 'dart:convert';
@@ -12,15 +12,18 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'package:in_app_notification/in_app_notification.dart';
 import 'package:jsonekleme/detail.dart';
+import 'package:jsonekleme/etkinlik.dart';
 import 'package:jsonekleme/grup.dart';
 import 'package:jsonekleme/login.dart';
 import 'package:jsonekleme/post.dart';
 import 'package:jsonekleme/register.dart';
+import 'package:jsonekleme/resiminceleme.dart';
 import 'package:jsonekleme/sabit.dart';
 import 'package:jsonekleme/skelaton.dart';
 import 'package:jsonekleme/splash.dart';
 import 'package:jsonekleme/anasayfa.dart';
 import 'package:jsonekleme/news.dart';
+import 'package:jsonekleme/toplanti.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter/foundation.dart' as Foundation;
@@ -111,6 +114,8 @@ var grupdetail =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
 var detaylink =
     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$yorumid/";
+var etkinlikler =
+    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/etkinlikler/0/0/";
 
 // burası gonderi beğeniyi siteye yollama yeri post idsini linke çekemedik(${AnaSayfa.gonderibegeniyollanan})
 // var gonderibegeni =
@@ -122,6 +127,8 @@ Widget bodyPageDegis() {
       return AnaSayfa();
     case "news":
       return News();
+    case "etkinlik":
+      return Etkinlik();
     // case "post":
     //   return Post();
     // case "grup":
@@ -465,19 +472,21 @@ class MyHomePageState extends State<MyHomePage> {
                         },
                       ),
                       // Toplantı
+
                       // ListTile(
                       //   leading: Icon(Icons.group),
                       //   title: Text("Toplantı"),
                       //   onTap: () {
-                      //     setState(() {
-                      //       //mevcutpage = "news";
-                      //       ScaffoldMessenger.of(context).showSnackBar(
-                      //         SnackBar(
-                      //           content: Text("Henüz Aktif Değil"),
-                      //         ),
-                      //       );
-                      //     });
                       //     Navigator.pop(context);
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => Toplanti(
+                      //           veri1: girisdata["presim"],
+                      //           veri2: girisdata["adim"],
+                      //         ),
+                      //       ),
+                      //     );
                       //   },
                       // ),
 
@@ -871,6 +880,7 @@ class MyHomePageState extends State<MyHomePage> {
           ),
         ),
         appBar: AppBar(
+          // title: Text(mevcutpage == "etkinlik" ? "Etkinlikler" : ""),
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
@@ -892,6 +902,24 @@ class MyHomePageState extends State<MyHomePage> {
           // title:
           //     mevcutpage == "grup" ? Text(gruplarim[0]["grupadi"]) : Text(""),
           actions: [
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => Resiminceleme(
+            //           veri1: resimler,
+            //         ),
+            //       ),
+            //     );
+            //   },
+            //   child: Hero(
+            //     tag: 'imageHero',
+            //     child: Image.network(
+            //       'https://picsum.photos/250?image=9',
+            //     ),
+            //   ),
+            // ),
             // GestureDetector(
             //   onTap: () {
             //     Navigator.push(
@@ -953,27 +981,25 @@ class MyHomePageState extends State<MyHomePage> {
         //     builder: (BuildContext context) => bodyPageDegis(),
         //   ),
         // ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red,
-          child: Icon(
-            Icons.add,
-          ),
-          onPressed: () {
-            // setState(() {
-            //   mevcutpage = "post";
-            // });
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Post(
-                  veri1: girisdata["presim"],
-                  veri2: girisdata["adim"],
+        floatingActionButton: mevcutpage == "anasayfa"
+            ? FloatingActionButton(
+                backgroundColor: Colors.red,
+                child: Icon(
+                  Icons.add,
                 ),
-              ),
-            );
-          },
-        ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Post(
+                        veri1: girisdata["presim"],
+                        veri2: girisdata["adim"],
+                      ),
+                    ),
+                  );
+                },
+              )
+            : null,
       ),
     );
   }

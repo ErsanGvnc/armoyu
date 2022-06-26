@@ -355,23 +355,24 @@ class _AnaDetailState extends State<AnaDetail> {
 
                         // burası normal for dongusu ile çalısan yer.
 
-                        for (int i = 0; i < resimler.length; i++)
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 10, right: 10, top: 10, bottom: 10),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                resimler[i] != null
-                                    ? resimler[i]
-                                    : "https://aramizdakioyuncu.com/galeri/images/11orijinal11654971338.png",
-                                fit: BoxFit.cover,
-                                filterQuality: FilterQuality.high,
-                              ),
-                            ),
-                          ),
+                        // for (int i = 0; i < resimler.length; i++)
+                        //   Padding(
+                        //     padding: EdgeInsets.only(
+                        //         left: 10, right: 10, top: 10, bottom: 10),
+                        //     child: ClipRRect(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       child: Image.network(
+                        //         resimler[i] != null
+                        //             ? resimler[i]
+                        //             : "https://aramizdakioyuncu.com/galeri/images/11orijinal11654971338.png",
+                        //         fit: BoxFit.cover,
+                        //         filterQuality: FilterQuality.high,
+                        //       ),
+                        //     ),
+                        //   ),
 
                         // burası yeni resim görünümünün denendigi yer.
+
                         // if (resimler.length == 1)
                         //   Padding(
                         //     padding: EdgeInsets.only(
@@ -459,168 +460,167 @@ class _AnaDetailState extends State<AnaDetail> {
                         // "veri1" e sürekli 0. indexli fotografı gönderiyorum.
                         // örn: resimler[0]
 
-                        // if (resimler.length == 1)
-                        //   Padding(
-                        //     padding: EdgeInsets.only(
-                        //         left: 10, right: 10, top: 10, bottom: 10),
-                        //     child: InkWell(
-                        //       onTap: () {
-                        //         print("1 resim");
-                        //         Navigator.push(
-                        //           context,
-                        //           MaterialPageRoute(
-                        //             builder: (context) => Resiminceleme(
-                        //               veri1: resimler[0],
-                        //             ),
-                        //           ),
-                        //         );
-                        //       },
-                        //       child: Row(
-                        //         children: [
-                        //           Flexible(
-                        //             child: ClipRRect(
-                        //               borderRadius: BorderRadius.circular(10),
-                        //               child: Image.network(
-                        //                 resimler[0],
-                        //                 fit: BoxFit.cover,
-                        //                 filterQuality: FilterQuality.high,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // if (resimler.length == 2)
-                        //   Padding(
-                        //     padding: EdgeInsets.only(
-                        //         left: 10, right: 10, top: 10, bottom: 10),
-                        //     child: Row(
-                        //       children: [
-                        //         Flexible(
-                        //           child: InkWell(
-                        //             onTap: () {
-                        //               print("2 resim");
-                        //               Navigator.push(
-                        //                 context,
-                        //                 MaterialPageRoute(
-                        //                   builder: (context) => Resiminceleme(
-                        //                     veri1: resimler[0],
-                        //                   ),
-                        //                 ),
-                        //               );
-                        //             },
-                        //             child: ClipRRect(
-                        //               borderRadius: BorderRadius.circular(10),
-                        //               child: Image.network(
-                        //                 resimler[0],
-                        //                 fit: BoxFit.cover,
-                        //                 filterQuality: FilterQuality.high,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //         SizedBox(width: screenwidth / 35),
-                        //         Flexible(
-                        //           child: InkWell(
-                        //             onTap: () {
-                        //               print("2 resim");
-                        //               Navigator.push(
-                        //                 context,
-                        //                 MaterialPageRoute(
-                        //                   builder: (context) => Resiminceleme(
-                        //                     veri1: resimler[0],
-                        //                   ),
-                        //                 ),
-                        //               );
-                        //             },
-                        //             child: ClipRRect(
-                        //               borderRadius: BorderRadius.circular(10),
-                        //               child: Image.network(
-                        //                 resimler[1],
-                        //                 fit: BoxFit.cover,
-                        //                 filterQuality: FilterQuality.high,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // if (resimler.length > 2)
-                        //   Padding(
-                        //     padding: EdgeInsets.only(
-                        //         left: 10, right: 10, top: 10, bottom: 10),
-                        //     child: Row(
-                        //       children: [
-                        //         Flexible(
-                        //           child: InkWell(
-                        //             onTap: () {
-                        //               print("3 ve üstü resim");
-                        //               print(resimler.toString());
-                        //               Navigator.push(
-                        //                 context,
-                        //                 MaterialPageRoute(
-                        //                   builder: (context) => Resiminceleme(
-                        //                     veri1: resimler[0],
-                        //                   ),
-                        //                 ),
-                        //               );
-                        //             },
-                        //             child: ClipRRect(
-                        //               borderRadius: BorderRadius.circular(10),
-                        //               child: Image.network(
-                        //                 resimler[0],
-                        //                 fit: BoxFit.cover,
-                        //                 filterQuality: FilterQuality.high,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //         SizedBox(width: screenwidth / 35),
-                        //         Flexible(
-                        //           child: InkWell(
-                        //             onTap: () {
-                        //               print("3 ve üstü resim");
-                        //               Navigator.push(
-                        //                 context,
-                        //                 MaterialPageRoute(
-                        //                   builder: (context) => Resiminceleme(
-                        //                     veri1: resimler[0],
-                        //                   ),
-                        //                 ),
-                        //               );
-                        //             },
-                        //             child: ClipRRect(
-                        //               borderRadius: BorderRadius.circular(10),
-                        //               child: Stack(
-                        //                 alignment: Alignment.center,
-                        //                 children: [
-                        //                   ColorFiltered(
-                        //                     colorFilter:
-                        //                         ColorFilter.srgbToLinearGamma(),
-                        //                     child: Image.network(
-                        //                       resimler[1],
-                        //                       fit: BoxFit.cover,
-                        //                       filterQuality: FilterQuality.high,
-                        //                     ),
-                        //                   ),
-                        //                   Text(
-                        //                     "+ ${resimler.length - 1}",
-                        //                     style: TextStyle(
-                        //                       color: Colors.white,
-                        //                       fontSize: 20,
-                        //                       fontWeight: FontWeight.bold,
-                        //                     ),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
+                        if (resimler.length == 1)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 10),
+                            child: InkWell(
+                              onTap: () {
+                                print("1 resim");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Resiminceleme(
+                                      veri1: resimler,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        resimler[0],
+                                        fit: BoxFit.cover,
+                                        filterQuality: FilterQuality.high,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        if (resimler.length == 2)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 10),
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: InkWell(
+                                    onTap: () {
+                                      print("2 resim");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Resiminceleme(
+                                            veri1: resimler,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        resimler[0],
+                                        fit: BoxFit.cover,
+                                        filterQuality: FilterQuality.high,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: screenwidth / 35),
+                                Flexible(
+                                  child: InkWell(
+                                    onTap: () {
+                                      print("2 resim");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Resiminceleme(
+                                            veri1: resimler,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        resimler[1],
+                                        fit: BoxFit.cover,
+                                        filterQuality: FilterQuality.high,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (resimler.length > 2)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 10),
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: InkWell(
+                                    onTap: () {
+                                      print("3 ve üstü resim");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Resiminceleme(
+                                            veri1: resimler,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        resimler[0],
+                                        fit: BoxFit.cover,
+                                        filterQuality: FilterQuality.high,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: screenwidth / 35),
+                                Flexible(
+                                  child: InkWell(
+                                    onTap: () {
+                                      print("3 ve üstü resim");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Resiminceleme(
+                                            veri1: resimler,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          ColorFiltered(
+                                            colorFilter:
+                                                ColorFilter.srgbToLinearGamma(),
+                                            child: Image.network(
+                                              resimler[1],
+                                              fit: BoxFit.cover,
+                                              filterQuality: FilterQuality.high,
+                                            ),
+                                          ),
+                                          Text(
+                                            "+ ${resimler.length - 1}",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
 
                         // IconButton(
                         //   onPressed: () {
@@ -914,22 +914,35 @@ class _AnaDetailState extends State<AnaDetail> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.favorite_border,
-                                        color: Colors.grey,
-                                        size: 19,
-                                      ),
-                                      // icon: widget.veri9 != 0
-                                      //     ? Icon(
-                                      //         Icons.favorite,
-                                      //         color: Colors.red,
-                                      //       )
-                                      //     : Icon(
-                                      //         Icons.favorite_border,
-                                      //         color: Colors.grey,
-                                      //       ),
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.grey,
+                                            size: 19,
+                                          ),
+
+                                          // icon: widget.veri9 != 0
+                                          //     ? Icon(
+                                          //         Icons.favorite,
+                                          //         color: Colors.red,
+                                          //       )
+                                          //     : Icon(
+                                          //         Icons.favorite_border,
+                                          //         color: Colors.grey,
+                                          //       ),
+                                        ),
+                                        Text(
+                                          yorumlar[i]["yorumbegenisayi"] != "0"
+                                              ? yorumlar[i]["yorumbegenisayi"]
+                                              : "",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     IconButton(
                                       onPressed: () {

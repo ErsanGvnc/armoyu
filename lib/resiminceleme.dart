@@ -5,7 +5,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 class Resiminceleme extends StatefulWidget {
-  String veri1;
+  List veri1;
 
   Resiminceleme({
     required this.veri1,
@@ -17,6 +17,9 @@ class Resiminceleme extends StatefulWidget {
 class _ResimincelemeState extends State<Resiminceleme> {
   @override
   Widget build(BuildContext context) {
+    // print(widget.veri1);
+    // print(widget.veri1.runtimeType);
+
     return ThemeConsumer(
       child: Scaffold(
         appBar: AppBar(),
@@ -27,13 +30,13 @@ class _ResimincelemeState extends State<Resiminceleme> {
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
                 imageProvider: NetworkImage(
-                  widget.veri1,
+                  widget.veri1[index],
                 ),
-                // heroAttributes: HeroAttributes(tag: galleryItems[index].id),
+                // heroAttributes: PhotoViewHeroAttributes(tag: "tag"),
               );
             },
             // itemCount: widget.veri1.length,
-            itemCount: 1,
+            itemCount: widget.veri1.length,
             loadingBuilder: (context, progress) => CircularProgressIndicator(),
           ),
         ),

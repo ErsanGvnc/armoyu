@@ -23,6 +23,8 @@ class _SiteState extends State<Site> {
         ),
         body: WebView(
           // initialUrl: "https://aramizdakioyuncu.com/",
+          javascriptMode: JavascriptMode.unrestricted,
+          zoomEnabled: false,
           initialUrl: widget.verilink,
         ),
       ),

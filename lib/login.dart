@@ -280,7 +280,8 @@ class LoginState extends State<Login> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => Site(
-                              verilink: "https://aramizdakioyuncu.com/",
+                              verilink:
+                                  "https://aramizdakioyuncu.com/kayit-ol/",
                             ),
                           ),
                         );

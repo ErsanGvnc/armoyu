@@ -8,26 +8,26 @@ import 'package:jsonekleme/main.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:http/http.dart' as http;
 
-class Post extends StatefulWidget {
+class Toplanti extends StatefulWidget {
   String veri1, veri2;
-  Post({
+  Toplanti({
     required this.veri1,
     required this.veri2,
   });
 
   @override
-  State<Post> createState() => _PostState();
+  State<Toplanti> createState() => _ToplantiState();
 }
 
-class _PostState extends State<Post> {
-  final post = TextEditingController();
+class _ToplantiState extends State<Toplanti> {
+  final toplanti = TextEditingController();
   var setstatedegiden;
   var maxLength = 250;
   var textLength = 0;
 
   var now = DateTime.now();
 
-  postgonder() {
+  toplantigonder() {
     http.post(
       Uri.parse(
         "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
@@ -36,7 +36,7 @@ class _PostState extends State<Post> {
       //   "https://jsonplaceholder.typicode.com/posts",
       // ),
       body: {
-        "sosyalicerik": post.text,
+        "sosyalicerik": toplanti.text,
       },
     ).then((cevap) {
       print(cevap.statusCode);
@@ -45,7 +45,7 @@ class _PostState extends State<Post> {
         setstatedegiden = cevap.body;
       });
     });
-    print("post");
+    print("toplantı");
   }
 
   @override
@@ -89,7 +89,7 @@ class _PostState extends State<Post> {
                 SizedBox(height: 15),
                 Flexible(
                   child: TextField(
-                    controller: post,
+                    controller: toplanti,
                     maxLines: 10,
                     maxLength: maxLength,
                     maxLengthEnforcement: MaxLengthEnforcement.enforced,
@@ -112,17 +112,12 @@ class _PostState extends State<Post> {
                       suffixText:
                           "${textLength.toString()}/${maxLength.toString()}",
                       suffixIcon: IconButton(
-                        onPressed: post.clear,
+                        onPressed: toplanti.clear,
                         icon: Icon(Icons.clear),
                       ),
                       border: OutlineInputBorder(),
                       hintText: 'Neler söylemek istersin ?',
                     ),
-                    onChanged: (value) {
-                      setState(() {
-                        textLength = value.length;
-                      });
-                    },
                   ),
                 ),
                 SizedBox(height: 15),
@@ -131,22 +126,21 @@ class _PostState extends State<Post> {
                     padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                     child: InkWell(
                       onTap: () {
-                        if (post.text.isNotEmpty) {
-                          print("Paylaşıldı !");
-                          postgonder();
-                          post.clear();
+                        if (toplanti.text.isNotEmpty) {
+                          print("Gönderildi !");
+                          toplantigonder();
+                          toplanti.clear();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text("Paylaşıldı ! " +
+                              content: Text("Gönderildi ! " +
                                   "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
                             ),
                           );
-                          Navigator.pop(context);
                         } else {
-                          print("Paylaşım boş olamaz !");
+                          print("Gönderi boş olamaz !");
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text("Paylaşım boş olamaz !"),
+                              content: Text("Gönderi boş olamaz !"),
                             ),
                           );
                         }
@@ -157,7 +151,7 @@ class _PostState extends State<Post> {
                         color: Colors.blue,
                         child: Center(
                           child: Text(
-                            "Paylaş",
+                            "Gönder",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

@@ -526,7 +526,53 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => AnaDetail(
+                                                veri1: dataanasayfa[index]
+                                                    ["sahipavatar"],
+                                                veri2: dataanasayfa[index]
+                                                    ["sahipad"],
+                                                veri3: dataanasayfa[index]
+                                                    ["sosyalicerik"],
+                                                veri4: dataanasayfa[index]
+                                                    ["paylasimzaman"],
+                                                veri5: dataanasayfa[index]
+                                                    ["begenisay"],
+                                                veri6: dataanasayfa[index]
+                                                    ["yorumsay"],
+                                                veri7: dataanasayfa[index]
+                                                    ["repostsay"],
+                                                veri8: dataanasayfa[index]
+                                                    ["sikayetsay"],
+                                                veri9: dataanasayfa[index]
+                                                    ["benbegendim"],
+                                                veri10: dataanasayfa[index]
+                                                    ["postID"],
+                                                veri11: dataanasayfa[index]
+                                                    ["sahipID"],
+                                                veri12: dataanasayfa[index]
+                                                    ["paylasimnereden"],
+                                                // veri12: dataanasayfa[index]["paylasimfoto"][0]
+                                                //     ["fotoufakurl"],
+
+                                                // veri9: gonderifotolar[index]["fotourl"] != null
+                                                //     ? gonderifotolar[index]["fotourl"]
+                                                //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
+                                              ),
+                                            ),
+                                          );
+
+                                          setState(() {
+                                            yorumid =
+                                                dataanasayfa[index]["postID"];
+                                            // print(detaylink);
+                                            detaylink =
+                                                "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$yorumid/&postislem=yorumlarim";
+                                          });
+                                        },
                                         child: Padding(
                                           padding: EdgeInsets.all(8.0),
                                           child: Row(
