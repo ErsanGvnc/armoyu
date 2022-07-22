@@ -1,6 +1,6 @@
 # ARMOYU
 
-[aramizdakioyuncu.com](https://aramizdakioyuncu.com/) (ARMOYU) Social Mobile App.
+[aramizdakioyuncu.com](https://aramizdakioyuncu.com/) (ARMOYU) Social Media App.
 
 # Run
 
@@ -26,8 +26,8 @@ Your application code is in ARMOYU\lib\main.dart.
 
 
 <div>
-  <img src="https://user-images.githubusercontent.com/57798484/180554342-26d9e461-dd50-437d-b4ca-817033a30724.png" width="400"/>
-  <img src="https://user-images.githubusercontent.com/57798484/180554432-cda8b26b-f87b-43f1-b157-2cafae85f6ba.png" width="400"/>
+  <img src="https://user-images.githubusercontent.com/57798484/180554342-26d9e461-dd50-437d-b4ca-817033a30724.png" width="410"/>
+  <img src="https://user-images.githubusercontent.com/57798484/180554432-cda8b26b-f87b-43f1-b157-2cafae85f6ba.png" width="410"/>
 </div>
 
 

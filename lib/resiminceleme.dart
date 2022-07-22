@@ -22,7 +22,11 @@ class _ResimincelemeState extends State<Resiminceleme> {
 
     return ThemeConsumer(
       child: Scaffold(
-        appBar: AppBar(),
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
         body: Container(
           child: PhotoViewGallery.builder(
             backgroundDecoration: BoxDecoration(color: Colors.transparent),
@@ -35,7 +39,6 @@ class _ResimincelemeState extends State<Resiminceleme> {
                 // heroAttributes: PhotoViewHeroAttributes(tag: "tag"),
               );
             },
-            // itemCount: widget.veri1.length,
             itemCount: widget.veri1.length,
             loadingBuilder: (context, progress) => CircularProgressIndicator(),
           ),

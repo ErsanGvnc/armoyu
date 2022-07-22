@@ -11,7 +11,9 @@ import 'package:armoyu/fotoicerik.dart';
 import 'package:armoyu/login.dart';
 import 'package:armoyu/main.dart';
 import 'package:armoyu/sabit.dart';
+import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 class AnaSayfa extends StatefulWidget {
   @override
@@ -367,11 +369,9 @@ class AnaSayfaState extends State<AnaSayfa> {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     postlike() {
-      // like işleminin direk ekranda görünmesi için, http.post işlemi komple setState((){}) içine alınabilir. / denendi olmadı. / butona basınca
-      // setstate içinde gondericek(); fonksiyonu çağrılıyor.
       http.post(
         Uri.parse(
-          "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/",
+          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/deneme/deneme/sosyal/begen/0/0/",
         ),
         body: {
           "postID": postID,
@@ -381,13 +381,45 @@ class AnaSayfaState extends State<AnaSayfa> {
         // print(cevap.body);
         setState(() {
           postsildengiden = cevap.body;
+          print(cevap.body);
         });
       });
       print("post");
+      print("asdsadas: " + postID.toString());
       // print(
-      //     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
+      //     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
     }
 
+    Future<bool> onLikeButtonTapped(bool isLike, int index) async {
+      setState(() {
+        dataanasayfa[index]["benbegendim"] =
+            dataanasayfa[index]["benbegendim"] == 0 ? 1 : 0;
+
+        isLike = !isLike;
+
+        if (isLike == true) {
+          dataanasayfa[index]["begenisay"] =
+              (int.parse(dataanasayfa[index]["begenisay"]) + 1).toString();
+        } else {
+          dataanasayfa[index]["begenisay"] =
+              (int.parse(dataanasayfa[index]["begenisay"]) - 1).toString();
+        }
+      });
+      print(isLike);
+      postID = dataanasayfa[index]["postID"];
+      print("onLikeButtonTapped");
+
+      // Linkte body kısmında postID yok hata veriyor.
+      // body: {
+      //   "postID": postID,
+      // },
+      // postID olmasına gerek olmayabilir sonucta post işlemi.
+      // body kısmını açınca hata veriyor.
+
+      postlike();
+
+      return isLike;
+    }
     // final items = List<int>.generate(10, (i) => i);
 
     return RefreshIndicator(
@@ -413,26 +445,30 @@ class AnaSayfaState extends State<AnaSayfa> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AnaDetail(
-                            veri1: dataanasayfa[index]["sahipavatar"],
-                            veri2: dataanasayfa[index]["sahipad"],
-                            veri3: dataanasayfa[index]["sosyalicerik"],
-                            veri4: dataanasayfa[index]["paylasimzaman"],
-                            veri5: dataanasayfa[index]["begenisay"],
-                            veri6: dataanasayfa[index]["yorumsay"],
-                            veri7: dataanasayfa[index]["repostsay"],
-                            veri8: dataanasayfa[index]["sikayetsay"],
-                            veri9: dataanasayfa[index]["benbegendim"],
-                            veri10: dataanasayfa[index]["postID"],
-                            veri11: dataanasayfa[index]["sahipID"],
-                            veri12: dataanasayfa[index]["paylasimnereden"],
+                          builder: (context) => ThemeConsumer(
+                            child: AnaDetail(
+                              veri1: dataanasayfa[index]["sahipavatar"],
+                              veri2: dataanasayfa[index]["sahipad"],
+                              veri3: dataanasayfa[index]["sosyalicerik"],
+                              veri4: dataanasayfa[index]["paylasimzaman"],
+                              veri5: dataanasayfa[index]["begenisay"],
+                              veri6: dataanasayfa[index]["yorumsay"],
+                              veri7: dataanasayfa[index]["repostsay"],
+                              veri8: dataanasayfa[index]["sikayetsay"],
+                              veri9: dataanasayfa[index]["benbegendim"],
+                              veri10: dataanasayfa[index]["postID"],
+                              veri11: dataanasayfa[index]["sahipID"],
+                              veri12: dataanasayfa[index]["paylasimnereden"],
+                              veri13: dataanasayfa[index]["benyorumladim"]
+                                  .toString(),
 
-                            // veri12: dataanasayfa[index]["paylasimfoto"][0]
-                            //     ["fotoufakurl"],
+                              // veri12: dataanasayfa[index]["paylasimfoto"][0]
+                              //     ["fotoufakurl"],
 
-                            // veri9: gonderifotolar[index]["fotourl"] != null
-                            //     ? gonderifotolar[index]["fotourl"]
-                            //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
+                              // veri9: gonderifotolar[index]["fotourl"] != null
+                              //     ? gonderifotolar[index]["fotourl"]
+                              //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
+                            ),
                           ),
                         ),
                       );
@@ -696,45 +732,35 @@ class AnaSayfaState extends State<AnaSayfa> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      InkWell(
-                                        onTap: () {
-                                          postID =
-                                              dataanasayfa[index]["postID"];
-                                          postlike();
-
-                                          setState(() {
-                                            gondericek();
-                                          });
+                                      LikeButton(
+                                        onTap: (bool isLike) {
+                                          return onLikeButtonTapped(
+                                            isLike,
+                                            index,
+                                          );
                                         },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              (dataanasayfa[index]
-                                                          ["benbegendim"] !=
-                                                      0)
-                                                  ? Icon(
-                                                      Icons.favorite,
-                                                      color: Colors.red,
-                                                    )
-                                                  : Icon(
-                                                      Icons.favorite_border,
-                                                      color: Colors.grey,
-                                                    ),
-                                              SizedBox(width: 10),
-                                              (dataanasayfa[index]
-                                                          ["begenisay"] !=
-                                                      "0")
-                                                  ? Text(
-                                                      dataanasayfa[index]
-                                                          ["begenisay"],
-                                                      style: TextStyle(
-                                                        color: Colors.grey,
-                                                      ),
-                                                    )
-                                                  : Text(""),
-                                            ],
-                                          ),
+                                        countPostion: CountPostion.right,
+                                        isLiked: dataanasayfa[index]
+                                                    ["benbegendim"] !=
+                                                0
+                                            ? true
+                                            : false,
+                                        likeCount: int.parse(
+                                            dataanasayfa[index]["begenisay"]),
+                                        likeBuilder: (bool isLiked) {
+                                          return isLiked
+                                              ? Icon(
+                                                  Icons.favorite,
+                                                  color: Colors.red,
+                                                )
+                                              : Icon(
+                                                  Icons.favorite_outline,
+                                                  color: Colors.grey,
+                                                );
+                                        },
+                                        bubblesColor: BubblesColor(
+                                          dotPrimaryColor: Colors.red,
+                                          dotSecondaryColor: Colors.blue,
                                         ),
                                       ),
                                       InkWell(
@@ -767,6 +793,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                     ["sahipID"],
                                                 veri12: dataanasayfa[index]
                                                     ["paylasimnereden"],
+                                                veri13: dataanasayfa[index]
+                                                        ["benyorumladim"]
+                                                    .toString(),
+
                                                 // veri12: dataanasayfa[index]["paylasimfoto"][0]
                                                 //     ["fotoufakurl"],
 
@@ -789,10 +819,17 @@ class AnaSayfaState extends State<AnaSayfa> {
                                           padding: EdgeInsets.all(8.0),
                                           child: Row(
                                             children: [
-                                              Icon(
-                                                Icons.chat_bubble_outline,
-                                                color: Colors.grey,
-                                              ),
+                                              dataanasayfa[index]
+                                                          ["benyorumladim"] ==
+                                                      0
+                                                  ? Icon(
+                                                      Icons.chat_bubble_outline,
+                                                      color: Colors.grey,
+                                                    )
+                                                  : Icon(
+                                                      Icons.chat_bubble,
+                                                      color: Colors.blue,
+                                                    ),
                                               SizedBox(
                                                 width: 10,
                                               ),

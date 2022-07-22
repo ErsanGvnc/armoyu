@@ -3,11 +3,13 @@
 import 'dart:convert';
 import 'dart:ffi';
 // import 'package:better_player/better_player.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:armoyu/login.dart';
 import 'package:armoyu/resiminceleme.dart';
+import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +27,8 @@ class AnaDetail extends StatefulWidget {
       veri8,
       veri10,
       veri11,
-      veri12;
+      veri12,
+      veri13;
 
   int veri9;
   AnaDetail({
@@ -41,6 +44,7 @@ class AnaDetail extends StatefulWidget {
     required this.veri10,
     required this.veri11,
     required this.veri12,
+    required this.veri13,
   });
 
   @override
@@ -146,7 +150,7 @@ class _AnaDetailState extends State<AnaDetail> {
   postlike() {
     http.post(
       Uri.parse(
-        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/",
+        "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/deneme/deneme/sosyal/begen/0/0/",
       ),
       body: {
         "postID": postID,
@@ -156,11 +160,41 @@ class _AnaDetailState extends State<AnaDetail> {
       // print(cevap.body);
       setState(() {
         postsildengiden = cevap.body;
+        print(cevap.body);
       });
     });
     print("post");
+    print("asdsadas: " + postID.toString());
     // print(
-    //     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
+    //     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
+  }
+
+  Future<bool> onLikeButtonTapped(bool isLike) async {
+    setState(() {
+      widget.veri9 = widget.veri9 == 0 ? 1 : 0;
+
+      isLike = !isLike;
+
+      if (isLike == true) {
+        widget.veri5 = (int.parse(widget.veri5) + 1).toString();
+      } else {
+        widget.veri5 = (int.parse(widget.veri5) - 1).toString();
+      }
+    });
+    print(isLike);
+    postID = widget.veri10;
+    print("onLikeButtonTapped");
+
+    // Linkte body kısmında postID yok hata veriyor.
+    // body: {
+    //   "postID": postID,
+    // },
+    // postID olmasına gerek olmayabilir sonucta post işlemi.
+    // body kısmını açınca hata veriyor.
+
+    postlike();
+
+    return isLike;
   }
 
   postyorum() {
@@ -192,33 +226,65 @@ class _AnaDetailState extends State<AnaDetail> {
     if (resimler.length == 1)
       return Padding(
         padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-        child: InkWell(
-          onTap: () {
-            print("1 resim");
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Resiminceleme(
-                  veri1: resimler,
-                ),
+        child: OpenContainer(
+          transitionType: ContainerTransitionType.fade,
+          openColor: Colors.transparent,
+          closedColor: Colors.transparent,
+          openElevation: 0,
+          closedElevation: 0,
+          closedBuilder: (context, openWidget) {
+            return InkWell(
+              onTap: openWidget,
+              child: Row(
+                children: [
+                  Flexible(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        resimler[0],
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             );
           },
-          child: Row(
-            children: [
-              Flexible(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    resimler[0],
-                    fit: BoxFit.cover,
-                    filterQuality: FilterQuality.high,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          openBuilder: (context, closeWidget) {
+            return Resiminceleme(
+              veri1: resimler,
+            );
+          },
         ),
+
+        // child: InkWell(
+        //   onTap: () {
+        //     print("1 resim");
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => Resiminceleme(
+        //           veri1: resimler,
+        //         ),
+        //       ),
+        //     );
+        //   },
+        //   child: Row(
+        //     children: [
+        //       Flexible(
+        //         child: ClipRRect(
+        //           borderRadius: BorderRadius.circular(10),
+        //           child: Image.network(
+        //             resimler[0],
+        //             fit: BoxFit.cover,
+        //             filterQuality: FilterQuality.high,
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       );
     if (resimler.length == 2)
       return Padding(
@@ -405,6 +471,7 @@ class _AnaDetailState extends State<AnaDetail> {
                               Spacer(),
                               InkWell(
                                 onTap: () {
+                                  print("bottom sheet");
                                   showModalBottomSheet<void>(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -1043,6 +1110,7 @@ class _AnaDetailState extends State<AnaDetail> {
                         //     ),
                         //   ),
                         // ),
+
                         SizedBox(height: screenheight / 35),
                         Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -1119,29 +1187,43 @@ class _AnaDetailState extends State<AnaDetail> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              IconButton(
-                                onPressed: () {
-                                  postID = widget.veri10;
-                                  postlike();
+                              LikeButton(
+                                onTap: (bool isLike) {
+                                  return onLikeButtonTapped(isLike);
                                 },
-                                icon: widget.veri9 != 0
-                                    ? Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                      )
-                                    : Icon(
-                                        Icons.favorite_border,
-                                        color: Colors.grey,
-                                      ),
+                                countPostion: CountPostion.right,
+                                isLiked: widget.veri9 != 0 ? true : false,
+                                likeCount: int.parse(widget.veri5),
+                                likeBuilder: (bool isLiked) {
+                                  return isLiked
+                                      ? Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                        )
+                                      : Icon(
+                                          Icons.favorite_outline,
+                                          color: Colors.grey,
+                                        );
+                                },
+                                bubblesColor: BubblesColor(
+                                  dotPrimaryColor: Colors.red,
+                                  dotSecondaryColor: Colors.blue,
+                                ),
                               ),
                               IconButton(
                                 onPressed: () {
-                                  print("");
+                                  print(widget.veri13);
+                                  print(widget.veri13.runtimeType);
                                 },
-                                icon: Icon(
-                                  Icons.chat_bubble_outline,
-                                  color: Colors.grey,
-                                ),
+                                icon: widget.veri13 == "0"
+                                    ? Icon(
+                                        Icons.chat_bubble_outline,
+                                        color: Colors.grey,
+                                      )
+                                    : Icon(
+                                        Icons.chat_bubble,
+                                        color: Colors.blue,
+                                      ),
                               ),
                               IconButton(
                                 onPressed: () {},
@@ -1425,10 +1507,16 @@ class _AnaDetailState extends State<AnaDetail> {
               //           hintText: "Yorum Yap",
               //           suffixIcon: IconButton(
               //             onPressed: () {
+              //               setState(() {
+              //                 yorumlar.clear();
+              //                 yorumcek();
+              //               });
               //               if (yorum.text.isNotEmpty) {
               //                 // postyorum();
               //                 yorum.clear();
               //                 print("Yorum yapıldı !");
+              //                 widget.veri6 =
+              //                     (int.parse(widget.veri6) + 1).toString();
               //                 // ScaffoldMessenger.of(context).showSnackBar(
               //                 //   SnackBar(
               //                 //     content: Text("Yorum yapıldı ! " +

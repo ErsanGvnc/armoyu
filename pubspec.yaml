@@ -30,30 +30,51 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Init
   flutter_launcher_icons: ^0.9.1
-  http: ^0.13.4
-  webview_flutter: ^3.0.0
-  theme_provider: ^0.5.0
-  share_plus: ^4.0.4
-  shared_preferences: ^2.0.15
-  flutter_barcode_scanner: ^2.0.0
-  # flutter_datetime_picker: ^1.5.1
-  intl: ^0.17.0
-  image_viewer: ^1.5.0
+  flutter_native_splash: ^2.2.3+1
+
+  # Ui
   carousel_slider: ^4.0.0
   in_app_notification: ^1.1.1
-  confetti: ^0.7.0
-  # connectivity_plus: ^2.3.1
   photo_view: ^0.14.0
-  flutter_native_splash: ^2.2.3+1
+  like_button: ^2.0.4
+  animations: ^2.0.3
+
+  # Web
+  http: ^0.13.4
+  webview_flutter: ^3.0.0
+
+  # Storage  
+  shared_preferences: ^2.0.15
+
+  # Camera
+  flutter_barcode_scanner: ^2.0.0
+
+  # Firebase
   firebase_core: ^1.18.0
   firebase_messaging: ^11.4.2
-  # better_player: ^0.0.83
+
+  # Theme
+  theme_provider: ^0.5.0
+
+  # Nationalization
+  intl: ^0.17.0
+
+  # Share
+  share_plus: ^4.0.4
+
+  # .env
   flutter_dotenv: ^5.0.2
 
+  # flutter_datetime_picker: ^1.5.1
+  # better_player: ^0.0.83
+  # connectivity_plus: ^2.3.1
+  # confetti: ^0.7.0
+  # image_viewer: ^1.5.0
 
 
-
+  # Splash Screen
 flutter_icons:
   image_path: "assets/images/yenilogo.png"
   android: true
@@ -74,7 +95,6 @@ flutter_native_splash:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

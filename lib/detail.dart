@@ -170,35 +170,35 @@ class _DetailState extends State<Detail> {
                           ],
                         ),
                         SizedBox(height: 15),
-                        Container(
-                          height: 50,
-                          width: screenwidth,
-                          decoration: BoxDecoration(
-                            //color: Colors.grey,
-                            borderRadius: BorderRadius.circular(7),
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: ListView.separated(
-                            physics: BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => Container(
-                              width: screenwidth / 11,
-                              decoration: BoxDecoration(
-                                //color: Colors.amber,
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.contain,
-                                  image: AssetImage(
-                                    "assets/images/logo.png",
-                                  ),
-                                ),
-                              ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                                SizedBox(width: screenwidth / 75),
-                            itemCount: 15,
-                          ),
-                        ),
+                        // Container(
+                        //   height: 50,
+                        //   width: screenwidth,
+                        //   decoration: BoxDecoration(
+                        //     //color: Colors.grey,
+                        //     borderRadius: BorderRadius.circular(7),
+                        //     border: Border.all(color: Colors.grey),
+                        //   ),
+                        //   child: ListView.separated(
+                        //     physics: BouncingScrollPhysics(),
+                        //     scrollDirection: Axis.horizontal,
+                        //     itemBuilder: (context, index) => Container(
+                        //       width: screenwidth / 11,
+                        //       decoration: BoxDecoration(
+                        //         //color: Colors.amber,
+                        //         shape: BoxShape.circle,
+                        //         image: DecorationImage(
+                        //           fit: BoxFit.contain,
+                        //           image: AssetImage(
+                        //             "assets/images/logo.png",
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     separatorBuilder: (context, index) =>
+                        //         SizedBox(width: screenwidth / 75),
+                        //     itemCount: 15,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

@@ -1,9 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty, library_prefixes, use_build_context_synchronously, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, unused_local_variable, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, sized_box_for_whitespace, unused_element, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty, library_prefixes, use_build_context_synchronously, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings, sort_child_properties_last
 
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
-import 'package:confetti/confetti.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +27,7 @@ import 'package:armoyu/toplanti.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter/foundation.dart' as Foundation;
+import 'package:animations/animations.dart';
 
 void main() async {
   await dotenv.load(fileName: "assets/.env");
@@ -103,7 +103,7 @@ String baslik = "";
 var postID;
 var postsildengiden;
 
-late ConfettiController _confettiController;
+// late ConfettiController _confettiController;
 
 var qrlink =
     "https://aramizdakioyuncu.com/botlar/$botId1/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
@@ -175,7 +175,7 @@ class MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     grupcek();
-    _confettiController = ConfettiController(duration: Duration(seconds: 1));
+    // _confettiController = ConfettiController(duration: Duration(seconds: 1));
   }
 
   girisKontrol(BuildContext context) async {
@@ -243,7 +243,9 @@ class MyHomePageState extends State<MyHomePage> {
             builder: (context) => MyHomePage(),
           ),
         );
+
         qrsite();
+
         InAppNotification.show(
           child: Padding(
             padding: EdgeInsets.all(8.0),
@@ -986,21 +988,45 @@ class MyHomePageState extends State<MyHomePage> {
         //     builder: (BuildContext context) => bodyPageDegis(),
         //   ),
         // ),
+        // floatingActionButton: mevcutpage == "anasayfa"
+        //     ? FloatingActionButton(
+        //         backgroundColor: Colors.red,
+        //         child: Icon(
+        //           Icons.add,
+        //         ),
+        //         onPressed: () {
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(
+        //               builder: (context) => Post(
+        //                 veri1: girisdata["presim"],
+        //                 veri2: girisdata["adim"],
+        //               ),
+        //             ),
+        //           );
+        //         },
+        //       )
+        //     : null,
         floatingActionButton: mevcutpage == "anasayfa"
-            ? FloatingActionButton(
-                backgroundColor: Colors.red,
-                child: Icon(
-                  Icons.add,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Post(
-                        veri1: girisdata["presim"],
-                        veri2: girisdata["adim"],
-                      ),
+            ? OpenContainer(
+                openColor: Colors.transparent,
+                closedColor: Colors.transparent,
+                openElevation: 0,
+                closedElevation: 0,
+                closedBuilder: (context, openWidget) {
+                  return FloatingActionButton(
+                    backgroundColor: Colors.red,
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.black,
                     ),
+                    onPressed: openWidget,
+                  );
+                },
+                openBuilder: (context, closeWidget) {
+                  return Post(
+                    veri1: girisdata["presim"],
+                    veri2: girisdata["adim"],
                   );
                 },
               )

@@ -93,7 +93,7 @@ class _PostState extends State<Post> {
                     maxLines: 10,
                     maxLength: maxLength,
                     maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                    autofocus: true,
+                    autofocus: false,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
                         RegExp(
