@@ -1,8 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:jsonekleme/login.dart';
-import 'package:jsonekleme/main.dart';
+import 'package:armoyu/login.dart';
+import 'package:armoyu/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 

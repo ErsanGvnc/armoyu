@@ -4,8 +4,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:jsonekleme/anadetail.dart';
-import 'package:jsonekleme/main.dart';
+import 'package:armoyu/anadetail.dart';
+import 'package:armoyu/main.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 

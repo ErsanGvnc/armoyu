@@ -1,4 +1,4 @@
-package com.example.jsonekleme
+package com.example.armoyu
 
 import io.flutter.embedding.android.FlutterActivity
 

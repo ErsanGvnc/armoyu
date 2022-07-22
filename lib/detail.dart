@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, avoid_print, unused_local_variable, unused_import, must_be_immutable, sized_box_for_whitespace, unused_element, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
-import 'package:jsonekleme/main.dart';
-import 'package:jsonekleme/site.dart';
+import 'package:armoyu/main.dart';
+import 'package:armoyu/site.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 

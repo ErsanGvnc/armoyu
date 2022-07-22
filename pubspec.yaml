@@ -1,4 +1,4 @@
-name: jsonekleme
+name: armoyu
 description: ARMOYU.
 
 # The following line prevents the package from being accidentally published to
@@ -48,6 +48,8 @@ dependencies:
   flutter_native_splash: ^2.2.3+1
   firebase_core: ^1.18.0
   firebase_messaging: ^11.4.2
+  # better_player: ^0.0.83
+  flutter_dotenv: ^5.0.2
 
 
 
@@ -95,7 +97,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-  #   - images/a_dot_ham.jpeg
+    - assets/.env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

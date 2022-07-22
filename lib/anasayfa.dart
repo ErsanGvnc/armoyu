@@ -2,14 +2,15 @@
 
 import 'dart:convert';
 import 'dart:math';
+// import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:jsonekleme/anadetail.dart';
-import 'package:jsonekleme/detail.dart';
-import 'package:jsonekleme/fotoicerik.dart';
-import 'package:jsonekleme/login.dart';
-import 'package:jsonekleme/main.dart';
-import 'package:jsonekleme/sabit.dart';
+import 'package:armoyu/anadetail.dart';
+import 'package:armoyu/detail.dart';
+import 'package:armoyu/fotoicerik.dart';
+import 'package:armoyu/login.dart';
+import 'package:armoyu/main.dart';
+import 'package:armoyu/sabit.dart';
 import 'package:share_plus/share_plus.dart';
 
 class AnaSayfa extends StatefulWidget {
@@ -36,11 +37,218 @@ class AnaSayfaState extends State<AnaSayfa> {
     setState(() {});
   }
 
+  // normal fotografların çekildigi yer.
+
+  // gonderifotocek() {
+  //   var screenwidth = MediaQuery.of(context).size.width;
+  //   var screenheight = MediaQuery.of(context).size.height;
+  //   if (gonderifotolar.length == 1) {
+  //     return Row(
+  //       children: [
+  //         Flexible(
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(10),
+  //             child: Image.network(
+  //               gonderifotolar[0]["fotoufakurl"],
+  //               fit: BoxFit.cover,
+  //               filterQuality: FilterQuality.high,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     );
+  //   } else if (gonderifotolar.length == 2) {
+  //     return Row(
+  //       children: [
+  //         Flexible(
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(10),
+  //             child: Image.network(
+  //               gonderifotolar[0]["fotoufakurl"],
+  //               fit: BoxFit.cover,
+  //               filterQuality: FilterQuality.high,
+  //             ),
+  //           ),
+  //         ),
+  //         SizedBox(width: screenwidth / 35),
+  //         Flexible(
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(10),
+  //             child: Image.network(
+  //               gonderifotolar[1]["fotoufakurl"],
+  //               fit: BoxFit.cover,
+  //               filterQuality: FilterQuality.high,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     );
+  //   } else if (gonderifotolar.length > 2) {
+  //     return Row(
+  //       children: [
+  //         Flexible(
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(10),
+  //             child: Image.network(
+  //               gonderifotolar[0]["fotoufakurl"],
+  //               fit: BoxFit.cover,
+  //               filterQuality: FilterQuality.high,
+  //             ),
+  //           ),
+  //         ),
+  //         SizedBox(width: screenwidth / 35),
+  //         Flexible(
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(10),
+  //             child: Stack(
+  //               alignment: Alignment.center,
+  //               children: [
+  //                 ColorFiltered(
+  //                   colorFilter: ColorFilter.srgbToLinearGamma(),
+  //                   child: Image.network(
+  //                     gonderifotolar[1]["fotoufakurl"],
+  //                     fit: BoxFit.cover,
+  //                     filterQuality: FilterQuality.high,
+  //                   ),
+  //                 ),
+  //                 Text(
+  //                   "+ ${gonderifotolar.length - 1}",
+  //                   style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontSize: 20,
+  //                     fontWeight: FontWeight.bold,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     );
+  //   }
+  // }
+
+  // videolu fotografların çekildigi yer.
+
   gonderifotocek() {
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
 
-    if (gonderifotolar.length == 1) {
+    // anasayfa video kısmı.
+
+    if (gonderifotolar.length == 1 &&
+        gonderifotolar[0]["paylasimkategori"] == "video/x-matroska") {
+      return Text("-- Video --");
+      // return Row(
+      //   children: [
+      //     Flexible(
+      //       child: ClipRRect(
+      //         borderRadius: BorderRadius.circular(10),
+      //         child: BetterPlayer.network(
+      //           gonderifotolar[0]["fotoufakurl"],
+      //           betterPlayerConfiguration: BetterPlayerConfiguration(
+      //             aspectRatio: 19 / 9,
+      //             fit: BoxFit.contain,
+      //           ),
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // );
+    }
+
+    // jpeg ve png kontrolu ayrı if'ler ile yapılacak yoksa hata veriyor.
+    // gonderifotolar[0]["paylasimkategori"] == "image/jpeg"
+    // gonderifotolar[0]["paylasimkategori"] == "image/png"
+
+    if (gonderifotolar.length == 1 &&
+        gonderifotolar[0]["paylasimkategori"] == "image/jpeg") {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length == 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                gonderifotolar[1]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length > 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ColorFiltered(
+                    colorFilter: ColorFilter.srgbToLinearGamma(),
+                    child: Image.network(
+                      gonderifotolar[1]["fotoufakurl"],
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                    ),
+                  ),
+                  Text(
+                    "+ ${gonderifotolar.length - 1}",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    if (gonderifotolar.length == 1 &&
+        gonderifotolar[0]["paylasimkategori"] == "image/png") {
       return Row(
         children: [
           Flexible(
@@ -138,7 +346,7 @@ class AnaSayfaState extends State<AnaSayfa> {
     postsil() {
       http.post(
         Uri.parse(
-          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/",
+          "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/",
         ),
         body: {
           "postID": postID,
@@ -150,9 +358,10 @@ class AnaSayfaState extends State<AnaSayfa> {
           postsildengiden = cevap.body;
         });
       });
+
       // print("post");
       // print(
-      //     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/");
+      //     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/");
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,7 +371,7 @@ class AnaSayfaState extends State<AnaSayfa> {
       // setstate içinde gondericek(); fonksiyonu çağrılıyor.
       http.post(
         Uri.parse(
-          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/",
+          "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/",
         ),
         body: {
           "postID": postID,
@@ -176,7 +385,7 @@ class AnaSayfaState extends State<AnaSayfa> {
       });
       print("post");
       // print(
-      //     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
+      //     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
     }
 
     // final items = List<int>.generate(10, (i) => i);
@@ -217,6 +426,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                             veri10: dataanasayfa[index]["postID"],
                             veri11: dataanasayfa[index]["sahipID"],
                             veri12: dataanasayfa[index]["paylasimnereden"],
+
                             // veri12: dataanasayfa[index]["paylasimfoto"][0]
                             //     ["fotoufakurl"],
 
@@ -228,10 +438,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                       );
 
                       setState(() {
-                        yorumid = dataanasayfa[index]["postID"];
+                        detayid = dataanasayfa[index]["postID"];
                         // print(detaylink);
                         detaylink =
-                            "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$yorumid/&postislem=yorumlarim";
+                            "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
                       });
                     },
                     child: Container(
@@ -361,6 +571,8 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                                         index]
                                                                     ["postID"];
                                                             postsil();
+                                                            gondericek();
+
                                                             Navigator.pop(
                                                                 context);
                                                           },
@@ -566,11 +778,11 @@ class AnaSayfaState extends State<AnaSayfa> {
                                           );
 
                                           setState(() {
-                                            yorumid =
+                                            detayid =
                                                 dataanasayfa[index]["postID"];
                                             // print(detaylink);
                                             detaylink =
-                                                "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$yorumid/&postislem=yorumlarim";
+                                                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
                                           });
                                         },
                                         child: Padding(

@@ -9,26 +9,28 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:in_app_notification/in_app_notification.dart';
-import 'package:jsonekleme/detail.dart';
-import 'package:jsonekleme/etkinlik.dart';
-import 'package:jsonekleme/grup.dart';
-import 'package:jsonekleme/login.dart';
-import 'package:jsonekleme/post.dart';
-import 'package:jsonekleme/register.dart';
-import 'package:jsonekleme/resiminceleme.dart';
-import 'package:jsonekleme/sabit.dart';
-import 'package:jsonekleme/skelaton.dart';
-import 'package:jsonekleme/splash.dart';
-import 'package:jsonekleme/anasayfa.dart';
-import 'package:jsonekleme/news.dart';
-import 'package:jsonekleme/toplanti.dart';
+import 'package:armoyu/detail.dart';
+import 'package:armoyu/etkinlik.dart';
+import 'package:armoyu/grup.dart';
+import 'package:armoyu/login.dart';
+import 'package:armoyu/post.dart';
+import 'package:armoyu/register.dart';
+import 'package:armoyu/resiminceleme.dart';
+import 'package:armoyu/sabit.dart';
+import 'package:armoyu/skelaton.dart';
+import 'package:armoyu/splash.dart';
+import 'package:armoyu/anasayfa.dart';
+import 'package:armoyu/news.dart';
+import 'package:armoyu/toplanti.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter/foundation.dart' as Foundation;
 
 void main() async {
+  await dotenv.load(fileName: "assets/.env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -41,15 +43,15 @@ void main() async {
     criticalAlert: true,
     provisional: true,
   );
-  print(settings.authorizationStatus);
+  // print(settings.authorizationStatus);
 
   runApp(MyApp());
 
-  if (Foundation.kReleaseMode) {
-    print('App release mode.');
-  } else {
-    print('App debug mode.');
-  }
+  // if (Foundation.kReleaseMode) {
+  //   print('App release mode.');
+  // } else {
+  //   print('App debug mode.');
+  // }
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -72,11 +74,14 @@ void main() async {
   }
 }
 
+var botId1 = dotenv.env['botId1'];
+var botId2 = dotenv.env['botId2'];
+
 var girisdata;
 var datahaber;
 var datagrup;
 var grupid;
-var yorumid;
+var detayid;
 
 List gruplarim = [];
 List dataanasayfa = [];
@@ -101,25 +106,25 @@ var postsildengiden;
 late ConfettiController _confettiController;
 
 var qrlink =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
+    "https://aramizdakioyuncu.com/botlar/$botId1/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
 var gonderiurl =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/";
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/";
 var haberurl =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/haberler/0/0/";
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/haberler/0/0/";
 var oturumkontrolurl =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
 var grupurl =
-    "https://aramizdakioyuncu.com/botlar/c99e178d83cdfea3c167bc1d15f9b47ff8f80145/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/gruplarim/0/0/";
+    "https://aramizdakioyuncu.com/botlar/$botId2/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/gruplarim/0/0/";
 var grupdetail =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
 var detaylink =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$yorumid/";
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/";
 var etkinlikler =
-    "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/etkinlikler/0/0/";
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/etkinlikler/0/0/";
 
 // burası gonderi beğeniyi siteye yollama yeri post idsini linke çekemedik(${AnaSayfa.gonderibegeniyollanan})
 // var gonderibegeni =
-//     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/${AnaSayfa.gonderibegeniyollanan}/begen/";
+//     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/${AnaSayfa.gonderibegeniyollanan}/begen/";
 
 Widget bodyPageDegis() {
   switch (mevcutpage) {
@@ -175,7 +180,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   girisKontrol(BuildContext context) async {
     var giris =
-        "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
+        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
     var sharedPreferences = await SharedPreferences.getInstance();
 
     gkontrolAd = sharedPreferences.getString("ad");
@@ -229,7 +234,7 @@ class MyHomePageState extends State<MyHomePage> {
         setState(() {
           gelenID = value;
           qrlink =
-              "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
+              "https://aramizdakioyuncu.com/botlar/$botId1/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
         });
 
         Navigator.pushReplacement(
@@ -744,7 +749,7 @@ class MyHomePageState extends State<MyHomePage> {
                                         setState(() {
                                           grupid = gruplarim[index]["grupID"];
                                           grupdetail =
-                                              "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                              "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
 
                                           // print(grupdetail);
                                         });
@@ -777,7 +782,7 @@ class MyHomePageState extends State<MyHomePage> {
                                         // setState(() {
                                         //   grupid = gruplarim[index]["grupID"];
                                         //   grupdetail =
-                                        //       "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                        //       "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
                                         //   print(grupdetail);
                                         //   mevcutpage = "grup";
                                         // });

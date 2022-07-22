@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(jsonekleme LANGUAGES CXX)
+project(armoyu LANGUAGES CXX)
 
-set(BINARY_NAME "jsonekleme")
+set(BINARY_NAME "armoyu")
 
 cmake_policy(SET CMP0063 NEW)
 

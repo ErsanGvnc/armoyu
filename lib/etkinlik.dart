@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, avoid_print, unused_local_variable, use_key_in_widget_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:jsonekleme/etkinlikdetay.dart';
+import 'package:armoyu/etkinlikdetay.dart';
 
 class Etkinlik extends StatefulWidget {
   @override

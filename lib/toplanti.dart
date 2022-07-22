@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:jsonekleme/login.dart';
-import 'package:jsonekleme/main.dart';
+import 'package:armoyu/login.dart';
+import 'package:armoyu/main.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,7 +30,7 @@ class _ToplantiState extends State<Toplanti> {
   toplantigonder() {
     http.post(
       Uri.parse(
-        "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
+        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
       ),
       // Uri.parse(
       //   "https://jsonplaceholder.typicode.com/posts",

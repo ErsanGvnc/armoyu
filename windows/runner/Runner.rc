@@ -92,10 +92,10 @@ BEGIN
             VALUE "CompanyName", "com.example" "\0"
             VALUE "FileDescription", "A new Flutter project." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "jsonekleme" "\0"
+            VALUE "InternalName", "armoyu" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "jsonekleme.exe" "\0"
-            VALUE "ProductName", "jsonekleme" "\0"
+            VALUE "OriginalFilename", "armoyu.exe" "\0"
+            VALUE "ProductName", "armoyu" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
