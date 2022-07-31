@@ -1,16 +1,15 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, avoid_print, unused_import, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, curly_braces_in_flow_control_structures, prefer_if_null_operators, prefer_typing_uninitialized_variables, unrelated_type_equality_checks, prefer_interpolation_to_compose_strings
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, avoid_print, unused_import, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, curly_braces_in_flow_control_structures, prefer_if_null_operators, prefer_typing_uninitialized_variables, unrelated_type_equality_checks, prefer_interpolation_to_compose_strings, unnecessary_new, unused_element
 
 import 'dart:convert';
 import 'dart:math';
 // import 'package:better_player/better_player.dart';
+import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:armoyu/anadetail.dart';
 import 'package:armoyu/detail.dart';
-import 'package:armoyu/fotoicerik.dart';
 import 'package:armoyu/login.dart';
 import 'package:armoyu/main.dart';
-import 'package:armoyu/sabit.dart';
 import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -371,7 +370,7 @@ class AnaSayfaState extends State<AnaSayfa> {
     postlike() {
       http.post(
         Uri.parse(
-          "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/deneme/deneme/sosyal/begen/0/0/",
+          "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/",
         ),
         body: {
           "postID": postID,
@@ -387,7 +386,7 @@ class AnaSayfaState extends State<AnaSayfa> {
       print("post");
       print("asdsadas: " + postID.toString());
       // print(
-      //     "https://aramizdakioyuncu.com/botlar/8cdee5526476b101869401a37c03e379/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
+      //     "https://aramizdakioyuncu.com/botlar/botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
     }
 
     Future<bool> onLikeButtonTapped(bool isLike, int index) async {
@@ -420,6 +419,26 @@ class AnaSayfaState extends State<AnaSayfa> {
 
       return isLike;
     }
+
+    postbildir() async {
+      var bildirildimi;
+      http.post(
+        Uri.parse(postbildirlink),
+        body: {
+          "postID": postID,
+        },
+      ).then((cevap) {
+        setState(() {
+          try {
+            bildirildimi = jsonDecode(cevap.body);
+          } catch (e) {
+            print('Unknown exception: $e');
+          }
+          print(bildirildimi.toString());
+        });
+      });
+    }
+
     // final items = List<int>.generate(10, (i) => i);
 
     return RefreshIndicator(
@@ -459,8 +478,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                               veri10: dataanasayfa[index]["postID"],
                               veri11: dataanasayfa[index]["sahipID"],
                               veri12: dataanasayfa[index]["paylasimnereden"],
-                              veri13: dataanasayfa[index]["benyorumladim"]
-                                  .toString(),
+                              veri13: dataanasayfa[index]["benyorumladim"],
 
                               // veri12: dataanasayfa[index]["paylasimfoto"][0]
                               //     ["fotoufakurl"],
@@ -472,6 +490,8 @@ class AnaSayfaState extends State<AnaSayfa> {
                           ),
                         ),
                       );
+
+                      // sayfaya geri gelince sayfayı yenileme.
 
                       setState(() {
                         detayid = dataanasayfa[index]["postID"];
@@ -611,6 +631,13 @@ class AnaSayfaState extends State<AnaSayfa> {
 
                                                             Navigator.pop(
                                                                 context);
+                                                            Future.delayed(
+                                                                Duration(
+                                                                  milliseconds:
+                                                                      100,
+                                                                ), () {
+                                                              _refresh();
+                                                            });
                                                           },
                                                           child: ListTile(
                                                             leading: Icon(Icons
@@ -623,6 +650,9 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                       Divider(),
                                                       InkWell(
                                                         onTap: () {
+                                                          postID = dataanasayfa[
+                                                              index]["postID"];
+                                                          postbildir();
                                                           Navigator.pop(
                                                               context);
                                                         },
@@ -669,8 +699,17 @@ class AnaSayfaState extends State<AnaSayfa> {
                                   ],
                                 ),
                                 SizedBox(height: screenheight / 90),
-                                Text(
-                                  dataanasayfa[index]["sosyalicerik"],
+                                DetectableText(
+                                  detectionRegExp: RegExp(r"@(\w+)|#(\w+)"),
+                                  text: dataanasayfa[index]["sosyalicerik"],
+                                  basicStyle: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                  detectedStyle: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.blue,
+                                  ),
                                 ),
                                 SizedBox(height: screenheight / 50),
                                 Visibility(
@@ -794,8 +833,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                 veri12: dataanasayfa[index]
                                                     ["paylasimnereden"],
                                                 veri13: dataanasayfa[index]
-                                                        ["benyorumladim"]
-                                                    .toString(),
+                                                    ["benyorumladim"],
 
                                                 // veri12: dataanasayfa[index]["paylasimfoto"][0]
                                                 //     ["fotoufakurl"],

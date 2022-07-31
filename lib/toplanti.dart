@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_unnecessary_containers, must_be_immutable, use_key_in_widget_constructors, unnecessary_null_comparison, avoid_print, prefer_typing_uninitialized_variables, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, valid_regexps
+// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_unnecessary_containers, must_be_immutable, use_key_in_widget_constructors, unnecessary_null_comparison, avoid_print, prefer_typing_uninitialized_variables, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, valid_regexps, prefer_interpolation_to_compose_strings
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -20,23 +21,44 @@ class Toplanti extends StatefulWidget {
 }
 
 class _ToplantiState extends State<Toplanti> {
+  @override
+  void initState() {
+    super.initState();
+    toplanticek();
+  }
+
   final toplanti = TextEditingController();
+  var toplantiid;
+  var toplantitarih = "";
+  var toplantiadi = "";
   var setstatedegiden;
   var maxLength = 250;
   var textLength = 0;
 
   var now = DateTime.now();
 
+  toplanticek() async {
+    var gelen = await http.get(
+      Uri.parse(toplantilink),
+    );
+
+    try {
+      toplantilar = jsonDecode(gelen.body);
+    } catch (e) {
+      print(e);
+    }
+    print("toplantilar");
+    print(toplantilar);
+    setState(() {});
+  }
+
   toplantigonder() {
     http.post(
       Uri.parse(
-        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
+        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/toplantilar/$toplantiid/0/",
       ),
-      // Uri.parse(
-      //   "https://jsonplaceholder.typicode.com/posts",
-      // ),
       body: {
-        "sosyalicerik": toplanti.text,
+        "icerik": toplanti.text,
       },
     ).then((cevap) {
       print(cevap.statusCode);
@@ -52,12 +74,57 @@ class _ToplantiState extends State<Toplanti> {
   Widget build(BuildContext context) {
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
+
     return ThemeConsumer(
       child: Scaffold(
-        appBar: AppBar(),
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(toplantiadi.toString()),
+              SizedBox(width: 15),
+              Text(
+                toplantitarih.toString(),
+                style: TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                print(toplantiid);
+                print(toplantitarih);
+                print(toplantiadi);
+
+                toplantiid = "";
+                toplantitarih = "";
+                toplantiadi = "";
+
+                print("temizlendi");
+
+                setState(() {});
+
+                print(toplantiid);
+                print(toplantitarih);
+                print(toplantiadi);
+              },
+              icon: Icon(Icons.close),
+            ),
+            IconButton(
+              onPressed: () {
+                toplanticek();
+                print("yenilendi");
+                setState(() {});
+              },
+              icon: Icon(Icons.refresh),
+            ),
+          ],
+        ),
         body: Container(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
             child: Column(
               children: [
                 Row(
@@ -65,13 +132,13 @@ class _ToplantiState extends State<Toplanti> {
                     CircleAvatar(
                       radius: screenwidth / 12,
                       backgroundImage: NetworkImage(
-                        widget.veri1,
+                        girisdata["presimufak"],
                       ),
                       backgroundColor: Colors.transparent,
                     ),
                     SizedBox(width: 15),
                     Text(
-                      widget.veri2.toString(),
+                      girisdata["adim"],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -93,7 +160,6 @@ class _ToplantiState extends State<Toplanti> {
                     maxLines: 10,
                     maxLength: maxLength,
                     maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                    autofocus: true,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
                         RegExp(
@@ -126,23 +192,37 @@ class _ToplantiState extends State<Toplanti> {
                     padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                     child: InkWell(
                       onTap: () {
-                        if (toplanti.text.isNotEmpty) {
-                          print("Gönderildi !");
-                          toplantigonder();
-                          toplanti.clear();
+                        if (toplanti.text.isNotEmpty &&
+                            toplantiid.toString().isNotEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text("Gönderildi ! " +
                                   "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
                             ),
                           );
-                        } else {
-                          print("Gönderi boş olamaz !");
+                          toplantigonder();
+                          toplanti.clear();
+                          toplantiid = "";
+                          toplantitarih = "";
+                          toplantiadi = "";
+
+                          print("Gönderildi !");
+                        } else if (toplanti.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text("Gönderi boş olamaz !"),
+                              content: Text("İçerik boş olamaz ! " +
+                                  "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
                             ),
                           );
+                          print("İçerik boş olamaz !");
+                        } else if (toplantiid.toString().isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Lütfen toplantı seçin ! " +
+                                  "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
+                            ),
+                          );
+                          print("Lütfen toplantı seçin !");
                         }
                       },
                       child: Container(
@@ -159,6 +239,45 @@ class _ToplantiState extends State<Toplanti> {
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Flexible(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: toplantilar.length,
+                        itemBuilder: ((context, index) {
+                          return ListTile(
+                            horizontalTitleGap: 5,
+                            contentPadding: EdgeInsets.only(left: 5),
+                            leading: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Image.asset(
+                                "assets/images/yenilogo.png",
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            title: Text(toplantilar[index]["toplantiadi"]),
+                            subtitle: Text(toplantilar[index]["toplantizaman"]),
+                            onTap: () {
+                              toplantiid = toplantilar[index]["toplantiID"];
+                              toplantitarih =
+                                  toplantilar[index]["toplantizaman"];
+                              toplantiadi = toplantilar[index]["toplantiadi"];
+                              print(toplantiid);
+                              setState(() {});
+                            },
+                          );
+                        }),
                       ),
                     ),
                   ),

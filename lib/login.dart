@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors, unused_local_variable, avoid_print, use_build_context_synchronously, unused_import
 
+import 'package:armoyu/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:armoyu/main.dart';
-import 'package:armoyu/register.dart';
 import 'package:armoyu/site.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -270,21 +270,22 @@ class LoginState extends State<Login> {
                     ),
                     InkWell(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => Register(),
-                        //   ),
-                        // );
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Site(
-                              verilink:
-                                  "https://aramizdakioyuncu.com/kayit-ol/",
-                            ),
+                            builder: (context) => Register(),
                           ),
                         );
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => Site(
+                        //       verilink:
+                        //           "https://aramizdakioyuncu.com/kayit-ol/",
+                        //     ),
+                        //   ),
+                        // );
 
                         // const snackBar = SnackBar(
                         //   content: Text('Yakında !'),

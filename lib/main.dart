@@ -3,6 +3,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:armoyu/cekilis.dart';
+import 'package:armoyu/myProfile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +18,7 @@ import 'package:armoyu/etkinlik.dart';
 import 'package:armoyu/grup.dart';
 import 'package:armoyu/login.dart';
 import 'package:armoyu/post.dart';
-import 'package:armoyu/register.dart';
 import 'package:armoyu/resiminceleme.dart';
-import 'package:armoyu/sabit.dart';
 import 'package:armoyu/skelaton.dart';
 import 'package:armoyu/splash.dart';
 import 'package:armoyu/anasayfa.dart';
@@ -46,12 +46,6 @@ void main() async {
   // print(settings.authorizationStatus);
 
   runApp(MyApp());
-
-  // if (Foundation.kReleaseMode) {
-  //   print('App release mode.');
-  // } else {
-  //   print('App debug mode.');
-  // }
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -82,11 +76,17 @@ var datahaber;
 var datagrup;
 var grupid;
 var detayid;
+var profiledata;
 
 List gruplarim = [];
 List dataanasayfa = [];
 List gonderifotolar = [];
 List detaylar = [];
+List toplantilar = [];
+List cekilisler = [];
+List postdata = [];
+List medyadata = [];
+List reactiondata = [];
 
 String mevcutpage = "anasayfa";
 String? gelenID;
@@ -121,10 +121,19 @@ var detaylink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/";
 var etkinlikler =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/etkinlikler/0/0/";
+var toplantilink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/toplantilar/0/0/";
+var cekilislink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/toplantilar/0/0/";
+var postlink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/profil/0/";
+var medyalink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/medya/0/0/";
+var postbildirlink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/bildirim/0/";
 
-// burası gonderi beğeniyi siteye yollama yeri post idsini linke çekemedik(${AnaSayfa.gonderibegeniyollanan})
-// var gonderibegeni =
-//     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/${AnaSayfa.gonderibegeniyollanan}/begen/";
+// var reactionlink =
+//     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/tepki/0/0/";
 
 Widget bodyPageDegis() {
   switch (mevcutpage) {
@@ -134,10 +143,6 @@ Widget bodyPageDegis() {
       return News();
     case "etkinlik":
       return Etkinlik();
-    // case "post":
-    //   return Post();
-    // case "grup":
-    //   return Grup();
     default:
       return AnaSayfa();
   }
@@ -423,38 +428,67 @@ class MyHomePageState extends State<MyHomePage> {
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
-                      DrawerHeader(
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(0, 0, 0, 1),
-                          image: DecorationImage(
-                            image: NetworkImage(girisdata["parkaresimufak"]),
-                            fit: BoxFit.cover,
-                            filterQuality: FilterQuality.high,
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ThemeConsumer(
+                                child: MyProfile(
+                                  veri1: girisdata["oyuncuID"],
+                                  // veri2: girisdata["parkaresimufak"],
+                                  // veri3: girisdata["presimufak"],
+                                  // veri4: girisdata["adim"],
+                                  // veri5: girisdata["hakkimda"],
+                                  // veri6: girisdata["ulkesi"],
+                                  // veri7: girisdata["kayittarihikisa"],
+                                  // veri8: girisdata["kullaniciadi"],
+                                  // veri9: 1,
+                                  // veri10: "asda",
+                                  // veri11: "asda",
+                                  // veri12: "asda",
+                                  // veri13: 2,
+                                ),
+                                // child: ProfileDeneme(),
+                              ),
+                            ),
+                          );
+                          print("Profile");
+                        },
+                        child: DrawerHeader(
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                            image: DecorationImage(
+                              image: NetworkImage(girisdata["parkaresimufak"]),
+                              fit: BoxFit.cover,
+                              filterQuality: FilterQuality.high,
+                            ),
                           ),
-                        ),
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Flexible(
-                                child: CircleAvatar(
-                                  radius: screenwidth / 8,
-                                  backgroundImage: NetworkImage(
-                                    girisdata["presimufak"],
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Flexible(
+                                  child: CircleAvatar(
+                                    radius: screenwidth / 8,
+                                    backgroundImage: NetworkImage(
+                                      girisdata["presimufak"],
+                                    ),
+                                    backgroundColor: Colors.transparent,
                                   ),
-                                  backgroundColor: Colors.transparent,
                                 ),
-                              ),
-                              SizedBox(
-                                height: screenheight / 50,
-                              ),
-                              Text(
-                                girisdata["adim"],
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  overflow: TextOverflow.ellipsis,
+                                SizedBox(
+                                  height: screenheight / 50,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  girisdata["adim"],
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -480,22 +514,24 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       // Toplantı
 
-                      // ListTile(
-                      //   leading: Icon(Icons.group),
-                      //   title: Text("Toplantı"),
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //         builder: (context) => Toplanti(
-                      //           veri1: girisdata["presim"],
-                      //           veri2: girisdata["adim"],
-                      //         ),
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
+                      ListTile(
+                        leading: Icon(Icons.group),
+                        title: Text("Toplantı"),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Toplanti(
+                                veri1: girisdata["presim"],
+                                veri2: girisdata["adim"],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+
+                      // // Etkinlik
 
                       // ListTile(
                       //   leading: Icon(Icons.event),
@@ -507,16 +543,28 @@ class MyHomePageState extends State<MyHomePage> {
                       //     Navigator.pop(context);
                       //   },
                       // ),
+
+                      // // Cekiliş
+
                       // ListTile(
                       //   leading: Icon(Icons.redeem),
                       //   title: Text("Çekiliş"),
                       //   onTap: () {
-                      //     setState(() {
-                      //       mevcutpage = "cekilis";
-                      //     });
                       //     Navigator.pop(context);
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => Cekilis(
+                      //           veri1: girisdata["presim"],
+                      //           veri2: girisdata["adim"],
+                      //         ),
+                      //       ),
+                      //     );
                       //   },
                       // ),
+
+                      // // Forum
+
                       // ListTile(
                       //   leading: Icon(Icons.forum),
                       //   title: Text("Forum"),
@@ -988,6 +1036,7 @@ class MyHomePageState extends State<MyHomePage> {
         //     builder: (BuildContext context) => bodyPageDegis(),
         //   ),
         // ),
+
         // floatingActionButton: mevcutpage == "anasayfa"
         //     ? FloatingActionButton(
         //         backgroundColor: Colors.red,
@@ -998,15 +1047,13 @@ class MyHomePageState extends State<MyHomePage> {
         //           Navigator.push(
         //             context,
         //             MaterialPageRoute(
-        //               builder: (context) => Post(
-        //                 veri1: girisdata["presim"],
-        //                 veri2: girisdata["adim"],
-        //               ),
+        //               builder: (context) => Post(),
         //             ),
         //           );
         //         },
         //       )
         //     : null,
+
         floatingActionButton: mevcutpage == "anasayfa"
             ? OpenContainer(
                 openColor: Colors.transparent,
@@ -1024,9 +1071,8 @@ class MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 openBuilder: (context, closeWidget) {
-                  return Post(
-                    veri1: girisdata["presim"],
-                    veri2: girisdata["adim"],
+                  return ThemeConsumer(
+                    child: Post(),
                   );
                 },
               )
