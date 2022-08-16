@@ -6,16 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:armoyu/main.dart';
 import 'package:armoyu/site.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:theme_provider/theme_provider.dart';
+import 'Controllers/controllers.dart';
+import 'Variables/variables.dart';
 
 class Login extends StatefulWidget {
   @override
   LoginState createState() => LoginState();
 }
-
-TextEditingController ad = TextEditingController();
-TextEditingController sifre = TextEditingController();
-
-bool beniHatirla = true;
 
 class LoginState extends State<Login> {
   @override
@@ -27,6 +25,8 @@ class LoginState extends State<Login> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(73, 144, 226, 1),
       body: InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Container(
           child: Padding(
@@ -36,7 +36,7 @@ class LoginState extends State<Login> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: screenheight / 10,
+                  height: screenheight / 12,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +73,7 @@ class LoginState extends State<Login> {
                     hintText: "Kullanıcı adı",
                   ),
                 ),
-                SizedBox(height: screenheight / 20),
+                SizedBox(height: screenheight / 30),
                 Text("Şifre"),
                 SizedBox(height: screenheight / 80),
                 TextField(
@@ -263,7 +263,9 @@ class LoginState extends State<Login> {
                   children: [
                     Text(
                       "Hesabın yok mu ?",
-                      style: TextStyle(),
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
                     SizedBox(
                       width: screenwidth / 40,
@@ -276,31 +278,89 @@ class LoginState extends State<Login> {
                             builder: (context) => Register(),
                           ),
                         );
-
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => Site(
-                        //       verilink:
-                        //           "https://aramizdakioyuncu.com/kayit-ol/",
-                        //     ),
-                        //   ),
-                        // );
-
-                        // const snackBar = SnackBar(
-                        //   content: Text('Yakında !'),
-                        // );
-
-                        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Text(
                         "Kayıt Ol",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
                       ),
                     )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Devam ederek ",
+                          style: TextStyle(),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ThemeConsumer(
+                                  child: Site(
+                                    verilink:
+                                        "https://aramizdakioyuncu.com/gizlilik-politikasi",
+                                    veribaslik: "Gizlilik Politikası",
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Gizlilik Politikamızı ",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Text("ve"),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ThemeConsumer(
+                                  child: Site(
+                                    verilink:
+                                        "https://aramizdakioyuncu.com/gizlilik-politikasi",
+                                    veribaslik:
+                                        "Hizmet Şartlarımızı/Kullanıcı Politikamızı",
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Hizmet Şartlarımızı/Kullanıcı Politikamızı ",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "kabul etmiş olursunuz.",
+                      style: TextStyle(),
+                    ),
                   ],
                 ),
               ],

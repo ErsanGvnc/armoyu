@@ -1,18 +1,22 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, avoid_print, unused_import, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, curly_braces_in_flow_control_structures, prefer_if_null_operators, prefer_typing_uninitialized_variables, unrelated_type_equality_checks, prefer_interpolation_to_compose_strings, unnecessary_new, unused_element
+// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, avoid_print, unnecessary_null_comparison, curly_braces_in_flow_control_structures, non_constant_identifier_names, use_function_type_syntax_for_parameters, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings, prefer_const_constructors
 
 import 'dart:convert';
-import 'dart:math';
-// import 'package:better_player/better_player.dart';
+import 'package:armoyu/Utilities/utilities.dart';
+import 'package:armoyu/profile.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:detectable_text_field/detectable_text_field.dart';
+import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:armoyu/anadetail.dart';
-import 'package:armoyu/detail.dart';
-import 'package:armoyu/login.dart';
 import 'package:armoyu/main.dart';
 import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:armoyu/Utilities/links.dart';
+import 'Controllers/controllers.dart';
+import 'Variables/variables.dart';
 
 class AnaSayfa extends StatefulWidget {
   @override
@@ -23,111 +27,76 @@ class AnaSayfaState extends State<AnaSayfa> {
   @override
   void initState() {
     super.initState();
-    gondericek();
+    gondericek(0);
+    popcek();
+    xpcek();
+    kullanicicek();
+
+    anaSayfaScrollController.addListener(() {
+      if (anaSayfaScrollController.position.pixels ==
+              anaSayfaScrollController.position.maxScrollExtent &&
+          anaSayfaScrollController.position.pixels > 0) {
+        gondericek(dataanasayfa.length);
+      }
+    });
   }
 
-  gondericek() async {
-    var gelen = await http.get(
-      Uri.parse(gonderiurl),
-    );
-    try {
-      dataanasayfa = jsonDecode(gelen.body);
-    } catch (e) {
-      print(e);
+  @override
+  void dispose() {
+    anaSayfaScrollController.dispose();
+    super.dispose();
+  }
+
+  gondericek(int startPage) async {
+    final url = Uri.parse(
+        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/$startPage/0/");
+
+    // print(url);
+
+    final gelen = await http.get(url);
+
+    if (gelen.statusCode == 200) {
+      final List newItems = jsonDecode(gelen.body);
+
+      setState(() {
+        dataanasayfa.addAll(newItems);
+      });
     }
-    setState(() {});
   }
 
-  // normal fotografların çekildigi yer.
+  popcek() async {
+    final url = Uri.parse(poplink);
 
-  // gonderifotocek() {
-  //   var screenwidth = MediaQuery.of(context).size.width;
-  //   var screenheight = MediaQuery.of(context).size.height;
-  //   if (gonderifotolar.length == 1) {
-  //     return Row(
-  //       children: [
-  //         Flexible(
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.circular(10),
-  //             child: Image.network(
-  //               gonderifotolar[0]["fotoufakurl"],
-  //               fit: BoxFit.cover,
-  //               filterQuality: FilterQuality.high,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     );
-  //   } else if (gonderifotolar.length == 2) {
-  //     return Row(
-  //       children: [
-  //         Flexible(
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.circular(10),
-  //             child: Image.network(
-  //               gonderifotolar[0]["fotoufakurl"],
-  //               fit: BoxFit.cover,
-  //               filterQuality: FilterQuality.high,
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(width: screenwidth / 35),
-  //         Flexible(
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.circular(10),
-  //             child: Image.network(
-  //               gonderifotolar[1]["fotoufakurl"],
-  //               fit: BoxFit.cover,
-  //               filterQuality: FilterQuality.high,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     );
-  //   } else if (gonderifotolar.length > 2) {
-  //     return Row(
-  //       children: [
-  //         Flexible(
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.circular(10),
-  //             child: Image.network(
-  //               gonderifotolar[0]["fotoufakurl"],
-  //               fit: BoxFit.cover,
-  //               filterQuality: FilterQuality.high,
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(width: screenwidth / 35),
-  //         Flexible(
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.circular(10),
-  //             child: Stack(
-  //               alignment: Alignment.center,
-  //               children: [
-  //                 ColorFiltered(
-  //                   colorFilter: ColorFilter.srgbToLinearGamma(),
-  //                   child: Image.network(
-  //                     gonderifotolar[1]["fotoufakurl"],
-  //                     fit: BoxFit.cover,
-  //                     filterQuality: FilterQuality.high,
-  //                   ),
-  //                 ),
-  //                 Text(
-  //                   "+ ${gonderifotolar.length - 1}",
-  //                   style: TextStyle(
-  //                     color: Colors.white,
-  //                     fontSize: 20,
-  //                     fontWeight: FontWeight.bold,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     );
-  //   }
-  // }
+    final gelen = await http.get(url);
+
+    if (gelen.statusCode == 200) {
+      popsiralama = jsonDecode(gelen.body);
+      setState(() {});
+    }
+  }
+
+  xpcek() async {
+    final url = Uri.parse(xplink);
+
+    final gelen = await http.get(url);
+
+    if (gelen.statusCode == 200) {
+      xpsiralama = jsonDecode(gelen.body);
+      setState(() {});
+    }
+  }
+
+  kullanicicek() async {
+    final url = Uri.parse(kullanicilink);
+
+    final gelen = await http.get(url);
+
+    if (gelen.statusCode == 200) {
+      setState(() {
+        kullanicilar = jsonDecode(gelen.body);
+      });
+    }
+  }
 
   // videolu fotografların çekildigi yer.
 
@@ -138,23 +107,52 @@ class AnaSayfaState extends State<AnaSayfa> {
     // anasayfa video kısmı.
 
     if (gonderifotolar.length == 1 &&
-        gonderifotolar[0]["paylasimkategori"] == "video/x-matroska") {
-      return Text("-- Video --");
-      // return Row(
-      //   children: [
-      //     Flexible(
-      //       child: ClipRRect(
-      //         borderRadius: BorderRadius.circular(10),
-      //         child: BetterPlayer.network(
-      //           gonderifotolar[0]["fotoufakurl"],
-      //           betterPlayerConfiguration: BetterPlayerConfiguration(
-      //             aspectRatio: 19 / 9,
-      //             fit: BoxFit.contain,
+        gonderifotolar[0]["paylasimkategori"] == "video/mp4") {
+      return const Text("-- Video --");
+
+      // return Padding(
+      //   padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+      //   child: Row(
+      //     children: [
+      //       Flexible(
+      //         child: ClipRRect(
+      //           borderRadius: BorderRadius.circular(10),
+      //           child: BetterPlayer.network(
+      //             gonderifotolar[0]["fotoufakurl"],
+      //             betterPlayerConfiguration: BetterPlayerConfiguration(
+      //               aspectRatio: 19 / 9,
+      //               fit: BoxFit.cover,
+      //             ),
       //           ),
       //         ),
       //       ),
-      //     ),
-      //   ],
+      //     ],
+      //   ),
+      // );
+    }
+
+    if (gonderifotolar.length == 1 &&
+        gonderifotolar[0]["paylasimkategori"] == "video/x-matroska") {
+      // return const Text("-- Video --");
+
+      // return Padding(
+      //   padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+      //   child: Row(
+      //     children: [
+      //       Flexible(
+      //         child: ClipRRect(
+      //           borderRadius: BorderRadius.circular(10),
+      //           child: BetterPlayer.network(
+      //             gonderifotolar[0]["fotoufakurl"],
+      //             betterPlayerConfiguration: BetterPlayerConfiguration(
+      //               aspectRatio: 19 / 9,
+      //               fit: BoxFit.cover,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
       // );
     }
 
@@ -169,10 +167,13 @@ class AnaSayfaState extends State<AnaSayfa> {
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                gonderifotolar[0]["fotoufakurl"],
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
               ),
             ),
           ),
@@ -184,10 +185,13 @@ class AnaSayfaState extends State<AnaSayfa> {
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                gonderifotolar[0]["fotoufakurl"],
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
               ),
             ),
           ),
@@ -195,10 +199,13 @@ class AnaSayfaState extends State<AnaSayfa> {
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                gonderifotolar[1]["fotoufakurl"],
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[1]["fotoufakurl"],
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
               ),
             ),
           ),
@@ -210,10 +217,13 @@ class AnaSayfaState extends State<AnaSayfa> {
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                gonderifotolar[0]["fotoufakurl"],
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
               ),
             ),
           ),
@@ -225,16 +235,19 @@ class AnaSayfaState extends State<AnaSayfa> {
                 alignment: Alignment.center,
                 children: [
                   ColorFiltered(
-                    colorFilter: ColorFilter.srgbToLinearGamma(),
-                    child: Image.network(
-                      gonderifotolar[1]["fotoufakurl"],
+                    colorFilter: const ColorFilter.srgbToLinearGamma(),
+                    child: CachedNetworkImage(
+                      imageUrl: gonderifotolar[1]["fotoufakurl"],
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[700],
+                      ),
                     ),
                   ),
                   Text(
                     "+ ${gonderifotolar.length - 1}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -255,10 +268,13 @@ class AnaSayfaState extends State<AnaSayfa> {
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                gonderifotolar[0]["fotoufakurl"],
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
               ),
             ),
           ),
@@ -270,10 +286,13 @@ class AnaSayfaState extends State<AnaSayfa> {
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                gonderifotolar[0]["fotoufakurl"],
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
               ),
             ),
           ),
@@ -281,10 +300,13 @@ class AnaSayfaState extends State<AnaSayfa> {
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                gonderifotolar[1]["fotoufakurl"],
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[1]["fotoufakurl"],
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
               ),
             ),
           ),
@@ -296,10 +318,13 @@ class AnaSayfaState extends State<AnaSayfa> {
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                gonderifotolar[0]["fotoufakurl"],
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
               ),
             ),
           ),
@@ -311,16 +336,19 @@ class AnaSayfaState extends State<AnaSayfa> {
                 alignment: Alignment.center,
                 children: [
                   ColorFiltered(
-                    colorFilter: ColorFilter.srgbToLinearGamma(),
-                    child: Image.network(
-                      gonderifotolar[1]["fotoufakurl"],
+                    colorFilter: const ColorFilter.srgbToLinearGamma(),
+                    child: CachedNetworkImage(
+                      imageUrl: gonderifotolar[1]["fotoufakurl"],
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[700],
+                      ),
                     ),
                   ),
                   Text(
                     "+ ${gonderifotolar.length - 1}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -339,55 +367,6 @@ class AnaSayfaState extends State<AnaSayfa> {
   Widget build(BuildContext context) {
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
-
-    Future<void> _refresh() {
-      return gondericek();
-    }
-
-    postsil() {
-      http.post(
-        Uri.parse(
-          "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/",
-        ),
-        body: {
-          "postID": postID,
-        },
-      ).then((cevap) {
-        // print(cevap.statusCode);
-        // print(cevap.body);
-        setState(() {
-          postsildengiden = cevap.body;
-        });
-      });
-
-      // print("post");
-      // print(
-      //     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/");
-    }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    postlike() {
-      http.post(
-        Uri.parse(
-          "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/",
-        ),
-        body: {
-          "postID": postID,
-        },
-      ).then((cevap) {
-        // print(cevap.statusCode);
-        // print(cevap.body);
-        setState(() {
-          postsildengiden = cevap.body;
-          print(cevap.body);
-        });
-      });
-      print("post");
-      print("asdsadas: " + postID.toString());
-      // print(
-      //     "https://aramizdakioyuncu.com/botlar/botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/");
-    }
 
     Future<bool> onLikeButtonTapped(bool isLike, int index) async {
       setState(() {
@@ -408,543 +387,65 @@ class AnaSayfaState extends State<AnaSayfa> {
       postID = dataanasayfa[index]["postID"];
       print("onLikeButtonTapped");
 
-      // Linkte body kısmında postID yok hata veriyor.
-      // body: {
-      //   "postID": postID,
-      // },
-      // postID olmasına gerek olmayabilir sonucta post işlemi.
-      // body kısmını açınca hata veriyor.
-
       postlike();
 
       return isLike;
     }
 
-    postbildir() async {
-      var bildirildimi;
-      http.post(
-        Uri.parse(postbildirlink),
-        body: {
-          "postID": postID,
-        },
-      ).then((cevap) {
-        setState(() {
-          try {
-            bildirildimi = jsonDecode(cevap.body);
-          } catch (e) {
-            print('Unknown exception: $e');
-          }
-          print(bildirildimi.toString());
-        });
+    Future<void> _refresh() {
+      setState(() {
+        dataanasayfa.clear();
+        gonderifotolar.clear();
       });
+      return gondericek(0);
     }
-
-    // final items = List<int>.generate(10, (i) => i);
 
     return RefreshIndicator(
       onRefresh: _refresh,
-      // child: ConnectivityResult != ConnectivityResult.none
-      //     ?
       child: Container(
         child: dataanasayfa != null
             ? ListView.separated(
-                physics: BouncingScrollPhysics(),
+                controller: anaSayfaScrollController,
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
                   if (dataanasayfa[index]["paylasimfoto"] != null) {
                     gonderifotolar = dataanasayfa[index]["paylasimfoto"];
-                    // alttaki printin çıktısına bak orda foto ıd leride var.
-                    // print("-----$gonderifotolar");
                     visible = true;
                   } else {
                     visible = false;
                   }
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ThemeConsumer(
-                            child: AnaDetail(
-                              veri1: dataanasayfa[index]["sahipavatar"],
-                              veri2: dataanasayfa[index]["sahipad"],
-                              veri3: dataanasayfa[index]["sosyalicerik"],
-                              veri4: dataanasayfa[index]["paylasimzaman"],
-                              veri5: dataanasayfa[index]["begenisay"],
-                              veri6: dataanasayfa[index]["yorumsay"],
-                              veri7: dataanasayfa[index]["repostsay"],
-                              veri8: dataanasayfa[index]["sikayetsay"],
-                              veri9: dataanasayfa[index]["benbegendim"],
-                              veri10: dataanasayfa[index]["postID"],
-                              veri11: dataanasayfa[index]["sahipID"],
-                              veri12: dataanasayfa[index]["paylasimnereden"],
-                              veri13: dataanasayfa[index]["benyorumladim"],
-
-                              // veri12: dataanasayfa[index]["paylasimfoto"][0]
-                              //     ["fotoufakurl"],
-
-                              // veri9: gonderifotolar[index]["fotourl"] != null
-                              //     ? gonderifotolar[index]["fotourl"]
-                              //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
-                            ),
-                          ),
-                        ),
-                      );
-
-                      // sayfaya geri gelince sayfayı yenileme.
-
-                      setState(() {
-                        detayid = dataanasayfa[index]["postID"];
-                        // print(detaylink);
-                        detaylink =
-                            "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-                      });
-                    },
-                    child: Container(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: screenwidth / 12,
-                            backgroundImage: NetworkImage(
-                              dataanasayfa[index]["sahipavatarminnak"],
-                            ),
-                            backgroundColor: Colors.transparent,
-                          ),
-                          SizedBox(width: screenwidth / 35),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      dataanasayfa[index]["sahipad"],
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      "  -  " +
-                                          dataanasayfa[index]
-                                              ["paylasimzamangecen"],
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    // IconButton(
-                                    //   onPressed: () {},
-                                    //   icon: Icon(
-                                    //     Icons.more_vert,
-                                    //     size: 20,
-                                    //     color: Colors.grey,
-                                    //   ),
-                                    // ),
-                                    InkWell(
-                                      onTap: () {
-                                        showModalBottomSheet<void>(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return Wrap(
-                                              children: [
-                                                Container(
-                                                  child: Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical: 10),
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors
-                                                                .grey[900],
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(
-                                                              Radius.circular(
-                                                                  30),
-                                                            ),
-                                                          ),
-                                                          width:
-                                                              screenwidth / 4,
-                                                          height: 5,
-                                                        ),
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: ListTile(
-                                                          leading: Icon(
-                                                              Icons.post_add),
-                                                          title: Text(
-                                                              "Postu favorilere ekle."),
-                                                        ),
-                                                      ),
-                                                      Visibility(
-                                                        visible: dataanasayfa[
-                                                                        index][
-                                                                    "sahipID"] ==
-                                                                girisdata[
-                                                                    "oyuncuID"]
-                                                            ? true
-                                                            : false,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            postID =
-                                                                dataanasayfa[
-                                                                        index]
-                                                                    ["postID"];
-                                                            // postsil();
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: ListTile(
-                                                            leading: Icon(Icons
-                                                                .edit_note),
-                                                            title: Text(
-                                                                "Postu düzenle."),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Visibility(
-                                                        visible: dataanasayfa[
-                                                                        index][
-                                                                    "sahipID"] ==
-                                                                girisdata[
-                                                                    "oyuncuID"]
-                                                            ? true
-                                                            : false,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            postID =
-                                                                dataanasayfa[
-                                                                        index]
-                                                                    ["postID"];
-                                                            postsil();
-                                                            gondericek();
-
-                                                            Navigator.pop(
-                                                                context);
-                                                            Future.delayed(
-                                                                Duration(
-                                                                  milliseconds:
-                                                                      100,
-                                                                ), () {
-                                                              _refresh();
-                                                            });
-                                                          },
-                                                          child: ListTile(
-                                                            leading: Icon(Icons
-                                                                .delete_sweep_outlined),
-                                                            title: Text(
-                                                                "Postu kaldır."),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Divider(),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          postID = dataanasayfa[
-                                                              index]["postID"];
-                                                          postbildir();
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: ListTile(
-                                                          leading: Icon(Icons
-                                                              .flag_outlined),
-                                                          title: Text(
-                                                              "Postu bildir."),
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.more_vert,
-                                        size: 20,
-                                        // color: Colors.grey,
-                                      ),
-                                    ),
-                                    // Visibility(
-                                    //   visible: dataanasayfa[index]["sahipID"] ==
-                                    //           girisdata["oyuncuID"]
-                                    //       ? true
-                                    //       : false,
-                                    //   child: InkWell(
-                                    //     onTap: () {
-                                    //       postID =
-                                    //           dataanasayfa[index]["postID"];
-                                    //       postsil();
-                                    //     },
-                                    //     child: Icon(
-                                    //       Icons.more_vert,
-                                    //       size: 20,
-                                    //       color: Colors.grey,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                                SizedBox(height: screenheight / 90),
-                                DetectableText(
-                                  detectionRegExp: RegExp(r"@(\w+)|#(\w+)"),
-                                  text: dataanasayfa[index]["sosyalicerik"],
-                                  basicStyle: TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                  detectedStyle: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                                SizedBox(height: screenheight / 50),
-                                Visibility(
-                                  visible: visible,
-                                  child: Container(
-                                    child: gonderifotocek(),
-                                  ),
-                                ),
-
-                                // Fotograflara basınca hata veriyordu şimdilik çözüm için böyle yaptım.
-
-                                // InkWell(
-                                //   onTap: () {
-                                //     print(
-                                //       "***************************************" +
-                                //           gonderifotolar[index]["fotourl"],
-                                //     );
-                                //     Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //         builder: (context) => FotoIcerik(
-                                //           veri5: dataanasayfa[index]
-                                //               ["begenisay"],
-                                //           veri6: dataanasayfa[index]
-                                //               ["yorumsay"],
-                                //           veri7: dataanasayfa[index]
-                                //               ["repostsay"],
-                                //           veri8: dataanasayfa[index]
-                                //               ["sikayetsay"],
-                                //           veri9: gonderifotolar[index]
-                                //               ["fotourl"],
-                                //         ),
-                                //       ),
-                                //     );
-                                //   },
-                                //   child: Visibility(
-                                //     visible: visible,
-                                //     child: Container(
-                                //       // burası fotografların gozuktugu yer
-
-                                //       child: gonderifotocek(),
-
-                                //       // child: Flexible(
-                                //       //   child: Image.network(
-                                //       //     gonderifotolar[index]["fotourl"],
-                                //       //     fit: BoxFit.cover,
-                                //       //     filterQuality: FilterQuality.high,
-                                //       //   ),
-                                //       // ),
-                                //     ),
-                                //   ),
-                                // ),
-                                SizedBox(height: screenheight / 65),
-                                Container(
-                                  color: Colors.transparent,
-                                  width: screenwidth,
-                                  height: screenheight / 20,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      LikeButton(
-                                        onTap: (bool isLike) {
-                                          return onLikeButtonTapped(
-                                            isLike,
-                                            index,
-                                          );
-                                        },
-                                        countPostion: CountPostion.right,
-                                        isLiked: dataanasayfa[index]
-                                                    ["benbegendim"] !=
-                                                0
-                                            ? true
-                                            : false,
-                                        likeCount: int.parse(
-                                            dataanasayfa[index]["begenisay"]),
-                                        likeBuilder: (bool isLiked) {
-                                          return isLiked
-                                              ? Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.red,
-                                                )
-                                              : Icon(
-                                                  Icons.favorite_outline,
-                                                  color: Colors.grey,
-                                                );
-                                        },
-                                        bubblesColor: BubblesColor(
-                                          dotPrimaryColor: Colors.red,
-                                          dotSecondaryColor: Colors.blue,
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => AnaDetail(
-                                                veri1: dataanasayfa[index]
-                                                    ["sahipavatar"],
-                                                veri2: dataanasayfa[index]
-                                                    ["sahipad"],
-                                                veri3: dataanasayfa[index]
-                                                    ["sosyalicerik"],
-                                                veri4: dataanasayfa[index]
-                                                    ["paylasimzaman"],
-                                                veri5: dataanasayfa[index]
-                                                    ["begenisay"],
-                                                veri6: dataanasayfa[index]
-                                                    ["yorumsay"],
-                                                veri7: dataanasayfa[index]
-                                                    ["repostsay"],
-                                                veri8: dataanasayfa[index]
-                                                    ["sikayetsay"],
-                                                veri9: dataanasayfa[index]
-                                                    ["benbegendim"],
-                                                veri10: dataanasayfa[index]
-                                                    ["postID"],
-                                                veri11: dataanasayfa[index]
-                                                    ["sahipID"],
-                                                veri12: dataanasayfa[index]
-                                                    ["paylasimnereden"],
-                                                veri13: dataanasayfa[index]
-                                                    ["benyorumladim"],
-
-                                                // veri12: dataanasayfa[index]["paylasimfoto"][0]
-                                                //     ["fotoufakurl"],
-
-                                                // veri9: gonderifotolar[index]["fotourl"] != null
-                                                //     ? gonderifotolar[index]["fotourl"]
-                                                //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
-                                              ),
-                                            ),
-                                          );
-
-                                          setState(() {
-                                            detayid =
-                                                dataanasayfa[index]["postID"];
-                                            // print(detaylink);
-                                            detaylink =
-                                                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-                                          });
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              dataanasayfa[index]
-                                                          ["benyorumladim"] ==
-                                                      0
-                                                  ? Icon(
-                                                      Icons.chat_bubble_outline,
-                                                      color: Colors.grey,
-                                                    )
-                                                  : Icon(
-                                                      Icons.chat_bubble,
-                                                      color: Colors.blue,
-                                                    ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              (dataanasayfa[index]
-                                                          ["yorumsay"] !=
-                                                      "0")
-                                                  ? Text(
-                                                      dataanasayfa[index]
-                                                          ["yorumsay"],
-                                                      style: TextStyle(
-                                                        color: Colors.grey,
-                                                      ),
-                                                    )
-                                                  : Text(""),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.repeat,
-                                                color: Colors.grey,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              (dataanasayfa[index]
-                                                          ["repostsay"] !=
-                                                      "0")
-                                                  ? Text(
-                                                      dataanasayfa[index]
-                                                          ["repostsay"],
-                                                      style: TextStyle(
-                                                        color: Colors.grey,
-                                                      ),
-                                                    )
-                                                  : Text(""),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          Share.share(
-                                            dataanasayfa[index]["sosyalicerik"],
-                                          );
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Icon(
-                                            Icons.share_outlined,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: screenwidth / 15,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  if (index < 2)
+                    return _MainListView(
+                      context,
+                      index,
+                      screenwidth,
+                      postsil,
+                      _refresh,
+                      postbildir,
+                      screenheight,
+                      onLikeButtonTapped,
+                    );
+                  else if (index == 3)
+                    return _xphorizontalListView();
+                  else if (index == 10)
+                    return _pophorizontalListView();
+                  else
+                    return _MainListView(
+                      context,
+                      index,
+                      screenwidth,
+                      postsil,
+                      _refresh,
+                      postbildir,
+                      screenheight,
+                      onLikeButtonTapped,
+                    );
                 },
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemCount: dataanasayfa.length,
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 10,
                   left: 10,
                   right: 10,
@@ -952,50 +453,646 @@ class AnaSayfaState extends State<AnaSayfa> {
                 ),
               )
             : ListView.separated(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) => NewsCardSkelton(),
-                separatorBuilder: (context, index) => SizedBox(height: 5),
+                separatorBuilder: (context, index) => const SizedBox(height: 5),
                 itemCount: 10,
               ),
       ),
-      // : Center(
-      //     child: InkWell(
-      //       onTap: (() => print(ConnectivityResult)),
-      //       child: Text(
-      //         "İnternet Bağlantınızı Kontrol Ediniz !",
-      //         textAlign: TextAlign.center,
-      //         style: TextStyle(
-      //           fontSize: 32,
-      //         ),
-      //       ),
-      //     ),
-      //   ),
+    );
+  }
 
-      // child: Container(
-      //   child: dataanasayfa != null
-      //       ? ListView.separated(
-      //           physics: BouncingScrollPhysics(),
-      //           scrollDirection: Axis.vertical,
-      //           itemBuilder: (context, index) {
-      //             //return NewsCardSkelton();
-      //             return InkWell(
-      //               onTap: () {},
-      //               child: Container(),
-      //             );
-      //           },
-      //           separatorBuilder: (context, index) =>
-      //               SizedBox(height: screenheight / 100),
-      //           itemCount: 15,
-      //         )
-      //       : ListView.separated(
-      //           physics: BouncingScrollPhysics(),
-      //           scrollDirection: Axis.vertical,
-      //           itemBuilder: (context, index) => NewsCardSkelton(),
-      //           separatorBuilder: (context, index) => SizedBox(height: 5),
-      //           itemCount: 10,
-      //         ),
-      // ),
+  Widget _MainListView(
+      BuildContext context,
+      int index,
+      double screenwidth,
+      postsil(),
+      Future<void> _refresh(),
+      postbildir(),
+      double screenheight,
+      Future<bool> onLikeButtonTapped(bool isLike, int index)) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ThemeConsumer(
+              child: AnaDetail(
+                veri1: dataanasayfa[index]["sahipavatarminnak"],
+                veri2: dataanasayfa[index]["sahipad"],
+                veri3: dataanasayfa[index]["sosyalicerik"],
+                veri4: dataanasayfa[index]["paylasimzaman"],
+                veri5: dataanasayfa[index]["begenisay"],
+                veri6: dataanasayfa[index]["yorumsay"],
+                veri7: dataanasayfa[index]["repostsay"],
+                veri8: dataanasayfa[index]["sikayetsay"],
+                veri9: dataanasayfa[index]["benbegendim"],
+                veri10: dataanasayfa[index]["postID"],
+                veri11: dataanasayfa[index]["sahipID"],
+                veri12: dataanasayfa[index]["paylasimnereden"],
+                veri13: dataanasayfa[index]["benyorumladim"],
+                veri14: dataanasayfa[index]["oyunculink"],
+              ),
+            ),
+          ),
+        );
+        // .whenComplete(
+        //   () => _refresh(),
+        // );
+
+        setState(() {
+          detayid = dataanasayfa[index]["postID"];
+          detaylink =
+              "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+        });
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(
+            radius: screenwidth / 12,
+            backgroundImage: CachedNetworkImageProvider(
+              dataanasayfa[index]["sahipavatarminnak"],
+            ),
+            backgroundColor: Colors.transparent,
+          ),
+          SizedBox(width: screenwidth / 35),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      dataanasayfa[index]["sahipad"],
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "  -  " + dataanasayfa[index]["paylasimzamangecen"],
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(10),
+                            ),
+                          ),
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SafeArea(
+                              child: Wrap(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[900],
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(30),
+                                            ),
+                                          ),
+                                          width: screenwidth / 4,
+                                          height: 5,
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const ListTile(
+                                          leading: Icon(Icons.post_add),
+                                          title: Text("Postu favorilere ekle."),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: dataanasayfa[index]
+                                                    ["sahipID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? true
+                                            : false,
+                                        child: InkWell(
+                                          onTap: () {
+                                            postID =
+                                                dataanasayfa[index]["postID"];
+                                            // postsil();
+                                            Navigator.pop(context);
+                                          },
+                                          child: const ListTile(
+                                            leading: Icon(Icons.edit_note),
+                                            title: Text("Postu düzenle."),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: dataanasayfa[index]
+                                                    ["sahipID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? true
+                                            : false,
+                                        child: InkWell(
+                                          onTap: () {
+                                            postID =
+                                                dataanasayfa[index]["postID"];
+                                            postsil();
+                                            Navigator.pop(context);
+                                            Future.delayed(
+                                                const Duration(
+                                                  milliseconds: 100,
+                                                ), () {
+                                              _refresh();
+                                            });
+                                          },
+                                          child: const ListTile(
+                                            leading: Icon(
+                                                Icons.delete_sweep_outlined),
+                                            title: Text("Postu kaldır."),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Share.share(dataanasayfa[index]
+                                              ["oyunculink"]);
+                                          Navigator.pop(context);
+                                        },
+                                        child: const ListTile(
+                                          leading: Icon(Icons.share_outlined),
+                                          title: Text("Kullanıcıyı paylaş."),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Clipboard.setData(
+                                            ClipboardData(
+                                              text: dataanasayfa[index]
+                                                  ["oyunculink"],
+                                            ),
+                                          );
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text("Kopyalandı !"),
+                                            ),
+                                          );
+                                        },
+                                        child: const ListTile(
+                                          leading: Icon(Icons.content_copy),
+                                          title: Text(
+                                              "Kullanıcı profil linkini kopyala."),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: dataanasayfa[index]
+                                                    ["sahipID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? false
+                                            : true,
+                                        child: Divider(),
+                                      ),
+                                      Visibility(
+                                        visible: dataanasayfa[index]
+                                                    ["sahipID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? false
+                                            : true,
+                                        child: InkWell(
+                                          onTap: () {
+                                            postID =
+                                                dataanasayfa[index]["postID"];
+                                            postbildir();
+                                            Navigator.pop(context);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text("Bildirildi !"),
+                                              ),
+                                            );
+                                          },
+                                          child: const ListTile(
+                                            textColor: Colors.red,
+                                            leading: Icon(
+                                              Icons.flag_outlined,
+                                              color: Colors.red,
+                                            ),
+                                            title: Text("Postu bildir."),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: dataanasayfa[index]
+                                                    ["sahipID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? false
+                                            : true,
+                                        child: InkWell(
+                                          onTap: () {
+                                            postID =
+                                                dataanasayfa[index]["postID"];
+                                            postbildir();
+                                            Navigator.pop(context);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text("Bildirildi !"),
+                                              ),
+                                            );
+                                          },
+                                          child: const ListTile(
+                                            textColor: Colors.red,
+                                            leading: Icon(
+                                              Icons.person_outline,
+                                              color: Colors.red,
+                                            ),
+                                            title: Text("Kullanıcıyı bildir."),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: const Icon(
+                        Icons.more_vert,
+                        size: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: screenheight / 90),
+                DetectableText(
+                  detectionRegExp: RegExp(
+                    "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
+                    multiLine: true,
+                  ),
+                  text: dataanasayfa[index]["sosyalicerik"],
+                  basicStyle: const TextStyle(
+                    fontSize: 16,
+                  ),
+                  detectedStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blue,
+                  ),
+                ),
+                SizedBox(height: screenheight / 50),
+                Visibility(
+                  visible: visible,
+                  child: Container(
+                    child: gonderifotocek(),
+                  ),
+                ),
+                SizedBox(height: screenheight / 65),
+                Container(
+                  color: Colors.transparent,
+                  width: screenwidth,
+                  height: screenheight / 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      LikeButton(
+                        onTap: (bool isLike) {
+                          return onLikeButtonTapped(
+                            isLike,
+                            index,
+                          );
+                        },
+                        countPostion: CountPostion.right,
+                        isLiked: dataanasayfa[index]["benbegendim"] != 0
+                            ? true
+                            : false,
+                        likeCount: dataanasayfa[index]["begenisay"] != "0"
+                            ? int.parse(dataanasayfa[index]["begenisay"])
+                            : null,
+                        likeBuilder: (bool isLiked) {
+                          return isLiked
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : const Icon(
+                                  Icons.favorite_outline,
+                                  color: Colors.grey,
+                                );
+                        },
+                        bubblesColor: const BubblesColor(
+                          dotPrimaryColor: Colors.red,
+                          dotSecondaryColor: Colors.blue,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ThemeConsumer(
+                                child: AnaDetail(
+                                  veri1: dataanasayfa[index]
+                                      ["sahipavatarminnak"],
+                                  veri2: dataanasayfa[index]["sahipad"],
+                                  veri3: dataanasayfa[index]["sosyalicerik"],
+                                  veri4: dataanasayfa[index]["paylasimzaman"],
+                                  veri5: dataanasayfa[index]["begenisay"],
+                                  veri6: dataanasayfa[index]["yorumsay"],
+                                  veri7: dataanasayfa[index]["repostsay"],
+                                  veri8: dataanasayfa[index]["sikayetsay"],
+                                  veri9: dataanasayfa[index]["benbegendim"],
+                                  veri10: dataanasayfa[index]["postID"],
+                                  veri11: dataanasayfa[index]["sahipID"],
+                                  veri12: dataanasayfa[index]
+                                      ["paylasimnereden"],
+                                  veri13: dataanasayfa[index]["benyorumladim"],
+                                  veri14: dataanasayfa[index]["oyunculink"],
+                                ),
+                              ),
+                            ),
+                          );
+
+                          setState(() {
+                            detayid = dataanasayfa[index]["postID"];
+                            // print(detaylink);
+                            detaylink =
+                                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              dataanasayfa[index]["benyorumladim"] == 0
+                                  ? const Icon(
+                                      Icons.chat_bubble_outline,
+                                      color: Colors.grey,
+                                    )
+                                  : const Icon(
+                                      Icons.chat_bubble,
+                                      color: Colors.blue,
+                                    ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              (dataanasayfa[index]["yorumsay"] != "0")
+                                  ? Text(
+                                      dataanasayfa[index]["yorumsay"],
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  : const Text(""),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.repeat,
+                                color: Colors.grey,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              (dataanasayfa[index]["repostsay"] != "0")
+                                  ? Text(
+                                      dataanasayfa[index]["repostsay"],
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  : const Text(""),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Share.share(
+                            dataanasayfa[index]["sosyalicerik"],
+                          );
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.share_outlined,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: screenwidth / 15,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _xphorizontalListView() {
+    return SizedBox(
+      height: 220,
+      child: ListView.separated(
+        controller: xpHorizontalScrollController,
+        shrinkWrap: true,
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return InkWell(
+            borderRadius: BorderRadius.circular(15),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ThemeConsumer(
+                    child: MyProfile(
+                      veri1: xpsiralama[index]["oyuncuID"],
+                    ),
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              width: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.high,
+                  image: CachedNetworkImageProvider(
+                    xpsiralama[index]["oyuncuavatar"],
+                  ),
+                ),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.7),
+                      Colors.transparent,
+                    ],
+                    stops: const [0.0, 0.4],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ),
+                ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(7, 0, 7, 7),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          xpsiralama[index]["oyuncuadsoyad"],
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          xpsiralama[index]["oyuncuseviyexp"] + " XP",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) => const SizedBox(width: 20),
+      ),
+    );
+  }
+
+  Widget _pophorizontalListView() {
+    return SizedBox(
+      height: 220,
+      child: ListView.separated(
+        controller: popHorizontalScrollController,
+        shrinkWrap: true,
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return InkWell(
+            borderRadius: BorderRadius.circular(15),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ThemeConsumer(
+                    child: MyProfile(
+                      veri1: popsiralama[index]["oyuncuID"],
+                    ),
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              width: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.high,
+                  image: CachedNetworkImageProvider(
+                    popsiralama[index]["oyuncuavatar"],
+                  ),
+                ),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.7),
+                      Colors.transparent,
+                    ],
+                    stops: const [0.0, 0.4],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ),
+                ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(7, 0, 7, 7),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          popsiralama[index]["oyuncuadsoyad"],
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.remove_red_eye_outlined,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              popsiralama[index]["oyuncupop"],
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) => const SizedBox(width: 20),
+      ),
     );
   }
 }

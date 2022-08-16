@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:armoyu/main.dart';
 import 'package:theme_provider/theme_provider.dart';
 
+import 'Variables/variables.dart';
+
 class EtkinlikDetay extends StatefulWidget {
   String veri;
 

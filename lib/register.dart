@@ -1,30 +1,23 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, avoid_print, unused_local_variable, prefer_typing_uninitialized_variables, unused_element, use_build_context_synchronously, prefer_interpolation_to_compose_strings, unused_import
 
-import 'dart:convert';
 import 'package:armoyu/login.dart';
 import 'package:armoyu/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'Variables/variables.dart';
+import 'Controllers/controllers.dart';
 
 class Register extends StatefulWidget {
   @override
   State<Register> createState() => _RegisterState();
 }
 
-TextEditingController adi = TextEditingController();
-TextEditingController soyadi = TextEditingController();
-TextEditingController kadi = TextEditingController();
-TextEditingController eposta = TextEditingController();
-TextEditingController parola = TextEditingController();
-TextEditingController parolatekrar = TextEditingController();
-
 class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
-    var setstatedegiden;
 
     register() async {
       http.post(
@@ -69,6 +62,8 @@ class _RegisterState extends State<Register> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(73, 144, 226, 1),
       body: InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: ListView(
           children: [
@@ -242,38 +237,6 @@ class _RegisterState extends State<Register> {
                       onEditingComplete: () =>
                           TextInput.finishAutofillContext(),
                     ),
-                    // SizedBox(height: screenheight / 40),
-                    // Text("Doğum Tarihi"),
-                    // SizedBox(height: screenheight / 80),
-                    // SfDateRangePicker(
-                    //   controller: tarih,
-                    //   backgroundColor: Colors.white,
-                    //   rangeSelectionColor: Colors.red,
-                    //   enableMultiView: true,
-                    //   minDate: DateTime(2013),
-                    //   maxDate: DateTime.now(),
-                    // ),
-                    // SizedBox(height: screenheight / 75),
-                    // SizedBox(height: screenheight / 40),
-                    // Text("Ülke"),
-                    // SizedBox(height: screenheight / 80),
-                    // CountryListPick(
-                    //   theme: CountryTheme(
-                    //     isShowFlag: true,
-                    //     isShowTitle: true,
-                    //     isShowCode: true,
-                    //     isDownIcon: true,
-                    //     showEnglishName: true,
-                    //   ),
-                    //   initialSelection: "+90",
-                    //   useUiOverlay: true,
-                    // ),
-                    // CountryStateCityPicker(
-                    //   country: country,
-                    //   state: state,
-                    //   city: city,
-                    //   textFieldInputBorder: UnderlineInputBorder(),
-                    // ),
                     SizedBox(height: screenheight / 20),
                     Center(
                       child: InkWell(
@@ -300,58 +263,7 @@ class _RegisterState extends State<Register> {
                                 parola.text != "" ||
                                 parolatekrar.text != "") {
                               if (parola.text == parolatekrar.text) {
-                                // burda durum kontrolu yap "1" ise
-                                // kayıt işlemlerini başlat "0" ise
-                                // snackbar çıkar orda da ("icerik":) yazdır.
-                                ////////////////////////////////////////////////////////////////////////
-
                                 register();
-
-                                // http.post(
-                                //   Uri.parse(
-                                //     "https://aramizdakioyuncu.com/botlar/$botId1/kayit-ol/0/0/0/0/",
-                                //   ),
-                                //   body: {
-                                //     "ad": adi.text,
-                                //     "soyad": soyadi.text,
-                                //     "kullaniciadi": kadi.text,
-                                //     "email": eposta.text,
-                                //     "parola": parola.text,
-                                //     "parolakontrol": parolatekrar.text,
-                                //   },
-                                // ).then((cevap) async {
-                                //   print(cevap.body);
-                                //   setState(() {
-                                //     setstatedegiden = cevap.body;
-                                //   });
-                                //   var kayitlar = await http.get(
-                                //     Uri.parse(
-                                //       "https://aramizdakioyuncu.com/botlar/$botId1/kayit-ol/0/0/0/0/",
-                                //     ),
-                                //   );
-                                //   kayitdata = jsonDecode(kayitlar.body);
-                                // });
-                                // print(
-                                //     "-----------------" + kayitdata.toString());
-
-                                // if (kayitdata["durum"] == "1") {
-                                //   register();
-                                //   Navigator.pushReplacement(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) => Login(),
-                                //     ),
-                                //   );
-
-                                //   adi.clear();
-                                //   soyadi.clear();
-                                //   kadi.clear();
-                                //   eposta.clear();
-                                //   parola.clear();
-                                //   parolatekrar.clear();
-                                // } else {
-                                //   print("hata!");
-                                // }
                               } else {
                                 print("sifreler uyusmuyor");
                                 const snackBar = SnackBar(

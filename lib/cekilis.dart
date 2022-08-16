@@ -1,21 +1,12 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, must_be_immutable, use_key_in_widget_constructors, unused_local_variable, avoid_print, prefer_typing_uninitialized_variables
 
-import 'dart:convert';
-
-import 'package:armoyu/login.dart';
-import 'package:armoyu/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:theme_provider/theme_provider.dart';
-import 'package:http/http.dart' as http;
+import 'utilities/utilities.dart';
+import 'Variables/variables.dart';
 
 class Cekilis extends StatefulWidget {
-  String veri1, veri2;
-  Cekilis({
-    required this.veri1,
-    required this.veri2,
-  });
-
   @override
   State<Cekilis> createState() => _CekilisState();
 }
@@ -25,39 +16,6 @@ class _CekilisState extends State<Cekilis> {
   void initState() {
     super.initState();
     cekiliscek();
-  }
-
-  var setstatedegiden;
-
-  cekiliscek() async {
-    var gelen = await http.get(
-      Uri.parse(cekilislink),
-    );
-
-    try {
-      cekilisler = jsonDecode(gelen.body);
-    } catch (e) {
-      print(e);
-    }
-    print("cekilisler");
-    print(cekilisler);
-    setState(() {});
-  }
-
-  cekiliskatil() {
-    http.post(
-      Uri.parse(
-        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/cekilis/0/0/",
-      ),
-      body: {},
-    ).then((cevap) {
-      print(cevap.statusCode);
-      print(cevap.body);
-      setState(() {
-        setstatedegiden = cevap.body;
-      });
-    });
-    print("çekiliş");
   }
 
   @override
@@ -91,13 +49,13 @@ class _CekilisState extends State<Cekilis> {
                     CircleAvatar(
                       radius: screenwidth / 12,
                       backgroundImage: NetworkImage(
-                        widget.veri1,
+                        girisdata["presimufak"],
                       ),
                       backgroundColor: Colors.transparent,
                     ),
                     SizedBox(width: 15),
                     Text(
-                      widget.veri2.toString(),
+                      girisdata["adim"],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

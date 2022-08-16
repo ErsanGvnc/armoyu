@@ -17,9 +17,6 @@ class Resiminceleme extends StatefulWidget {
 class _ResimincelemeState extends State<Resiminceleme> {
   @override
   Widget build(BuildContext context) {
-    // print(widget.veri1);
-    // print(widget.veri1.runtimeType);
-
     return ThemeConsumer(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -30,17 +27,17 @@ class _ResimincelemeState extends State<Resiminceleme> {
         body: Container(
           child: PhotoViewGallery.builder(
             backgroundDecoration: BoxDecoration(color: Colors.transparent),
-            // scrollPhysics: BouncingScrollPhysics(),
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
                 imageProvider: NetworkImage(
                   widget.veri1[index],
                 ),
-                // heroAttributes: PhotoViewHeroAttributes(tag: "tag"),
               );
             },
             itemCount: widget.veri1.length,
-            loadingBuilder: (context, progress) => CircularProgressIndicator(),
+            loadingBuilder: (context, progress) => Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
         ),
       ),

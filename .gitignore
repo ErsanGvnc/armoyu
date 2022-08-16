@@ -52,3 +52,4 @@ analysis_options.yaml
 
 # Google Services (e.g. APIs or Firebase)
 /android/app/google-services.json
+/lib/Firebase/

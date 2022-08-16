@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:armoyu/etkinlikdetay.dart';
 
+import 'Variables/variables.dart';
+
 class Etkinlik extends StatefulWidget {
   @override
   State<Etkinlik> createState() => _EtkinlikState();
@@ -13,12 +15,6 @@ class _EtkinlikState extends State<Etkinlik> {
   Widget build(BuildContext context) {
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
-    String csgo = "CS:GO";
-    String ets = "ETS";
-    String mc = "MC";
-    String gta = "GTA";
-    String lol = "LOL";
-    String the_forest = "THE FOREST";
 
     return Container(
       child: GridView.count(
@@ -179,7 +175,7 @@ class _EtkinlikState extends State<Etkinlik> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => EtkinlikDetay(
-                    veri: the_forest,
+                    veri: theforest,
                   ),
                 ),
               );
@@ -193,7 +189,7 @@ class _EtkinlikState extends State<Etkinlik> {
               ),
               child: Center(
                 child: Text(
-                  the_forest,
+                  theforest,
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,

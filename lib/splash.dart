@@ -5,6 +5,7 @@ import 'package:armoyu/login.dart';
 import 'package:armoyu/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'Variables/variables.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -43,16 +44,6 @@ class SplashState extends State<Splash> {
       MyHomePageState().girisKontrol(context);
     }
   }
-
-  // _navigateHome() async {
-  //   await Future.delayed(Duration(milliseconds: 1500), () {});
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => MyHomePage(),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {

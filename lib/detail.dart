@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, avoid_print, unused_local_variable, unused_import, must_be_immutable, sized_box_for_whitespace, unused_element, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:armoyu/main.dart';
 import 'package:armoyu/site.dart';
@@ -7,12 +8,10 @@ import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 class Detail extends StatefulWidget {
-  String veri, veri1, veri3, veri5, veri6, veri7, veri8, veri9, veri10;
+  String veri1, veri3, veri5, veri6, veri7, veri8, veri9, veri10;
   Detail({
-    required this.veri,
     required this.veri1,
     required this.veri3,
-    //required this.veri4,
     required this.veri5,
     required this.veri6,
     required this.veri7,
@@ -20,19 +19,14 @@ class Detail extends StatefulWidget {
     required this.veri9,
     required this.veri10,
   });
-  //Detail(List<String> items);
 
   @override
   _DetailState createState() => _DetailState();
 }
 
-// gelenitem a gore indexle (veri2) || shared preferences.
-bool _secilme = false;
-
 class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
-    //print(widget.veri1);
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
 
@@ -45,7 +39,6 @@ class _DetailState extends State<Detail> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.veri1),
-          // title: Text("Yılbaşı Etkinliği"),
           actions: [
             IconButton(
               onPressed: () {
@@ -53,33 +46,6 @@ class _DetailState extends State<Detail> {
               },
               icon: Icon(Icons.more_vert),
             ),
-            // IconButton(
-            //   onPressed: () {
-            //     print("gelen " + widget.veri);
-            //     setState(() {
-            //       _secilme = !_secilme;
-            //       print(_secilme);
-            //     });
-            //     if (_secilme == false) {
-            //       print("eklenmedi");
-            //     } else {
-            //       print("eklendi");
-            //     }
-            //     final snackBar = SnackBar(
-            //       content: _secilme ? Text("Eklendi") : Text("Eklenmedi"),
-            //       action: SnackBarAction(
-            //         label: 'Kapat',
-            //         onPressed: () {
-            //           // Some code to undo the change.
-            //         },
-            //       ),
-            //     );
-            //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            //   },
-            //   icon: Icon(
-            //     _secilme ? Icons.bookmark : Icons.bookmark_outline,
-            //   ),
-            // ),
           ],
         ),
         body: Container(
@@ -89,19 +55,14 @@ class _DetailState extends State<Detail> {
                 Container(
                   height: 250,
                   width: screenwidth,
-                  // decoration: BoxDecoration(
-                  //   image: DecorationImage(
-                  //     fit: BoxFit.contain,
-                  //     image: AssetImage(
-                  //       "assets/images/googlelogo.png",
-                  //     ),
-                  //   ),
-                  // ),
-                  child: Image.network(widget.veri5),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.veri5,
+                    placeholder: (context, url) => Container(
+                      color: Colors.grey[700],
+                    ),
+                  ),
                 ),
                 Container(
-                  //color: Colors.brown,
-                  //height: 500,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: Column(
@@ -141,9 +102,6 @@ class _DetailState extends State<Detail> {
                         Divider(),
                         SizedBox(height: 10),
                         Text(widget.veri8),
-                        //Text(widget.veri4),
-                        // Text(
-                        //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
                         SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -156,6 +114,7 @@ class _DetailState extends State<Detail> {
                                   MaterialPageRoute(
                                     builder: (context) => Site(
                                       verilink: widget.veri9,
+                                      veribaslik: widget.veri1,
                                     ),
                                   ),
                                 );
@@ -170,35 +129,6 @@ class _DetailState extends State<Detail> {
                           ],
                         ),
                         SizedBox(height: 15),
-                        // Container(
-                        //   height: 50,
-                        //   width: screenwidth,
-                        //   decoration: BoxDecoration(
-                        //     //color: Colors.grey,
-                        //     borderRadius: BorderRadius.circular(7),
-                        //     border: Border.all(color: Colors.grey),
-                        //   ),
-                        //   child: ListView.separated(
-                        //     physics: BouncingScrollPhysics(),
-                        //     scrollDirection: Axis.horizontal,
-                        //     itemBuilder: (context, index) => Container(
-                        //       width: screenwidth / 11,
-                        //       decoration: BoxDecoration(
-                        //         //color: Colors.amber,
-                        //         shape: BoxShape.circle,
-                        //         image: DecorationImage(
-                        //           fit: BoxFit.contain,
-                        //           image: AssetImage(
-                        //             "assets/images/logo.png",
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     separatorBuilder: (context, index) =>
-                        //         SizedBox(width: screenwidth / 75),
-                        //     itemCount: 15,
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, must_be_immutable, avoid_print, avoid_unnecessary_containers, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
-
+import 'Utilities/links.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:armoyu/anadetail.dart';
-import 'package:armoyu/main.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'Variables/variables.dart';
 
 class Grup extends StatefulWidget {
   String veri1, veri2;
@@ -46,7 +46,6 @@ class _GrupState extends State<Grup> {
       return fetchData();
     }
 
-    // final items = List<String>.generate(15, (i) => "Item $i");
     return ThemeConsumer(
       child: Scaffold(
         appBar: AppBar(
@@ -73,7 +72,7 @@ class _GrupState extends State<Grup> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => AnaDetail(
-                                veri1: datagrup[index]["sahipavatar"],
+                                veri1: datagrup[index]["sahipavatarminnak"],
                                 veri2: datagrup[index]["sahipad"],
                                 veri3: datagrup[index]["sosyalicerik"],
                                 veri4: datagrup[index]["paylasimzaman"],
@@ -86,12 +85,8 @@ class _GrupState extends State<Grup> {
                                 veri11: dataanasayfa[index]["sahipID"],
                                 veri12: dataanasayfa[index]["paylasimnereden"],
                                 veri13: dataanasayfa[index]["benyorumladim"],
+                                veri14: dataanasayfa[index]["oyunculink"],
 
-                                // veri12: dataanasayfa[index]["paylasimfoto"],
-
-                                // veri9: gonderifotolar[index]["fotourl"] != null
-                                //     ? gonderifotolar[index]["fotourl"]
-                                //     : "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
                               ),
                             ),
                           );
@@ -104,7 +99,7 @@ class _GrupState extends State<Grup> {
                               CircleAvatar(
                                 radius: screenwidth / 12,
                                 backgroundImage: NetworkImage(
-                                  datagrup[index]["sahipavatar"],
+                                  datagrup[index]["sahipavatarminnak"],
                                 ),
                                 backgroundColor: Colors.transparent,
                               ),
@@ -147,56 +142,6 @@ class _GrupState extends State<Grup> {
                                       datagrup[index]["sosyalicerik"],
                                     ),
                                     SizedBox(height: screenheight / 50),
-                                    // Visibility(
-                                    //   visible: visible,
-                                    //   child: Container(
-                                    //     child: gonderifotocek(),
-                                    //   ),
-                                    // ),
-
-                                    // Fotograflara basınca hata veriyordu şimdilik çözüm için böyle yaptım.
-
-                                    // InkWell(
-                                    //   onTap: () {
-                                    //     print(
-                                    //       "***************************************" +
-                                    //           gonderifotolar[index]["fotourl"],
-                                    //     );
-                                    //     Navigator.push(
-                                    //       context,
-                                    //       MaterialPageRoute(
-                                    //         builder: (context) => FotoIcerik(
-                                    //           veri5: dataanasayfa[index]
-                                    //               ["begenisay"],
-                                    //           veri6: dataanasayfa[index]
-                                    //               ["yorumsay"],
-                                    //           veri7: dataanasayfa[index]
-                                    //               ["repostsay"],
-                                    //           veri8: dataanasayfa[index]
-                                    //               ["sikayetsay"],
-                                    //           veri9: gonderifotolar[index]
-                                    //               ["fotourl"],
-                                    //         ),
-                                    //       ),
-                                    //     );
-                                    //   },
-                                    //   child: Visibility(
-                                    //     visible: visible,
-                                    //     child: Container(
-                                    //       // burası fotografların gozuktugu yer
-
-                                    //       child: gonderifotocek(),
-
-                                    //       // child: Flexible(
-                                    //       //   child: Image.network(
-                                    //       //     gonderifotolar[index]["fotourl"],
-                                    //       //     fit: BoxFit.cover,
-                                    //       //     filterQuality: FilterQuality.high,
-                                    //       //   ),
-                                    //       // ),
-                                    //     ),
-                                    //   ),
-                                    // ),
                                     SizedBox(height: screenheight / 65),
                                     Container(
                                       color: Colors.transparent,

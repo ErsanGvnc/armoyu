@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+23
+version: 1.0.0+28
 
 environment:
   sdk: ">=2.15.1 <3.0.0"
@@ -31,31 +31,36 @@ dependencies:
     sdk: flutter
 
   # Init
-  flutter_launcher_icons: ^0.9.1
-  flutter_native_splash: ^2.2.3+1
+  flutter_launcher_icons: ^0.10.0
+  flutter_native_splash: ^2.2.7
 
   # Ui
-  carousel_slider: ^4.0.0
-  in_app_notification: ^1.1.1
+  carousel_slider: ^4.1.1
+  in_app_notification: ^1.1.2
   photo_view: ^0.14.0
   like_button: ^2.0.4
   animations: ^2.0.3
   detectable_text_field: ^2.0.3
   skeletons: ^0.0.3
+  font_awesome_flutter: ^10.1.0
+  badges: ^2.0.3
+  focused_menu: ^1.0.5
 
   # Web
-  http: ^0.13.4
-  webview_flutter: ^3.0.0
+  http: ^0.13.5
+  webview_flutter: ^3.0.4
 
   # Storage  
   shared_preferences: ^2.0.15
+  cached_network_image: ^3.2.1
 
   # Camera
   flutter_barcode_scanner: ^2.0.0
 
   # Firebase
-  firebase_core: ^1.18.0
-  firebase_messaging: ^11.4.2
+  firebase_core: ^1.21.0
+  firebase_messaging: ^12.0.3
+  firebase_dynamic_links: ^4.3.5
 
   # Theme
   theme_provider: ^0.5.0
@@ -64,17 +69,17 @@ dependencies:
   intl: ^0.17.0
 
   # Share
-  share_plus: ^4.0.4
+  share_plus: ^4.0.10+1
 
   # .env
   flutter_dotenv: ^5.0.2
 
-  # flutter_datetime_picker: ^1.5.1
+  # speech_to_text: ^5.6.1
   # better_player: ^0.0.83
   # connectivity_plus: ^2.3.1
   # confetti: ^0.7.0
-  # image_viewer: ^1.5.0
-
+  # gallery_saver: ^2.3.2
+  # comment_tree: ^0.3.0
 
   # Splash Screen
 flutter_icons:

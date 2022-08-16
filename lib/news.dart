@@ -1,10 +1,14 @@
-// ignore_for_file: avoid_print, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: use_key_in_widget_constructors
 
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:armoyu/detail.dart';
 import 'package:armoyu/main.dart';
+import 'Controllers/controllers.dart';
+import 'Variables/variables.dart';
+import 'utilities/links.dart';
 import 'package:http/http.dart' as http;
 
 class News extends StatefulWidget {
@@ -16,10 +20,10 @@ class NewsState extends State<News> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    habercek();
   }
 
-  fetchData() async {
+  habercek() async {
     var gelen = await http.get(
       Uri.parse(haberurl),
     );
@@ -33,68 +37,59 @@ class NewsState extends State<News> {
     var screenheight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() {
-      return fetchData();
+      return habercek();
     }
 
-    final items = List<String>.generate(15, (i) => "Item $i");
-    return RefreshIndicator(
-      onRefresh: _refresh,
-      child: Container(
-        child: datahaber != null
-            ? ListView.separated(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  //return NewsCardSkelton();
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Detail(
-                            veri: items[index],
-                            veri1: datahaber[index]["haberbaslik"],
-                            //veri2: data[index]["id"].toString(),
-                            veri3: datahaber[index]["resim"],
-                            //veri4: data[index]["yaziicerik"],
-                            veri5: datahaber[index]["resimorijinal"],
-                            veri6: datahaber[index]["gecenzaman"],
-                            veri7: datahaber[index]["yazar"],
-                            veri8: datahaber[index]["ozet"],
-                            veri9: datahaber[index]["link"],
-                            veri10: datahaber[index]["kategori"],
+    return Scaffold(
+      appBar: AppBar(),
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: Container(
+          child: datahaber != null
+              ? ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  controller: newsScrollController,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Detail(
+                              veri1: datahaber[index]["haberbaslik"],
+                              veri3: datahaber[index]["resim"],
+                              veri5: datahaber[index]["resimorijinal"],
+                              veri6: datahaber[index]["gecenzaman"],
+                              veri7: datahaber[index]["yazar"],
+                              veri8: datahaber[index]["ozet"],
+                              veri9: datahaber[index]["link"],
+                              veri10: datahaber[index]["kategori"],
+                            ),
                           ),
-                        ),
-                      ).then((value) => print(items[index]));
-                      {
-                        datahaber[index]["id"];
-                      }
-                      // print(data[index]["id"]);
-                      print(datahaber[index]["haberbaslik"]);
-                    },
-                    child: Container(
-                      //color: Colors.red,
+                        );
+                      },
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: screenwidth / 3,
                               height: screenheight / 6,
-                              child: Image.network(datahaber[index]["resim"]),
+                              child: CachedNetworkImage(
+                                imageUrl: datahaber[index]["resim"],
+                              ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
-                              child: Container(
-                                //color: Colors.brown,
+                              child: SizedBox(
                                 height: screenheight / 6,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    //Text("Id:${data[index]["id"]}"),
                                     SizedBox(height: screenheight / 100),
                                     Text(
                                       datahaber[index]["yazar"],
@@ -103,16 +98,16 @@ class NewsState extends State<News> {
                                         fontSize: screenwidth / 25,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       datahaber[index]["haberbaslik"],
                                       maxLines: 2,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         overflow: TextOverflow.ellipsis,
                                         fontSize: 20,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Row(
                                       children: [
                                         Text(
@@ -123,7 +118,7 @@ class NewsState extends State<News> {
                                           ),
                                         ),
                                         SizedBox(width: screenwidth / 75),
-                                        CircleAvatar(
+                                        const CircleAvatar(
                                           radius: 3,
                                           backgroundColor: Colors.grey,
                                         ),
@@ -135,7 +130,7 @@ class NewsState extends State<News> {
                                             fontSize: screenwidth / 30,
                                           ),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Text(
                                           datahaber[index]["goruntulen"],
                                           style: TextStyle(
@@ -144,14 +139,14 @@ class NewsState extends State<News> {
                                           ),
                                         ),
                                         SizedBox(width: screenwidth / 150),
-                                        Icon(
+                                        const Icon(
                                           Icons.remove_red_eye,
                                           color: Colors.grey,
                                           size: 15,
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                   ],
                                 ),
                               ),
@@ -159,20 +154,21 @@ class NewsState extends State<News> {
                           ],
                         ),
                       ),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                    SizedBox(height: screenheight / 100),
-                itemCount: 15,
-              )
-            : ListView.separated(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) => NewsCardSkelton(),
-                separatorBuilder: (context, index) => SizedBox(height: 5),
-                itemCount: 10,
-              ),
+                    );
+                  },
+                  separatorBuilder: (context, index) =>
+                      SizedBox(height: screenheight / 100),
+                  itemCount: 15,
+                )
+              : ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) => NewsCardSkelton(),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 5),
+                  itemCount: 10,
+                ),
+        ),
       ),
     );
   }
