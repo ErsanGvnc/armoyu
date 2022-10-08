@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, avoid_print, unnecessary_null_comparison, curly_braces_in_flow_control_structures, non_constant_identifier_names, use_function_type_syntax_for_parameters, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings, prefer_const_constructors
+// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, avoid_print, unnecessary_null_comparison, curly_braces_in_flow_control_structures, non_constant_identifier_names, use_function_type_syntax_for_parameters, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
 import 'package:armoyu/Utilities/utilities.dart';
@@ -8,11 +8,12 @@ import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:armoyu/anadetail.dart';
-import 'package:armoyu/main.dart';
 import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:armoyu/Utilities/links.dart';
 import 'Controllers/controllers.dart';
@@ -133,7 +134,7 @@ class AnaSayfaState extends State<AnaSayfa> {
 
     if (gonderifotolar.length == 1 &&
         gonderifotolar[0]["paylasimkategori"] == "video/x-matroska") {
-      // return const Text("-- Video --");
+      return const Text("-- Video --");
 
       // return Padding(
       //   padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -162,6 +163,107 @@ class AnaSayfaState extends State<AnaSayfa> {
 
     if (gonderifotolar.length == 1 &&
         gonderifotolar[0]["paylasimkategori"] == "image/jpeg") {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length == 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[1]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length > 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ColorFiltered(
+                    colorFilter: const ColorFilter.srgbToLinearGamma(),
+                    child: CachedNetworkImage(
+                      imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "+ ${gonderifotolar.length - 1}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    if (gonderifotolar.length == 1 &&
+        gonderifotolar[0]["paylasimkategori"] == "image/jpg") {
       return Row(
         children: [
           Flexible(
@@ -361,6 +463,107 @@ class AnaSayfaState extends State<AnaSayfa> {
         ],
       );
     }
+
+    if (gonderifotolar.length == 1 &&
+        gonderifotolar[0]["paylasimkategori"] == "application/octet-stream") {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length == 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[1]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length > 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ColorFiltered(
+                    colorFilter: const ColorFilter.srgbToLinearGamma(),
+                    child: CachedNetworkImage(
+                      imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "+ ${gonderifotolar.length - 1}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   @override
@@ -402,64 +605,136 @@ class AnaSayfaState extends State<AnaSayfa> {
 
     return RefreshIndicator(
       onRefresh: _refresh,
-      child: Container(
-        child: dataanasayfa != null
-            ? ListView.separated(
-                controller: anaSayfaScrollController,
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  if (dataanasayfa[index]["paylasimfoto"] != null) {
-                    gonderifotolar = dataanasayfa[index]["paylasimfoto"];
-                    visible = true;
-                  } else {
-                    visible = false;
-                  }
-                  if (index < 2)
-                    return _MainListView(
-                      context,
-                      index,
-                      screenwidth,
-                      postsil,
-                      _refresh,
-                      postbildir,
-                      screenheight,
-                      onLikeButtonTapped,
-                    );
-                  else if (index == 3)
-                    return _xphorizontalListView();
-                  else if (index == 10)
-                    return _pophorizontalListView();
-                  else
-                    return _MainListView(
-                      context,
-                      index,
-                      screenwidth,
-                      postsil,
-                      _refresh,
-                      postbildir,
-                      screenheight,
-                      onLikeButtonTapped,
-                    );
-                },
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: dataanasayfa.length,
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  left: 10,
-                  right: 10,
-                  bottom: 10,
-                ),
-              )
-            : ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) => NewsCardSkelton(),
-                separatorBuilder: (context, index) => const SizedBox(height: 5),
-                itemCount: 10,
+      child: dataanasayfa.isNotEmpty
+          ? ListView.separated(
+              controller: anaSayfaScrollController,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                if (dataanasayfa[index]["paylasimfoto"] != null) {
+                  gonderifotolar = dataanasayfa[index]["paylasimfoto"];
+                  visible = true;
+                } else {
+                  visible = false;
+                }
+                if (index < 2)
+                  return _MainListView(
+                    context,
+                    index,
+                    screenwidth,
+                    postsil,
+                    _refresh,
+                    postbildir,
+                    screenheight,
+                    onLikeButtonTapped,
+                  );
+                else if (index == 3)
+                  return _xphorizontalListView();
+                else if (index == 10)
+                  return _pophorizontalListView();
+                else
+                  return _MainListView(
+                    context,
+                    index,
+                    screenwidth,
+                    postsil,
+                    _refresh,
+                    postbildir,
+                    screenheight,
+                    onLikeButtonTapped,
+                  );
+              },
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: dataanasayfa.length,
+              padding: const EdgeInsets.only(
+                top: 10,
+                left: 10,
+                right: 10,
+                bottom: 10,
               ),
-      ),
+            )
+          : SkeletonListView(
+              padding: const EdgeInsets.all(10),
+              item: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: screenwidth / 12,
+                  ),
+                  SizedBox(width: screenwidth / 35),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: const [
+                            Expanded(
+                              child: SkeletonLine(),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.more_vert,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: screenheight / 90),
+                        SkeletonParagraph(
+                          style: const SkeletonParagraphStyle(
+                            lines: 2,
+                            padding: EdgeInsets.zero,
+                          ),
+                        ),
+                        SizedBox(height: screenheight / 50),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey,
+                          ),
+                          width: screenwidth,
+                          height: 250,
+                        ),
+                        SizedBox(height: screenheight / 65),
+                        Container(
+                          color: Colors.transparent,
+                          width: screenwidth,
+                          height: screenheight / 20,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Icon(
+                                Icons.favorite_outline,
+                                color: Colors.grey,
+                              ),
+                              const Icon(
+                                Icons.chat_bubble_outline,
+                                color: Colors.grey,
+                              ),
+                              const Icon(
+                                Icons.repeat,
+                                color: Colors.grey,
+                              ),
+                              const Icon(
+                                Icons.share_outlined,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(
+                                width: screenwidth / 15,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Divider(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              scrollable: true,
+              itemCount: 20,
+            ),
     );
   }
 
@@ -643,11 +918,18 @@ class AnaSayfaState extends State<AnaSayfa> {
                                             ),
                                           );
                                           Navigator.pop(context);
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text("Kopyalandı !"),
-                                            ),
+                                          // ScaffoldMessenger.of(context)
+                                          //     .showSnackBar(
+                                          //   SnackBar(
+                                          //     content: Text("Kopyalandı !"),
+                                          //     shape: const StadiumBorder(),
+                                          //   ),
+                                          // );
+                                          Fluttertoast.showToast(
+                                            msg: "Kopyalandı !",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
                                           );
                                         },
                                         child: const ListTile(
@@ -662,7 +944,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                 girisdata["oyuncuID"]
                                             ? false
                                             : true,
-                                        child: Divider(),
+                                        child: const Divider(),
                                       ),
                                       Visibility(
                                         visible: dataanasayfa[index]
@@ -676,11 +958,18 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                 dataanasayfa[index]["postID"];
                                             postbildir();
                                             Navigator.pop(context);
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text("Bildirildi !"),
-                                              ),
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   const SnackBar(
+                                            //     content: Text("Bildirildi !"),
+                                            //     shape: StadiumBorder(),
+                                            //   ),
+                                            // );
+                                            Fluttertoast.showToast(
+                                              msg: "Bildirildi !",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
                                             );
                                           },
                                           child: const ListTile(
@@ -705,11 +994,18 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                 dataanasayfa[index]["postID"];
                                             postbildir();
                                             Navigator.pop(context);
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text("Bildirildi !"),
-                                              ),
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   const SnackBar(
+                                            //     content: Text("Bildirildi !"),
+                                            //     shape: StadiumBorder(),
+                                            //   ),
+                                            // );
+                                            Fluttertoast.showToast(
+                                              msg: "Bildirildi !",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
                                             );
                                           },
                                           child: const ListTile(
@@ -933,7 +1229,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ThemeConsumer(
-                    child: MyProfile(
+                    child: Profile(
                       veri1: xpsiralama[index]["oyuncuID"],
                     ),
                   ),
@@ -1019,7 +1315,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ThemeConsumer(
-                    child: MyProfile(
+                    child: Profile(
                       veri1: popsiralama[index]["oyuncuID"],
                     ),
                   ),
@@ -1077,7 +1373,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                             const SizedBox(width: 5),
                             Text(
                               popsiralama[index]["oyuncupop"],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),

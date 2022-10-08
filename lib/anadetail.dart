@@ -12,6 +12,7 @@ import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:armoyu/resiminceleme.dart';
 import 'package:like_button/like_button.dart';
@@ -148,7 +149,7 @@ class _AnaDetailState extends State<AnaDetail> {
   }
 
   galeriresim() {
-    print(paylasimtip);
+    // print(paylasimtip);
     var screenwidth = MediaQuery.of(context).size.width;
     var screenheight = MediaQuery.of(context).size.height;
     if (resimler.length == 1)
@@ -395,7 +396,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => ThemeConsumer(
-                                            child: MyProfile(
+                                            child: Profile(
                                               veri1: widget.veri11,
                                             ),
                                           ),
@@ -420,7 +421,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => ThemeConsumer(
-                                            child: MyProfile(
+                                            child: Profile(
                                               veri1: widget.veri11,
                                             ),
                                           ),
@@ -548,13 +549,23 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           ),
                                                         );
                                                         Navigator.pop(context);
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                          SnackBar(
-                                                            content: Text(
-                                                                "Kopyalandı !"),
-                                                          ),
+                                                        // ScaffoldMessenger.of(
+                                                        //         context)
+                                                        //     .showSnackBar(
+                                                        //   SnackBar(
+                                                        //     content: Text(
+                                                        //         "Kopyalandı !"),
+                                                        //     shape:
+                                                        //         StadiumBorder(),
+                                                        //   ),
+                                                        // );
+                                                        Fluttertoast.showToast(
+                                                          msg: "Kopyalandı !",
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .CENTER,
+                                                          timeInSecForIosWeb: 1,
                                                         );
                                                       },
                                                       child: const ListTile(
@@ -585,13 +596,26 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           postbildir();
                                                           Navigator.pop(
                                                               context);
-                                                          ScaffoldMessenger.of(
-                                                                  context)
-                                                              .showSnackBar(
-                                                            const SnackBar(
-                                                              content: Text(
-                                                                  "Bildirildi !"),
-                                                            ),
+                                                          // ScaffoldMessenger.of(
+                                                          //         context)
+                                                          //     .showSnackBar(
+                                                          //   const SnackBar(
+                                                          //     content: Text(
+                                                          //         "Bildirildi !"),
+                                                          //     shape:
+                                                          //         StadiumBorder(),
+                                                          //   ),
+                                                          // );
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg: "Bildirildi !",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .CENTER,
+                                                            timeInSecForIosWeb:
+                                                                1,
                                                           );
                                                         },
                                                         child: const ListTile(
@@ -618,13 +642,27 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           postbildir();
                                                           Navigator.pop(
                                                               context);
-                                                          ScaffoldMessenger.of(
-                                                                  context)
-                                                              .showSnackBar(
-                                                            const SnackBar(
-                                                              content: Text(
-                                                                  "Bildirildi !"),
-                                                            ),
+                                                          // ScaffoldMessenger.of(
+                                                          //         context)
+                                                          //     .showSnackBar(
+                                                          //   const SnackBar(
+                                                          //     content: Text(
+                                                          //         "Bildirildi !"),
+                                                          //     shape:
+                                                          //         StadiumBorder(),
+                                                          //   ),
+                                                          // );
+
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg: "Bildirildi !",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .CENTER,
+                                                            timeInSecForIosWeb:
+                                                                1,
                                                           );
                                                         },
                                                         child: const ListTile(
@@ -675,16 +713,23 @@ class _AnaDetailState extends State<AnaDetail> {
                                       text: widget.veri3,
                                     ),
                                   ).then((_) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          "Kopyalandı.",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        backgroundColor: Colors.grey[850],
-                                      ),
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   SnackBar(
+                                    //     content: Text(
+                                    //       "Kopyalandı.",
+                                    //       style: TextStyle(
+                                    //         color: Colors.white,
+                                    //       ),
+                                    //     ),
+                                    //     backgroundColor: Colors.grey[850],
+                                    //     shape: const StadiumBorder(),
+                                    //   ),
+                                    // );
+                                    Fluttertoast.showToast(
+                                      msg: "Kopyalandı !",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
                                     );
                                   });
                                 },
@@ -713,7 +758,9 @@ class _AnaDetailState extends State<AnaDetail> {
                             // galerivideo(),
 
                             if (paylasimtip == "image/jpeg" ||
-                                paylasimtip == "image/png")
+                                paylasimtip == "image/png" ||
+                                paylasimtip == "image/jpg" ||
+                                paylasimtip == "application/octet-stream")
                               galeriresim(),
 
                             SizedBox(height: screenheight / 35),
@@ -881,7 +928,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      focusNode.requestFocus();
+                                      focusNodeAnaDetail.requestFocus();
                                       // print(widget.veri13);
                                       // print(widget.veri13.runtimeType);
                                     },
@@ -931,7 +978,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => ThemeConsumer(
-                                              child: MyProfile(
+                                              child: Profile(
                                                 veri1: yorumlar[i]["yorumcuid"],
                                               ),
                                             ),
@@ -956,7 +1003,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     ThemeConsumer(
-                                                  child: MyProfile(
+                                                  child: Profile(
                                                     veri1: yorumlar[i]
                                                         ["yorumcuid"],
                                                   ),
@@ -1081,13 +1128,27 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                 );
                                                                 Navigator.pop(
                                                                     context);
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(
-                                                                  SnackBar(
-                                                                    content: Text(
-                                                                        "Kopyalandı !"),
-                                                                  ),
+                                                                // ScaffoldMessenger.of(
+                                                                //         context)
+                                                                //     .showSnackBar(
+                                                                //   SnackBar(
+                                                                //     content: Text(
+                                                                //         "Kopyalandı !"),
+                                                                //     shape:
+                                                                //         StadiumBorder(),
+                                                                //   ),
+                                                                // );
+                                                                Fluttertoast
+                                                                    .showToast(
+                                                                  msg:
+                                                                      "Kopyalandı !",
+                                                                  toastLength: Toast
+                                                                      .LENGTH_SHORT,
+                                                                  gravity:
+                                                                      ToastGravity
+                                                                          .CENTER,
+                                                                  timeInSecForIosWeb:
+                                                                      1,
                                                                 );
                                                               },
                                                               child:
@@ -1280,7 +1341,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                           onPressed: () {
                                             yorum.text =
                                                 "${yorumlar[i]["yorumcuetiketad"]} ";
-                                            focusNode.requestFocus();
+                                            focusNodeAnaDetail.requestFocus();
                                           },
                                           icon: Icon(
                                             Icons.chat_bubble_outline,
@@ -1332,7 +1393,7 @@ class _AnaDetailState extends State<AnaDetail> {
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(5, 2, 5, 5),
                         child: DetectableTextField(
-                          focusNode: focusNode,
+                          focusNode: focusNodeAnaDetail,
                           detectionRegExp: RegExp(
                             "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
                             multiLine: true,
@@ -1386,6 +1447,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                     SnackBar(
                                       content: Text("Yorum yapıldı ! " +
                                           "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
+                                      shape: const StadiumBorder(),
                                     ),
                                   );
                                 } else {
@@ -1396,6 +1458,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text("Yorum boş olamaz !"),
+                                      shape: const StadiumBorder(),
                                     ),
                                   );
                                 }

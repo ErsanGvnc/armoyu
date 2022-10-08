@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, prefer_final_fields, sort_child_properties_last, avoid_print, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, non_constant_identifier_names, unnecessary_null_comparison, unused_element, must_be_immutable, file_names, prefer_typing_uninitialized_variables, prefer_if_null_operators, prefer_adjacent_string_concatenation, curly_braces_in_flow_control_structures
+// ignore_for_file: unused_local_variable, use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, prefer_final_fields, sort_child_properties_last, avoid_print, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, non_constant_identifier_names, unnecessary_null_comparison, unused_element, must_be_immutable, file_names, prefer_typing_uninitialized_variables, prefer_if_null_operators, prefer_adjacent_string_concatenation, curly_braces_in_flow_control_structures, no_leading_underscores_for_local_identifiers
 
 import 'dart:convert';
 import 'package:animations/animations.dart';
@@ -11,9 +11,11 @@ import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:like_button/like_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:photo_view/photo_view.dart';
@@ -25,18 +27,18 @@ import 'Variables/variables.dart';
 import 'Controllers/controllers.dart';
 import 'post.dart';
 
-class MyProfile extends StatefulWidget {
+class Profile extends StatefulWidget {
   String veri1;
 
-  MyProfile({
+  Profile({
     required this.veri1,
   });
 
   @override
-  State<MyProfile> createState() => _ProfileState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
+class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   @override
   initState() {
     super.initState();
@@ -60,6 +62,8 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
       setState(() {
         try {
           profiledata = jsonDecode(cevap.body);
+          // print(profiledata);
+          arkadasdurum();
         } catch (e) {
           print('Unknown exception: $e');
         }
@@ -141,7 +145,7 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
 
     if (gonderifotolar.length == 1 &&
         gonderifotolar[0]["paylasimkategori"] == "video/x-matroska") {
-      // return const Text("-- Video --");
+      return const Text("-- Video --");
 
       // return Padding(
       //   padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -170,6 +174,107 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
 
     if (gonderifotolar.length == 1 &&
         gonderifotolar[0]["paylasimkategori"] == "image/jpeg") {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length == 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[1]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length > 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ColorFiltered(
+                    colorFilter: const ColorFilter.srgbToLinearGamma(),
+                    child: CachedNetworkImage(
+                      imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "+ ${gonderifotolar.length - 1}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    if (gonderifotolar.length == 1 &&
+        gonderifotolar[0]["paylasimkategori"] == "image/jpg") {
       return Row(
         children: [
           Flexible(
@@ -369,6 +474,107 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
         ],
       );
     }
+
+    if (gonderifotolar.length == 1 &&
+        gonderifotolar[0]["paylasimkategori"] == "application/octet-stream") {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length == 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[1]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else if (gonderifotolar.length > 2) {
+      return Row(
+        children: [
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: gonderifotolar[0]["fotoufakurl"],
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: screenwidth / 35),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ColorFiltered(
+                    colorFilter: const ColorFilter.srgbToLinearGamma(),
+                    child: CachedNetworkImage(
+                      imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "+ ${gonderifotolar.length - 1}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   Future<bool> onLikeButtonTapped(bool isLike, int index) async {
@@ -411,6 +617,29 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
         print(arkadas);
       });
     });
+  }
+
+  arkadasdurum() async {
+    if (profiledata["arkadasdurum"] == "0") {
+      setState(() {
+        arkadasText = "Arkadaş Ol";
+      });
+    } else if (profiledata["arkadasdurum"] == "1") {
+      setState(() {
+        arkadasText = "Mesaj Gönder";
+      });
+    } else if (profiledata["arkadasdurum"] == "2") {
+      setState(() {
+        arkadasText = "Bekleniyor...";
+      });
+    } else if (profiledata["arkadasdurum"] == null) {
+      setState(() {
+        arkadasText = "";
+      });
+    } else {
+      null;
+    }
+    setState(() {});
   }
 
   @override
@@ -488,11 +717,18 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                                 ),
                                               );
                                               Navigator.pop(context);
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text("Kopyalandı !"),
-                                                ),
+                                              // ScaffoldMessenger.of(context)
+                                              //     .showSnackBar(
+                                              //   SnackBar(
+                                              //     content: Text("Kopyalandı !"),
+                                              //     shape: const StadiumBorder(),
+                                              //   ),
+                                              // );
+                                              Fluttertoast.showToast(
+                                                msg: "Kopyalandı !",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
                                               );
                                             },
                                             child: const ListTile(
@@ -519,12 +755,21 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                                 // profilebildir();
                                                 print(profileID);
                                                 Navigator.pop(context);
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    content:
-                                                        Text("Bildirildi !"),
-                                                  ),
+                                                // ScaffoldMessenger.of(context)
+                                                //     .showSnackBar(
+                                                //   const SnackBar(
+                                                //     content:
+                                                //         Text("Bildirildi !"),
+                                                //     shape:
+                                                //         const StadiumBorder(),
+                                                //   ),
+                                                // );
+                                                Fluttertoast.showToast(
+                                                  msg: "Bildirildi !",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
                                                 );
                                               },
                                               child: const ListTile(
@@ -604,6 +849,15 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                   trailingIcon: Icon(Icons.share),
                                   onPressed: () {
                                     Share.share(profiledata["parkaresim"]);
+                                  },
+                                ),
+                                FocusedMenuItem(
+                                  title: Text("Save to Gallery"),
+                                  trailingIcon:
+                                      Icon(Icons.file_download_outlined),
+                                  onPressed: () {
+                                    GallerySaver.saveImage(
+                                        profiledata["parkaresim"]);
                                   },
                                 ),
                               ],
@@ -688,6 +942,15 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                           Share.share(profiledata["presim"]);
                                         },
                                       ),
+                                      FocusedMenuItem(
+                                        title: Text("Save to Gallery"),
+                                        trailingIcon:
+                                            Icon(Icons.file_download_outlined),
+                                        onPressed: () {
+                                          GallerySaver.saveImage(
+                                              profiledata["presim"]);
+                                        },
+                                      ),
                                     ],
                                     onPressed: () {},
                                     openWithTap: false,
@@ -706,9 +969,12 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                               CircleAvatar(
                                                 radius: 49,
                                                 backgroundColor: Color(
-                                                  int.parse("0xFF" +
-                                                      profiledata[
-                                                          "seviyerenk"]),
+                                                  profiledata["seviyerenk"] !=
+                                                          false
+                                                      ? int.parse("0xFF" +
+                                                          profiledata[
+                                                              "seviyerenk"])
+                                                      : 0xFF,
                                                 ),
                                                 child: CircleAvatar(
                                                   radius: 45,
@@ -726,9 +992,12 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     color: Color(
-                                                      int.parse("0xFF" +
-                                                          profiledata[
-                                                              "seviyerenk"]),
+                                                      profiledata["seviyerenk"] !=
+                                                              false
+                                                          ? int.parse("0xFF" +
+                                                              profiledata[
+                                                                  "seviyerenk"])
+                                                          : 0xFF,
                                                     ),
                                                   ),
                                                   child: Center(
@@ -778,8 +1047,35 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                             ? false
                                             : true,
                                         child: InkWell(
+                                          borderRadius: BorderRadius.horizontal(
+                                            left: Radius.circular(30),
+                                            right: Radius.circular(30),
+                                          ),
                                           onTap: () {
-                                            print("object");
+                                            if (profiledata["arkadasdurum"] ==
+                                                "1") {
+                                              setState(() {
+                                                arkadasText = "Mesaj Gönder";
+                                              });
+                                              print("Mesaj Gönder");
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  content: Text("Yakında !"),
+                                                  shape: StadiumBorder(),
+                                                ),
+                                              );
+                                            } else if (profiledata[
+                                                    "arkadasdurum"] ==
+                                                "0") {
+                                              setState(() {
+                                                arkadasText = "Bekleniyor...";
+                                              });
+                                              print("Arkadaş Ol");
+                                              arkadasol();
+                                            }
                                           },
                                           child: Container(
                                             height: 40,
@@ -794,12 +1090,40 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                "Arkadaş Ol",
+                                                arkadasText,
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                               ),
+                                              // child: Text("${() async {
+                                              //   if (profiledata[
+                                              //           "arkadasdurum"] ==
+                                              //       "0") {
+                                              //     setState(() {
+                                              //       arkadasText = "Arkadaş Ol";
+                                              //     });
+                                              //     return Text(arkadasText);
+                                              //   } else if (profiledata[
+                                              //           "arkadasdurum"] ==
+                                              //       "1") {
+                                              //     setState(() {
+                                              //       arkadasText =
+                                              //           "Mesaj Gönder";
+                                              //     });
+                                              //     return Text(arkadasText);
+                                              //   } else if (profiledata[
+                                              //           "arkadasdurum"] ==
+                                              //       "2") {
+                                              //     setState(() {
+                                              //       arkadasText =
+                                              //           "Bekleniyor...";
+                                              //     });
+                                              //     return Text(arkadasText);
+                                              //   } else {
+                                              //     return Text("");
+                                              //   }
+                                              // }()}"),
                                             ),
                                           ),
                                         ),
@@ -867,16 +1191,23 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                       text: profiledata["hakkimda"],
                                     ),
                                   ).then((_) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          "Kopyalandı.",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        backgroundColor: Colors.grey[850],
-                                      ),
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   SnackBar(
+                                    //     content: Text(
+                                    //       "Kopyalandı.",
+                                    //       style: TextStyle(
+                                    //         color: Colors.white,
+                                    //       ),
+                                    //     ),
+                                    //     backgroundColor: Colors.grey[850],
+                                    //     shape: const StadiumBorder(),
+                                    //   ),
+                                    // );
+                                    Fluttertoast.showToast(
+                                      msg: "Kopyalandı !",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
                                     );
                                   });
                                 },
@@ -1524,6 +1855,14 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                         trailingIcon: Icon(Icons.share),
                         onPressed: () {
                           Share.share(medyadata[index]["medyaorijinal"]);
+                        },
+                      ),
+                      FocusedMenuItem(
+                        title: Text("Save to Gallery"),
+                        trailingIcon: Icon(Icons.file_download_outlined),
+                        onPressed: () {
+                          GallerySaver.saveImage(
+                              medyadata[index]["medyaorijinal"]);
                         },
                       ),
                       // FocusedMenuItem(
@@ -2627,14 +2966,23 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                               onTap: () {
                                                 // postID =
                                                 //     widget.veri10;
-                                                postbildir();
+                                                // postbildir();
                                                 Navigator.pop(context);
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    content:
-                                                        Text("Bildirildi !"),
-                                                  ),
+                                                // ScaffoldMessenger.of(context)
+                                                //     .showSnackBar(
+                                                //   const SnackBar(
+                                                //     content:
+                                                //         Text("Bildirildi !"),
+                                                //     shape:
+                                                //         const StadiumBorder(),
+                                                //   ),
+                                                // );
+                                                Fluttertoast.showToast(
+                                                  msg: "Bildirildi !",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
                                                 );
                                               },
                                               child: const ListTile(
@@ -2656,14 +3004,23 @@ class _ProfileState extends State<MyProfile> with TickerProviderStateMixin {
                                               onTap: () {
                                                 // postID =
                                                 //     widget.veri10;
-                                                postbildir();
+                                                // postbildir();
                                                 Navigator.pop(context);
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    content:
-                                                        Text("Bildirildi !"),
-                                                  ),
+                                                // ScaffoldMessenger.of(context)
+                                                //     .showSnackBar(
+                                                //   const SnackBar(
+                                                //     content:
+                                                //         Text("Bildirildi !"),
+                                                //     shape:
+                                                //         const StadiumBorder(),
+                                                //   ),
+                                                // );
+                                                Fluttertoast.showToast(
+                                                  msg: "Bildirildi !",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
                                                 );
                                               },
                                               child: const ListTile(

@@ -1,16 +1,19 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, unused_local_variable, avoid_print, unnecessary_string_interpolations, prefer_adjacent_string_concatenation
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, unused_local_variable, avoid_print, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, use_build_context_synchronously, no_leading_underscores_for_local_identifiers
 
+import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'Controllers/controllers.dart';
 import 'Variables/variables.dart';
-import 'utilities/utilities.dart';
 
 class Post extends StatefulWidget {
   String veri1;
@@ -31,6 +34,47 @@ class _PostState extends State<Post> {
     post.text = widget.veri1;
   }
 
+  Future<MultipartFile> generateImageFile(XFile file) async {
+    return await MultipartFile.fromFile(file.path,
+        contentType: MediaType("image", "jpg"));
+  }
+
+  Future<Response> postgonder(List<XFile> files) async {
+    List<MultipartFile> photosCollection = [];
+    for (var file in files) {
+      photosCollection.add(await generateImageFile(file));
+      print(file.path);
+    }
+
+    var formData = FormData.fromMap({
+      "paylasimfoto[]": photosCollection,
+      "sosyalicerik": post.text,
+    });
+
+    print(photosCollection);
+    print(photosCollection.runtimeType);
+
+    var response = await Dio().post(
+      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
+      data: formData,
+    );
+
+    print(response);
+
+    return response;
+  }
+
+  _imgFromGallery() async {
+    final ImagePicker _picker = ImagePicker();
+    final List<XFile>? image = await _picker.pickMultiImage();
+
+    if (image != null) {
+      setState(() {
+        images.addAll(image);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenwidth = MediaQuery.of(context).size.width;
@@ -42,10 +86,11 @@ class _PostState extends State<Post> {
         appBar: AppBar(
           actions: [
             Visibility(
-              visible: post.text.isNotEmpty ? true : false,
+              visible: post.text.isNotEmpty || images.isNotEmpty ? true : false,
               child: IconButton(
                 onPressed: () {
                   post.clear();
+                  images.clear();
                   setState(() {
                     textLength = 0;
                   });
@@ -58,15 +103,24 @@ class _PostState extends State<Post> {
               child: InkWell(
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
-                onTap: () {
+                onTap: () async {
                   if (post.text.isNotEmpty) {
                     print("Paylaşıldı !");
-                    postgonder();
+                    setState(() {
+                      isUpload = true;
+                    });
+
+                    await postgonder(images);
+                    setState(() {
+                      isUpload = false;
+                    });
                     post.clear();
+                    images.clear();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text("Paylaşıldı ! " +
                             "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
+                        shape: const StadiumBorder(),
                       ),
                     );
                     Navigator.pop(context);
@@ -184,6 +238,50 @@ class _PostState extends State<Post> {
                   },
                 ),
               ),
+              Visibility(
+                visible: images.isNotEmpty ? true : false,
+                child: SizedBox(
+                  width: screenwidth,
+                  height: 150,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.all(8),
+                    itemBuilder: (context, index) {
+                      return Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.file(
+                              File(images[index].path),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Positioned(
+                            top: 5,
+                            right: 5,
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  images.removeAt(index);
+                                });
+                              },
+                              child: const Icon(
+                                Icons.clear,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 10),
+                    itemCount: images.length,
+                  ),
+                ),
+              ),
               SizedBox(
                 width: screenwidth,
                 child: Column(
@@ -208,12 +306,8 @@ class _PostState extends State<Post> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                duration: Duration(seconds: 1),
-                                content: Text("Yakında !"),
-                              ),
-                            );
+                            images.clear();
+                            _imgFromGallery();
                           },
                           icon: const Icon(
                             Icons.image_outlined,
@@ -226,6 +320,7 @@ class _PostState extends State<Post> {
                               const SnackBar(
                                 duration: Duration(seconds: 1),
                                 content: Text("Yakında !"),
+                                shape: StadiumBorder(),
                               ),
                             );
                           },
@@ -240,6 +335,7 @@ class _PostState extends State<Post> {
                               const SnackBar(
                                 duration: Duration(seconds: 1),
                                 content: Text("Yakında !"),
+                                shape: StadiumBorder(),
                               ),
                             );
                           },
@@ -254,6 +350,7 @@ class _PostState extends State<Post> {
                               const SnackBar(
                                 duration: Duration(seconds: 1),
                                 content: Text("Yakında !"),
+                                shape: StadiumBorder(),
                               ),
                             );
                           },
@@ -262,6 +359,34 @@ class _PostState extends State<Post> {
                             color: Colors.blue,
                           ),
                         ),
+                        const Spacer(),
+                        Visibility(
+                          visible: isUpload,
+                          child: const CircularProgressIndicator(),
+                        ),
+                        const SizedBox(width: 10),
+                        Visibility(
+                          visible: images.isNotEmpty ? true : false,
+                          child: Row(
+                            children: [
+                              Text(
+                                "${images.length} images",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  images.clear();
+                                  setState(() {});
+                                },
+                                icon: const Icon(Icons.clear),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 10),
                       ],
                     ),
                   ],

@@ -7,16 +7,16 @@ import 'links.dart';
 import 'dart:convert';
 
 // Post //
-postgonder() {
-  http.post(
-    Uri.parse(
-      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
-    ),
-    body: {
-      "sosyalicerik": post.text,
-    },
-  );
-}
+// postgonder() {
+//   http.post(
+//     Uri.parse(
+//       "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
+//     ),
+//     body: {
+//       "sosyalicerik": post.text,
+//     },
+//   );
+// }
 
 postlike() {
   http.post(

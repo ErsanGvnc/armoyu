@@ -152,6 +152,7 @@ class _ToplantiState extends State<Toplanti> {
                               SnackBar(
                                 content: Text("Gönderildi ! " +
                                     "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
+                                shape: const StadiumBorder(),
                               ),
                             );
                             toplantigonder();
@@ -166,6 +167,7 @@ class _ToplantiState extends State<Toplanti> {
                               SnackBar(
                                 content: Text("İçerik boş olamaz ! " +
                                     "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
+                                shape: const StadiumBorder(),
                               ),
                             );
                             print("İçerik boş olamaz !");
@@ -174,6 +176,7 @@ class _ToplantiState extends State<Toplanti> {
                               SnackBar(
                                 content: Text("Lütfen toplantı seçin ! " +
                                     "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
+                                shape: const StadiumBorder(),
                               ),
                             );
                             print("Lütfen toplantı seçin !");

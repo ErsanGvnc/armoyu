@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers
 
 import 'dart:convert';
 
@@ -76,9 +76,11 @@ class NewsState extends State<News> {
                             SizedBox(
                               width: screenwidth / 3,
                               height: screenheight / 6,
-                              child: CachedNetworkImage(
-                                imageUrl: datahaber[index]["resim"],
-                              ),
+                              child: datahaber[index]["resim"] != null
+                                  ? CachedNetworkImage(
+                                      imageUrl: datahaber[index]["resim"],
+                                    )
+                                  : null,
                             ),
                             const SizedBox(
                               width: 10,

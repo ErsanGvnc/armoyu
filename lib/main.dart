@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:armoyu/Firebase/firebase.dart';
 import 'package:armoyu/Utilities/links.dart';
+import 'package:armoyu/initsayfa.dart';
 import 'package:armoyu/profile.dart';
 import 'package:armoyu/notification.dart';
 import 'package:armoyu/search.dart';
@@ -11,7 +12,7 @@ import 'package:armoyu/site.dart';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+// import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -157,6 +158,7 @@ class MyHomePageState extends State<MyHomePage> {
     } else {
       const snackBar = SnackBar(
         content: Text('Hatalı Kullanıcı Adı Veya Parola!'),
+        shape: StadiumBorder(),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -381,7 +383,7 @@ class MyHomePageState extends State<MyHomePage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ThemeConsumer(
-                                child: MyProfile(
+                                child: Profile(
                                   veri1: girisdata["oyuncuID"],
                                 ),
                               ),
@@ -697,7 +699,7 @@ class MyHomePageState extends State<MyHomePage> {
               visible: currentIndex == 2 ? true : false,
               child: IconButton(
                 onPressed: () {
-                  print(bildirimler);
+                  // print(bildirimler);
                 },
                 icon: Icon(Icons.settings),
               ),
@@ -726,7 +728,7 @@ class MyHomePageState extends State<MyHomePage> {
             BottomNavigationBarItem(
               icon: Badge(
                 badgeColor: Colors.blue,
-                showBadge: true,
+                showBadge: showNotification,
                 ignorePointer: true,
                 borderSide: BorderSide(
                   color: Colors.black,
@@ -743,9 +745,7 @@ class MyHomePageState extends State<MyHomePage> {
             ),
           ],
           onTap: (index) => setState(() {
-            currentIndex = index;
-
-            currentIndex == 0
+            currentIndex == index && currentIndex == 0
                 ? anaSayfaScrollController.animateTo(
                     0,
                     duration: const Duration(milliseconds: 1000),
@@ -753,21 +753,26 @@ class MyHomePageState extends State<MyHomePage> {
                   )
                 : null;
 
-            // currentIndex == 1
-            //     ? searchMainScrollController.animateTo(
-            //         0,
-            //         duration: const Duration(milliseconds: 1000),
-            //         curve: Curves.easeOut,
-            //       )
-            //     : null;
+            currentIndex == index && currentIndex == 1
+                ? searchMainScrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOut,
+                  )
+                : null;
 
-            // currentIndex == 2
-            //     ? notificationScrollController.animateTo(
-            //         0,
-            //         duration: const Duration(milliseconds: 1000),
-            //         curve: Curves.easeOut,
-            //       )
-            //     : null;
+            currentIndex == index && currentIndex == 2
+                ? notificationScrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOut,
+                  )
+                : null;
+
+            if (currentIndex == 2 || index == 2) {
+              showNotification = false;
+            }
+            currentIndex = index;
           }),
           showSelectedLabels: false,
           showUnselectedLabels: false,

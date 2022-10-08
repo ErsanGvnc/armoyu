@@ -251,6 +251,7 @@ class _RegisterState extends State<Register> {
                             const snackBar = SnackBar(
                               content:
                                   Text('Kayıt Bilgilerinizi Boş Bıraktınız!'),
+                              shape: StadiumBorder(),
                             );
 
                             ScaffoldMessenger.of(context)
@@ -268,6 +269,7 @@ class _RegisterState extends State<Register> {
                                 print("sifreler uyusmuyor");
                                 const snackBar = SnackBar(
                                   content: Text('Şifreler uyuşmuyor!'),
+                                  shape: StadiumBorder(),
                                 );
 
                                 ScaffoldMessenger.of(context)

@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:image_picker/image_picker.dart';
 
 // var //
 var botId1 = dotenv.env['botId1'];
@@ -22,6 +23,8 @@ var setstatedegiden;
 var maxLength = 250;
 var textLength = 0;
 var profileID;
+var id;
+var kulAdSoyad;
 
 // String //
 String mevcutpage = "anasayfa";
@@ -37,6 +40,7 @@ String lol = "LOL";
 String theforest = "THE FOREST";
 String lastWords = '';
 String? byr;
+String arkadasText = "";
 
 // int //
 int startPage = 0;
@@ -48,6 +52,8 @@ bool? gkontrolHatirla;
 bool visible = false;
 bool beniHatirla = true;
 bool speechEnabled = false;
+bool isUpload = false;
+bool showNotification = true;
 
 // List //
 List gruplarim = [];
@@ -64,21 +70,21 @@ List xpsiralama = [];
 List popsiralama = [];
 List<dynamic> kullanicilar = [];
 List<dynamic> searchler = [];
-List searchgaleri = [
-  "https://aramizdakioyuncu.com/galeri/profilresimleri/11profilresimminnak1655290338.jpg",
-  "https://aramizdakioyuncu.com/galeri/profilresimleri/11profilresimminnak1655290338.jpg",
-  "https://aramizdakioyuncu.com/galeri/profilresimleri/11profilresimminnak1655290338.jpg",
-  "https://aramizdakioyuncu.com/galeri/profilresimleri/11profilresimminnak1655290338.jpg",
-];
 List postlar = [];
 List haberler = [];
 List postbyr = [];
+List ayinpostu = [];
+List hashtagler = [];
+List<XFile> images = [];
+List searchgaleri = [];
+List searchhaber = [];
 
 // Timer //
 Timer? timer;
 
 // FocusNode //
-FocusNode focusNode = FocusNode();
+FocusNode focusNodeAnaDetail = FocusNode();
+FocusNode focusNodeSearch = FocusNode();
 
 // SpeechToText //
 // SpeechToText speechToText = SpeechToText();

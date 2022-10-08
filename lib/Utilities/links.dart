@@ -45,5 +45,12 @@ var poplink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/popsiralama/0/0/";
 var kullanicilink =
     "https://aramizdakioyuncu.com/botlar/ana-arama-motoru.php?deger=0";
-var searchlink = "";
 var postbyrlink = "";
+var ayinpostulink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/ayinpostu/0/";
+var hashtaglink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/etiketler/0/0/";
+var bildirimlink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/bildirim/0/0/";
+var searchaberlink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/haberler/yazar/0/";
