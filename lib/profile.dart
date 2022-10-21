@@ -9,6 +9,7 @@ import 'package:armoyu/Utilities/utilities.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
+import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -882,8 +883,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   return ThemeConsumer(
                                     child: Scaffold(
                                       appBar: AppBar(),
-                                      body: Center(
-                                        child: Container(
+                                      body: DismissiblePage(
+                                        backgroundColor: Colors.transparent,
+                                        direction:
+                                            DismissiblePageDismissDirection
+                                                .vertical,
+                                        onDismissed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Center(
                                           child: PhotoView(
                                             backgroundDecoration: BoxDecoration(
                                                 color: Colors.transparent),
@@ -1019,8 +1027,16 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         return ThemeConsumer(
                                           child: Scaffold(
                                             appBar: AppBar(),
-                                            body: Center(
-                                              child: Container(
+                                            body: DismissiblePage(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              direction:
+                                                  DismissiblePageDismissDirection
+                                                      .vertical,
+                                              onDismissed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Center(
                                                 child: CircleAvatar(
                                                   radius: 100,
                                                   backgroundImage: NetworkImage(

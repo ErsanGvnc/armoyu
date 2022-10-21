@@ -100,6 +100,8 @@ class _AnaDetailState extends State<AnaDetail> {
       }
     }
 
+    print(yorumlar);
+
     setState(() {});
   }
 
@@ -1367,16 +1369,59 @@ class _AnaDetailState extends State<AnaDetail> {
                                   Divider(),
                                 ],
                               ),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.radio_button_checked,
-                                  color: Colors.grey,
-                                ),
+                                yorumlar.isNotEmpty
+                                    ? Icon(
+                                        Icons.radio_button_checked,
+                                        color: Colors.grey,
+                                      )
+                                    : Column(
+                                        children: [
+                                          SizedBox(height: 100),
+                                          Text(
+                                            "Yorum yapan ilk kişi olun",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          SizedBox(height: 25),
+                                          InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            onTap: () => focusNodeAnaDetail
+                                                .requestFocus(),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                border: Border.all(
+                                                  color: Colors.blue,
+                                                  width: 2,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(10),
+                                                child: Text(
+                                                  "Yorum Yap",
+                                                  style: TextStyle(
+                                                    color: Colors.blue,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                               ],
                             ),
+
                             SizedBox(height: 450),
                           ],
                         ),
