@@ -17,6 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:armoyu/resiminceleme.dart';
 import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:simple_url_preview/simple_url_preview.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:http/http.dart' as http;
 import 'Controllers/controllers.dart';
@@ -765,9 +766,25 @@ class _AnaDetailState extends State<AnaDetail> {
                                 paylasimtip == "application/octet-stream")
                               galeriresim(),
 
-                            SizedBox(height: screenheight / 35),
+                            SimpleUrlPreview(
+                              url: widget.veri3,
+                              isClosable: true,
+                              imageLoaderColor: Colors.blue,
+                              titleStyle: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              descriptionStyle: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              siteNameStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(height: screenheight / 50),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                               child: Row(
                                 children: [
                                   Text(

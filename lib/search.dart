@@ -717,6 +717,12 @@ class _SearchState extends State<Search> {
                                         },
                                         child: ListTile(
                                           title: Text(option[1]),
+                                          trailing: IconButton(
+                                            onPressed: () {
+                                              searchtec.text = option[1];
+                                            },
+                                            icon: Icon(Icons.north_west),
+                                          ),
                                         ),
                                       ))
                                   .toList(),

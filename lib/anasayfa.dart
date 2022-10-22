@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:armoyu/anadetail.dart';
 import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:simple_url_preview/simple_url_preview.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:armoyu/Utilities/links.dart';
@@ -1055,6 +1056,22 @@ class AnaSayfaState extends State<AnaSayfa> {
                   visible: visible,
                   child: Container(
                     child: gonderifotocek(),
+                  ),
+                ),
+                SimpleUrlPreview(
+                  url: dataanasayfa[index]["sosyalicerik"],
+                  isClosable: true,
+                  imageLoaderColor: Colors.blue,
+                  titleStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  descriptionStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  siteNameStyle: const TextStyle(
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: screenheight / 65),

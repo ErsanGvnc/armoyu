@@ -1,7 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, unused_local_variable, avoid_print, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, use_build_context_synchronously, no_leading_underscores_for_local_identifiers
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, unused_local_variable, avoid_print, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, use_build_context_synchronously, no_leading_underscores_for_local_identifiers, prefer_const_constructors
 
 import 'dart:io';
 import 'dart:math';
+// import 'package:any_link_preview/any_link_preview.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
@@ -205,8 +206,8 @@ class _PostState extends State<Post> {
                   minLines: null,
                   maxLines: null,
                   maxLength: maxLength,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   basicStyle: const TextStyle(
                     fontSize: 18,
@@ -214,10 +215,11 @@ class _PostState extends State<Post> {
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(
                       RegExp(
-                        r"[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*# ]",
+                        r"[\r\n abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*#?]",
                         caseSensitive: true,
                         unicode: true,
                         dotAll: true,
+                        multiLine: true,
                       ),
                     ),
                   ],
@@ -238,6 +240,9 @@ class _PostState extends State<Post> {
                   },
                 ),
               ),
+              // AnyLinkPreview(
+              //   link: "https://vardaan.app/",
+              // ),
               Visibility(
                 visible: images.isNotEmpty ? true : false,
                 child: SizedBox(
@@ -302,92 +307,133 @@ class _PostState extends State<Post> {
                         height: 0.5,
                       ),
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            images.clear();
-                            _imgFromGallery();
-                          },
-                          icon: const Icon(
-                            Icons.image_outlined,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                duration: Duration(seconds: 1),
-                                content: Text("Yakında !"),
-                                shape: StadiumBorder(),
+                    SafeArea(
+                      child: SizedBox(
+                        width: screenwidth,
+                        height: 50,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                images.clear();
+                                _imgFromGallery();
+                              },
+                              icon: const Icon(
+                                Icons.image_outlined,
+                                color: Colors.blue,
                               ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.video_camera_back_outlined,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                duration: Duration(seconds: 1),
-                                content: Text("Yakında !"),
-                                shape: StadiumBorder(),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    content: Text("Yakında !"),
+                                    shape: StadiumBorder(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.photo_camera_outlined,
+                                color: Colors.blue,
                               ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.gif_box_outlined,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                duration: Duration(seconds: 1),
-                                content: Text("Yakında !"),
-                                shape: StadiumBorder(),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    content: Text("Yakında !"),
+                                    shape: StadiumBorder(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.video_camera_back_outlined,
+                                color: Colors.blue,
                               ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.location_on_outlined,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        const Spacer(),
-                        Visibility(
-                          visible: isUpload,
-                          child: const CircularProgressIndicator(),
-                        ),
-                        const SizedBox(width: 10),
-                        Visibility(
-                          visible: images.isNotEmpty ? true : false,
-                          child: Row(
-                            children: [
-                              Text(
-                                "${images.length} images",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    content: Text("Yakında !"),
+                                    shape: StadiumBorder(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.gif_box_outlined,
+                                color: Colors.blue,
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  images.clear();
-                                  setState(() {});
-                                },
-                                icon: const Icon(Icons.clear),
-                              )
-                            ],
-                          ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    content: Text("Yakında !"),
+                                    shape: StadiumBorder(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.mic_outlined,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    content: Text("Yakında !"),
+                                    shape: StadiumBorder(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.location_on_outlined,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            const SizedBox(width: 25),
+                            Visibility(
+                              visible: isUpload,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: const CircularProgressIndicator(),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Visibility(
+                              visible: images.isNotEmpty ? true : false,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "${images.length} images",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      images.clear();
+                                      setState(() {});
+                                    },
+                                    icon: const Icon(Icons.clear),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 10),
-                      ],
+                      ),
                     ),
                   ],
                 ),
