@@ -212,17 +212,17 @@ class _PostState extends State<Post> {
                   basicStyle: const TextStyle(
                     fontSize: 18,
                   ),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(
-                      RegExp(
-                        r"[\r\n abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*#?]",
-                        caseSensitive: true,
-                        unicode: true,
-                        dotAll: true,
-                        multiLine: true,
-                      ),
-                    ),
-                  ],
+                  // inputFormatters: [
+                  //   FilteringTextInputFormatter.allow(
+                  //     RegExp(
+                  //       r"[\r\n abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*#?]",
+                  //       caseSensitive: true,
+                  //       unicode: true,
+                  //       dotAll: true,
+                  //       multiLine: true,
+                  //     ),
+                  //   ),
+                  // ],
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(8),
                     border: InputBorder.none,

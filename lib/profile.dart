@@ -657,6 +657,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               length: 4,
               initialIndex: 0,
               child: NestedScrollView(
+                controller: profileScrollController,
                 scrollDirection: Axis.vertical,
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
@@ -3339,6 +3340,41 @@ class Delegate extends SliverPersistentHeaderDelegate {
         ),
         width: screenwidth,
         child: TabBar(
+          onTap: (value) {
+            profileCurrentIndex == value && profileCurrentIndex == 0
+                ? profileScrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOut,
+                  )
+                : null;
+
+            profileCurrentIndex == value && profileCurrentIndex == 1
+                ? profileScrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOut,
+                  )
+                : null;
+
+            profileCurrentIndex == value && profileCurrentIndex == 2
+                ? profileScrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOut,
+                  )
+                : null;
+
+            profileCurrentIndex == value && profileCurrentIndex == 3
+                ? profileScrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOut,
+                  )
+                : null;
+
+            profileCurrentIndex = value;
+          },
           isScrollable: true,
           indicatorColor: Colors.blue,
           labelStyle: TextStyle(

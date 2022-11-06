@@ -719,7 +719,23 @@ class _SearchState extends State<Search> {
                                           title: Text(option[1]),
                                           trailing: IconButton(
                                             onPressed: () {
-                                              searchtec.text = option[1];
+                                              id = option[0];
+                                              kulAdSoyad = option[1];
+                                              searchtec.text = kulAdSoyad;
+
+                                              resimler.clear();
+                                              searchgaleri.clear();
+                                              searchhaber.clear();
+
+                                              search(id);
+                                              medyacek(id);
+                                              habercek(id);
+
+                                              setState(() {
+                                                aratildi = 1;
+                                              });
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
                                             },
                                             icon: Icon(Icons.north_west),
                                           ),

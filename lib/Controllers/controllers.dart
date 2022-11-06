@@ -33,3 +33,4 @@ ScrollController searchHorizontalScrollController = ScrollController();
 ScrollController searchHorizontalChipScrollController = ScrollController();
 ScrollController searchSingleChildSVScrollController = ScrollController();
 ScrollController byrScrollController = ScrollController();
+ScrollController profileScrollController = ScrollController();

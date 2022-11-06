@@ -45,6 +45,7 @@ String arkadasText = "";
 // int //
 int startPage = 0;
 int currentIndex = 0;
+int profileCurrentIndex = 0;
 int aratildi = 0;
 
 // bool //
