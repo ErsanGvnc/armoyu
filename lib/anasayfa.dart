@@ -1003,6 +1003,42 @@ class AnaSayfaState extends State<AnaSayfa> {
                                             //   ),
                                             // );
                                             Fluttertoast.showToast(
+                                              msg: "Engellendi !",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
+                                            );
+                                          },
+                                          child: const ListTile(
+                                            textColor: Colors.red,
+                                            leading: Icon(
+                                              Icons.person_off_outlined,
+                                              color: Colors.red,
+                                            ),
+                                            title: Text("Kullanıcıyı engelle."),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: dataanasayfa[index]
+                                                    ["sahipID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? false
+                                            : true,
+                                        child: InkWell(
+                                          onTap: () {
+                                            postID =
+                                                dataanasayfa[index]["postID"];
+                                            postbildir();
+                                            Navigator.pop(context);
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   const SnackBar(
+                                            //     content: Text("Bildirildi !"),
+                                            //     shape: StadiumBorder(),
+                                            //   ),
+                                            // );
+                                            Fluttertoast.showToast(
                                               msg: "Bildirildi !",
                                               toastLength: Toast.LENGTH_SHORT,
                                               gravity: ToastGravity.CENTER,

@@ -1,7 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers
 
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:armoyu/detail.dart';
@@ -94,7 +93,7 @@ class NewsState extends State<News> {
                                   children: [
                                     SizedBox(height: screenheight / 100),
                                     Text(
-                                      datahaber[index]["yazar"],
+                                      datahaber[index]["yazar"] ?? "",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: screenwidth / 25,

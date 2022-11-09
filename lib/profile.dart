@@ -755,6 +755,42 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             child: InkWell(
                                               onTap: () {
                                                 profileID = widget.veri1;
+                                                postbildir();
+                                                Navigator.pop(context);
+                                                // ScaffoldMessenger.of(context)
+                                                //     .showSnackBar(
+                                                //   const SnackBar(
+                                                //     content: Text("Bildirildi !"),
+                                                //     shape: StadiumBorder(),
+                                                //   ),
+                                                // );
+                                                Fluttertoast.showToast(
+                                                  msg: "Engellendi !",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
+                                                );
+                                              },
+                                              child: const ListTile(
+                                                textColor: Colors.red,
+                                                leading: Icon(
+                                                  Icons.person_off_outlined,
+                                                  color: Colors.red,
+                                                ),
+                                                title: Text(
+                                                    "Kullanıcıyı engelle."),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: profiledata["oyuncuID"] ==
+                                                    girisdata["oyuncuID"]
+                                                ? false
+                                                : true,
+                                            child: InkWell(
+                                              onTap: () {
+                                                profileID = widget.veri1;
                                                 // profilebildir();
                                                 print(profileID);
                                                 Navigator.pop(context);
@@ -3010,6 +3046,42 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                   color: Colors.red,
                                                 ),
                                                 title: Text("Postu bildir."),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: profiledata["oyuncuID"] ==
+                                                    girisdata["oyuncuID"]
+                                                ? false
+                                                : true,
+                                            child: InkWell(
+                                              onTap: () {
+                                                profileID = widget.veri1;
+                                                postbildir();
+                                                Navigator.pop(context);
+                                                // ScaffoldMessenger.of(context)
+                                                //     .showSnackBar(
+                                                //   const SnackBar(
+                                                //     content: Text("Bildirildi !"),
+                                                //     shape: StadiumBorder(),
+                                                //   ),
+                                                // );
+                                                Fluttertoast.showToast(
+                                                  msg: "Engellendi !",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
+                                                );
+                                              },
+                                              child: const ListTile(
+                                                textColor: Colors.red,
+                                                leading: Icon(
+                                                  Icons.person_off_outlined,
+                                                  color: Colors.red,
+                                                ),
+                                                title: Text(
+                                                    "Kullanıcıyı engelle."),
                                               ),
                                             ),
                                           ),

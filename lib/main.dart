@@ -109,6 +109,13 @@ class MyApp extends StatelessWidget {
       ],
       child: InAppNotification(
         child: MaterialApp(
+          // theme: ThemeData(
+          //   pageTransitionsTheme: PageTransitionsTheme(
+          //     builders: {
+          //       TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          //     },
+          //   ),
+          // ),
           debugShowCheckedModeBanner: false,
           home: ThemeConsumer(
             child: Splash(),

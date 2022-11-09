@@ -100,7 +100,9 @@ class _NotifState extends State<Notif> {
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: CachedNetworkImageProvider(
-                                      bildirimler[index]["bildirimkimavatar"]),
+                                    bildirimler[index]["bildirimkimavatar"] ??
+                                        "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
+                                  ),
                                 ),
                               ),
                               width: 50,
@@ -124,7 +126,8 @@ class _NotifState extends State<Notif> {
                                         children: [
                                           Text(
                                             bildirimler[index]
-                                                ["bildirimkimadsoyad"],
+                                                    ["bildirimkimadsoyad"] ??
+                                                "",
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16,

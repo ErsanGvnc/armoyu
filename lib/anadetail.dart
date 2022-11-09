@@ -645,6 +645,50 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           postbildir();
                                                           Navigator.pop(
                                                               context);
+                                                          // ScaffoldMessenger.of(context)
+                                                          //     .showSnackBar(
+                                                          //   const SnackBar(
+                                                          //     content: Text("Bildirildi !"),
+                                                          //     shape: StadiumBorder(),
+                                                          //   ),
+                                                          // );
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg: "Engellendi !",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .CENTER,
+                                                            timeInSecForIosWeb:
+                                                                1,
+                                                          );
+                                                        },
+                                                        child: const ListTile(
+                                                          textColor: Colors.red,
+                                                          leading: Icon(
+                                                            Icons
+                                                                .person_off_outlined,
+                                                            color: Colors.red,
+                                                          ),
+                                                          title: Text(
+                                                              "Kullanıcıyı engelle."),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: widget.veri11 ==
+                                                              girisdata[
+                                                                  "oyuncuID"]
+                                                          ? false
+                                                          : true,
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          postID =
+                                                              widget.veri10;
+                                                          postbildir();
+                                                          Navigator.pop(
+                                                              context);
                                                           // ScaffoldMessenger.of(
                                                           //         context)
                                                           //     .showSnackBar(
@@ -1215,6 +1259,57 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                   ),
                                                                   title: Text(
                                                                       "Yorumu bildir."),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Visibility(
+                                                              visible: widget
+                                                                          .veri11 ==
+                                                                      girisdata[
+                                                                          "oyuncuID"]
+                                                                  ? false
+                                                                  : true,
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  postID = widget
+                                                                      .veri10;
+                                                                  postbildir();
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                  // ScaffoldMessenger.of(context)
+                                                                  //     .showSnackBar(
+                                                                  //   const SnackBar(
+                                                                  //     content: Text("Bildirildi !"),
+                                                                  //     shape: StadiumBorder(),
+                                                                  //   ),
+                                                                  // );
+                                                                  Fluttertoast
+                                                                      .showToast(
+                                                                    msg:
+                                                                        "Engellendi !",
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_SHORT,
+                                                                    gravity:
+                                                                        ToastGravity
+                                                                            .CENTER,
+                                                                    timeInSecForIosWeb:
+                                                                        1,
+                                                                  );
+                                                                },
+                                                                child:
+                                                                    const ListTile(
+                                                                  textColor:
+                                                                      Colors
+                                                                          .red,
+                                                                  leading: Icon(
+                                                                    Icons
+                                                                        .person_off_outlined,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  ),
+                                                                  title: Text(
+                                                                      "Kullanıcıyı engelle."),
                                                                 ),
                                                               ),
                                                             ),
