@@ -1,38 +1,9 @@
-// ignore_for_file: unused_local_variable, prefer_const_constructors, prefer_typing_uninitialized_variables, use_key_in_widget_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, avoid_print, avoid_unnecessary_containers, prefer_is_empty, sized_box_for_whitespace, sort_child_properties_last, prefer_const_constructors_in_immutables, must_be_immutable, unused_import
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print, sort_child_properties_last
 
-import 'dart:async';
-import 'dart:convert';
-import 'package:armoyu/Firebase/firebase.dart';
-import 'package:armoyu/Utilities/links.dart';
-import 'package:armoyu/initsayfa.dart';
-import 'package:armoyu/profile.dart';
-import 'package:armoyu/notification.dart';
-import 'package:armoyu/search.dart';
-import 'package:armoyu/site.dart';
-import 'package:badges/badges.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
+import 'package:badges/badges.dart' as badge;
 import 'package:http/http.dart' as http;
-import 'package:in_app_notification/in_app_notification.dart';
-import 'package:armoyu/grup.dart';
-import 'package:armoyu/login.dart';
-import 'package:armoyu/post.dart';
-import 'package:armoyu/skelaton.dart';
-import 'package:armoyu/splash.dart';
-import 'package:armoyu/anasayfa.dart';
-import 'package:armoyu/news.dart';
-import 'package:armoyu/toplanti.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:theme_provider/theme_provider.dart';
-import 'package:animations/animations.dart';
-import 'Controllers/controllers.dart';
-import 'Variables/variables.dart';
+// import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: "assets/.env");
@@ -56,10 +27,10 @@ Future<void> main() async {
   //     await FirebaseDynamicLinks.instance.getInitialLink();
   // runApp(MyApp(initialLink));
 
-  runApp(MyApp());
+  runApp(const MyApp());
 
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.transparent,
       statusBarColor: Colors.transparent,
     ),
@@ -79,13 +50,9 @@ Future<void> main() async {
   }
 }
 
-final screens = [
-  AnaSayfa(),
-  Search(),
-  Notif(),
-];
-
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // var initialLink;
 
   // MyApp(this.initialLink);
@@ -107,7 +74,7 @@ class MyApp extends StatelessWidget {
         AppTheme.dark(),
         AppTheme.light(),
       ],
-      child: InAppNotification(
+      child: const InAppNotification(
         child: MaterialApp(
           // theme: ThemeData(
           //   pageTransitionsTheme: PageTransitionsTheme(
@@ -127,6 +94,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   State<MyHomePage> createState() => MyHomePageState();
 }
@@ -158,7 +127,7 @@ class MyHomePageState extends State<MyHomePage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MyHomePage(),
+          builder: (context) => const MyHomePage(),
         ),
       );
       oturumKontrol();
@@ -179,7 +148,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   void oturumKontrol() {
     timer = Timer.periodic(
-      Duration(seconds: 5),
+      const Duration(seconds: 5),
       (timer) async {
         await http.get(
           Uri.parse(oturumkontrolurl),
@@ -201,7 +170,7 @@ class MyHomePageState extends State<MyHomePage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => MyHomePage(),
+            builder: (context) => const MyHomePage(),
           ),
         );
 
@@ -209,14 +178,14 @@ class MyHomePageState extends State<MyHomePage> {
 
         InAppNotification.show(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.8),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
                     Row(
@@ -226,8 +195,8 @@ class MyHomePageState extends State<MyHomePage> {
                           width: 35,
                           height: 35,
                         ),
-                        SizedBox(width: 5),
-                        Flexible(
+                        const SizedBox(width: 5),
+                        const Flexible(
                           child: Text(
                             "ARMOYU",
                             style: TextStyle(
@@ -238,14 +207,14 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
                       children: [
                         Flexible(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 "Giriş Yapılıyor !",
                                 style: TextStyle(
@@ -275,7 +244,7 @@ class MyHomePageState extends State<MyHomePage> {
           ),
           context: context,
           onTap: () => print('Notification tapped!'),
-          duration: Duration(seconds: 5),
+          duration: const Duration(seconds: 5),
         );
       },
     );
@@ -296,12 +265,12 @@ class MyHomePageState extends State<MyHomePage> {
 
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
-      backgroundColor: Color.fromRGBO(255, 255, 255, 0.8),
-      title: Text(
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 0.8),
+      title: const Text(
         "ARMOYU",
         style: TextStyle(color: Colors.black),
       ),
-      content: Text(
+      content: const Text(
         "Çıkış Yapmak İstediğinize Emin misiniz?",
         style: TextStyle(color: Colors.black),
       ),
@@ -312,7 +281,7 @@ class MyHomePageState extends State<MyHomePage> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => Login(),
+                builder: (context) => const Login(),
               ),
             );
             var sharedPreferences = await SharedPreferences.getInstance();
@@ -326,10 +295,10 @@ class MyHomePageState extends State<MyHomePage> {
             timer!.cancel();
           },
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.black,
             ),
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.all(13),
               child: Text(
                 "Evet",
@@ -343,10 +312,10 @@ class MyHomePageState extends State<MyHomePage> {
             Navigator.of(context).pop();
           },
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.black,
             ),
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.all(13),
               child: Text(
                 "Hayır",
@@ -368,8 +337,8 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
 
     return ThemeConsumer(
       child: Scaffold(
@@ -400,7 +369,7 @@ class MyHomePageState extends State<MyHomePage> {
                         },
                         child: DrawerHeader(
                           decoration: BoxDecoration(
-                            color: Color.fromRGBO(0, 0, 0, 1),
+                            color: const Color.fromRGBO(0, 0, 0, 1),
                             image: DecorationImage(
                               image: CachedNetworkImageProvider(
                                   girisdata["parkaresimufak"]),
@@ -408,43 +377,41 @@ class MyHomePageState extends State<MyHomePage> {
                               filterQuality: FilterQuality.high,
                             ),
                           ),
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Flexible(
-                                  child: CircleAvatar(
-                                    radius: screenwidth / 8,
-                                    backgroundImage: CachedNetworkImageProvider(
-                                      girisdata["presimufak"],
-                                    ),
-                                    backgroundColor: Colors.transparent,
+                          child: Column(
+                            children: [
+                              Flexible(
+                                child: CircleAvatar(
+                                  radius: screenWidth / 8,
+                                  backgroundImage: CachedNetworkImageProvider(
+                                    girisdata["presimufak"],
                                   ),
+                                  backgroundColor: Colors.transparent,
                                 ),
-                                SizedBox(
-                                  height: screenheight / 50,
+                              ),
+                              SizedBox(
+                                height: screenHeight / 50,
+                              ),
+                              Text(
+                                girisdata["adim"],
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                Text(
-                                  girisdata["adim"],
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
 
                       ListTile(
-                        leading: Icon(Icons.article),
-                        title: Text("Haberler"),
+                        leading: const Icon(Icons.article),
+                        title: const Text("Haberler"),
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ThemeConsumer(
+                              builder: (context) => const ThemeConsumer(
                                 child: News(),
                               ),
                             ),
@@ -456,14 +423,14 @@ class MyHomePageState extends State<MyHomePage> {
                       Visibility(
                         visible: girisdata["yetkisi"] == "-1" ? false : true,
                         child: ListTile(
-                          leading: Icon(Icons.group),
-                          title: Text("Toplantı"),
+                          leading: const Icon(Icons.group),
+                          title: const Text("Toplantı"),
                           onTap: () {
                             Navigator.pop(context);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Toplanti(),
+                                builder: (context) => const Toplanti(),
                               ),
                             );
                           },
@@ -520,158 +487,150 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Visibility(
-                  visible: gruplarim.length >= 1 ? true : false,
+                  visible: gruplarim.isNotEmpty ? true : false,
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Container(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Gruplarım"),
-                              ],
-                            ),
-                            Stack(
-                              children: [
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: BouncingScrollPhysics(),
-                                  scrollDirection: Axis.vertical,
-                                  controller: drawerScrollController,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          grupid = gruplarim[index]["grupID"];
-                                          grupdetail =
-                                              "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
-                                        });
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text("Gruplarım"),
+                            ],
+                          ),
+                          Stack(
+                            children: [
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                controller: drawerScrollController,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        grupid = gruplarim[index]["grupID"];
+                                        grupdetail =
+                                            "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                      });
 
-                                        Navigator.pop(context);
+                                      Navigator.pop(context);
 
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Grup(
-                                              veri1: gruplarim[index]
-                                                  ["grupadi"],
-                                              veri2: grupdetail,
-                                            ),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Grup(
+                                            veri1: gruplarim[index]["grupadi"],
+                                            veri2: grupdetail,
                                           ),
-                                        );
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: 50,
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 8),
-                                              child: Row(
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: gruplarim[index]
-                                                          ["grupufaklogo"],
-                                                      placeholder:
-                                                          (context, url) =>
-                                                              Container(
-                                                        color: Colors.grey[700],
-                                                      ),
-                                                      fit: BoxFit.cover,
-                                                      width: 35,
-                                                      height: 35,
+                                        ),
+                                      );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          height: 50,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                            child: Row(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: gruplarim[index]
+                                                        ["grupufaklogo"],
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            Container(
+                                                      color: Colors.grey[700],
                                                     ),
+                                                    fit: BoxFit.cover,
+                                                    width: 35,
+                                                    height: 35,
                                                   ),
-                                                  SizedBox(
-                                                      width: screenwidth / 25),
-                                                  Text(gruplarim[index]
-                                                      ["grupadi"]),
-                                                ],
-                                              ),
+                                                ),
+                                                SizedBox(
+                                                    width: screenWidth / 25),
+                                                Text(gruplarim[index]
+                                                    ["grupadi"]),
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  itemCount: gruplarim.length,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                itemCount: gruplarim.length,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.bottomCenter,
                   child: Divider(thickness: 2),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              showAlertDialog(context);
-                            },
-                            child: Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.logout),
-                                    SizedBox(width: screenwidth / 13),
-                                    Text('Çıkış Yap'),
-                                  ],
-                                ),
-                              ),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            showAlertDialog(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.logout),
+                                SizedBox(width: screenWidth / 13),
+                                const Text('Çıkış Yap'),
+                              ],
                             ),
                           ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ThemeConsumer(
-                                    child: Site(
-                                      verilink:
-                                          "https://aramizdakioyuncu.com/gizlilik-politikasi",
-                                      veribaslik: "Gizlilik Politikası",
-                                    ),
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ThemeConsumer(
+                                  child: Site(
+                                    verilink:
+                                        "https://aramizdakioyuncu.com/gizlilik-politikasi",
+                                    veribaslik: "Gizlilik Politikası",
                                   ),
                                 ),
-                              );
-                            },
-                            icon: Icon(Icons.info_outline),
-                          ),
-                          IconButton(
-                            onPressed:
-                                ThemeProvider.controllerOf(context).nextTheme,
-                            icon: Icon(Icons.dark_mode_outlined),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              scanQrCode();
-                            },
-                            icon: Icon(Icons.qr_code_scanner),
-                          ),
-                        ],
-                      ),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.info_outline),
+                        ),
+                        IconButton(
+                          onPressed:
+                              ThemeProvider.controllerOf(context).nextTheme,
+                          icon: const Icon(Icons.dark_mode_outlined),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            scanQrCode();
+                          },
+                          icon: const Icon(Icons.qr_code_scanner),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -685,7 +644,7 @@ class MyHomePageState extends State<MyHomePage> {
             builder: (BuildContext context) {
               return IconButton(
                 icon: Padding(
-                  padding: EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4),
                   child: CircleAvatar(
                     radius: 30.0,
                     backgroundImage: CachedNetworkImageProvider(
@@ -708,7 +667,7 @@ class MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   // print(bildirimler);
                 },
-                icon: Icon(Icons.settings),
+                icon: const Icon(Icons.settings),
               ),
             ),
           ],
@@ -724,29 +683,30 @@ class MyHomePageState extends State<MyHomePage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "",
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Badge(
-                badgeColor: Colors.blue,
+              icon: badge.Badge(
+                badgeStyle: const badge.BadgeStyle(
+                  badgeColor: Colors.blue,
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 0.3,
+                  ),
+                ),
                 showBadge: showNotification,
                 ignorePointer: true,
-                borderSide: BorderSide(
-                  color: Colors.black,
-                  width: 0.3,
-                ),
-                position: BadgePosition(
+                position: badge.BadgePosition.topStart(
                   start: 0,
                   top: 0,
-                  isCenter: false,
                 ),
-                child: Icon(Icons.notifications),
+                child: const Icon(Icons.notifications),
               ),
               label: "",
             ),
@@ -796,7 +756,7 @@ class MyHomePageState extends State<MyHomePage> {
                 closedBuilder: (context, openWidget) {
                   return FloatingActionButton(
                     backgroundColor: Colors.red,
-                    child: Icon(
+                    child: const Icon(
                       Icons.edit_note,
                       color: Colors.black,
                       size: 35,
@@ -814,48 +774,6 @@ class MyHomePageState extends State<MyHomePage> {
               )
             : null,
       ),
-    );
-  }
-}
-
-class NewsCardSkelton extends StatelessWidget {
-  NewsCardSkelton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
-    return Row(
-      children: [
-        Skeleton(height: screenheight / 6, width: screenwidth / 3.3),
-        SizedBox(width: screenwidth / 75),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Skeleton(width: screenwidth / 3.7),
-              SizedBox(height: 16 / 2),
-              Skeleton(),
-              SizedBox(height: 16 / 2),
-              Skeleton(),
-              SizedBox(height: 16 / 2),
-              Row(
-                children: [
-                  Expanded(
-                    child: Skeleton(),
-                  ),
-                  SizedBox(width: screenwidth / 6),
-                  Expanded(
-                    child: Skeleton(),
-                  ),
-                ],
-              )
-            ],
-          ),
-        )
-      ],
     );
   }
 }

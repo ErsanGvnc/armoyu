@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:skeletons/skeletons.dart';
-import 'Controllers/controllers.dart';
-import 'Utilities/utilities.dart';
-import 'Variables/variables.dart';
+import '../../Controllers/controllers.dart';
+import '../../Utilities/utilities.dart';
+import '../../Variables/variables.dart';
 
 class ByrDetail extends StatefulWidget {
   int veri1;
@@ -22,8 +22,8 @@ class ByrDetail extends StatefulWidget {
 class _ByrDetailState extends State<ByrDetail> {
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     String _title = "";
 
@@ -72,7 +72,7 @@ class _ByrDetailState extends State<ByrDetail> {
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
                         leading: CircleAvatar(
-                          radius: screenwidth / 20,
+                          radius: screenWidth / 20,
                           backgroundImage: NetworkImage(
                               "https://aramizdakioyuncu.com/galeri/profilresimleri/11profilresimminnak1655290338.jpg"),
                           backgroundColor: Colors.red,

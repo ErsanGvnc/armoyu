@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 import 'package:armoyu/Utilities/utilities.dart';
-import 'package:armoyu/profile.dart';
+import 'package:armoyu/Screens/GeneralScreens/profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
@@ -10,15 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:armoyu/anadetail.dart';
+import 'package:armoyu/Screens/GeneralScreens/anadetail.dart';
 import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:simple_url_preview/simple_url_preview.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:armoyu/Utilities/links.dart';
-import 'Controllers/controllers.dart';
-import 'Variables/variables.dart';
+import '../../Controllers/controllers.dart';
+import '../../Variables/variables.dart';
 
 class AnaSayfa extends StatefulWidget {
   @override
@@ -103,8 +103,8 @@ class AnaSayfaState extends State<AnaSayfa> {
   // videolu fotografların çekildigi yer.
 
   gonderifotocek() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     // anasayfa video kısmı.
 
@@ -197,7 +197,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -229,7 +229,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -298,7 +298,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -330,7 +330,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -399,7 +399,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -431,7 +431,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -500,7 +500,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -532,7 +532,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -569,8 +569,8 @@ class AnaSayfaState extends State<AnaSayfa> {
 
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     Future<bool> onLikeButtonTapped(bool isLike, int index) async {
       setState(() {
@@ -623,11 +623,11 @@ class AnaSayfaState extends State<AnaSayfa> {
                   return _MainListView(
                     context,
                     index,
-                    screenwidth,
+                    screenWidth,
                     postsil,
                     _refresh,
                     postbildir,
-                    screenheight,
+                    screenHeight,
                     onLikeButtonTapped,
                   );
                 else if (index == 3)
@@ -638,11 +638,11 @@ class AnaSayfaState extends State<AnaSayfa> {
                   return _MainListView(
                     context,
                     index,
-                    screenwidth,
+                    screenWidth,
                     postsil,
                     _refresh,
                     postbildir,
-                    screenheight,
+                    screenHeight,
                     onLikeButtonTapped,
                   );
               },
@@ -661,9 +661,9 @@ class AnaSayfaState extends State<AnaSayfa> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: screenwidth / 12,
+                    radius: screenWidth / 12,
                   ),
-                  SizedBox(width: screenwidth / 35),
+                  SizedBox(width: screenWidth / 35),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -681,27 +681,27 @@ class AnaSayfaState extends State<AnaSayfa> {
                             ),
                           ],
                         ),
-                        SizedBox(height: screenheight / 90),
+                        SizedBox(height: screenHeight / 90),
                         SkeletonParagraph(
                           style: const SkeletonParagraphStyle(
                             lines: 2,
                             padding: EdgeInsets.zero,
                           ),
                         ),
-                        SizedBox(height: screenheight / 50),
+                        SizedBox(height: screenHeight / 50),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.grey,
                           ),
-                          width: screenwidth,
+                          width: screenWidth,
                           height: 250,
                         ),
-                        SizedBox(height: screenheight / 65),
+                        SizedBox(height: screenHeight / 65),
                         Container(
                           color: Colors.transparent,
-                          width: screenwidth,
-                          height: screenheight / 20,
+                          width: screenWidth,
+                          height: screenHeight / 20,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -722,7 +722,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                 color: Colors.grey,
                               ),
                               SizedBox(
-                                width: screenwidth / 15,
+                                width: screenWidth / 15,
                               ),
                             ],
                           ),
@@ -742,11 +742,11 @@ class AnaSayfaState extends State<AnaSayfa> {
   Widget _MainListView(
       BuildContext context,
       int index,
-      double screenwidth,
+      double screenWidth,
       postsil(),
       Future<void> _refresh(),
       postbildir(),
-      double screenheight,
+      double screenHeight,
       Future<bool> onLikeButtonTapped(bool isLike, int index)) {
     return InkWell(
       onTap: () {
@@ -787,13 +787,13 @@ class AnaSayfaState extends State<AnaSayfa> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
-            radius: screenwidth / 12,
+            radius: screenWidth / 12,
             backgroundImage: CachedNetworkImageProvider(
               dataanasayfa[index]["sahipavatarminnak"],
             ),
             backgroundColor: Colors.transparent,
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -841,7 +841,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                               Radius.circular(30),
                                             ),
                                           ),
-                                          width: screenwidth / 4,
+                                          width: screenWidth / 4,
                                           height: 5,
                                         ),
                                       ),
@@ -1071,7 +1071,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                     ),
                   ],
                 ),
-                SizedBox(height: screenheight / 90),
+                SizedBox(height: screenHeight / 90),
                 DetectableText(
                   detectionRegExp: RegExp(
                     "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
@@ -1087,7 +1087,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                     color: Colors.blue,
                   ),
                 ),
-                SizedBox(height: screenheight / 50),
+                SizedBox(height: screenHeight / 50),
                 Visibility(
                   visible: visible,
                   child: Container(
@@ -1110,11 +1110,11 @@ class AnaSayfaState extends State<AnaSayfa> {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: screenheight / 65),
+                SizedBox(height: screenHeight / 65),
                 Container(
                   color: Colors.transparent,
-                  width: screenwidth,
-                  height: screenheight / 20,
+                  width: screenWidth,
+                  height: screenHeight / 20,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -1251,7 +1251,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                         ),
                       ),
                       SizedBox(
-                        width: screenwidth / 15,
+                        width: screenWidth / 15,
                       ),
                     ],
                   ),

@@ -1,13 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_print, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
-import 'package:armoyu/login.dart';
-import 'package:flutter/material.dart';
-import 'package:armoyu/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:theme_provider/theme_provider.dart';
-import 'Variables/variables.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
+
   @override
   SplashState createState() => SplashState();
 }
@@ -37,7 +34,7 @@ class SplashState extends State<Splash> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Login(),
+          builder: (context) => const Login(),
         ),
       );
     } else {
@@ -47,7 +44,7 @@ class SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return ThemeConsumer(
+    return const ThemeConsumer(
       child: Scaffold(),
     );
   }

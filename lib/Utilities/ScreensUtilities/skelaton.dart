@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
-import 'package:flutter/material.dart';
+import '../Import&Export/export.dart';
 
 class Skeleton extends StatelessWidget {
   const Skeleton({Key? key, this.height, this.width}) : super(key: key);

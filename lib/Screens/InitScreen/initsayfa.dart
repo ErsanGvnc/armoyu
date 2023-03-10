@@ -1,14 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable, non_constant_identifier_names, prefer_interpolation_to_compose_strings
+// ignore_for_file: non_constant_identifier_names, prefer_interpolation_to_compose_strings
 
-import 'package:armoyu/login.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:detectable_text_field/detectable_text_field.dart';
-import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:share_plus/share_plus.dart';
-
-import 'Variables/variables.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 class InitPage extends StatefulWidget {
   const InitPage({Key? key}) : super(key: key);
@@ -19,8 +11,7 @@ class InitPage extends StatefulWidget {
 
 class _InitPageState extends State<InitPage> {
   gonderifotocek() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
 
     // anasayfa video kısmı.
 
@@ -113,7 +104,7 @@ class _InitPageState extends State<InitPage> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -145,7 +136,7 @@ class _InitPageState extends State<InitPage> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -214,7 +205,7 @@ class _InitPageState extends State<InitPage> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -246,7 +237,7 @@ class _InitPageState extends State<InitPage> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -315,7 +306,7 @@ class _InitPageState extends State<InitPage> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -347,7 +338,7 @@ class _InitPageState extends State<InitPage> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -384,8 +375,7 @@ class _InitPageState extends State<InitPage> {
 
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
 
     // main 308 & splash 41; InitPage ile deiş.
 
@@ -410,10 +400,10 @@ class _InitPageState extends State<InitPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Text(
                       "İçerde Neler Olup\nBittiğini Keşfet",
                       textAlign: TextAlign.center,
@@ -425,15 +415,15 @@ class _InitPageState extends State<InitPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Flexible(
                   child: Container(
                     color: Colors.red,
-                    width: screenwidth,
+                    width: screenWidth,
                     child: _InitPagePost(),
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -445,7 +435,7 @@ class _InitPageState extends State<InitPage> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Login(),
+                                  builder: (context) => const Login(),
                                 ),
                               );
                             },
@@ -456,7 +446,7 @@ class _InitPageState extends State<InitPage> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "Devam Et",
                                   style: TextStyle(
@@ -473,7 +463,7 @@ class _InitPageState extends State<InitPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
               ],
             ),
           ),
@@ -483,19 +473,19 @@ class _InitPageState extends State<InitPage> {
   }
 
   Widget _InitPagePost() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
-          radius: screenwidth / 12,
+          radius: screenWidth / 12,
           backgroundImage: CachedNetworkImageProvider(
             dataanasayfa[0]["sahipavatarminnak"],
           ),
           backgroundColor: Colors.transparent,
         ),
-        SizedBox(width: screenwidth / 35),
+        SizedBox(width: screenWidth / 35),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -542,7 +532,7 @@ class _InitPageState extends State<InitPage> {
                                             Radius.circular(30),
                                           ),
                                         ),
-                                        width: screenwidth / 4,
+                                        width: screenWidth / 4,
                                         height: 5,
                                       ),
                                     ),
@@ -567,9 +557,9 @@ class _InitPageState extends State<InitPage> {
                                         Navigator.pop(context);
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          SnackBar(
+                                          const SnackBar(
                                             content: Text("Kopyalandı !"),
-                                            shape: const StadiumBorder(),
+                                            shape: StadiumBorder(),
                                           ),
                                         );
                                       },
@@ -595,7 +585,7 @@ class _InitPageState extends State<InitPage> {
                   ),
                 ],
               ),
-              SizedBox(height: screenheight / 90),
+              SizedBox(height: screenHeight / 90),
               DetectableText(
                 detectionRegExp: RegExp(
                   "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
@@ -611,18 +601,18 @@ class _InitPageState extends State<InitPage> {
                   color: Colors.blue,
                 ),
               ),
-              SizedBox(height: screenheight / 50),
+              SizedBox(height: screenHeight / 50),
               Visibility(
                 visible: visible,
                 child: Container(
                   child: gonderifotocek(),
                 ),
               ),
-              SizedBox(height: screenheight / 65),
+              SizedBox(height: screenHeight / 65),
               Container(
                 color: Colors.transparent,
-                width: screenwidth,
-                height: screenheight / 20,
+                width: screenWidth,
+                height: screenHeight / 20,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -694,7 +684,7 @@ class _InitPageState extends State<InitPage> {
                       ),
                     ),
                     SizedBox(
-                      width: screenwidth / 15,
+                      width: screenWidth / 15,
                     ),
                   ],
                 ),

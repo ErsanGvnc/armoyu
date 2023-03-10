@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, avoid_print, unused_local_variable, use_key_in_widget_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:armoyu/etkinlikdetay.dart';
+import 'package:armoyu/Screens/GeneralScreens/etkinlikdetay.dart';
 
-import 'Variables/variables.dart';
+import '../../Variables/variables.dart';
 
 class Etkinlik extends StatefulWidget {
   @override
@@ -13,8 +13,8 @@ class Etkinlik extends StatefulWidget {
 class _EtkinlikState extends State<Etkinlik> {
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
       child: GridView.count(

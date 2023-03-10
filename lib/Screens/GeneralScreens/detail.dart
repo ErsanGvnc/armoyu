@@ -3,7 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:armoyu/main.dart';
-import 'package:armoyu/site.dart';
+import 'package:armoyu/Screens/GeneralScreens/site.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -27,8 +27,8 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     String _content = widget.veri9;
     void _shareContent() {
@@ -54,7 +54,7 @@ class _DetailState extends State<Detail> {
               children: [
                 Container(
                   height: 250,
-                  width: screenwidth,
+                  width: screenWidth,
                   child: CachedNetworkImage(
                     imageUrl: widget.veri5,
                     placeholder: (context, url) => Container(
@@ -77,12 +77,12 @@ class _DetailState extends State<Detail> {
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(width: screenwidth / 75),
+                            SizedBox(width: screenWidth / 75),
                             CircleAvatar(
                               radius: 3,
                               backgroundColor: Colors.grey,
                             ),
-                            SizedBox(width: screenwidth / 75),
+                            SizedBox(width: screenWidth / 75),
                             Text(
                               widget.veri10,
                               style: TextStyle(
@@ -96,7 +96,7 @@ class _DetailState extends State<Detail> {
                                 color: Colors.grey,
                               ),
                             ),
-                            SizedBox(width: screenwidth / 75),
+                            SizedBox(width: screenWidth / 75),
                           ],
                         ),
                         Divider(),

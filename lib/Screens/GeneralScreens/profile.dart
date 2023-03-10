@@ -1,40 +1,16 @@
-// ignore_for_file: unused_local_variable, use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, prefer_final_fields, sort_child_properties_last, avoid_print, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, non_constant_identifier_names, unnecessary_null_comparison, unused_element, must_be_immutable, file_names, prefer_typing_uninitialized_variables, prefer_if_null_operators, prefer_adjacent_string_concatenation, curly_braces_in_flow_control_structures, no_leading_underscores_for_local_identifiers
+// ignore_for_file: must_be_immutable, avoid_print, unnecessary_null_comparison, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unused_element
 
-import 'dart:convert';
-import 'package:animations/animations.dart';
-import 'package:armoyu/anadetail.dart';
-import 'package:armoyu/resiminceleme.dart';
-import 'package:armoyu/site.dart';
-import 'package:armoyu/Utilities/utilities.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:detectable_text_field/detectable_text_field.dart';
-import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
-import 'package:dismissible_page/dismissible_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:focused_menu/focused_menu.dart';
-import 'package:focused_menu/modals.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:like_button/like_button.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
-import 'package:photo_view/photo_view.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:simple_url_preview/simple_url_preview.dart';
 import 'package:skeletons/skeletons.dart';
-import 'package:theme_provider/theme_provider.dart';
-import 'package:armoyu/Utilities/links.dart';
-import 'Variables/variables.dart';
-import 'Controllers/controllers.dart';
-import 'post.dart';
 
 class Profile extends StatefulWidget {
   String veri1;
 
   Profile({
+    Key? key,
     required this.veri1,
-  });
+  }) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -115,8 +91,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   }
 
   gonderifotocek() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
 
     // anasayfa video kısmı.
 
@@ -209,7 +184,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -241,7 +216,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -310,7 +285,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -342,7 +317,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -411,7 +386,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -443,7 +418,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -512,7 +487,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -544,7 +519,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -646,8 +621,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+
     // final TabController controller =
     //     TabController(length: 4, vsync: this, initialIndex: 0);
 
@@ -695,7 +670,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                   Radius.circular(30),
                                                 ),
                                               ),
-                                              width: screenwidth / 4,
+                                              width: screenWidth / 4,
                                               height: 5,
                                             ),
                                           ),
@@ -745,7 +720,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                     girisdata["oyuncuID"]
                                                 ? false
                                                 : true,
-                                            child: Divider(),
+                                            child: const Divider(),
                                           ),
                                           Visibility(
                                             visible: profiledata["oyuncuID"] ==
@@ -833,10 +808,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                           child: CircleAvatar(
                             radius: 17,
                             backgroundColor: Colors.black.withOpacity(0.7),
-                            child: Icon(Icons.more_vert),
+                            child: const Icon(Icons.more_vert),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                       ],
                       flexibleSpace: LayoutBuilder(
                         builder: (context, constraints) {
@@ -852,25 +827,25 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     children: [
                                       Text(
                                         profiledata["adim"],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(width: 5),
+                                      const SizedBox(width: 5),
                                       profiledata["oyuncuID"] == "11"
-                                          ? Icon(
+                                          ? const Icon(
                                               Icons.check_circle,
                                               color: Colors.blue,
                                               size: 20,
                                             )
-                                          : Text(""),
+                                          : const Text(""),
                                     ],
                                   ),
                             background: FocusedMenuHolder(
                               menuItems: [
                                 FocusedMenuItem(
-                                  title: Text("Open"),
-                                  trailingIcon: Icon(Icons.open_in_new),
+                                  title: const Text("Open"),
+                                  trailingIcon: const Icon(Icons.open_in_new),
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -884,16 +859,16 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   },
                                 ),
                                 FocusedMenuItem(
-                                  title: Text("Share"),
-                                  trailingIcon: Icon(Icons.share),
+                                  title: const Text("Share"),
+                                  trailingIcon: const Icon(Icons.share),
                                   onPressed: () {
                                     Share.share(profiledata["parkaresim"]);
                                   },
                                 ),
                                 FocusedMenuItem(
-                                  title: Text("Save to Gallery"),
+                                  title: const Text("Save to Gallery"),
                                   trailingIcon:
-                                      Icon(Icons.file_download_outlined),
+                                      const Icon(Icons.file_download_outlined),
                                   onPressed: () {
                                     GallerySaver.saveImage(
                                         profiledata["parkaresim"]);
@@ -931,8 +906,9 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         },
                                         child: Center(
                                           child: PhotoView(
-                                            backgroundDecoration: BoxDecoration(
-                                                color: Colors.transparent),
+                                            backgroundDecoration:
+                                                const BoxDecoration(
+                                                    color: Colors.transparent),
                                             imageProvider:
                                                 CachedNetworkImageProvider(
                                               profiledata["parkaresimufak"],
@@ -951,10 +927,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: Container(
-                        width: screenwidth,
+                      child: SizedBox(
+                        width: screenWidth,
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
+                          padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -967,8 +943,9 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   FocusedMenuHolder(
                                     menuItems: [
                                       FocusedMenuItem(
-                                        title: Text("Open"),
-                                        trailingIcon: Icon(Icons.open_in_new),
+                                        title: const Text("Open"),
+                                        trailingIcon:
+                                            const Icon(Icons.open_in_new),
                                         onPressed: () {
                                           Navigator.push(
                                             context,
@@ -982,16 +959,16 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         },
                                       ),
                                       FocusedMenuItem(
-                                        title: Text("Share"),
-                                        trailingIcon: Icon(Icons.share),
+                                        title: const Text("Share"),
+                                        trailingIcon: const Icon(Icons.share),
                                         onPressed: () {
                                           Share.share(profiledata["presim"]);
                                         },
                                       ),
                                       FocusedMenuItem(
-                                        title: Text("Save to Gallery"),
-                                        trailingIcon:
-                                            Icon(Icons.file_download_outlined),
+                                        title: const Text("Save to Gallery"),
+                                        trailingIcon: const Icon(
+                                            Icons.file_download_outlined),
                                         onPressed: () {
                                           GallerySaver.saveImage(
                                               profiledata["presim"]);
@@ -1049,7 +1026,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                   child: Center(
                                                     child: Text(
                                                       profiledata["seviye"],
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
@@ -1101,7 +1078,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ? false
                                             : true,
                                         child: InkWell(
-                                          borderRadius: BorderRadius.horizontal(
+                                          borderRadius:
+                                              const BorderRadius.horizontal(
                                             left: Radius.circular(30),
                                             right: Radius.circular(30),
                                           ),
@@ -1134,7 +1112,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                           child: Container(
                                             height: 40,
                                             width: 150,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Colors.blue,
                                               borderRadius:
                                                   BorderRadius.horizontal(
@@ -1145,7 +1123,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             child: Center(
                                               child: Text(
                                                 arkadasText,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w600,
                                                 ),
@@ -1182,7 +1160,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Text(
                                         profiledata["arkadassayim"] != "0"
                                             ? profiledata["arkadassayim"] +
@@ -1193,37 +1171,37 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
                                     profiledata["adim"],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 5),
+                                  const SizedBox(width: 5),
                                   profiledata["oyuncuID"] == "11"
-                                      ? Icon(
+                                      ? const Icon(
                                           Icons.check_circle,
                                           color: Colors.blue,
                                           size: 20,
                                         )
-                                      : Text(""),
+                                      : const Text(""),
                                 ],
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Row(
                                 children: [
                                   Text(
                                     "@" + profiledata["kullaniciadi"],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   Text(
                                     profiledata["yetkisiacikla"],
                                     style: TextStyle(
@@ -1235,7 +1213,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15),
+                              const SizedBox(height: 15),
                               InkWell(
                                 highlightColor: Colors.transparent,
                                 splashColor: Colors.transparent,
@@ -1274,78 +1252,76 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   trimExpandedText: " Daha az",
                                   trimCollapsedText: " Daha Fazla",
                                   trimMode: TrimMode.Line,
-                                  basicStyle: TextStyle(
+                                  basicStyle: const TextStyle(
                                     fontSize: 16,
                                   ),
-                                  detectedStyle: TextStyle(
+                                  detectedStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.blue,
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              const SizedBox(height: 15),
                               Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.location_on,
                                     color: Colors.grey,
                                     size: 20,
                                   ),
-                                  SizedBox(width: 3),
+                                  const SizedBox(width: 3),
                                   Text(
                                     profiledata["ulkesi"] +
                                         ", " +
                                         profiledata["ili"],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.grey,
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.calendar_month,
                                     color: Colors.grey,
                                     size: 20,
                                   ),
-                                  SizedBox(width: 3),
+                                  const SizedBox(width: 3),
                                   Text(
                                     profiledata["kayittarihikisa"],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.grey,
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Visibility(
                                 visible: profiledata["isyeriadi"] != null
                                     ? true
                                     : false,
                                 child: Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.school,
                                       color: Colors.grey,
                                       size: 20,
                                     ),
-                                    SizedBox(width: 3),
+                                    const SizedBox(width: 3),
                                     Text(
-                                      profiledata["isyeriadi"] != null
-                                          ? profiledata["isyeriadi"]
-                                          : "",
-                                      style: TextStyle(
+                                      profiledata["isyeriadi"] ?? "",
+                                      style: const TextStyle(
                                         color: Colors.grey,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 20),
-                              Container(
+                              const SizedBox(height: 20),
+                              SizedBox(
                                 height: 50,
                                 child: ListView(
                                   shrinkWrap: true,
@@ -1368,7 +1344,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ),
                                           );
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           FontAwesomeIcons.github,
                                           color: Colors.white,
                                           size: 30,
@@ -1394,7 +1370,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ),
                                           );
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           FontAwesomeIcons.linkedin,
                                           color: Colors.white,
                                           size: 30,
@@ -1418,7 +1394,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ),
                                           );
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           FontAwesomeIcons.reddit,
                                           color: Colors.white,
                                           size: 30,
@@ -1442,7 +1418,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ),
                                           );
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           FontAwesomeIcons.twitch,
                                           color: Colors.white,
                                           size: 30,
@@ -1467,7 +1443,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ),
                                           );
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           FontAwesomeIcons.youtube,
                                           color: Colors.white,
                                           size: 30,
@@ -1493,7 +1469,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ),
                                           );
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           FontAwesomeIcons.instagram,
                                           color: Colors.white,
                                           size: 30,
@@ -1519,7 +1495,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ),
                                           );
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           FontAwesomeIcons.facebook,
                                           color: Colors.white,
                                           size: 30,
@@ -1534,7 +1510,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    ACustomSliverHeader(),
+                    const ACustomSliverHeader(),
                   ];
                 },
                 body: TabBarView(
@@ -1555,7 +1531,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               closedBuilder: (context, openWidget) {
                 return FloatingActionButton(
                   backgroundColor: Colors.red,
-                  child: Icon(
+                  child: const Icon(
                     Icons.edit_note,
                     color: Colors.black,
                     size: 35,
@@ -1568,7 +1544,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   child: Post(
                     veri1: profiledata["oyuncuID"] == girisdata["oyuncuID"]
                         ? ""
-                        : "@" + "${profiledata["kullaniciadi"]} ",
+                        : "@" "${profiledata["kullaniciadi"]} ",
                   ),
                 );
               },
@@ -1583,7 +1559,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
-                    SliverAppBar(
+                    const SliverAppBar(
                       expandedHeight: 200.0,
                       pinned: true,
                       flexibleSpace: FlexibleSpaceBar(
@@ -1594,10 +1570,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: Container(
-                        width: screenwidth,
+                      child: SizedBox(
+                        width: screenWidth,
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
+                          padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1607,7 +1583,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  SkeletonAvatar(
+                                  const SkeletonAvatar(
                                     style: SkeletonAvatarStyle(
                                       shape: BoxShape.circle,
                                       width: 90,
@@ -1622,14 +1598,14 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     child: Container(
                                       height: 40,
                                       width: 150,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.blue,
                                         borderRadius: BorderRadius.horizontal(
                                           left: Radius.circular(30),
                                           right: Radius.circular(30),
                                         ),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                         child: Text(
                                           "Arkadaş Ol",
                                           style: TextStyle(
@@ -1642,42 +1618,42 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               SkeletonLine(
                                 style:
-                                    SkeletonLineStyle(width: screenwidth / 4),
+                                    SkeletonLineStyle(width: screenWidth / 4),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               SkeletonParagraph(
-                                style: SkeletonParagraphStyle(lines: 3),
+                                style: const SkeletonParagraphStyle(lines: 3),
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.location_on,
                                     color: Colors.grey,
                                     size: 20,
                                   ),
-                                  SizedBox(width: 3),
+                                  const SizedBox(width: 3),
                                   SkeletonLine(
                                     style: SkeletonLineStyle(
-                                        width: screenwidth / 10),
+                                        width: screenWidth / 10),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.calendar_month,
                                     color: Colors.grey,
                                     size: 20,
                                   ),
-                                  SizedBox(width: 3),
+                                  const SizedBox(width: 3),
                                   SkeletonLine(
                                     style: SkeletonLineStyle(
-                                        width: screenwidth / 4),
+                                        width: screenWidth / 4),
                                   ),
                                 ],
                               ),
@@ -1696,21 +1672,21 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       itemCount: 5,
                     ),
                     SkeletonListView(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       scrollable: true,
                       itemCount: 2,
                       item: Padding(
-                        padding: EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.only(bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Container(
-                              width: screenwidth / 2.2,
+                              width: screenWidth / 2.2,
                               height: 250,
                               color: Colors.red,
                             ),
                             Container(
-                              width: screenwidth / 2.2,
+                              width: screenWidth / 2.2,
                               height: 250,
                               color: Colors.red,
                             ),
@@ -1736,8 +1712,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 ////////////////////////////////////////////////////////////////////////////////
 
   MyPostView() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() {
       postdata.clear();
@@ -1761,43 +1737,43 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   return _MainListView(
                     context,
                     index,
-                    screenwidth,
-                    screenheight,
+                    screenWidth,
+                    screenHeight,
                   );
                   // if (index < 2)
                   //   return _MainListView(
                   //     context,
                   //     index,
-                  //     screenwidth,
-                  //     screenheight,
+                  //     screenWidth,
+                  //     screenHeight,
                   //   );
                   // else if (index == 3)
                   //   // return _MainListView(
                   //   //   context,
                   //   //   index,
-                  //   //   screenwidth,
-                  //   //   screenheight,
+                  //   //   screenWidth,
+                  //   //   screenHeight,
                   //   // );
                   //   return _horizontalArkadasListView();
                   // else if (index == 5)
                   //   // return _MainListView(
                   //   //   context,
                   //   //   index,
-                  //   //   screenwidth,
-                  //   //   screenheight,
+                  //   //   screenWidth,
+                  //   //   screenHeight,
                   //   // );
                   //   return _horizontalArkadasListView();
                   // else
                   //   return _MainListView(
                   //     context,
                   //     index,
-                  //     screenwidth,
-                  //     screenheight,
+                  //     screenWidth,
+                  //     screenHeight,
                   //   );
                 },
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemCount: postdata.length,
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 10,
                   left: 10,
                   right: 10,
@@ -1810,7 +1786,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       ? "Henüz Gönderide Bulunmadın !"
                       : "Henüz Gönderide Bulunmamış !",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -1821,8 +1797,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   }
 
   MyMediaView() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() {
       medyadata.clear();
@@ -1835,7 +1811,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       child: Container(
         child: medyadata.isNotEmpty
             ? GridView.builder(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 10,
                   left: 10,
                   right: 10,
@@ -1843,7 +1819,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                 ),
                 // physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5,
                   crossAxisCount: 2,
@@ -1877,21 +1853,21 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                     menuWidth: MediaQuery.of(context).size.width * 0.50,
                     blurSize: 5.0,
                     menuItemExtent: 45,
-                    menuBoxDecoration: BoxDecoration(
+                    menuBoxDecoration: const BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.all(
                         Radius.circular(15.0),
                       ),
                     ),
-                    duration: Duration(milliseconds: 100),
+                    duration: const Duration(milliseconds: 100),
                     animateMenuItems: true,
                     blurBackgroundColor: Colors.black54,
                     bottomOffsetHeight: 100,
                     // openWithTap: true,
                     menuItems: <FocusedMenuItem>[
                       FocusedMenuItem(
-                        title: Text("Open"),
-                        trailingIcon: Icon(Icons.open_in_new),
+                        title: const Text("Open"),
+                        trailingIcon: const Icon(Icons.open_in_new),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -1905,15 +1881,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                         },
                       ),
                       FocusedMenuItem(
-                        title: Text("Share"),
-                        trailingIcon: Icon(Icons.share),
+                        title: const Text("Share"),
+                        trailingIcon: const Icon(Icons.share),
                         onPressed: () {
                           Share.share(medyadata[index]["medyaorijinal"]);
                         },
                       ),
                       FocusedMenuItem(
-                        title: Text("Save to Gallery"),
-                        trailingIcon: Icon(Icons.file_download_outlined),
+                        title: const Text("Save to Gallery"),
+                        trailingIcon: const Icon(Icons.file_download_outlined),
                         onPressed: () {
                           GallerySaver.saveImage(
                               medyadata[index]["medyaorijinal"]);
@@ -1967,7 +1943,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       ? "Henüz Gönderide Bulunmadın !"
                       : "Henüz Gönderide Bulunmamış !",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -1978,22 +1954,20 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   }
 
   MyFavoriteView() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() {
       return postcek();
     }
 
-    return Center(
-      child: Container(
-        child: Text(
-          "Çok Yakında...\nComing Soon...",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
+    return const Center(
+      child: Text(
+        "Çok Yakında...\nComing Soon...",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );
@@ -2047,13 +2021,13 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     //                     crossAxisAlignment: CrossAxisAlignment.start,
     //                     children: [
     //                       CircleAvatar(
-    //                         radius: screenwidth / 12,
+    //                         radius: screenWidth / 12,
     //                         backgroundImage: NetworkImage(
     //                           reactiondata[index]["sahipavatarminnak"],
     //                         ),
     //                         backgroundColor: Colors.transparent,
     //                       ),
-    //                       SizedBox(width: screenwidth / 35),
+    //                       SizedBox(width: screenWidth / 35),
     //                       Expanded(
     //                         child: Column(
     //                           mainAxisAlignment: MainAxisAlignment.center,
@@ -2109,7 +2083,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     //                                                         ),
     //                                                       ),
     //                                                       width:
-    //                                                           screenwidth / 4,
+    //                                                           screenWidth / 4,
     //                                                       height: 5,
     //                                                     ),
     //                                                   ),
@@ -2207,22 +2181,22 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     //                                 ),
     //                               ],
     //                             ),
-    //                             SizedBox(height: screenheight / 90),
+    //                             SizedBox(height: screenHeight / 90),
     //                             Text(
     //                               reactiondata[index]["sosyalicerik"],
     //                             ),
-    //                             SizedBox(height: screenheight / 50),
+    //                             SizedBox(height: screenHeight / 50),
     //                             Visibility(
     //                               visible: visible,
     //                               child: Container(
     //                                 child: gonderifotocek(),
     //                               ),
     //                             ),
-    //                             SizedBox(height: screenheight / 65),
+    //                             SizedBox(height: screenHeight / 65),
     //                             Container(
     //                               color: Colors.transparent,
-    //                               width: screenwidth,
-    //                               height: screenheight / 20,
+    //                               width: screenWidth,
+    //                               height: screenHeight / 20,
     //                               child: Row(
     //                                 mainAxisAlignment:
     //                                     MainAxisAlignment.spaceBetween,
@@ -2376,7 +2350,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     //                                     ),
     //                                   ),
     //                                   SizedBox(
-    //                                     width: screenwidth / 15,
+    //                                     width: screenWidth / 15,
     //                                   ),
     //                                 ],
     //                               ),
@@ -2415,22 +2389,20 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   }
 
   MyReactionView() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() {
       return postcek();
     }
 
-    return Center(
-      child: Container(
-        child: Text(
-          "Çok Yakında...\nComing Soon...",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
+    return const Center(
+      child: Text(
+        "Çok Yakında...\nComing Soon...",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );
@@ -2484,13 +2456,13 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     //                     crossAxisAlignment: CrossAxisAlignment.start,
     //                     children: [
     //                       CircleAvatar(
-    //                         radius: screenwidth / 12,
+    //                         radius: screenWidth / 12,
     //                         backgroundImage: NetworkImage(
     //                           reactiondata[index]["sahipavatarminnak"],
     //                         ),
     //                         backgroundColor: Colors.transparent,
     //                       ),
-    //                       SizedBox(width: screenwidth / 35),
+    //                       SizedBox(width: screenWidth / 35),
     //                       Expanded(
     //                         child: Column(
     //                           mainAxisAlignment: MainAxisAlignment.center,
@@ -2546,7 +2518,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     //                                                         ),
     //                                                       ),
     //                                                       width:
-    //                                                           screenwidth / 4,
+    //                                                           screenWidth / 4,
     //                                                       height: 5,
     //                                                     ),
     //                                                   ),
@@ -2644,22 +2616,22 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     //                                 ),
     //                               ],
     //                             ),
-    //                             SizedBox(height: screenheight / 90),
+    //                             SizedBox(height: screenHeight / 90),
     //                             Text(
     //                               reactiondata[index]["sosyalicerik"],
     //                             ),
-    //                             SizedBox(height: screenheight / 50),
+    //                             SizedBox(height: screenHeight / 50),
     //                             Visibility(
     //                               visible: visible,
     //                               child: Container(
     //                                 child: gonderifotocek(),
     //                               ),
     //                             ),
-    //                             SizedBox(height: screenheight / 65),
+    //                             SizedBox(height: screenHeight / 65),
     //                             Container(
     //                               color: Colors.transparent,
-    //                               width: screenwidth,
-    //                               height: screenheight / 20,
+    //                               width: screenWidth,
+    //                               height: screenHeight / 20,
     //                               child: Row(
     //                                 mainAxisAlignment:
     //                                     MainAxisAlignment.spaceBetween,
@@ -2813,7 +2785,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     //                                     ),
     //                                   ),
     //                                   SizedBox(
-    //                                     width: screenwidth / 15,
+    //                                     width: screenWidth / 15,
     //                                   ),
     //                                 ],
     //                               ),
@@ -2854,8 +2826,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   Widget _MainListView(
     BuildContext context,
     int index,
-    double screenwidth,
-    double screenheight,
+    double screenWidth,
+    double screenHeight,
   ) {
     return InkWell(
       onTap: () {
@@ -2890,443 +2862,429 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
         });
       },
-      child: Container(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: screenwidth / 12,
-              backgroundImage: CachedNetworkImageProvider(
-                postdata[index]["sahipavatarminnak"],
-              ),
-              backgroundColor: Colors.transparent,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(
+            radius: screenWidth / 12,
+            backgroundImage: CachedNetworkImageProvider(
+              postdata[index]["sahipavatarminnak"],
             ),
-            SizedBox(width: screenwidth / 35),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        postdata[index]["sahipad"],
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+            backgroundColor: Colors.transparent,
+          ),
+          SizedBox(width: screenWidth / 35),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      postdata[index]["sahipad"],
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
-                      Text(
-                        "  -  " + postdata[index]["paylasimzamangecen"],
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    Text(
+                      "  -  " + postdata[index]["paylasimzamangecen"],
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Spacer(),
-                      InkWell(
-                        onTap: () {
-                          showModalBottomSheet<void>(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(10),
-                              ),
+                    ),
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(10),
                             ),
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SafeArea(
-                                child: Wrap(
-                                  children: [
-                                    Container(
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey[900],
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(30),
-                                                ),
-                                              ),
-                                              width: screenwidth / 4,
-                                              height: 5,
+                          ),
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SafeArea(
+                              child: Wrap(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[900],
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(30),
                                             ),
                                           ),
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: ListTile(
-                                              leading: Icon(Icons.post_add),
-                                              title: Text(
-                                                  "Postu favorilere ekle."),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: postdata[index]
-                                                        ["sahipID"] ==
-                                                    girisdata["oyuncuID"]
-                                                ? true
-                                                : false,
-                                            child: InkWell(
-                                              onTap: () {
-                                                postID =
-                                                    postdata[index]["postID"];
-                                                // postsil();
-                                                Navigator.pop(context);
-                                              },
-                                              child: ListTile(
-                                                leading: Icon(Icons.edit_note),
-                                                title: Text("Postu düzenle."),
-                                              ),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: postdata[index]
-                                                        ["sahipID"] ==
-                                                    girisdata["oyuncuID"]
-                                                ? true
-                                                : false,
-                                            child: InkWell(
-                                              onTap: () {
-                                                postID =
-                                                    postdata[index]["postID"];
-                                                postsil();
-                                                postcek();
-
-                                                Navigator.pop(context);
-                                              },
-                                              child: ListTile(
-                                                leading: Icon(Icons
-                                                    .delete_sweep_outlined),
-                                                title: Text("Postu kaldır."),
-                                              ),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: widget.veri1 ==
-                                                    girisdata["oyuncuID"]
-                                                ? false
-                                                : true,
-                                            child: Divider(),
-                                          ),
-                                          Visibility(
-                                            visible: widget.veri1 ==
-                                                    girisdata["oyuncuID"]
-                                                ? false
-                                                : true,
-                                            child: InkWell(
-                                              onTap: () {
-                                                // postID =
-                                                //     widget.veri10;
-                                                // postbildir();
-                                                Navigator.pop(context);
-                                                // ScaffoldMessenger.of(context)
-                                                //     .showSnackBar(
-                                                //   const SnackBar(
-                                                //     content:
-                                                //         Text("Bildirildi !"),
-                                                //     shape:
-                                                //         const StadiumBorder(),
-                                                //   ),
-                                                // );
-                                                Fluttertoast.showToast(
-                                                  msg: "Bildirildi !",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.CENTER,
-                                                  timeInSecForIosWeb: 1,
-                                                );
-                                              },
-                                              child: const ListTile(
-                                                textColor: Colors.red,
-                                                leading: Icon(
-                                                  Icons.flag_outlined,
-                                                  color: Colors.red,
-                                                ),
-                                                title: Text("Postu bildir."),
-                                              ),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: profiledata["oyuncuID"] ==
-                                                    girisdata["oyuncuID"]
-                                                ? false
-                                                : true,
-                                            child: InkWell(
-                                              onTap: () {
-                                                profileID = widget.veri1;
-                                                postbildir();
-                                                Navigator.pop(context);
-                                                // ScaffoldMessenger.of(context)
-                                                //     .showSnackBar(
-                                                //   const SnackBar(
-                                                //     content: Text("Bildirildi !"),
-                                                //     shape: StadiumBorder(),
-                                                //   ),
-                                                // );
-                                                Fluttertoast.showToast(
-                                                  msg: "Engellendi !",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.CENTER,
-                                                  timeInSecForIosWeb: 1,
-                                                );
-                                              },
-                                              child: const ListTile(
-                                                textColor: Colors.red,
-                                                leading: Icon(
-                                                  Icons.person_off_outlined,
-                                                  color: Colors.red,
-                                                ),
-                                                title: Text(
-                                                    "Kullanıcıyı engelle."),
-                                              ),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: widget.veri1 ==
-                                                    girisdata["oyuncuID"]
-                                                ? false
-                                                : true,
-                                            child: InkWell(
-                                              onTap: () {
-                                                // postID =
-                                                //     widget.veri10;
-                                                // postbildir();
-                                                Navigator.pop(context);
-                                                // ScaffoldMessenger.of(context)
-                                                //     .showSnackBar(
-                                                //   const SnackBar(
-                                                //     content:
-                                                //         Text("Bildirildi !"),
-                                                //     shape:
-                                                //         const StadiumBorder(),
-                                                //   ),
-                                                // );
-                                                Fluttertoast.showToast(
-                                                  msg: "Bildirildi !",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.CENTER,
-                                                  timeInSecForIosWeb: 1,
-                                                );
-                                              },
-                                              child: const ListTile(
-                                                textColor: Colors.red,
-                                                leading: Icon(
-                                                  Icons.person_outline,
-                                                  color: Colors.red,
-                                                ),
-                                                title:
-                                                    Text("Kullanıcıyı bildir."),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                        ],
+                                          width: screenWidth / 4,
+                                          height: 5,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const ListTile(
+                                          leading: Icon(Icons.post_add),
+                                          title: Text("Postu favorilere ekle."),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: postdata[index]["sahipID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? true
+                                            : false,
+                                        child: InkWell(
+                                          onTap: () {
+                                            postID = postdata[index]["postID"];
+                                            // postsil();
+                                            Navigator.pop(context);
+                                          },
+                                          child: const ListTile(
+                                            leading: Icon(Icons.edit_note),
+                                            title: Text("Postu düzenle."),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: postdata[index]["sahipID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? true
+                                            : false,
+                                        child: InkWell(
+                                          onTap: () {
+                                            postID = postdata[index]["postID"];
+                                            postsil();
+                                            postcek();
+
+                                            Navigator.pop(context);
+                                          },
+                                          child: const ListTile(
+                                            leading: Icon(
+                                                Icons.delete_sweep_outlined),
+                                            title: Text("Postu kaldır."),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: widget.veri1 ==
+                                                girisdata["oyuncuID"]
+                                            ? false
+                                            : true,
+                                        child: const Divider(),
+                                      ),
+                                      Visibility(
+                                        visible: widget.veri1 ==
+                                                girisdata["oyuncuID"]
+                                            ? false
+                                            : true,
+                                        child: InkWell(
+                                          onTap: () {
+                                            // postID =
+                                            //     widget.veri10;
+                                            // postbildir();
+                                            Navigator.pop(context);
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   const SnackBar(
+                                            //     content:
+                                            //         Text("Bildirildi !"),
+                                            //     shape:
+                                            //         const StadiumBorder(),
+                                            //   ),
+                                            // );
+                                            Fluttertoast.showToast(
+                                              msg: "Bildirildi !",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
+                                            );
+                                          },
+                                          child: const ListTile(
+                                            textColor: Colors.red,
+                                            leading: Icon(
+                                              Icons.flag_outlined,
+                                              color: Colors.red,
+                                            ),
+                                            title: Text("Postu bildir."),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: profiledata["oyuncuID"] ==
+                                                girisdata["oyuncuID"]
+                                            ? false
+                                            : true,
+                                        child: InkWell(
+                                          onTap: () {
+                                            profileID = widget.veri1;
+                                            postbildir();
+                                            Navigator.pop(context);
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   const SnackBar(
+                                            //     content: Text("Bildirildi !"),
+                                            //     shape: StadiumBorder(),
+                                            //   ),
+                                            // );
+                                            Fluttertoast.showToast(
+                                              msg: "Engellendi !",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
+                                            );
+                                          },
+                                          child: const ListTile(
+                                            textColor: Colors.red,
+                                            leading: Icon(
+                                              Icons.person_off_outlined,
+                                              color: Colors.red,
+                                            ),
+                                            title: Text("Kullanıcıyı engelle."),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: widget.veri1 ==
+                                                girisdata["oyuncuID"]
+                                            ? false
+                                            : true,
+                                        child: InkWell(
+                                          onTap: () {
+                                            // postID =
+                                            //     widget.veri10;
+                                            // postbildir();
+                                            Navigator.pop(context);
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   const SnackBar(
+                                            //     content:
+                                            //         Text("Bildirildi !"),
+                                            //     shape:
+                                            //         const StadiumBorder(),
+                                            //   ),
+                                            // );
+                                            Fluttertoast.showToast(
+                                              msg: "Bildirildi !",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
+                                            );
+                                          },
+                                          child: const ListTile(
+                                            textColor: Colors.red,
+                                            leading: Icon(
+                                              Icons.person_outline,
+                                              color: Colors.red,
+                                            ),
+                                            title: Text("Kullanıcıyı bildir."),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: const Icon(
+                        Icons.more_vert,
+                        size: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: screenHeight / 90),
+                DetectableText(
+                  detectionRegExp: RegExp(
+                    "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
+                    multiLine: true,
+                  ),
+                  text: postdata[index]["sosyalicerik"],
+                  basicStyle: const TextStyle(
+                    fontSize: 16,
+                  ),
+                  detectedStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blue,
+                  ),
+                ),
+                SizedBox(height: screenHeight / 50),
+                Visibility(
+                  visible: visible,
+                  child: Container(
+                    child: gonderifotocek(),
+                  ),
+                ),
+                SimpleUrlPreview(
+                  url: dataanasayfa[index]["sosyalicerik"],
+                  isClosable: true,
+                  imageLoaderColor: Colors.blue,
+                  titleStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  descriptionStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  siteNameStyle: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: screenHeight / 65),
+                Container(
+                  color: Colors.transparent,
+                  width: screenWidth,
+                  height: screenHeight / 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      LikeButton(
+                        onTap: (bool isLike) {
+                          return onLikeButtonTapped(
+                            isLike,
+                            index,
                           );
                         },
-                        child: Icon(
-                          Icons.more_vert,
-                          size: 20,
+                        countPostion: CountPostion.right,
+                        isLiked:
+                            postdata[index]["benbegendim"] != 0 ? true : false,
+                        likeCount: postdata[index]["begenisay"] != "0"
+                            ? int.parse(postdata[index]["begenisay"])
+                            : null,
+                        likeBuilder: (bool isLiked) {
+                          return isLiked
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : const Icon(
+                                  Icons.favorite_outline,
+                                  color: Colors.grey,
+                                );
+                        },
+                        bubblesColor: const BubblesColor(
+                          dotPrimaryColor: Colors.red,
+                          dotSecondaryColor: Colors.blue,
                         ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AnaDetail(
+                                veri1: postdata[index]["sahipavatarminnak"],
+                                veri2: postdata[index]["sahipad"],
+                                veri3: postdata[index]["sosyalicerik"],
+                                veri4: postdata[index]["paylasimzaman"],
+                                veri5: postdata[index]["begenisay"],
+                                veri6: postdata[index]["yorumsay"],
+                                veri7: postdata[index]["repostsay"],
+                                veri8: postdata[index]["sikayetsay"],
+                                veri9: postdata[index]["benbegendim"],
+                                veri10: postdata[index]["postID"],
+                                veri11: postdata[index]["sahipID"],
+                                veri12: postdata[index]["paylasimnereden"],
+                                veri13: postdata[index]["benyorumladim"],
+                                veri14: postdata[index]["oyunculink"],
+                              ),
+                            ),
+                          );
+
+                          setState(() {
+                            detayid = postdata[index]["postID"];
+
+                            detaylink =
+                                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              postdata[index]["benyorumladim"] == 0
+                                  ? const Icon(
+                                      Icons.chat_bubble_outline,
+                                      color: Colors.grey,
+                                    )
+                                  : const Icon(
+                                      Icons.chat_bubble,
+                                      color: Colors.blue,
+                                    ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              (postdata[index]["yorumsay"] != "0")
+                                  ? Text(
+                                      postdata[index]["yorumsay"],
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  : const Text(""),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.repeat,
+                                color: Colors.grey,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              (postdata[index]["repostsay"] != "0")
+                                  ? Text(
+                                      postdata[index]["repostsay"],
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  : const Text(""),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Share.share(
+                            postdata[index]["sosyalicerik"],
+                          );
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.share_outlined,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: screenWidth / 15,
                       ),
                     ],
                   ),
-                  SizedBox(height: screenheight / 90),
-                  DetectableText(
-                    detectionRegExp: RegExp(
-                      "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
-                      multiLine: true,
-                    ),
-                    text: postdata[index]["sosyalicerik"],
-                    basicStyle: TextStyle(
-                      fontSize: 16,
-                    ),
-                    detectedStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  SizedBox(height: screenheight / 50),
-                  Visibility(
-                    visible: visible,
-                    child: Container(
-                      child: gonderifotocek(),
-                    ),
-                  ),
-                  SimpleUrlPreview(
-                    url: dataanasayfa[index]["sosyalicerik"],
-                    isClosable: true,
-                    imageLoaderColor: Colors.blue,
-                    titleStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    descriptionStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    siteNameStyle: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: screenheight / 65),
-                  Container(
-                    color: Colors.transparent,
-                    width: screenwidth,
-                    height: screenheight / 20,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        LikeButton(
-                          onTap: (bool isLike) {
-                            return onLikeButtonTapped(
-                              isLike,
-                              index,
-                            );
-                          },
-                          countPostion: CountPostion.right,
-                          isLiked: postdata[index]["benbegendim"] != 0
-                              ? true
-                              : false,
-                          likeCount: postdata[index]["begenisay"] != "0"
-                              ? int.parse(postdata[index]["begenisay"])
-                              : null,
-                          likeBuilder: (bool isLiked) {
-                            return isLiked
-                                ? Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                  )
-                                : Icon(
-                                    Icons.favorite_outline,
-                                    color: Colors.grey,
-                                  );
-                          },
-                          bubblesColor: BubblesColor(
-                            dotPrimaryColor: Colors.red,
-                            dotSecondaryColor: Colors.blue,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AnaDetail(
-                                  veri1: postdata[index]["sahipavatarminnak"],
-                                  veri2: postdata[index]["sahipad"],
-                                  veri3: postdata[index]["sosyalicerik"],
-                                  veri4: postdata[index]["paylasimzaman"],
-                                  veri5: postdata[index]["begenisay"],
-                                  veri6: postdata[index]["yorumsay"],
-                                  veri7: postdata[index]["repostsay"],
-                                  veri8: postdata[index]["sikayetsay"],
-                                  veri9: postdata[index]["benbegendim"],
-                                  veri10: postdata[index]["postID"],
-                                  veri11: postdata[index]["sahipID"],
-                                  veri12: postdata[index]["paylasimnereden"],
-                                  veri13: postdata[index]["benyorumladim"],
-                                  veri14: postdata[index]["oyunculink"],
-                                ),
-                              ),
-                            );
-
-                            setState(() {
-                              detayid = postdata[index]["postID"];
-
-                              detaylink =
-                                  "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-                            });
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                postdata[index]["benyorumladim"] == 0
-                                    ? Icon(
-                                        Icons.chat_bubble_outline,
-                                        color: Colors.grey,
-                                      )
-                                    : Icon(
-                                        Icons.chat_bubble,
-                                        color: Colors.blue,
-                                      ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                (postdata[index]["yorumsay"] != "0")
-                                    ? Text(
-                                        postdata[index]["yorumsay"],
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      )
-                                    : Text(""),
-                              ],
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.repeat,
-                                  color: Colors.grey,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                (postdata[index]["repostsay"] != "0")
-                                    ? Text(
-                                        postdata[index]["repostsay"],
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      )
-                                    : Text(""),
-                              ],
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Share.share(
-                              postdata[index]["sosyalicerik"],
-                            );
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.share_outlined,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenwidth / 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -3337,10 +3295,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       child: ListView.separated(
         controller: profilePageArkadasScrollController,
         shrinkWrap: true,
-        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         scrollDirection: Axis.horizontal,
         itemCount: 5,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return InkWell(
             borderRadius: BorderRadius.circular(15),
@@ -3363,7 +3321,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       Colors.black.withOpacity(0.7),
                       Colors.transparent,
                     ],
-                    stops: [0.0, 0.4],
+                    stops: const [0.0, 0.4],
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                   ),
@@ -3371,10 +3329,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 7),
+                    padding: const EdgeInsets.only(bottom: 7),
                     child: Text(
                       xpsiralama[index]["oyuncuadsoyad"],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
@@ -3386,7 +3344,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
             ),
           );
         },
-        separatorBuilder: (context, index) => SizedBox(width: 20),
+        separatorBuilder: (context, index) => const SizedBox(width: 20),
       ),
     );
   }
@@ -3396,21 +3354,21 @@ class Delegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return PreferredSize(
-      preferredSize: Size(screenwidth, 48),
+      preferredSize: Size(screenWidth, 48),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.grey[850],
-          border: Border(
+          border: const Border(
             bottom: BorderSide(
               color: Colors.grey,
               width: 0.5,
             ),
           ),
         ),
-        width: screenwidth,
+        width: screenWidth,
         child: TabBar(
           onTap: (value) {
             profileCurrentIndex == value && profileCurrentIndex == 0
@@ -3449,11 +3407,11 @@ class Delegate extends SliverPersistentHeaderDelegate {
           },
           isScrollable: true,
           indicatorColor: Colors.blue,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15,
           ),
-          tabs: [
+          tabs: const [
             Tab(text: "Postlar"),
             Tab(text: "Medya"),
             Tab(text: "Favorilerim"),
@@ -3477,6 +3435,8 @@ class Delegate extends SliverPersistentHeaderDelegate {
 }
 
 class ACustomSliverHeader extends StatelessWidget {
+  const ACustomSliverHeader({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SliverPersistentHeader(

@@ -1,11 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
-// var //
+//  var  //
 var botId1 = dotenv.env['botId1'];
 var girisdata;
 var datahaber;
@@ -25,8 +22,10 @@ var textLength = 0;
 var profileID;
 var id;
 var kulAdSoyad;
+var screenWidth;
+var screenHeight;
 
-// String //
+//  String  //
 String mevcutpage = "anasayfa";
 String? gelenID;
 String? gkontrolAd;
@@ -42,13 +41,13 @@ String lastWords = '';
 String? byr;
 String arkadasText = "";
 
-// int //
+//  int  //
 int startPage = 0;
 int currentIndex = 0;
 int profileCurrentIndex = 0;
 int aratildi = 0;
 
-// bool //
+//  bool  //
 bool? gkontrolHatirla;
 bool visible = false;
 bool beniHatirla = true;
@@ -56,7 +55,7 @@ bool speechEnabled = false;
 bool isUpload = false;
 bool showNotification = true;
 
-// List //
+//  List  //
 List gruplarim = [];
 List dataanasayfa = [];
 List gonderifotolar = [];
@@ -80,15 +79,22 @@ List<XFile> images = [];
 List searchgaleri = [];
 List searchhaber = [];
 
-// Timer //
+//  final  //
+final screens = [
+  AnaSayfa(),
+  Search(),
+  const Notif(),
+];
+
+//  Timer  //
 Timer? timer;
 
-// FocusNode //
+//  FocusNode  //
 FocusNode focusNodeAnaDetail = FocusNode();
 FocusNode focusNodeSearch = FocusNode();
 
-// SpeechToText //
+//  SpeechToText  //
 // SpeechToText speechToText = SpeechToText();
 
-// GlobalKey //
+//  GlobalKey  //
 GlobalKey autocompleteKey = GlobalKey();

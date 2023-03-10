@@ -1,10 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, must_be_immutable, avoid_unnecessary_containers, unnecessary_null_comparison
 
-import 'package:flutter/material.dart';
-import 'package:armoyu/main.dart';
-import 'package:theme_provider/theme_provider.dart';
-
-import 'Variables/variables.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 class EtkinlikDetay extends StatefulWidget {
   String veri;

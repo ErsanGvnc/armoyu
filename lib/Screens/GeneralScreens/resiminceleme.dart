@@ -1,17 +1,14 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_unnecessary_containers, must_be_immutable, unused_import
+// ignore_for_file: must_be_immutable
 
-import 'package:dismissible_page/dismissible_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:photo_view/photo_view_gallery.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 class Resiminceleme extends StatefulWidget {
   List veri1;
 
   Resiminceleme({
+    Key? key,
     required this.veri1,
-  });
+  }) : super(key: key);
   @override
   State<Resiminceleme> createState() => _ResimincelemeState();
 }
@@ -51,7 +48,8 @@ class _ResimincelemeState extends State<Resiminceleme> {
               Navigator.of(context).pop();
             },
             child: PhotoViewGallery.builder(
-              backgroundDecoration: BoxDecoration(color: Colors.transparent),
+              backgroundDecoration:
+                  const BoxDecoration(color: Colors.transparent),
               builder: (BuildContext context, int index) {
                 return PhotoViewGalleryPageOptions(
                   imageProvider: NetworkImage(
@@ -60,7 +58,7 @@ class _ResimincelemeState extends State<Resiminceleme> {
                 );
               },
               itemCount: widget.veri1.length,
-              loadingBuilder: (context, progress) => Center(
+              loadingBuilder: (context, progress) => const Center(
                 child: CircularProgressIndicator(),
               ),
             ),

@@ -1,10 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
-import '../Controllers/controllers.dart';
-import '../Variables/variables.dart';
-import 'links.dart';
-import 'dart:convert';
 
 // Post //
 // postgonder() {

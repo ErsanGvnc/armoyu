@@ -1,16 +1,11 @@
-// ignore_for_file: use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers
 
-import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:armoyu/detail.dart';
-import 'package:armoyu/main.dart';
-import 'Controllers/controllers.dart';
-import 'Variables/variables.dart';
-import 'utilities/links.dart';
+import '../../Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
 
 class News extends StatefulWidget {
+  const News({Key? key}) : super(key: key);
+
   @override
   NewsState createState() => NewsState();
 }
@@ -32,8 +27,8 @@ class NewsState extends State<News> {
 
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() {
       return habercek();
@@ -73,8 +68,8 @@ class NewsState extends State<News> {
                         child: Row(
                           children: [
                             SizedBox(
-                              width: screenwidth / 3,
-                              height: screenheight / 6,
+                              width: screenWidth / 3,
+                              height: screenHeight / 6,
                               child: datahaber[index]["resim"] != null
                                   ? CachedNetworkImage(
                                       imageUrl: datahaber[index]["resim"],
@@ -86,17 +81,17 @@ class NewsState extends State<News> {
                             ),
                             Expanded(
                               child: SizedBox(
-                                height: screenheight / 6,
+                                height: screenHeight / 6,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: screenheight / 100),
+                                    SizedBox(height: screenHeight / 100),
                                     Text(
                                       datahaber[index]["yazar"] ?? "",
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: screenwidth / 25,
+                                        fontSize: screenWidth / 25,
                                       ),
                                     ),
                                     const Spacer(),
@@ -115,20 +110,20 @@ class NewsState extends State<News> {
                                           datahaber[index]["kategori"],
                                           style: TextStyle(
                                             color: Colors.blue,
-                                            fontSize: screenwidth / 30,
+                                            fontSize: screenWidth / 30,
                                           ),
                                         ),
-                                        SizedBox(width: screenwidth / 75),
+                                        SizedBox(width: screenWidth / 75),
                                         const CircleAvatar(
                                           radius: 3,
                                           backgroundColor: Colors.grey,
                                         ),
-                                        SizedBox(width: screenwidth / 75),
+                                        SizedBox(width: screenWidth / 75),
                                         Text(
                                           datahaber[index]["gecenzaman"],
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: screenwidth / 30,
+                                            fontSize: screenWidth / 30,
                                           ),
                                         ),
                                         const Spacer(),
@@ -136,10 +131,10 @@ class NewsState extends State<News> {
                                           datahaber[index]["goruntulen"],
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: screenwidth / 30,
+                                            fontSize: screenWidth / 30,
                                           ),
                                         ),
-                                        SizedBox(width: screenwidth / 150),
+                                        SizedBox(width: screenWidth / 150),
                                         const Icon(
                                           Icons.remove_red_eye,
                                           color: Colors.grey,
@@ -158,13 +153,13 @@ class NewsState extends State<News> {
                     );
                   },
                   separatorBuilder: (context, index) =>
-                      SizedBox(height: screenheight / 100),
+                      SizedBox(height: screenHeight / 100),
                   itemCount: 15,
                 )
               : ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) => NewsCardSkelton(),
+                  itemBuilder: (context, index) => const NewsCardSkelton(),
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 5),
                   itemCount: 10,

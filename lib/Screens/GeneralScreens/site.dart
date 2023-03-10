@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable, library_private_types_in_public_api, unnecessary_this, no_leading_underscores_for_local_identifiers
 
-import 'package:flutter/material.dart';
-import 'package:theme_provider/theme_provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 class Site extends StatefulWidget {
   String verilink, veribaslik;

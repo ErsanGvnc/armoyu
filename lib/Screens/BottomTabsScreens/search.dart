@@ -1,24 +1,24 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, unused_field, prefer_final_fields, unused_local_variable, prefer_const_literals_to_create_immutables, avoid_print, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings, non_constant_identifier_names, unused_element, use_function_type_syntax_for_parameters, unnecessary_null_comparison
 
 import 'dart:convert';
-import 'package:armoyu/resiminceleme.dart';
+import 'package:armoyu/Screens/GeneralScreens/resiminceleme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:armoyu/anadetail.dart';
+import 'package:armoyu/Screens/GeneralScreens/anadetail.dart';
 import 'package:detectable_text_field/detectable_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
-import 'Controllers/controllers.dart';
-import 'Utilities/links.dart';
-import 'Utilities/utilities.dart';
-import 'Variables/variables.dart';
-import 'detail.dart';
-import 'profile.dart';
+import '../../Controllers/controllers.dart';
+import '../../Utilities/links.dart';
+import '../../Utilities/utilities.dart';
+import '../../Variables/variables.dart';
+import '../GeneralScreens/detail.dart';
+import '../GeneralScreens/profile.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -84,8 +84,8 @@ class _SearchState extends State<Search> {
   }
 
   gonderifotocek() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     // print(gonderifotolar);
 
@@ -180,7 +180,7 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -212,7 +212,7 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -280,7 +280,7 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -312,7 +312,7 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -381,7 +381,7 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -413,7 +413,7 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-          SizedBox(width: screenwidth / 35),
+          SizedBox(width: screenWidth / 35),
           Flexible(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -483,8 +483,8 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     search(id) async {
       http.post(
@@ -760,11 +760,11 @@ class _SearchState extends State<Search> {
                         // _MainListView(
                         //   context,
                         //   0,
-                        //   screenwidth,
+                        //   screenWidth,
                         //   postsil,
                         //   _refresh,
                         //   postbildir,
-                        //   screenheight,
+                        //   screenHeight,
                         //   onLikeButtonTapped,
                         // ),
                         // Divider(
@@ -790,8 +790,8 @@ class _SearchState extends State<Search> {
   }
 
   searchedildi() {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     final items = List<String>.generate(15, (i) => "Item $i");
     return profiledata != null
@@ -818,7 +818,7 @@ class _SearchState extends State<Search> {
                     },
                     contentPadding: EdgeInsets.zero,
                     leading: CircleAvatar(
-                      radius: screenwidth / 12,
+                      radius: screenWidth / 12,
                       backgroundImage: CachedNetworkImageProvider(
                         profiledata["presimminnak"],
                       ),
@@ -904,8 +904,8 @@ class _SearchState extends State<Search> {
                             child: Row(
                               children: [
                                 SizedBox(
-                                  width: screenwidth / 3,
-                                  height: screenheight / 6,
+                                  width: screenWidth / 3,
+                                  height: screenHeight / 6,
                                   child: searchhaber[index]["resim"] != null
                                       ? CachedNetworkImage(
                                           imageUrl: searchhaber[index]["resim"],
@@ -917,19 +917,19 @@ class _SearchState extends State<Search> {
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    height: screenheight / 6,
+                                    height: screenHeight / 6,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(height: screenheight / 100),
+                                        SizedBox(height: screenHeight / 100),
                                         Text(
                                           searchhaber[index]["yazar"],
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: screenwidth / 25,
+                                            fontSize: screenWidth / 25,
                                           ),
                                         ),
                                         const Spacer(),
@@ -948,20 +948,20 @@ class _SearchState extends State<Search> {
                                               searchhaber[index]["kategori"],
                                               style: TextStyle(
                                                 color: Colors.blue,
-                                                fontSize: screenwidth / 30,
+                                                fontSize: screenWidth / 30,
                                               ),
                                             ),
-                                            SizedBox(width: screenwidth / 75),
+                                            SizedBox(width: screenWidth / 75),
                                             const CircleAvatar(
                                               radius: 3,
                                               backgroundColor: Colors.grey,
                                             ),
-                                            SizedBox(width: screenwidth / 75),
+                                            SizedBox(width: screenWidth / 75),
                                             Text(
                                               searchhaber[index]["gecenzaman"],
                                               style: TextStyle(
                                                 color: Colors.grey,
-                                                fontSize: screenwidth / 30,
+                                                fontSize: screenWidth / 30,
                                               ),
                                             ),
                                             const Spacer(),
@@ -969,10 +969,10 @@ class _SearchState extends State<Search> {
                                               searchhaber[index]["goruntulen"],
                                               style: TextStyle(
                                                 color: Colors.grey,
-                                                fontSize: screenwidth / 30,
+                                                fontSize: screenWidth / 30,
                                               ),
                                             ),
-                                            SizedBox(width: screenwidth / 150),
+                                            SizedBox(width: screenWidth / 150),
                                             const Icon(
                                               Icons.remove_red_eye,
                                               color: Colors.grey,
@@ -1021,8 +1021,8 @@ class _SearchState extends State<Search> {
                   //       child: Row(
                   //         children: [
                   //           SizedBox(
-                  //             width: screenwidth / 3,
-                  //             height: screenheight / 6,
+                  //             width: screenWidth / 3,
+                  //             height: screenHeight / 6,
                   //             child: searchhaber[0]["resim"] != null
                   //                 ? CachedNetworkImage(
                   //                     imageUrl: searchhaber[0]["resim"],
@@ -1034,17 +1034,17 @@ class _SearchState extends State<Search> {
                   //           ),
                   //           Expanded(
                   //             child: SizedBox(
-                  //               height: screenheight / 6,
+                  //               height: screenHeight / 6,
                   //               child: Column(
                   //                 mainAxisAlignment: MainAxisAlignment.start,
                   //                 crossAxisAlignment: CrossAxisAlignment.start,
                   //                 children: [
-                  //                   SizedBox(height: screenheight / 100),
+                  //                   SizedBox(height: screenHeight / 100),
                   //                   Text(
                   //                     searchhaber[0]["yazar"],
                   //                     style: TextStyle(
                   //                       color: Colors.grey,
-                  //                       fontSize: screenwidth / 25,
+                  //                       fontSize: screenWidth / 25,
                   //                     ),
                   //                   ),
                   //                   const Spacer(),
@@ -1063,20 +1063,20 @@ class _SearchState extends State<Search> {
                   //                         searchhaber[0]["kategori"],
                   //                         style: TextStyle(
                   //                           color: Colors.blue,
-                  //                           fontSize: screenwidth / 30,
+                  //                           fontSize: screenWidth / 30,
                   //                         ),
                   //                       ),
-                  //                       SizedBox(width: screenwidth / 75),
+                  //                       SizedBox(width: screenWidth / 75),
                   //                       const CircleAvatar(
                   //                         radius: 3,
                   //                         backgroundColor: Colors.grey,
                   //                       ),
-                  //                       SizedBox(width: screenwidth / 75),
+                  //                       SizedBox(width: screenWidth / 75),
                   //                       Text(
                   //                         searchhaber[0]["gecenzaman"],
                   //                         style: TextStyle(
                   //                           color: Colors.grey,
-                  //                           fontSize: screenwidth / 30,
+                  //                           fontSize: screenWidth / 30,
                   //                         ),
                   //                       ),
                   //                       const Spacer(),
@@ -1084,10 +1084,10 @@ class _SearchState extends State<Search> {
                   //                         searchhaber[0]["goruntulen"],
                   //                         style: TextStyle(
                   //                           color: Colors.grey,
-                  //                           fontSize: screenwidth / 30,
+                  //                           fontSize: screenWidth / 30,
                   //                         ),
                   //                       ),
-                  //                       SizedBox(width: screenwidth / 150),
+                  //                       SizedBox(width: screenWidth / 150),
                   //                       const Icon(
                   //                         Icons.remove_red_eye,
                   //                         color: Colors.grey,
@@ -1158,13 +1158,13 @@ class _SearchState extends State<Search> {
               //             crossAxisAlignment: CrossAxisAlignment.start,
               //             children: [
               //               CircleAvatar(
-              //                 radius: screenwidth / 12,
+              //                 radius: screenWidth / 12,
               //                 backgroundImage: NetworkImage(
               //                   ayinpostu[index]["sahipavatarminnak"],
               //                 ),
               //                 backgroundColor: Colors.transparent,
               //               ),
-              //               SizedBox(width: screenwidth / 35),
+              //               SizedBox(width: screenWidth / 35),
               //               Expanded(
               //                 child: Column(
               //                   mainAxisAlignment: MainAxisAlignment.center,
@@ -1222,7 +1222,7 @@ class _SearchState extends State<Search> {
               //                                                 ),
               //                                               ),
               //                                               width:
-              //                                                   screenwidth / 4,
+              //                                                   screenWidth / 4,
               //                                               height: 5,
               //                                             ),
               //                                           ),
@@ -1499,7 +1499,7 @@ class _SearchState extends State<Search> {
               //                         ),
               //                       ],
               //                     ),
-              //                     SizedBox(height: screenheight / 90),
+              //                     SizedBox(height: screenHeight / 90),
               //                     DetectableText(
               //                       detectionRegExp: RegExp(
               //                         "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
@@ -1515,18 +1515,18 @@ class _SearchState extends State<Search> {
               //                         color: Colors.blue,
               //                       ),
               //                     ),
-              //                     SizedBox(height: screenheight / 50),
+              //                     SizedBox(height: screenHeight / 50),
               //                     Visibility(
               //                       visible: visible,
               //                       child: Container(
               //                         child: gonderifotocek(),
               //                       ),
               //                     ),
-              //                     SizedBox(height: screenheight / 65),
+              //                     SizedBox(height: screenHeight / 65),
               //                     Container(
               //                       color: Colors.transparent,
-              //                       width: screenwidth,
-              //                       height: screenheight / 20,
+              //                       width: screenWidth,
+              //                       height: screenHeight / 20,
               //                       child: Row(
               //                         mainAxisAlignment:
               //                             MainAxisAlignment.spaceBetween,
@@ -1687,7 +1687,7 @@ class _SearchState extends State<Search> {
               //                             ),
               //                           ),
               //                           SizedBox(
-              //                             width: screenwidth / 15,
+              //                             width: screenWidth / 15,
               //                           ),
               //                         ],
               //                       ),
@@ -1749,8 +1749,8 @@ class _SearchState extends State<Search> {
               //             child: Row(
               //               children: [
               //                 SizedBox(
-              //                   width: screenwidth / 3,
-              //                   height: screenheight / 6,
+              //                   width: screenWidth / 3,
+              //                   height: screenHeight / 6,
               //                   child: Image.network(searchhaber[index]["resim"]),
               //                 ),
               //                 SizedBox(
@@ -1758,18 +1758,18 @@ class _SearchState extends State<Search> {
               //                 ),
               //                 Expanded(
               //                   child: SizedBox(
-              //                     height: screenheight / 6,
+              //                     height: screenHeight / 6,
               //                     child: Column(
               //                       mainAxisAlignment: MainAxisAlignment.start,
               //                       crossAxisAlignment:
               //                           CrossAxisAlignment.start,
               //                       children: [
-              //                         SizedBox(height: screenheight / 100),
+              //                         SizedBox(height: screenHeight / 100),
               //                         Text(
               //                           searchhaber[index]["yazar"],
               //                           style: TextStyle(
               //                             color: Colors.grey,
-              //                             fontSize: screenwidth / 25,
+              //                             fontSize: screenWidth / 25,
               //                           ),
               //                         ),
               //                         Spacer(),
@@ -1788,20 +1788,20 @@ class _SearchState extends State<Search> {
               //                               searchhaber[index]["kategori"],
               //                               style: TextStyle(
               //                                 color: Colors.blue,
-              //                                 fontSize: screenwidth / 30,
+              //                                 fontSize: screenWidth / 30,
               //                               ),
               //                             ),
-              //                             SizedBox(width: screenwidth / 75),
+              //                             SizedBox(width: screenWidth / 75),
               //                             CircleAvatar(
               //                               radius: 3,
               //                               backgroundColor: Colors.grey,
               //                             ),
-              //                             SizedBox(width: screenwidth / 75),
+              //                             SizedBox(width: screenWidth / 75),
               //                             Text(
               //                               searchhaber[index]["gecenzaman"],
               //                               style: TextStyle(
               //                                 color: Colors.grey,
-              //                                 fontSize: screenwidth / 30,
+              //                                 fontSize: screenWidth / 30,
               //                               ),
               //                             ),
               //                             Spacer(),
@@ -1809,10 +1809,10 @@ class _SearchState extends State<Search> {
               //                               searchhaber[index]["goruntulen"],
               //                               style: TextStyle(
               //                                 color: Colors.grey,
-              //                                 fontSize: screenwidth / 30,
+              //                                 fontSize: screenWidth / 30,
               //                               ),
               //                             ),
-              //                             SizedBox(width: screenwidth / 150),
+              //                             SizedBox(width: screenWidth / 150),
               //                             Icon(
               //                               Icons.remove_red_eye,
               //                               color: Colors.grey,
@@ -1845,11 +1845,11 @@ class _SearchState extends State<Search> {
   Widget _MainListView(
     BuildContext context,
     int index,
-    double screenwidth,
+    double screenWidth,
     postsil,
     Future<void> _refresh(),
     postbildir,
-    double screenheight,
+    double screenHeight,
     Future<bool> onLikeButtonTapped(bool isLike, int index),
   ) {
     // return Text("_MainListView");
@@ -1899,13 +1899,13 @@ class _SearchState extends State<Search> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: screenwidth / 12,
+                    radius: screenWidth / 12,
                     backgroundImage: NetworkImage(
                       ayinpostu[index]["sahipavatarminnak"],
                     ),
                     backgroundColor: Colors.transparent,
                   ),
-                  SizedBox(width: screenwidth / 35),
+                  SizedBox(width: screenWidth / 35),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1954,7 +1954,7 @@ class _SearchState extends State<Search> {
                                                       Radius.circular(30),
                                                     ),
                                                   ),
-                                                  width: screenwidth / 4,
+                                                  width: screenWidth / 4,
                                                   height: 5,
                                                 ),
                                               ),
@@ -2170,7 +2170,7 @@ class _SearchState extends State<Search> {
                             ),
                           ],
                         ),
-                        SizedBox(height: screenheight / 90),
+                        SizedBox(height: screenHeight / 90),
                         DetectableText(
                           detectionRegExp: RegExp(
                             "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
@@ -2186,18 +2186,18 @@ class _SearchState extends State<Search> {
                             color: Colors.blue,
                           ),
                         ),
-                        SizedBox(height: screenheight / 50),
+                        SizedBox(height: screenHeight / 50),
                         Visibility(
                           visible: visible,
                           child: Container(
                             child: gonderifotocek(),
                           ),
                         ),
-                        SizedBox(height: screenheight / 65),
+                        SizedBox(height: screenHeight / 65),
                         Container(
                           color: Colors.transparent,
-                          width: screenwidth,
-                          height: screenheight / 20,
+                          width: screenWidth,
+                          height: screenHeight / 20,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -2334,7 +2334,7 @@ class _SearchState extends State<Search> {
                                 ),
                               ),
                               SizedBox(
-                                width: screenwidth / 15,
+                                width: screenWidth / 15,
                               ),
                             ],
                           ),

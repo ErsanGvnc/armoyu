@@ -1,5 +1,4 @@
-import '../Controllers/controllers.dart';
-import '../Variables/variables.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 var qrlink =
     "https://aramizdakioyuncu.com/botlar/$botId1/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";

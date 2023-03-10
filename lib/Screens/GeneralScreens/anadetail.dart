@@ -1,28 +1,9 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors, library_private_types_in_public_api, avoid_print, prefer_interpolation_to_compose_strings, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, curly_braces_in_flow_control_structures, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, unnecessary_string_interpolations, prefer_adjacent_string_concatenation
 
-import 'dart:async';
-import 'dart:convert';
-import 'package:animations/animations.dart';
-// import 'package:armoyu/byrdetail.dart';
-import 'package:armoyu/profile.dart';
-import 'package:armoyu/Utilities/utilities.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:detectable_text_field/detectable_text_field.dart';
-import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import 'package:armoyu/resiminceleme.dart';
-import 'package:like_button/like_button.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:simple_url_preview/simple_url_preview.dart';
-import 'package:theme_provider/theme_provider.dart';
 import 'package:http/http.dart' as http;
-import 'Controllers/controllers.dart';
-import 'Variables/variables.dart';
-import 'package:armoyu/Utilities/links.dart';
 
 class AnaDetail extends StatefulWidget {
   String veri1,
@@ -153,8 +134,8 @@ class _AnaDetailState extends State<AnaDetail> {
 
   galeriresim() {
     // print(paylasimtip);
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     if (resimler.length == 1)
       return Padding(
         padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -222,7 +203,7 @@ class _AnaDetailState extends State<AnaDetail> {
                 ),
               ),
             ),
-            SizedBox(width: screenwidth / 35),
+            SizedBox(width: screenWidth / 35),
             Flexible(
               child: InkWell(
                 highlightColor: Colors.transparent,
@@ -281,7 +262,7 @@ class _AnaDetailState extends State<AnaDetail> {
                 ),
               ),
             ),
-            SizedBox(width: screenwidth / 35),
+            SizedBox(width: screenWidth / 35),
             Flexible(
               child: InkWell(
                 highlightColor: Colors.transparent,
@@ -330,8 +311,8 @@ class _AnaDetailState extends State<AnaDetail> {
 
   galerivideo() {
     print(paylasimtip);
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     // return Padding(
     //   padding: EdgeInsets.all(10),
     //   child: Row(
@@ -355,8 +336,8 @@ class _AnaDetailState extends State<AnaDetail> {
 
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() async {
       postID = widget.veri10;
@@ -385,7 +366,7 @@ class _AnaDetailState extends State<AnaDetail> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: screenheight / 60),
+                            SizedBox(height: screenHeight / 60),
                             Padding(
                               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Row(
@@ -393,7 +374,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                 children: [
                                   InkWell(
                                     borderRadius:
-                                        BorderRadius.circular(screenwidth / 12),
+                                        BorderRadius.circular(screenWidth / 12),
                                     onTap: () {
                                       Navigator.push(
                                         context,
@@ -407,7 +388,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                       );
                                     },
                                     child: CircleAvatar(
-                                      radius: screenwidth / 12,
+                                      radius: screenWidth / 12,
                                       backgroundImage:
                                           CachedNetworkImageProvider(
                                         widget.veri1,
@@ -415,7 +396,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                       backgroundColor: Colors.transparent,
                                     ),
                                   ),
-                                  SizedBox(width: screenwidth / 35),
+                                  SizedBox(width: screenWidth / 35),
                                   InkWell(
                                     highlightColor: Colors.transparent,
                                     splashColor: Colors.transparent,
@@ -470,7 +451,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                             Radius.circular(30),
                                                           ),
                                                         ),
-                                                        width: screenwidth / 4,
+                                                        width: screenWidth / 4,
                                                         height: 5,
                                                       ),
                                                     ),
@@ -741,7 +722,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: screenheight / 35),
+                            SizedBox(height: screenHeight / 35),
                             Padding(
                               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                               // child: Text(
@@ -797,7 +778,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: screenheight / 35),
+                            SizedBox(height: screenHeight / 35),
 
                             if (paylasimtip == "video/x-matroska" ||
                                 paylasimtip == "video/mp4")
@@ -826,7 +807,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(height: screenheight / 50),
+                            SizedBox(height: screenHeight / 50),
                             Padding(
                               padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                               child: Row(
@@ -960,8 +941,8 @@ class _AnaDetailState extends State<AnaDetail> {
                             Divider(endIndent: 10, indent: 10),
                             Container(
                               color: Colors.transparent,
-                              width: screenwidth,
-                              height: screenheight / 20,
+                              width: screenWidth,
+                              height: screenHeight / 20,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -1035,7 +1016,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ListTile(
                                     leading: InkWell(
                                       borderRadius: BorderRadius.circular(
-                                          screenwidth / 12),
+                                          screenWidth / 12),
                                       onTap: () {
                                         Navigator.push(
                                           context,
@@ -1049,7 +1030,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                         );
                                       },
                                       child: CircleAvatar(
-                                        radius: screenwidth / 12,
+                                        radius: screenWidth / 12,
                                         backgroundImage:
                                             CachedNetworkImageProvider(
                                           yorumlar[i]["yorumcuminnakavatar"],
@@ -1120,7 +1101,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                   ),
                                                                 ),
                                                                 width:
-                                                                    screenwidth /
+                                                                    screenWidth /
                                                                         4,
                                                                 height: 5,
                                                               ),
@@ -1379,8 +1360,8 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ),
                                   SizedBox(
                                     // color: Colors.red,
-                                    width: screenwidth,
-                                    height: screenheight / 20,
+                                    width: screenWidth,
+                                    height: screenHeight / 20,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -1544,7 +1525,7 @@ class _AnaDetailState extends State<AnaDetail> {
 
                   Positioned(
                     bottom: 0,
-                    width: screenwidth,
+                    width: screenWidth,
                     child: Container(
                       color: Colors.grey[850],
                       child: Padding(

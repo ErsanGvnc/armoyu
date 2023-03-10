@@ -1,27 +1,16 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, unused_local_variable, avoid_print, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, use_build_context_synchronously, no_leading_underscores_for_local_identifiers, prefer_const_constructors
+// ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously
 
-import 'dart:io';
-import 'dart:math';
-// import 'package:any_link_preview/any_link_preview.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:http_parser/http_parser.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:theme_provider/theme_provider.dart';
-import 'Controllers/controllers.dart';
-import 'Variables/variables.dart';
 
 class Post extends StatefulWidget {
   String veri1;
 
   Post({
+    Key? key,
     required this.veri1,
-  });
+  }) : super(key: key);
 
   @override
   State<Post> createState() => _PostState();
@@ -66,20 +55,17 @@ class _PostState extends State<Post> {
   }
 
   _imgFromGallery() async {
-    final ImagePicker _picker = ImagePicker();
-    final List<XFile>? image = await _picker.pickMultiImage();
+    final ImagePicker picker = ImagePicker();
+    final List<XFile> image = await picker.pickMultiImage();
 
-    if (image != null) {
-      setState(() {
-        images.addAll(image);
-      });
-    }
+    setState(() {
+      images.addAll(image);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var screenwidth = MediaQuery.of(context).size.width;
-    var screenheight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
 
     return ThemeConsumer(
       child: Scaffold(
@@ -119,8 +105,8 @@ class _PostState extends State<Post> {
                     images.clear();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text("Paylaşıldı ! " +
-                            "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
+                        content: Text(
+                            "Paylaşıldı ! ${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
                         shape: const StadiumBorder(),
                       ),
                     );
@@ -184,8 +170,7 @@ class _PostState extends State<Post> {
                       ),
                     ),
                     Text(
-                      "  -  " +
-                          "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}",
+                      "  -  ${DateFormat('kk:mm , d MMM y').format(DateTime.now())}",
                       style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
@@ -246,7 +231,7 @@ class _PostState extends State<Post> {
               Visibility(
                 visible: images.isNotEmpty ? true : false,
                 child: SizedBox(
-                  width: screenwidth,
+                  width: screenWidth,
                   height: 150,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
@@ -288,14 +273,14 @@ class _PostState extends State<Post> {
                 ),
               ),
               SizedBox(
-                width: screenwidth,
+                width: screenWidth,
                 child: Column(
                   children: [
                     Visibility(
                       visible: post.text.isNotEmpty ? true : false,
                       child: Container(
                         color: textLength == 250 ? Colors.red : Colors.blue,
-                        width: min(screenwidth, textLength.toDouble() * 1.65),
+                        width: min(screenWidth, textLength.toDouble() * 1.65),
                         height: 1,
                       ),
                     ),
@@ -303,13 +288,13 @@ class _PostState extends State<Post> {
                       visible: post.text.isEmpty ? true : false,
                       child: Container(
                         color: Colors.grey,
-                        width: screenwidth,
+                        width: screenWidth,
                         height: 0.5,
                       ),
                     ),
                     SafeArea(
                       child: SizedBox(
-                        width: screenwidth,
+                        width: screenWidth,
                         height: 50,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
@@ -404,9 +389,9 @@ class _PostState extends State<Post> {
                             const SizedBox(width: 25),
                             Visibility(
                               visible: isUpload,
-                              child: Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: const CircularProgressIndicator(),
+                              child: const Padding(
+                                padding: EdgeInsets.all(5),
+                                child: CircularProgressIndicator(),
                               ),
                             ),
                             const SizedBox(width: 10),
