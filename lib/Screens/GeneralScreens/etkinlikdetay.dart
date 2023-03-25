@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, must_be_immutable, avoid_unnecessary_containers, unnecessary_null_comparison
+// ignore_for_file: must_be_immutable, unnecessary_null_comparison
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
@@ -6,8 +6,9 @@ class EtkinlikDetay extends StatefulWidget {
   String veri;
 
   EtkinlikDetay({
+    Key? key,
     required this.veri,
-  });
+  }) : super(key: key);
   @override
   State<EtkinlikDetay> createState() => _EtkinlikDetayState();
 }
@@ -23,7 +24,7 @@ class _EtkinlikDetayState extends State<EtkinlikDetay> {
         body: Container(
           child: dataanasayfa != null
               ? ListView.separated(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     if (dataanasayfa[index]["paylasimfoto"] != null) {
@@ -34,14 +35,12 @@ class _EtkinlikDetayState extends State<EtkinlikDetay> {
                     }
                     return InkWell(
                       onTap: () {},
-                      child: Container(
-                        child: Text("data"),
-                      ),
+                      child: const Text("data"),
                     );
                   },
-                  separatorBuilder: (context, index) => Divider(),
+                  separatorBuilder: (context, index) => const Divider(),
                   itemCount: dataanasayfa.length,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 10,
                     left: 10,
                     right: 10,
@@ -49,10 +48,11 @@ class _EtkinlikDetayState extends State<EtkinlikDetay> {
                   ),
                 )
               : ListView.separated(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) => NewsCardSkelton(),
-                  separatorBuilder: (context, index) => SizedBox(height: 5),
+                  itemBuilder: (context, index) => const NewsCardSkelton(),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 5),
                   itemCount: 10,
                 ),
         ),

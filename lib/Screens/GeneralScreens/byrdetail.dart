@@ -1,19 +1,17 @@
-// ignore_for_file: unused_local_variable, unused_element, prefer_const_constructors, no_leading_underscores_for_local_identifiers, must_be_immutable, use_key_in_widget_constructors
+// ignore_for_file: must_be_immutable, no_leading_underscores_for_local_identifiers
 
-import 'package:flutter/material.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:skeletons/skeletons.dart';
-import '../../Controllers/controllers.dart';
-import '../../Utilities/utilities.dart';
-import '../../Variables/variables.dart';
 
 class ByrDetail extends StatefulWidget {
   int veri1;
   String veri2;
 
   ByrDetail({
+    Key? key,
     required this.veri1,
     required this.veri2,
-  });
+  }) : super(key: key);
 
   @override
   State<ByrDetail> createState() => _ByrDetailState();
@@ -22,8 +20,7 @@ class ByrDetail extends StatefulWidget {
 class _ByrDetailState extends State<ByrDetail> {
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
 
     String _title = "";
 
@@ -39,11 +36,6 @@ class _ByrDetailState extends State<ByrDetail> {
       setState(() {
         _title = "Repostlar";
       });
-    }
-    @override
-    void initState() {
-      super.initState();
-      // postbyrcek();
     }
 
     Future<void> _refresh() {
@@ -73,13 +65,12 @@ class _ByrDetailState extends State<ByrDetail> {
                         contentPadding: EdgeInsets.zero,
                         leading: CircleAvatar(
                           radius: screenWidth / 20,
-                          backgroundImage: NetworkImage(
+                          backgroundImage: const NetworkImage(
                               "https://aramizdakioyuncu.com/galeri/profilresimleri/11profilresimminnak1655290338.jpg"),
                           backgroundColor: Colors.red,
                         ),
-                        title: Text("Ersan Güvenç"),
-                        // subtitle: Text("data"),
-                        trailing: Text(
+                        title: const Text("Ersan Güvenç"),
+                        trailing: const Text(
                           "20 dakika önce",
                           style: TextStyle(
                             fontSize: 12,

@@ -542,9 +542,10 @@ class _InitPageState extends State<InitPage> {
                                             dataanasayfa[0]["oyunculink"]);
                                         Navigator.pop(context);
                                       },
-                                      child: const ListTile(
-                                        leading: Icon(Icons.share_outlined),
-                                        title: Text("Kullanıcıyı paylaş."),
+                                      child: ListTile(
+                                        leading:
+                                            const Icon(Icons.share_outlined),
+                                        title: Text(shareUser),
                                       ),
                                     ),
                                     InkWell(
@@ -563,10 +564,9 @@ class _InitPageState extends State<InitPage> {
                                           ),
                                         );
                                       },
-                                      child: const ListTile(
-                                        leading: Icon(Icons.content_copy),
-                                        title: Text(
-                                            "Kullanıcı profil linkini kopyala."),
+                                      child:  ListTile(
+                                        leading: const Icon(Icons.content_copy),
+                                        title: Text(shareUserProfileLink),
                                       ),
                                     ),
                                     const SizedBox(height: 10),

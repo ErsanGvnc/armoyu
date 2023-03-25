@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, avoid_print, unused_local_variable, use_key_in_widget_constructors, non_constant_identifier_names
-
-import 'package:flutter/material.dart';
-import 'package:armoyu/Screens/GeneralScreens/etkinlikdetay.dart';
-
-import '../../Variables/variables.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 class Etkinlik extends StatefulWidget {
+  const Etkinlik({Key? key}) : super(key: key);
+
   @override
   State<Etkinlik> createState() => _EtkinlikState();
 }
@@ -13,193 +10,188 @@ class Etkinlik extends StatefulWidget {
 class _EtkinlikState extends State<Etkinlik> {
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-
-    return Container(
-      child: GridView.count(
-        primary: false,
-        padding: EdgeInsets.all(20),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 2,
-        children: <Widget>[
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EtkinlikDetay(
-                    veri: csgo,
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/csgo.jpg"),
-                  fit: BoxFit.cover,
+    return GridView.count(
+      primary: false,
+      padding: const EdgeInsets.all(20),
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      crossAxisCount: 2,
+      children: <Widget>[
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EtkinlikDetay(
+                  veri: csgo,
                 ),
               ),
-              child: Center(
-                child: Text(
-                  csgo,
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+            );
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/csgo.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                csgo,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EtkinlikDetay(
-                    veri: ets,
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/ets.jpg"),
-                  fit: BoxFit.cover,
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EtkinlikDetay(
+                  veri: ets,
                 ),
               ),
-              child: Center(
-                child: Text(
-                  ets,
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+            );
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/ets.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                ets,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EtkinlikDetay(
-                    veri: mc,
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/mc.jpg"),
-                  fit: BoxFit.cover,
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EtkinlikDetay(
+                  veri: mc,
                 ),
               ),
-              child: Center(
-                child: Text(
-                  mc,
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+            );
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/mc.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                mc,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EtkinlikDetay(
-                    veri: gta,
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/gta.jpg"),
-                  fit: BoxFit.cover,
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EtkinlikDetay(
+                  veri: gta,
                 ),
               ),
-              child: Center(
-                child: Text(
-                  gta,
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+            );
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/gta.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                gta,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EtkinlikDetay(
-                    veri: lol,
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/lol.jpg"),
-                  fit: BoxFit.cover,
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EtkinlikDetay(
+                  veri: lol,
                 ),
               ),
-              child: Center(
-                child: Text(
-                  lol,
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+            );
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/lol.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                lol,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EtkinlikDetay(
-                    veri: theforest,
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/the_forest.jpg"),
-                  fit: BoxFit.cover,
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EtkinlikDetay(
+                  veri: theforest,
                 ),
               ),
-              child: Center(
-                child: Text(
-                  theforest,
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+            );
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/the_forest.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                theforest,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

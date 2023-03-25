@@ -1,26 +1,12 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, avoid_print, unnecessary_null_comparison, curly_braces_in_flow_control_structures, non_constant_identifier_names, use_function_type_syntax_for_parameters, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings
+// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, prefer_interpolation_to_compose_strings
 
-import 'dart:convert';
-import 'package:armoyu/Utilities/utilities.dart';
-import 'package:armoyu/Screens/GeneralScreens/profile.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:detectable_text_field/detectable_text_field.dart';
-import 'package:detectable_text_field/detector/sample_regular_expressions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import 'package:armoyu/Screens/GeneralScreens/anadetail.dart';
-import 'package:like_button/like_button.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:simple_url_preview/simple_url_preview.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:skeletons/skeletons.dart';
-import 'package:theme_provider/theme_provider.dart';
-import 'package:armoyu/Utilities/links.dart';
-import '../../Controllers/controllers.dart';
-import '../../Variables/variables.dart';
+import 'package:http/http.dart' as http;
 
 class AnaSayfa extends StatefulWidget {
+  const AnaSayfa({Key? key}) : super(key: key);
+
   @override
   AnaSayfaState createState() => AnaSayfaState();
 }
@@ -39,6 +25,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               anaSayfaScrollController.position.maxScrollExtent &&
           anaSayfaScrollController.position.pixels > 0) {
         gondericek(dataanasayfa.length);
+        print(dataanasayfa.length);
       }
     });
   }
@@ -103,8 +90,7 @@ class AnaSayfaState extends State<AnaSayfa> {
   // videolu fotografların çekildigi yer.
 
   gonderifotocek() {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
 
     // anasayfa video kısmı.
 
@@ -613,13 +599,18 @@ class AnaSayfaState extends State<AnaSayfa> {
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
+                if (index == dataanasayfa.length) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
                 if (dataanasayfa[index]["paylasimfoto"] != null) {
                   gonderifotolar = dataanasayfa[index]["paylasimfoto"];
                   visible = true;
                 } else {
                   visible = false;
                 }
-                if (index < 2)
+                if (index < 2) {
                   return _MainListView(
                     context,
                     index,
@@ -630,11 +621,11 @@ class AnaSayfaState extends State<AnaSayfa> {
                     screenHeight,
                     onLikeButtonTapped,
                   );
-                else if (index == 3)
+                } else if (index == 3) {
                   return _xphorizontalListView();
-                else if (index == 10)
+                } else if (index == 10) {
                   return _pophorizontalListView();
-                else
+                } else {
                   return _MainListView(
                     context,
                     index,
@@ -645,15 +636,11 @@ class AnaSayfaState extends State<AnaSayfa> {
                     screenHeight,
                     onLikeButtonTapped,
                   );
+                }
               },
               separatorBuilder: (context, index) => const Divider(),
-              itemCount: dataanasayfa.length,
-              padding: const EdgeInsets.only(
-                top: 10,
-                left: 10,
-                right: 10,
-                bottom: 10,
-              ),
+              itemCount: dataanasayfa.length + 1,
+              padding: const EdgeInsets.all(10),
             )
           : SkeletonListView(
               padding: const EdgeInsets.all(10),
@@ -743,11 +730,11 @@ class AnaSayfaState extends State<AnaSayfa> {
       BuildContext context,
       int index,
       double screenWidth,
-      postsil(),
-      Future<void> _refresh(),
-      postbildir(),
+      Function() postsil,
+      Future<void> Function() _refresh,
+      Function() postbildir,
       double screenHeight,
-      Future<bool> onLikeButtonTapped(bool isLike, int index)) {
+      Future<bool> Function(bool isLike, int index) onLikeButtonTapped) {
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -849,9 +836,9 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         onTap: () {
                                           Navigator.pop(context);
                                         },
-                                        child: const ListTile(
-                                          leading: Icon(Icons.post_add),
-                                          title: Text("Postu favorilere ekle."),
+                                        child: ListTile(
+                                          leading: const Icon(Icons.post_add),
+                                          title: Text(addFavoritePost),
                                         ),
                                       ),
                                       Visibility(
@@ -867,9 +854,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                                             // postsil();
                                             Navigator.pop(context);
                                           },
-                                          child: const ListTile(
-                                            leading: Icon(Icons.edit_note),
-                                            title: Text("Postu düzenle."),
+                                          child: ListTile(
+                                            leading:
+                                                const Icon(Icons.edit_note),
+                                            title: Text(editPost),
                                           ),
                                         ),
                                       ),
@@ -892,10 +880,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                                               _refresh();
                                             });
                                           },
-                                          child: const ListTile(
-                                            leading: Icon(
+                                          child: ListTile(
+                                            leading: const Icon(
                                                 Icons.delete_sweep_outlined),
-                                            title: Text("Postu kaldır."),
+                                            title: Text(removePost),
                                           ),
                                         ),
                                       ),
@@ -905,9 +893,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                                               ["oyunculink"]);
                                           Navigator.pop(context);
                                         },
-                                        child: const ListTile(
-                                          leading: Icon(Icons.share_outlined),
-                                          title: Text("Kullanıcıyı paylaş."),
+                                        child: ListTile(
+                                          leading:
+                                              const Icon(Icons.share_outlined),
+                                          title: Text(shareUser),
                                         ),
                                       ),
                                       InkWell(
@@ -919,13 +908,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                             ),
                                           );
                                           Navigator.pop(context);
-                                          // ScaffoldMessenger.of(context)
-                                          //     .showSnackBar(
-                                          //   SnackBar(
-                                          //     content: Text("Kopyalandı !"),
-                                          //     shape: const StadiumBorder(),
-                                          //   ),
-                                          // );
+
                                           Fluttertoast.showToast(
                                             msg: "Kopyalandı !",
                                             toastLength: Toast.LENGTH_SHORT,
@@ -933,10 +916,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                                             timeInSecForIosWeb: 1,
                                           );
                                         },
-                                        child: const ListTile(
-                                          leading: Icon(Icons.content_copy),
-                                          title: Text(
-                                              "Kullanıcı profil linkini kopyala."),
+                                        child: ListTile(
+                                          leading:
+                                              const Icon(Icons.content_copy),
+                                          title: Text(shareUserProfileLink),
                                         ),
                                       ),
                                       Visibility(
@@ -959,13 +942,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                 dataanasayfa[index]["postID"];
                                             postbildir();
                                             Navigator.pop(context);
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(
-                                            //   const SnackBar(
-                                            //     content: Text("Bildirildi !"),
-                                            //     shape: StadiumBorder(),
-                                            //   ),
-                                            // );
+
                                             Fluttertoast.showToast(
                                               msg: "Bildirildi !",
                                               toastLength: Toast.LENGTH_SHORT,
@@ -973,13 +950,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                               timeInSecForIosWeb: 1,
                                             );
                                           },
-                                          child: const ListTile(
+                                          child: ListTile(
                                             textColor: Colors.red,
-                                            leading: Icon(
+                                            leading: const Icon(
                                               Icons.flag_outlined,
                                               color: Colors.red,
                                             ),
-                                            title: Text("Postu bildir."),
+                                            title: Text(reportPost),
                                           ),
                                         ),
                                       ),
@@ -995,13 +972,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                 dataanasayfa[index]["postID"];
                                             postbildir();
                                             Navigator.pop(context);
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(
-                                            //   const SnackBar(
-                                            //     content: Text("Bildirildi !"),
-                                            //     shape: StadiumBorder(),
-                                            //   ),
-                                            // );
+
                                             Fluttertoast.showToast(
                                               msg: "Engellendi !",
                                               toastLength: Toast.LENGTH_SHORT,
@@ -1009,13 +980,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                               timeInSecForIosWeb: 1,
                                             );
                                           },
-                                          child: const ListTile(
+                                          child: ListTile(
                                             textColor: Colors.red,
-                                            leading: Icon(
+                                            leading: const Icon(
                                               Icons.person_off_outlined,
                                               color: Colors.red,
                                             ),
-                                            title: Text("Kullanıcıyı engelle."),
+                                            title: Text(blockUser),
                                           ),
                                         ),
                                       ),
@@ -1031,13 +1002,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                 dataanasayfa[index]["postID"];
                                             postbildir();
                                             Navigator.pop(context);
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(
-                                            //   const SnackBar(
-                                            //     content: Text("Bildirildi !"),
-                                            //     shape: StadiumBorder(),
-                                            //   ),
-                                            // );
+
                                             Fluttertoast.showToast(
                                               msg: "Bildirildi !",
                                               toastLength: Toast.LENGTH_SHORT,
@@ -1045,13 +1010,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                               timeInSecForIosWeb: 1,
                                             );
                                           },
-                                          child: const ListTile(
+                                          child: ListTile(
                                             textColor: Colors.red,
-                                            leading: Icon(
+                                            leading: const Icon(
                                               Icons.person_outline,
                                               color: Colors.red,
                                             ),
-                                            title: Text("Kullanıcıyı bildir."),
+                                            title: Text(reportUser),
                                           ),
                                         ),
                                       ),

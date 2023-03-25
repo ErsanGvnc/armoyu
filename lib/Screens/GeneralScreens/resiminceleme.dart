@@ -14,15 +14,6 @@ class Resiminceleme extends StatefulWidget {
 }
 
 class _ResimincelemeState extends State<Resiminceleme> {
-  // @override
-  // void dispose() {
-  //   SystemChrome.setEnabledSystemUIMode(
-  //     SystemUiMode.manual,
-  //     overlays: SystemUiOverlay.values,
-  //   );
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return ThemeConsumer(
@@ -33,14 +24,6 @@ class _ResimincelemeState extends State<Resiminceleme> {
           backgroundColor: Colors.transparent,
         ),
         body: InkWell(
-          // highlightColor: Colors.transparent,
-          // splashColor: Colors.transparent,
-          // onTap: () {
-          //   SystemChrome.setEnabledSystemUIMode(
-          //     SystemUiMode.leanBack,
-          //     overlays: [],
-          //   );
-          // },
           child: DismissiblePage(
             backgroundColor: Colors.transparent,
             direction: DismissiblePageDismissDirection.vertical,

@@ -112,15 +112,6 @@ class _PostState extends State<Post> {
                     );
                     Navigator.pop(context);
                   }
-                  //  else {
-                  //   // print("Paylaşım boş olamaz !");
-                  //   // ScaffoldMessenger.of(context).showSnackBar(
-                  //   //   const SnackBar(
-                  //   //     content: Text("Paylaşım boş olamaz !"),
-                  //   //   ),
-                  //   // );
-                  //   null;
-                  // }
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -426,18 +417,6 @@ class _PostState extends State<Post> {
             ],
           ),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   backgroundColor: Colors.red,
-        //   child: Icon(
-        //     speechToText.isNotListening ? Icons.mic_off : Icons.mic,
-        //     color: Colors.black,
-        //     size: 35,
-        //   ),
-        //   onPressed:
-        //       speechToText.isNotListening ? _startListening : _stopListening,
-        // ),
-        // floatingActionButtonLocation:
-        //     FloatingActionButtonLocation.miniCenterFloat,
       ),
     );
   }

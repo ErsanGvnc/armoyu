@@ -76,13 +76,6 @@ class MyApp extends StatelessWidget {
       ],
       child: const InAppNotification(
         child: MaterialApp(
-          // theme: ThemeData(
-          //   pageTransitionsTheme: PageTransitionsTheme(
-          //     builders: {
-          //       TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-          //     },
-          //   ),
-          // ),
           debugShowCheckedModeBanner: false,
           home: ThemeConsumer(
             child: Splash(),
@@ -150,9 +143,13 @@ class MyHomePageState extends State<MyHomePage> {
     timer = Timer.periodic(
       const Duration(seconds: 5),
       (timer) async {
-        await http.get(
-          Uri.parse(oturumkontrolurl),
-        );
+        try {
+          await http.get(
+            Uri.parse(oturumkontrolurl),
+          );
+        } catch (e) {
+          print(e);
+        }
       },
     );
   }
@@ -638,7 +635,6 @@ class MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-
         appBar: AppBar(
           leading: Builder(
             builder: (BuildContext context) {
@@ -672,11 +668,6 @@ class MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-
-        // body: Builder(
-        //   builder: (BuildContext context) => bodyPageDegis(),
-        // ),
-        // body: screens[_currentIndex],
         body: IndexedStack(
           index: currentIndex,
           children: screens,

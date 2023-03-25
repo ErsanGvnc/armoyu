@@ -1,15 +1,11 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, avoid_print, unused_local_variable, unused_import, must_be_immutable, sized_box_for_whitespace, unused_element, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers, avoid_print
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:armoyu/main.dart';
-import 'package:armoyu/Screens/GeneralScreens/site.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 class Detail extends StatefulWidget {
   String veri1, veri3, veri5, veri6, veri7, veri8, veri9, veri10;
   Detail({
+    Key? key,
     required this.veri1,
     required this.veri3,
     required this.veri5,
@@ -18,7 +14,7 @@ class Detail extends StatefulWidget {
     required this.veri8,
     required this.veri9,
     required this.veri10,
-  });
+  }) : super(key: key);
 
   @override
   _DetailState createState() => _DetailState();
@@ -27,8 +23,7 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
 
     String _content = widget.veri9;
     void _shareContent() {
@@ -44,97 +39,93 @@ class _DetailState extends State<Detail> {
               onPressed: () {
                 _shareContent();
               },
-              icon: Icon(Icons.more_vert),
+              icon: const Icon(Icons.more_vert),
             ),
           ],
         ),
-        body: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: 250,
-                  width: screenWidth,
-                  child: CachedNetworkImage(
-                    imageUrl: widget.veri5,
-                    placeholder: (context, url) => Container(
-                      color: Colors.grey[700],
-                    ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 250,
+                width: screenWidth,
+                child: CachedNetworkImage(
+                  imageUrl: widget.veri5,
+                  placeholder: (context, url) => Container(
+                    color: Colors.grey[700],
                   ),
                 ),
-                Container(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 10),
+                    Row(
                       children: [
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Text(
-                              widget.veri7,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(width: screenWidth / 75),
-                            CircleAvatar(
-                              radius: 3,
-                              backgroundColor: Colors.grey,
-                            ),
-                            SizedBox(width: screenWidth / 75),
-                            Text(
-                              widget.veri10,
-                              style: TextStyle(
-                                color: Colors.blue,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              widget.veri6,
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            SizedBox(width: screenWidth / 75),
-                          ],
+                        Text(
+                          widget.veri7,
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
-                        Divider(),
-                        SizedBox(height: 10),
-                        Text(widget.veri8),
-                        SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                print(widget.veri9);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Site(
-                                      verilink: widget.veri9,
-                                      veribaslik: widget.veri1,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                "Haberin devamı",
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ),
-                          ],
+                        SizedBox(width: screenWidth / 75),
+                        const CircleAvatar(
+                          radius: 3,
+                          backgroundColor: Colors.grey,
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(width: screenWidth / 75),
+                        Text(
+                          widget.veri10,
+                          style: const TextStyle(
+                            color: Colors.blue,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          widget.veri6,
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        SizedBox(width: screenWidth / 75),
                       ],
                     ),
-                  ),
+                    const Divider(),
+                    const SizedBox(height: 10),
+                    Text(widget.veri8),
+                    const SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            print(widget.veri9);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Site(
+                                  verilink: widget.veri9,
+                                  veribaslik: widget.veri1,
+                                ),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Haberin devamı",
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

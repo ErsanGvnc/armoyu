@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable, avoid_print, unnecessary_null_comparison, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unused_element
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
-import 'package:http/http.dart' as http;
 import 'package:skeletons/skeletons.dart';
+import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
   String veri1;
@@ -623,9 +623,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
 
-    // final TabController controller =
-    //     TabController(length: 4, vsync: this, initialIndex: 0);
-
     return profiledata != null
         ? Scaffold(
             body: DefaultTabController(
@@ -695,13 +692,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 ),
                                               );
                                               Navigator.pop(context);
-                                              // ScaffoldMessenger.of(context)
-                                              //     .showSnackBar(
-                                              //   SnackBar(
-                                              //     content: Text("Kopyalandı !"),
-                                              //     shape: const StadiumBorder(),
-                                              //   ),
-                                              // );
+
                                               Fluttertoast.showToast(
                                                 msg: "Kopyalandı !",
                                                 toastLength: Toast.LENGTH_SHORT,
@@ -732,13 +723,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 profileID = widget.veri1;
                                                 postbildir();
                                                 Navigator.pop(context);
-                                                // ScaffoldMessenger.of(context)
-                                                //     .showSnackBar(
-                                                //   const SnackBar(
-                                                //     content: Text("Bildirildi !"),
-                                                //     shape: StadiumBorder(),
-                                                //   ),
-                                                // );
+
                                                 Fluttertoast.showToast(
                                                   msg: "Engellendi !",
                                                   toastLength:
@@ -747,14 +732,13 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                   timeInSecForIosWeb: 1,
                                                 );
                                               },
-                                              child: const ListTile(
+                                              child: ListTile(
                                                 textColor: Colors.red,
-                                                leading: Icon(
+                                                leading: const Icon(
                                                   Icons.person_off_outlined,
                                                   color: Colors.red,
                                                 ),
-                                                title: Text(
-                                                    "Kullanıcıyı engelle."),
+                                                title: Text(blockUser),
                                               ),
                                             ),
                                           ),
@@ -769,15 +753,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 // profilebildir();
                                                 print(profileID);
                                                 Navigator.pop(context);
-                                                // ScaffoldMessenger.of(context)
-                                                //     .showSnackBar(
-                                                //   const SnackBar(
-                                                //     content:
-                                                //         Text("Bildirildi !"),
-                                                //     shape:
-                                                //         const StadiumBorder(),
-                                                //   ),
-                                                // );
                                                 Fluttertoast.showToast(
                                                   msg: "Bildirildi !",
                                                   toastLength:
@@ -1128,34 +1103,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                               ),
-                                              // child: Text("${() async {
-                                              //   if (profiledata[
-                                              //           "arkadasdurum"] ==
-                                              //       "0") {
-                                              //     setState(() {
-                                              //       arkadasText = "Arkadaş Ol";
-                                              //     });
-                                              //     return Text(arkadasText);
-                                              //   } else if (profiledata[
-                                              //           "arkadasdurum"] ==
-                                              //       "1") {
-                                              //     setState(() {
-                                              //       arkadasText =
-                                              //           "Mesaj Gönder";
-                                              //     });
-                                              //     return Text(arkadasText);
-                                              //   } else if (profiledata[
-                                              //           "arkadasdurum"] ==
-                                              //       "2") {
-                                              //     setState(() {
-                                              //       arkadasText =
-                                              //           "Bekleniyor...";
-                                              //     });
-                                              //     return Text(arkadasText);
-                                              //   } else {
-                                              //     return Text("");
-                                              //   }
-                                              // }()}"),
                                             ),
                                           ),
                                         ),
@@ -1223,18 +1170,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                       text: profiledata["hakkimda"],
                                     ),
                                   ).then((_) {
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   SnackBar(
-                                    //     content: Text(
-                                    //       "Kopyalandı.",
-                                    //       style: TextStyle(
-                                    //         color: Colors.white,
-                                    //       ),
-                                    //     ),
-                                    //     backgroundColor: Colors.grey[850],
-                                    //     shape: const StadiumBorder(),
-                                    //   ),
-                                    // );
                                     Fluttertoast.showToast(
                                       msg: "Kopyalandı !",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -1817,7 +1752,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   right: 10,
                   bottom: 10,
                 ),
-                // physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 5,
@@ -1825,30 +1759,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   crossAxisCount: 2,
                 ),
                 itemBuilder: (BuildContext context, index) {
-                  // return InkWell(
-                  //   borderRadius: BorderRadius.all(
-                  //     Radius.circular(10),
-                  //   ),
-                  //   onTap: () {
-                  //     print(resimler);
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) => Resiminceleme(
-                  //           veri1: resimler,
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  //   child: ClipRRect(
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     child: Image.network(
-                  //       medyadata[index]["medyaufaklik"],
-                  //       fit: BoxFit.cover,
-                  //     ),
-                  //   ),
-                  // );
-
                   return FocusedMenuHolder(
                     menuWidth: MediaQuery.of(context).size.width * 0.50,
                     blurSize: 5.0,
@@ -1895,22 +1805,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                               medyadata[index]["medyaorijinal"]);
                         },
                       ),
-                      // FocusedMenuItem(
-                      //   title: Text("Favorite"),
-                      //   trailingIcon: Icon(Icons.favorite_border),
-                      //   onPressed: () {},
-                      // ),
-                      // FocusedMenuItem(
-                      //   title: Text(
-                      //     "Delete",
-                      //     style: TextStyle(color: Colors.redAccent),
-                      //   ),
-                      //   trailingIcon: Icon(
-                      //     Icons.delete,
-                      //     color: Colors.redAccent,
-                      //   ),
-                      //   onPressed: () {},
-                      // ),
                     ],
                     onPressed: () {
                       print(resimler);
@@ -1971,421 +1865,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         ),
       ),
     );
-
-    // return RefreshIndicator(
-    //   onRefresh: _refresh,
-    //   child: Container(
-    //     child: reactiondata.isNotEmpty
-    //         ? ListView.separated(
-    //             physics: BouncingScrollPhysics(),
-    //             scrollDirection: Axis.vertical,
-    //             itemBuilder: (context, index) {
-    //               if (reactiondata[index]["paylasimfoto"] != null) {
-    //                 gonderifotolar = postdata[index]["paylasimfoto"];
-    //                 visible = true;
-    //               } else {
-    //                 visible = false;
-    //               }
-    //               return InkWell(
-    //                 onTap: () {
-    //                   Navigator.push(
-    //                     context,
-    //                     MaterialPageRoute(
-    //                       builder: (context) => ThemeConsumer(
-    //                         child: AnaDetail(
-    //                           veri1: reactiondata[index]["sahipavatarminnak"],
-    //                           veri2: reactiondata[index]["sahipad"],
-    //                           veri3: reactiondata[index]["sosyalicerik"],
-    //                           veri4: reactiondata[index]["paylasimzaman"],
-    //                           veri5: reactiondata[index]["begenisay"],
-    //                           veri6: reactiondata[index]["yorumsay"],
-    //                           veri7: reactiondata[index]["repostsay"],
-    //                           veri8: reactiondata[index]["sikayetsay"],
-    //                           veri9: reactiondata[index]["benbegendim"],
-    //                           veri10: reactiondata[index]["postID"],
-    //                           veri11: reactiondata[index]["sahipID"],
-    //                           veri12: reactiondata[index]["paylasimnereden"],
-    //                           veri13: reactiondata[index]["benyorumladim"],
-    //                         ),
-    //                       ),
-    //                     ),
-    //                   );
-    //                   setState(() {
-    //                     detayid = reactiondata[index]["postID"]
-    //                     detaylink =
-    //                         "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-    //                   });
-    //                 },
-    //                 child: Container(
-    //                   child: Row(
-    //                     crossAxisAlignment: CrossAxisAlignment.start,
-    //                     children: [
-    //                       CircleAvatar(
-    //                         radius: screenWidth / 12,
-    //                         backgroundImage: NetworkImage(
-    //                           reactiondata[index]["sahipavatarminnak"],
-    //                         ),
-    //                         backgroundColor: Colors.transparent,
-    //                       ),
-    //                       SizedBox(width: screenWidth / 35),
-    //                       Expanded(
-    //                         child: Column(
-    //                           mainAxisAlignment: MainAxisAlignment.center,
-    //                           crossAxisAlignment: CrossAxisAlignment.start,
-    //                           children: [
-    //                             Row(
-    //                               children: [
-    //                                 Text(
-    //                                   reactiondata[index]["sahipad"],
-    //                                   style: TextStyle(
-    //                                     fontWeight: FontWeight.bold,
-    //                                   ),
-    //                                 ),
-    //                                 Text(
-    //                                   "  -  " +
-    //                                       reactiondata[index]
-    //                                           ["paylasimzamangecen"],
-    //                                   style: TextStyle(
-    //                                     color: Colors.grey,
-    //                                     fontWeight: FontWeight.bold,
-    //                                   ),
-    //                                 ),
-    //                                 Spacer(),
-    //                                 InkWell(
-    //                                   onTap: () {
-    //                                     showModalBottomSheet<void>(
-    //                                       shape: RoundedRectangleBorder(
-    //                                         borderRadius: BorderRadius.vertical(
-    //                                           top: Radius.circular(10),
-    //                                         ),
-    //                                       ),
-    //                                       context: context,
-    //                                       builder: (BuildContext context) {
-    //                                         return Wrap(
-    //                                           children: [
-    //                                             Container(
-    //                                               child: Column(
-    //                                                 children: [
-    //                                                   Padding(
-    //                                                     padding: EdgeInsets
-    //                                                         .symmetric(
-    //                                                             vertical: 10),
-    //                                                     child: Container(
-    //                                                       decoration:
-    //                                                           BoxDecoration(
-    //                                                         color: Colors
-    //                                                             .grey[900],
-    //                                                         borderRadius:
-    //                                                             BorderRadius
-    //                                                                 .all(
-    //                                                           Radius.circular(
-    //                                                               30),
-    //                                                         ),
-    //                                                       ),
-    //                                                       width:
-    //                                                           screenWidth / 4,
-    //                                                       height: 5,
-    //                                                     ),
-    //                                                   ),
-    //                                                   InkWell(
-    //                                                     onTap: () {
-    //                                                       Navigator.pop(
-    //                                                           context);
-    //                                                     },
-    //                                                     child: ListTile(
-    //                                                       leading: Icon(
-    //                                                           Icons.post_add),
-    //                                                       title: Text(
-    //                                                           "Postu favorilere ekle."),
-    //                                                     ),
-    //                                                   ),
-    //                                                   Visibility(
-    //                                                     visible: reactiondata[
-    //                                                                     index][
-    //                                                                 "sahipID"] ==
-    //                                                             girisdata[
-    //                                                                 "oyuncuID"]
-    //                                                         ? true
-    //                                                         : false,
-    //                                                     child: InkWell(
-    //                                                       onTap: () {
-    //                                                         postID =
-    //                                                             reactiondata[
-    //                                                                     index]
-    //                                                                 ["postID"];
-    //                                                         // postsil();
-    //                                                         Navigator.pop(
-    //                                                             context);
-    //                                                       },
-    //                                                       child: ListTile(
-    //                                                         leading: Icon(Icons
-    //                                                             .edit_note),
-    //                                                         title: Text(
-    //                                                             "Postu düzenle."),
-    //                                                       ),
-    //                                                     ),
-    //                                                   ),
-    //                                                   Visibility(
-    //                                                     visible: reactiondata[
-    //                                                                     index][
-    //                                                                 "sahipID"] ==
-    //                                                             girisdata[
-    //                                                                 "oyuncuID"]
-    //                                                         ? true
-    //                                                         : false,
-    //                                                     child: InkWell(
-    //                                                       onTap: () {
-    //                                                         postID =
-    //                                                             reactiondata[
-    //                                                                     index]
-    //                                                                 ["postID"];
-    //                                                         postsil();
-    //                                                         postcek();
-    //                                                         Navigator.pop(
-    //                                                             context);
-    //                                                       },
-    //                                                       child: ListTile(
-    //                                                         leading: Icon(Icons
-    //                                                             .delete_sweep_outlined),
-    //                                                         title: Text(
-    //                                                             "Postu kaldır."),
-    //                                                       ),
-    //                                                     ),
-    //                                                   ),
-    //                                                   Divider(),
-    //                                                   InkWell(
-    //                                                     onTap: () {
-    //                                                       Navigator.pop(
-    //                                                           context);
-    //                                                     },
-    //                                                     child: ListTile(
-    //                                                       leading: Icon(Icons
-    //                                                           .flag_outlined),
-    //                                                       title: Text(
-    //                                                           "Postu bildir."),
-    //                                                     ),
-    //                                                   ),
-    //                                                   SizedBox(height: 10),
-    //                                                 ],
-    //                                               ),
-    //                                             ),
-    //                                           ],
-    //                                         );
-    //                                       },
-    //                                     );
-    //                                   },
-    //                                   child: Icon(
-    //                                     Icons.more_vert,
-    //                                     size: 20,
-    //                                   ),
-    //                                 ),
-    //                               ],
-    //                             ),
-    //                             SizedBox(height: screenHeight / 90),
-    //                             Text(
-    //                               reactiondata[index]["sosyalicerik"],
-    //                             ),
-    //                             SizedBox(height: screenHeight / 50),
-    //                             Visibility(
-    //                               visible: visible,
-    //                               child: Container(
-    //                                 child: gonderifotocek(),
-    //                               ),
-    //                             ),
-    //                             SizedBox(height: screenHeight / 65),
-    //                             Container(
-    //                               color: Colors.transparent,
-    //                               width: screenWidth,
-    //                               height: screenHeight / 20,
-    //                               child: Row(
-    //                                 mainAxisAlignment:
-    //                                     MainAxisAlignment.spaceBetween,
-    //                                 children: [
-    //                                   LikeButton(
-    //                                     onTap: (bool isLike) {
-    //                                       return onLikeButtonTapped(
-    //                                         isLike,
-    //                                         index,
-    //                                       );
-    //                                     },
-    //                                     countPostion: CountPostion.right,
-    //                                     isLiked: reactiondata[index]
-    //                                                 ["benbegendim"] !=
-    //                                             0
-    //                                         ? true
-    //                                         : false,
-    //                                     likeCount: int.parse(
-    //                                         reactiondata[index]["begenisay"]),
-    //                                     likeBuilder: (bool isLiked) {
-    //                                       return isLiked
-    //                                           ? Icon(
-    //                                               Icons.favorite,
-    //                                               color: Colors.red,
-    //                                             )
-    //                                           : Icon(
-    //                                               Icons.favorite_outline,
-    //                                               color: Colors.grey,
-    //                                             );
-    //                                     },
-    //                                     bubblesColor: BubblesColor(
-    //                                       dotPrimaryColor: Colors.red,
-    //                                       dotSecondaryColor: Colors.blue,
-    //                                     ),
-    //                                   ),
-    //                                   InkWell(
-    //                                     onTap: () {
-    //                                       Navigator.push(
-    //                                         context,
-    //                                         MaterialPageRoute(
-    //                                           builder: (context) => AnaDetail(
-    //                                             veri1: reactiondata[index]
-    //                                                 ["sahipavatarminnak"],
-    //                                             veri2: reactiondata[index]
-    //                                                 ["sahipad"],
-    //                                             veri3: reactiondata[index]
-    //                                                 ["sosyalicerik"],
-    //                                             veri4: reactiondata[index]
-    //                                                 ["paylasimzaman"],
-    //                                             veri5: reactiondata[index]
-    //                                                 ["begenisay"],
-    //                                             veri6: reactiondata[index]
-    //                                                 ["yorumsay"],
-    //                                             veri7: reactiondata[index]
-    //                                                 ["repostsay"],
-    //                                             veri8: reactiondata[index]
-    //                                                 ["sikayetsay"],
-    //                                             veri9: reactiondata[index]
-    //                                                 ["benbegendim"],
-    //                                             veri10: reactiondata[index]
-    //                                                 ["postID"],
-    //                                             veri11: reactiondata[index]
-    //                                                 ["sahipID"],
-    //                                             veri12: reactiondata[index]
-    //                                                 ["paylasimnereden"],
-    //                                             veri13: reactiondata[index]
-    //                                                 ["benyorumladim"],
-    //                                           ),
-    //                                         ),
-    //                                       );
-    //                                       setState(() {
-    //                                         detayid =
-    //                                             reactiondata[index]["postID"];
-    //                                         detaylink =
-    //                                             "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-    //                                       });
-    //                                     },
-    //                                     child: Padding(
-    //                                       padding: EdgeInsets.all(8.0),
-    //                                       child: Row(
-    //                                         children: [
-    //                                           reactiondata[index]
-    //                                                       ["benyorumladim"] ==
-    //                                                   0
-    //                                               ? Icon(
-    //                                                   Icons.chat_bubble_outline,
-    //                                                   color: Colors.grey,
-    //                                                 )
-    //                                               : Icon(
-    //                                                   Icons.chat_bubble,
-    //                                                   color: Colors.blue,
-    //                                                 ),
-    //                                           SizedBox(
-    //                                             width: 10,
-    //                                           ),
-    //                                           (reactiondata[index]
-    //                                                       ["yorumsay"] !=
-    //                                                   "0")
-    //                                               ? Text(
-    //                                                   reactiondata[index]
-    //                                                       ["yorumsay"],
-    //                                                   style: TextStyle(
-    //                                                     color: Colors.grey,
-    //                                                   ),
-    //                                                 )
-    //                                               : Text(""),
-    //                                         ],
-    //                                       ),
-    //                                     ),
-    //                                   ),
-    //                                   InkWell(
-    //                                     onTap: () {},
-    //                                     child: Padding(
-    //                                       padding: EdgeInsets.all(8.0),
-    //                                       child: Row(
-    //                                         children: [
-    //                                           Icon(
-    //                                             Icons.repeat,
-    //                                             color: Colors.grey,
-    //                                           ),
-    //                                           SizedBox(
-    //                                             width: 5,
-    //                                           ),
-    //                                           (reactiondata[index]
-    //                                                       ["repostsay"] !=
-    //                                                   "0")
-    //                                               ? Text(
-    //                                                   reactiondata[index]
-    //                                                       ["repostsay"],
-    //                                                   style: TextStyle(
-    //                                                     color: Colors.grey,
-    //                                                   ),
-    //                                                 )
-    //                                               : Text(""),
-    //                                         ],
-    //                                       ),
-    //                                     ),
-    //                                   ),
-    //                                   InkWell(
-    //                                     onTap: () {
-    //                                       Share.share(
-    //                                         reactiondata[index]["sosyalicerik"],
-    //                                       );
-    //                                     },
-    //                                     child: Padding(
-    //                                       padding: EdgeInsets.all(8.0),
-    //                                       child: Icon(
-    //                                         Icons.share_outlined,
-    //                                         color: Colors.grey,
-    //                                       ),
-    //                                     ),
-    //                                   ),
-    //                                   SizedBox(
-    //                                     width: screenWidth / 15,
-    //                                   ),
-    //                                 ],
-    //                               ),
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               );
-    //             },
-    //             separatorBuilder: (context, index) => Divider(),
-    //             itemCount: reactiondata.length,
-    //             padding: EdgeInsets.only(
-    //               top: 10,
-    //               left: 10,
-    //               right: 10,
-    //               bottom: 10,
-    //             ),
-    //           )
-    //         : Center(
-    //             child: Text(
-    //               profiledata["oyuncuID"] == girisdata["oyuncuID"]
-    //                  ? "Henüz Gönderide Bulunmadın !"
-    //                  : "Henüz Gönderide Bulunmamış !",
-    //               textAlign: TextAlign.center,
-    //               style: TextStyle(
-    //                 fontSize: 24,
-    //                 fontWeight: FontWeight.bold,
-    //               ),
-    //             ),
-    //           ),
-    //   ),
-    // );
   }
 
   MyReactionView() {
@@ -2406,421 +1885,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         ),
       ),
     );
-
-    // return RefreshIndicator(
-    //   onRefresh: _refresh,
-    //   child: Container(
-    //     child: reactiondata.isNotEmpty
-    //         ? ListView.separated(
-    //             physics: BouncingScrollPhysics(),
-    //             scrollDirection: Axis.vertical,
-    //             itemBuilder: (context, index) {
-    //               if (reactiondata[index]["paylasimfoto"] != null) {
-    //                 gonderifotolar = postdata[index]["paylasimfoto"];
-    //                 visible = true;
-    //               } else {
-    //                 visible = false;
-    //               }
-    //               return InkWell(
-    //                 onTap: () {
-    //                   Navigator.push(
-    //                     context,
-    //                     MaterialPageRoute(
-    //                       builder: (context) => ThemeConsumer(
-    //                         child: AnaDetail(
-    //                           veri1: reactiondata[index]["sahipavatarminnak"],
-    //                           veri2: reactiondata[index]["sahipad"],
-    //                           veri3: reactiondata[index]["sosyalicerik"],
-    //                           veri4: reactiondata[index]["paylasimzaman"],
-    //                           veri5: reactiondata[index]["begenisay"],
-    //                           veri6: reactiondata[index]["yorumsay"],
-    //                           veri7: reactiondata[index]["repostsay"],
-    //                           veri8: reactiondata[index]["sikayetsay"],
-    //                           veri9: reactiondata[index]["benbegendim"],
-    //                           veri10: reactiondata[index]["postID"],
-    //                           veri11: reactiondata[index]["sahipID"],
-    //                           veri12: reactiondata[index]["paylasimnereden"],
-    //                           veri13: reactiondata[index]["benyorumladim"],
-    //                         ),
-    //                       ),
-    //                     ),
-    //                   );
-    //                   setState(() {
-    //                     detayid = reactiondata[index]["postID"];
-    //                     detaylink =
-    //                         "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-    //                   });
-    //                 },
-    //                 child: Container(
-    //                   child: Row(
-    //                     crossAxisAlignment: CrossAxisAlignment.start,
-    //                     children: [
-    //                       CircleAvatar(
-    //                         radius: screenWidth / 12,
-    //                         backgroundImage: NetworkImage(
-    //                           reactiondata[index]["sahipavatarminnak"],
-    //                         ),
-    //                         backgroundColor: Colors.transparent,
-    //                       ),
-    //                       SizedBox(width: screenWidth / 35),
-    //                       Expanded(
-    //                         child: Column(
-    //                           mainAxisAlignment: MainAxisAlignment.center,
-    //                           crossAxisAlignment: CrossAxisAlignment.start,
-    //                           children: [
-    //                             Row(
-    //                               children: [
-    //                                 Text(
-    //                                   reactiondata[index]["sahipad"],
-    //                                   style: TextStyle(
-    //                                     fontWeight: FontWeight.bold,
-    //                                   ),
-    //                                 ),
-    //                                 Text(
-    //                                   "  -  " +
-    //                                       reactiondata[index]
-    //                                           ["paylasimzamangecen"],
-    //                                   style: TextStyle(
-    //                                     color: Colors.grey,
-    //                                     fontWeight: FontWeight.bold,
-    //                                   ),
-    //                                 ),
-    //                                 Spacer(),
-    //                                 InkWell(
-    //                                   onTap: () {
-    //                                     showModalBottomSheet<void>(
-    //                                       shape: RoundedRectangleBorder(
-    //                                         borderRadius: BorderRadius.vertical(
-    //                                           top: Radius.circular(10),
-    //                                         ),
-    //                                       ),
-    //                                       context: context,
-    //                                       builder: (BuildContext context) {
-    //                                         return Wrap(
-    //                                           children: [
-    //                                             Container(
-    //                                               child: Column(
-    //                                                 children: [
-    //                                                   Padding(
-    //                                                     padding: EdgeInsets
-    //                                                         .symmetric(
-    //                                                             vertical: 10),
-    //                                                     child: Container(
-    //                                                       decoration:
-    //                                                           BoxDecoration(
-    //                                                         color: Colors
-    //                                                             .grey[900],
-    //                                                         borderRadius:
-    //                                                             BorderRadius
-    //                                                                 .all(
-    //                                                           Radius.circular(
-    //                                                               30),
-    //                                                         ),
-    //                                                       ),
-    //                                                       width:
-    //                                                           screenWidth / 4,
-    //                                                       height: 5,
-    //                                                     ),
-    //                                                   ),
-    //                                                   InkWell(
-    //                                                     onTap: () {
-    //                                                       Navigator.pop(
-    //                                                           context);
-    //                                                     },
-    //                                                     child: ListTile(
-    //                                                       leading: Icon(
-    //                                                           Icons.post_add),
-    //                                                       title: Text(
-    //                                                           "Postu favorilere ekle."),
-    //                                                     ),
-    //                                                   ),
-    //                                                   Visibility(
-    //                                                     visible: reactiondata[
-    //                                                                     index][
-    //                                                                 "sahipID"] ==
-    //                                                             girisdata[
-    //                                                                 "oyuncuID"]
-    //                                                         ? true
-    //                                                         : false,
-    //                                                     child: InkWell(
-    //                                                       onTap: () {
-    //                                                         postID =
-    //                                                             reactiondata[
-    //                                                                     index]
-    //                                                                 ["postID"];
-    //                                                         // postsil();
-    //                                                         Navigator.pop(
-    //                                                             context);
-    //                                                       },
-    //                                                       child: ListTile(
-    //                                                         leading: Icon(Icons
-    //                                                             .edit_note),
-    //                                                         title: Text(
-    //                                                             "Postu düzenle."),
-    //                                                       ),
-    //                                                     ),
-    //                                                   ),
-    //                                                   Visibility(
-    //                                                     visible: reactiondata[
-    //                                                                     index][
-    //                                                                 "sahipID"] ==
-    //                                                             girisdata[
-    //                                                                 "oyuncuID"]
-    //                                                         ? true
-    //                                                         : false,
-    //                                                     child: InkWell(
-    //                                                       onTap: () {
-    //                                                         postID =
-    //                                                             reactiondata[
-    //                                                                     index]
-    //                                                                 ["postID"];
-    //                                                         postsil();
-    //                                                         postcek();
-    //                                                         Navigator.pop(
-    //                                                             context);
-    //                                                       },
-    //                                                       child: ListTile(
-    //                                                         leading: Icon(Icons
-    //                                                             .delete_sweep_outlined),
-    //                                                         title: Text(
-    //                                                             "Postu kaldır."),
-    //                                                       ),
-    //                                                     ),
-    //                                                   ),
-    //                                                   Divider(),
-    //                                                   InkWell(
-    //                                                     onTap: () {
-    //                                                       Navigator.pop(
-    //                                                           context);
-    //                                                     },
-    //                                                     child: ListTile(
-    //                                                       leading: Icon(Icons
-    //                                                           .flag_outlined),
-    //                                                       title: Text(
-    //                                                           "Postu bildir."),
-    //                                                     ),
-    //                                                   ),
-    //                                                   SizedBox(height: 10),
-    //                                                 ],
-    //                                               ),
-    //                                             ),
-    //                                           ],
-    //                                         );
-    //                                       },
-    //                                     );
-    //                                   },
-    //                                   child: Icon(
-    //                                     Icons.more_vert,
-    //                                     size: 20,
-    //                                   ),
-    //                                 ),
-    //                               ],
-    //                             ),
-    //                             SizedBox(height: screenHeight / 90),
-    //                             Text(
-    //                               reactiondata[index]["sosyalicerik"],
-    //                             ),
-    //                             SizedBox(height: screenHeight / 50),
-    //                             Visibility(
-    //                               visible: visible,
-    //                               child: Container(
-    //                                 child: gonderifotocek(),
-    //                               ),
-    //                             ),
-    //                             SizedBox(height: screenHeight / 65),
-    //                             Container(
-    //                               color: Colors.transparent,
-    //                               width: screenWidth,
-    //                               height: screenHeight / 20,
-    //                               child: Row(
-    //                                 mainAxisAlignment:
-    //                                     MainAxisAlignment.spaceBetween,
-    //                                 children: [
-    //                                   LikeButton(
-    //                                     onTap: (bool isLike) {
-    //                                       return onLikeButtonTapped(
-    //                                         isLike,
-    //                                         index,
-    //                                       );
-    //                                     },
-    //                                     countPostion: CountPostion.right,
-    //                                     isLiked: reactiondata[index]
-    //                                                 ["benbegendim"] !=
-    //                                             0
-    //                                         ? true
-    //                                         : false,
-    //                                     likeCount: int.parse(
-    //                                         reactiondata[index]["begenisay"]),
-    //                                     likeBuilder: (bool isLiked) {
-    //                                       return isLiked
-    //                                           ? Icon(
-    //                                               Icons.favorite,
-    //                                               color: Colors.red,
-    //                                             )
-    //                                           : Icon(
-    //                                               Icons.favorite_outline,
-    //                                               color: Colors.grey,
-    //                                             );
-    //                                     },
-    //                                     bubblesColor: BubblesColor(
-    //                                       dotPrimaryColor: Colors.red,
-    //                                       dotSecondaryColor: Colors.blue,
-    //                                     ),
-    //                                   ),
-    //                                   InkWell(
-    //                                     onTap: () {
-    //                                       Navigator.push(
-    //                                         context,
-    //                                         MaterialPageRoute(
-    //                                           builder: (context) => AnaDetail(
-    //                                             veri1: reactiondata[index]
-    //                                                 ["sahipavatarminnak"],
-    //                                             veri2: reactiondata[index]
-    //                                                 ["sahipad"],
-    //                                             veri3: reactiondata[index]
-    //                                                 ["sosyalicerik"],
-    //                                             veri4: reactiondata[index]
-    //                                                 ["paylasimzaman"],
-    //                                             veri5: reactiondata[index]
-    //                                                 ["begenisay"],
-    //                                             veri6: reactiondata[index]
-    //                                                 ["yorumsay"],
-    //                                             veri7: reactiondata[index]
-    //                                                 ["repostsay"],
-    //                                             veri8: reactiondata[index]
-    //                                                 ["sikayetsay"],
-    //                                             veri9: reactiondata[index]
-    //                                                 ["benbegendim"],
-    //                                             veri10: reactiondata[index]
-    //                                                 ["postID"],
-    //                                             veri11: reactiondata[index]
-    //                                                 ["sahipID"],
-    //                                             veri12: reactiondata[index]
-    //                                                 ["paylasimnereden"],
-    //                                             veri13: reactiondata[index]
-    //                                                 ["benyorumladim"],
-    //                                           ),
-    //                                         ),
-    //                                       );
-    //                                       setState(() {
-    //                                         detayid =
-    //                                             reactiondata[index]["postID"];
-    //                                         detaylink =
-    //                                             "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-    //                                       });
-    //                                     },
-    //                                     child: Padding(
-    //                                       padding: EdgeInsets.all(8.0),
-    //                                       child: Row(
-    //                                         children: [
-    //                                           reactiondata[index]
-    //                                                       ["benyorumladim"] ==
-    //                                                   0
-    //                                               ? Icon(
-    //                                                   Icons.chat_bubble_outline,
-    //                                                   color: Colors.grey,
-    //                                                 )
-    //                                               : Icon(
-    //                                                   Icons.chat_bubble,
-    //                                                   color: Colors.blue,
-    //                                                 ),
-    //                                           SizedBox(
-    //                                             width: 10,
-    //                                           ),
-    //                                           (reactiondata[index]
-    //                                                       ["yorumsay"] !=
-    //                                                   "0")
-    //                                               ? Text(
-    //                                                   reactiondata[index]
-    //                                                       ["yorumsay"],
-    //                                                   style: TextStyle(
-    //                                                     color: Colors.grey,
-    //                                                   ),
-    //                                                 )
-    //                                               : Text(""),
-    //                                         ],
-    //                                       ),
-    //                                     ),
-    //                                   ),
-    //                                   InkWell(
-    //                                     onTap: () {},
-    //                                     child: Padding(
-    //                                       padding: EdgeInsets.all(8.0),
-    //                                       child: Row(
-    //                                         children: [
-    //                                           Icon(
-    //                                             Icons.repeat,
-    //                                             color: Colors.grey,
-    //                                           ),
-    //                                           SizedBox(
-    //                                             width: 5,
-    //                                           ),
-    //                                           (reactiondata[index]
-    //                                                       ["repostsay"] !=
-    //                                                   "0")
-    //                                               ? Text(
-    //                                                   reactiondata[index]
-    //                                                       ["repostsay"],
-    //                                                   style: TextStyle(
-    //                                                     color: Colors.grey,
-    //                                                   ),
-    //                                                 )
-    //                                               : Text(""),
-    //                                         ],
-    //                                       ),
-    //                                     ),
-    //                                   ),
-    //                                   InkWell(
-    //                                     onTap: () {
-    //                                       Share.share(
-    //                                         reactiondata[index]["sosyalicerik"],
-    //                                       );
-    //                                     },
-    //                                     child: Padding(
-    //                                       padding: EdgeInsets.all(8.0),
-    //                                       child: Icon(
-    //                                         Icons.share_outlined,
-    //                                         color: Colors.grey,
-    //                                       ),
-    //                                     ),
-    //                                   ),
-    //                                   SizedBox(
-    //                                     width: screenWidth / 15,
-    //                                   ),
-    //                                 ],
-    //                               ),
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               );
-    //             },
-    //             separatorBuilder: (context, index) => Divider(),
-    //             itemCount: reactiondata.length,
-    //             padding: EdgeInsets.only(
-    //               top: 10,
-    //               left: 10,
-    //               right: 10,
-    //               bottom: 10,
-    //             ),
-    //           )
-    //         : Center(
-    //             child: Text(
-    //               profiledata["oyuncuID"] == girisdata["oyuncuID"]
-    //                  ? "Henüz Gönderide Bulunmadın !"
-    //                  : "Henüz Gönderide Bulunmamış !",
-    //               textAlign: TextAlign.center,
-    //               style: TextStyle(
-    //                 fontSize: 24,
-    //                 fontWeight: FontWeight.bold,
-    //               ),
-    //             ),
-    //           ),
-    //   ),
-    // );
   }
 
   Widget _MainListView(
@@ -2928,9 +1992,9 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         onTap: () {
                                           Navigator.pop(context);
                                         },
-                                        child: const ListTile(
-                                          leading: Icon(Icons.post_add),
-                                          title: Text("Postu favorilere ekle."),
+                                        child: ListTile(
+                                          leading: const Icon(Icons.post_add),
+                                          title: Text(addFavoritePost),
                                         ),
                                       ),
                                       Visibility(
@@ -2944,9 +2008,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             // postsil();
                                             Navigator.pop(context);
                                           },
-                                          child: const ListTile(
-                                            leading: Icon(Icons.edit_note),
-                                            title: Text("Postu düzenle."),
+                                          child: ListTile(
+                                            leading:
+                                                const Icon(Icons.edit_note),
+                                            title: Text(editPost),
                                           ),
                                         ),
                                       ),
@@ -2963,10 +2028,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
                                             Navigator.pop(context);
                                           },
-                                          child: const ListTile(
-                                            leading: Icon(
+                                          child: ListTile(
+                                            leading: const Icon(
                                                 Icons.delete_sweep_outlined),
-                                            title: Text("Postu kaldır."),
+                                            title: Text(removePost),
                                           ),
                                         ),
                                       ),
@@ -2984,19 +2049,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             : true,
                                         child: InkWell(
                                           onTap: () {
-                                            // postID =
-                                            //     widget.veri10;
-                                            // postbildir();
                                             Navigator.pop(context);
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(
-                                            //   const SnackBar(
-                                            //     content:
-                                            //         Text("Bildirildi !"),
-                                            //     shape:
-                                            //         const StadiumBorder(),
-                                            //   ),
-                                            // );
+
                                             Fluttertoast.showToast(
                                               msg: "Bildirildi !",
                                               toastLength: Toast.LENGTH_SHORT,
@@ -3004,13 +2058,13 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                               timeInSecForIosWeb: 1,
                                             );
                                           },
-                                          child: const ListTile(
+                                          child: ListTile(
                                             textColor: Colors.red,
-                                            leading: Icon(
+                                            leading: const Icon(
                                               Icons.flag_outlined,
                                               color: Colors.red,
                                             ),
-                                            title: Text("Postu bildir."),
+                                            title: Text(reportPost),
                                           ),
                                         ),
                                       ),
@@ -3024,13 +2078,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             profileID = widget.veri1;
                                             postbildir();
                                             Navigator.pop(context);
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(
-                                            //   const SnackBar(
-                                            //     content: Text("Bildirildi !"),
-                                            //     shape: StadiumBorder(),
-                                            //   ),
-                                            // );
+
                                             Fluttertoast.showToast(
                                               msg: "Engellendi !",
                                               toastLength: Toast.LENGTH_SHORT,
@@ -3038,13 +2086,13 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                               timeInSecForIosWeb: 1,
                                             );
                                           },
-                                          child: const ListTile(
+                                          child: ListTile(
                                             textColor: Colors.red,
-                                            leading: Icon(
+                                            leading: const Icon(
                                               Icons.person_off_outlined,
                                               color: Colors.red,
                                             ),
-                                            title: Text("Kullanıcıyı engelle."),
+                                            title: Text(blockUser),
                                           ),
                                         ),
                                       ),
@@ -3055,19 +2103,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             : true,
                                         child: InkWell(
                                           onTap: () {
-                                            // postID =
-                                            //     widget.veri10;
-                                            // postbildir();
                                             Navigator.pop(context);
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(
-                                            //   const SnackBar(
-                                            //     content:
-                                            //         Text("Bildirildi !"),
-                                            //     shape:
-                                            //         const StadiumBorder(),
-                                            //   ),
-                                            // );
+
                                             Fluttertoast.showToast(
                                               msg: "Bildirildi !",
                                               toastLength: Toast.LENGTH_SHORT,
@@ -3075,13 +2112,13 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                               timeInSecForIosWeb: 1,
                                             );
                                           },
-                                          child: const ListTile(
+                                          child:  ListTile(
                                             textColor: Colors.red,
-                                            leading: Icon(
+                                            leading: const Icon(
                                               Icons.person_outline,
                                               color: Colors.red,
                                             ),
-                                            title: Text("Kullanıcıyı bildir."),
+                                            title: Text(reportUser),
                                           ),
                                         ),
                                       ),

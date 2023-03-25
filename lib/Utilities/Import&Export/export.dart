@@ -28,6 +28,7 @@ export 'package:armoyu/Screens/GeneralScreens/post.dart';
 export 'package:armoyu/Screens/GeneralScreens/grup.dart';
 export 'package:armoyu/Screens/GeneralScreens/toplanti.dart';
 export 'package:armoyu/Screens/GeneralScreens/resiminceleme.dart';
+export 'package:armoyu/Screens/GeneralScreens/etkinlikdetay.dart';
 
 //  Screens / InitScreen  //
 export 'package:armoyu/Screens/InitScreen/splash.dart';

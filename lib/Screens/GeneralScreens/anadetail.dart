@@ -134,8 +134,8 @@ class _AnaDetailState extends State<AnaDetail> {
 
   galeriresim() {
     // print(paylasimtip);
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
     if (resimler.length == 1)
       return Padding(
         padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -311,8 +311,8 @@ class _AnaDetailState extends State<AnaDetail> {
 
   galerivideo() {
     print(paylasimtip);
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
     // return Padding(
     //   padding: EdgeInsets.all(10),
     //   child: Row(
@@ -336,8 +336,8 @@ class _AnaDetailState extends State<AnaDetail> {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
 
     Future<void> _refresh() async {
       postID = widget.veri10;
@@ -459,11 +459,11 @@ class _AnaDetailState extends State<AnaDetail> {
                                                       onTap: () {
                                                         Navigator.pop(context);
                                                       },
-                                                      child: const ListTile(
+                                                      child: ListTile(
                                                         leading: Icon(
                                                             Icons.post_add),
                                                         title: Text(
-                                                            "Postu favorilere ekle."),
+                                                            addFavoritePost),
                                                       ),
                                                     ),
                                                     Visibility(
@@ -480,11 +480,10 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           Navigator.pop(
                                                               context);
                                                         },
-                                                        child: const ListTile(
+                                                        child: ListTile(
                                                           leading: Icon(
                                                               Icons.edit_note),
-                                                          title: Text(
-                                                              "Postu düzenle."),
+                                                          title: Text(editPost),
                                                         ),
                                                       ),
                                                     ),
@@ -504,11 +503,11 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           Navigator.pop(
                                                               context);
                                                         },
-                                                        child: const ListTile(
+                                                        child: ListTile(
                                                           leading: Icon(Icons
                                                               .delete_sweep_outlined),
-                                                          title: Text(
-                                                              "Postu kaldır."),
+                                                          title:
+                                                              Text(removePost),
                                                         ),
                                                       ),
                                                     ),
@@ -518,11 +517,10 @@ class _AnaDetailState extends State<AnaDetail> {
                                                             widget.veri14);
                                                         Navigator.pop(context);
                                                       },
-                                                      child: const ListTile(
+                                                      child: ListTile(
                                                         leading: Icon(Icons
                                                             .share_outlined),
-                                                        title: Text(
-                                                            "Kullanıcıyı paylaş."),
+                                                        title: Text(shareUser),
                                                       ),
                                                     ),
                                                     InkWell(
@@ -533,16 +531,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           ),
                                                         );
                                                         Navigator.pop(context);
-                                                        // ScaffoldMessenger.of(
-                                                        //         context)
-                                                        //     .showSnackBar(
-                                                        //   SnackBar(
-                                                        //     content: Text(
-                                                        //         "Kopyalandı !"),
-                                                        //     shape:
-                                                        //         StadiumBorder(),
-                                                        //   ),
-                                                        // );
+
                                                         Fluttertoast.showToast(
                                                           msg: "Kopyalandı !",
                                                           toastLength: Toast
@@ -552,13 +541,14 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           timeInSecForIosWeb: 1,
                                                         );
                                                       },
-                                                      child: const ListTile(
+                                                      child: ListTile(
                                                         leading: Icon(
                                                             Icons.content_copy),
                                                         title: Text(
-                                                            "Kullanıcı profil linkini kopyala."),
+                                                            shareUserProfileLink),
                                                       ),
                                                     ),
+                                                    // buraya web de aç özelliği ekle bunun için sitede her post için ayrı sayfa yapılmalı.
                                                     Visibility(
                                                       visible: widget.veri11 ==
                                                               girisdata[
@@ -580,106 +570,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                                           postbildir();
                                                           Navigator.pop(
                                                               context);
-                                                          // ScaffoldMessenger.of(
-                                                          //         context)
-                                                          //     .showSnackBar(
-                                                          //   const SnackBar(
-                                                          //     content: Text(
-                                                          //         "Bildirildi !"),
-                                                          //     shape:
-                                                          //         StadiumBorder(),
-                                                          //   ),
-                                                          // );
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg: "Bildirildi !",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .CENTER,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                          );
-                                                        },
-                                                        child: const ListTile(
-                                                          textColor: Colors.red,
-                                                          leading: Icon(
-                                                            Icons.flag_outlined,
-                                                            color: Colors.red,
-                                                          ),
-                                                          title: Text(
-                                                              "Postu bildir."),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Visibility(
-                                                      visible: widget.veri11 ==
-                                                              girisdata[
-                                                                  "oyuncuID"]
-                                                          ? false
-                                                          : true,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          postID =
-                                                              widget.veri10;
-                                                          postbildir();
-                                                          Navigator.pop(
-                                                              context);
-                                                          // ScaffoldMessenger.of(context)
-                                                          //     .showSnackBar(
-                                                          //   const SnackBar(
-                                                          //     content: Text("Bildirildi !"),
-                                                          //     shape: StadiumBorder(),
-                                                          //   ),
-                                                          // );
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg: "Engellendi !",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .CENTER,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                          );
-                                                        },
-                                                        child: const ListTile(
-                                                          textColor: Colors.red,
-                                                          leading: Icon(
-                                                            Icons
-                                                                .person_off_outlined,
-                                                            color: Colors.red,
-                                                          ),
-                                                          title: Text(
-                                                              "Kullanıcıyı engelle."),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Visibility(
-                                                      visible: widget.veri11 ==
-                                                              girisdata[
-                                                                  "oyuncuID"]
-                                                          ? false
-                                                          : true,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          postID =
-                                                              widget.veri10;
-                                                          postbildir();
-                                                          Navigator.pop(
-                                                              context);
-                                                          // ScaffoldMessenger.of(
-                                                          //         context)
-                                                          //     .showSnackBar(
-                                                          //   const SnackBar(
-                                                          //     content: Text(
-                                                          //         "Bildirildi !"),
-                                                          //     shape:
-                                                          //         StadiumBorder(),
-                                                          //   ),
-                                                          // );
 
                                                           Fluttertoast
                                                               .showToast(
@@ -693,15 +583,90 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                 1,
                                                           );
                                                         },
-                                                        child: const ListTile(
+                                                        child: ListTile(
+                                                          textColor: Colors.red,
+                                                          leading: Icon(
+                                                            Icons.flag_outlined,
+                                                            color: Colors.red,
+                                                          ),
+                                                          title:
+                                                              Text(reportPost),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: widget.veri11 ==
+                                                              girisdata[
+                                                                  "oyuncuID"]
+                                                          ? false
+                                                          : true,
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          postID =
+                                                              widget.veri10;
+                                                          postbildir();
+                                                          Navigator.pop(
+                                                              context);
+
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg: "Engellendi !",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .CENTER,
+                                                            timeInSecForIosWeb:
+                                                                1,
+                                                          );
+                                                        },
+                                                        child: ListTile(
+                                                          textColor: Colors.red,
+                                                          leading: Icon(
+                                                            Icons
+                                                                .person_off_outlined,
+                                                            color: Colors.red,
+                                                          ),
+                                                          title:
+                                                              Text(blockUser),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: widget.veri11 ==
+                                                              girisdata[
+                                                                  "oyuncuID"]
+                                                          ? false
+                                                          : true,
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          postID =
+                                                              widget.veri10;
+                                                          postbildir();
+                                                          Navigator.pop(
+                                                              context);
+
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg: "Bildirildi !",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .CENTER,
+                                                            timeInSecForIosWeb:
+                                                                1,
+                                                          );
+                                                        },
+                                                        child: ListTile(
                                                           textColor: Colors.red,
                                                           leading: Icon(
                                                             Icons
                                                                 .person_outline,
                                                             color: Colors.red,
                                                           ),
-                                                          title: Text(
-                                                              "Kullanıcıyı bildir."),
+                                                          title:
+                                                              Text(reportUser),
                                                         ),
                                                       ),
                                                     ),
@@ -725,13 +690,6 @@ class _AnaDetailState extends State<AnaDetail> {
                             SizedBox(height: screenHeight / 35),
                             Padding(
                               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              // child: Text(
-                              //   widget.veri3,
-                              //   style: TextStyle(
-                              //     // color: Colors.white,
-                              //     fontSize: 16,
-                              //   ),
-                              // ),
                               child: InkWell(
                                 highlightColor: Colors.transparent,
                                 splashColor: Colors.transparent,
@@ -741,18 +699,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                       text: widget.veri3,
                                     ),
                                   ).then((_) {
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   SnackBar(
-                                    //     content: Text(
-                                    //       "Kopyalandı.",
-                                    //       style: TextStyle(
-                                    //         color: Colors.white,
-                                    //       ),
-                                    //     ),
-                                    //     backgroundColor: Colors.grey[850],
-                                    //     shape: const StadiumBorder(),
-                                    //   ),
-                                    // );
                                     Fluttertoast.showToast(
                                       msg: "Kopyalandı !",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -790,6 +736,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                 paylasimtip == "image/jpg" ||
                                 paylasimtip == "application/octet-stream")
                               galeriresim(),
+                            // buraya resim yüklenirken animasyon koy.
 
                             SimpleUrlPreview(
                               url: widget.veri3,
@@ -824,6 +771,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                       color: Colors.grey,
                                     ),
                                   ),
+                                  // buraya for web ise web e basılınca sitede postu aç bunun için sitede her post için ayrı sayfa yapılması lazım.
                                   Text(
                                     widget.veri12 == ""
                                         ? "For Web"
@@ -844,17 +792,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => ThemeConsumer(
-                                      //       child: ByrDetail(
-                                      //         veri1: 0,
-                                      //         veri2: widget.veri10,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // );
                                       setState(() {
                                         byr = widget.veri10;
                                       });
@@ -875,17 +812,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => ThemeConsumer(
-                                      //       child: ByrDetail(
-                                      //         veri1: 1,
-                                      //         veri2: widget.veri10,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // );
                                       setState(() {
                                         byr = widget.veri10;
                                       });
@@ -906,17 +832,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => ThemeConsumer(
-                                      //       child: ByrDetail(
-                                      //         veri1: 2,
-                                      //         veri2: widget.veri10,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // );
                                       setState(() {
                                         byr = widget.veri10;
                                       });
@@ -1152,12 +1067,11 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                 Navigator.pop(
                                                                     context);
                                                               },
-                                                              child:
-                                                                  const ListTile(
+                                                              child: ListTile(
                                                                 leading: Icon(Icons
                                                                     .share_outlined),
                                                                 title: Text(
-                                                                    "Kullanıcıyı paylaş."),
+                                                                    shareUser),
                                                               ),
                                                             ),
                                                             InkWell(
@@ -1172,16 +1086,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                 );
                                                                 Navigator.pop(
                                                                     context);
-                                                                // ScaffoldMessenger.of(
-                                                                //         context)
-                                                                //     .showSnackBar(
-                                                                //   SnackBar(
-                                                                //     content: Text(
-                                                                //         "Kopyalandı !"),
-                                                                //     shape:
-                                                                //         StadiumBorder(),
-                                                                //   ),
-                                                                // );
+
                                                                 Fluttertoast
                                                                     .showToast(
                                                                   msg:
@@ -1195,12 +1100,11 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                       1,
                                                                 );
                                                               },
-                                                              child:
-                                                                  const ListTile(
+                                                              child: ListTile(
                                                                 leading: Icon(Icons
                                                                     .content_copy),
                                                                 title: Text(
-                                                                    "Kullanıcı profil linkini kopyala."),
+                                                                    shareUserProfileLink),
                                                               ),
                                                             ),
                                                             Visibility(
@@ -1257,13 +1161,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                   postbildir();
                                                                   Navigator.pop(
                                                                       context);
-                                                                  // ScaffoldMessenger.of(context)
-                                                                  //     .showSnackBar(
-                                                                  //   const SnackBar(
-                                                                  //     content: Text("Bildirildi !"),
-                                                                  //     shape: StadiumBorder(),
-                                                                  //   ),
-                                                                  // );
+
                                                                   Fluttertoast
                                                                       .showToast(
                                                                     msg:
@@ -1278,8 +1176,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                         1,
                                                                   );
                                                                 },
-                                                                child:
-                                                                    const ListTile(
+                                                                child: ListTile(
                                                                   textColor:
                                                                       Colors
                                                                           .red,
@@ -1290,7 +1187,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                         .red,
                                                                   ),
                                                                   title: Text(
-                                                                      "Kullanıcıyı engelle."),
+                                                                      blockUser),
                                                                 ),
                                                               ),
                                                             ),
@@ -1308,8 +1205,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                   Navigator.pop(
                                                                       context);
                                                                 },
-                                                                child:
-                                                                    const ListTile(
+                                                                child: ListTile(
                                                                   textColor:
                                                                       Colors
                                                                           .red,
@@ -1320,7 +1216,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                         .red,
                                                                   ),
                                                                   title: Text(
-                                                                      "Kullanıcıyı bildir."),
+                                                                      reportUser),
                                                                 ),
                                                               ),
                                                             ),
@@ -1359,7 +1255,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                     ),
                                   ),
                                   SizedBox(
-                                    // color: Colors.red,
                                     width: screenWidth,
                                     height: screenHeight / 20,
                                     child: Row(
@@ -1400,38 +1295,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                             dotSecondaryColor: Colors.blue,
                                           ),
                                         ),
-                                        // Row(
-                                        //   children: [
-                                        //     IconButton(
-                                        //       onPressed: () {},
-                                        //       icon: Icon(
-                                        //         Icons.favorite_border,
-                                        //         color: Colors.grey,
-                                        //         size: 19,
-                                        //       ),
-                                        //       // icon: widget.veri9 != 0
-                                        //       //     ? Icon(
-                                        //       //         Icons.favorite,
-                                        //       //         color: Colors.red,
-                                        //       //       )
-                                        //       //     : Icon(
-                                        //       //         Icons.favorite_border,
-                                        //       //         color: Colors.grey,
-                                        //       //       ),
-                                        //     ),
-                                        //     Text(
-                                        //       yorumlar[i]["yorumbegenisayi"] !=
-                                        //               "0"
-                                        //           ? yorumlar[i]
-                                        //               ["yorumbegenisayi"]
-                                        //           : "",
-                                        //       style: TextStyle(
-                                        //         fontSize: 12,
-                                        //         color: Colors.grey,
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
                                         IconButton(
                                           onPressed: () {
                                             yorum.text =

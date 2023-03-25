@@ -14,11 +14,11 @@ class Notif extends StatefulWidget {
 
 class _NotifState extends State<Notif> {
   Future bildirimcek() async {
-    final gelen = await http.get(
-      Uri.parse(bildirimlink),
-    );
-
     try {
+      final gelen = await http.get(
+        Uri.parse(bildirimlink),
+      );
+
       bildirimler = jsonDecode(gelen.body);
     } catch (e) {
       print('Unknown exception: $e');
@@ -33,19 +33,6 @@ class _NotifState extends State<Notif> {
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
-
-    // return Center(
-    //   child: Container(
-    //     child: Text(
-    //       "Çok Yakında...\nComing Soon...",
-    //       textAlign: TextAlign.center,
-    //       style: TextStyle(
-    //         fontSize: 24,
-    //         fontWeight: FontWeight.w600,
-    //       ),
-    //     ),
-    //   ),
-    // );
 
     return FutureBuilder(
       initialData: bildirimcek(),
@@ -86,7 +73,6 @@ class _NotifState extends State<Notif> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              // color: Colors.red,
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -102,7 +88,6 @@ class _NotifState extends State<Notif> {
                           const SizedBox(width: 10),
                           Flexible(
                             child: SizedBox(
-                              // color: Colors.amber,
                               width: screenWidth,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -165,7 +150,6 @@ class _NotifState extends State<Notif> {
                                                 onTap: () {},
                                                 child: Container(
                                                   decoration: BoxDecoration(
-                                                    // color: Colors.blue,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             6),
@@ -198,7 +182,6 @@ class _NotifState extends State<Notif> {
                                                 onTap: () {},
                                                 child: Container(
                                                   decoration: BoxDecoration(
-                                                    // color: Colors.blue,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             6),

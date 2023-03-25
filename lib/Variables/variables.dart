@@ -40,6 +40,14 @@ String theforest = "THE FOREST";
 String lastWords = '';
 String? byr;
 String arkadasText = "";
+String addFavoritePost = "Postu favorilere ekle.";
+String editPost = "Postu düzenle.";
+String removePost = "Postu kaldır.";
+String shareUser = "Kullanıcıyı paylaş.";
+String shareUserProfileLink = "Kullanıcı profil linkini kopyala.";
+String reportPost = "Postu bildir.";
+String blockUser = "Kullanıcıyı engelle.";
+String reportUser = "Kullanıcıyı bildir.";
 
 //  int  //
 int startPage = 0;
@@ -81,8 +89,8 @@ List searchhaber = [];
 
 //  final  //
 final screens = [
-  AnaSayfa(),
-  Search(),
+  const AnaSayfa(),
+  const Search(),
   const Notif(),
 ];
 
