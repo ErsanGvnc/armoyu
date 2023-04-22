@@ -15,6 +15,7 @@ class _SearchState extends State<Search> {
   void initState() {
     super.initState();
     searchcek();
+    habercek();
     popcek();
     xpcek();
     hashtagcek();
@@ -32,6 +33,14 @@ class _SearchState extends State<Search> {
       ayinpostu = jsonDecode(gelen.body);
       setState(() {});
     }
+  }
+
+  habercek() async {
+    var gelen = await http.get(
+      Uri.parse(haberurl),
+    );
+    datahaber = jsonDecode(gelen.body);
+    setState(() {});
   }
 
   popcek() async {
@@ -65,12 +74,10 @@ class _SearchState extends State<Search> {
       hashtagler = jsonDecode(gelen.body);
       setState(() {});
     }
-    // print(hashtagler);
+    // print(hashtagler.length);
   }
 
   gonderifotocek() {
-    screenWidth = MediaQuery.of(context).size.width;
-
     // print(gonderifotolar);
 
     // anasayfa video kısmı.
@@ -459,6 +466,10 @@ class _SearchState extends State<Search> {
   }
 
   Future<void> _refresh() {
+    habercek();
+    xpcek();
+    hashtagcek();
+    popcek();
     setState(() {
       searchler.clear();
     });
@@ -467,8 +478,6 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-
     search(id) async {
       http.post(
         Uri.parse(oturumkontrolurl),
@@ -479,7 +488,7 @@ class _SearchState extends State<Search> {
         setState(() {
           try {
             profiledata = jsonDecode(cevap.body);
-            // print(profiledata);
+            print(profiledata);
           } catch (e) {
             print('Unknown exception: $e');
           }
@@ -523,7 +532,7 @@ class _SearchState extends State<Search> {
         setState(() {
           try {
             searchhaber = jsonDecode(cevap.body);
-            print(searchhaber);
+            // print(searchhaber);
           } catch (e) {
             print('Unknown exception: $e');
           }
@@ -702,11 +711,15 @@ class _SearchState extends State<Search> {
             aratildi == 0
                 ? Column(
                     children: [
+                      _carouselSlider(),
+                      const Divider(
+                        color: Colors.grey,
+                      ),
                       _xphorizontalListView(),
                       const Divider(
                         color: Colors.grey,
                       ),
-                      _horizontalChipListView(),
+                      _chipListView(),
                       const Divider(
                         color: Colors.grey,
                       ),
@@ -721,9 +734,6 @@ class _SearchState extends State<Search> {
   }
 
   searchedildi() {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-
     return profiledata != null
         ? ListView(
             controller: searchSearchScrollController,
@@ -735,6 +745,7 @@ class _SearchState extends State<Search> {
                 children: [
                   ListTile(
                     onTap: () {
+                      print(id);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -756,7 +767,7 @@ class _SearchState extends State<Search> {
                     ),
                     title: Text(profiledata["adim"]),
                     subtitle: Text(
-                      profiledata["hakkimda"],
+                      profiledata["hakkimda"] ?? profiledata["hakkimda"],
                       maxLines: 2,
                       style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
@@ -1404,6 +1415,175 @@ class _SearchState extends State<Search> {
         : const CircularProgressIndicator();
   }
 
+  Widget _carouselSlider() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "Haberler",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+              ),
+            ),
+            InkWell(
+              borderRadius: BorderRadius.circular(30),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ThemeConsumer(
+                      child: News(),
+                    ),
+                  ),
+                );
+              },
+              child: const Icon(
+                Icons.arrow_forward,
+                color: Colors.blue,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        CarouselSlider.builder(
+          options: CarouselOptions(
+            aspectRatio: 16 / 9,
+            autoPlay: true,
+            enableInfiniteScroll: true,
+            pauseAutoPlayOnTouch: true,
+            viewportFraction: 0.8,
+            autoPlayInterval: const Duration(seconds: 5),
+            scrollDirection: Axis.horizontal,
+            enlargeFactor: 0.2,
+            enlargeCenterPage: true,
+          ),
+          itemCount: 5,
+          itemBuilder: (context, index, realIndex) {
+            // print(datahaber);
+            return datahaber != null
+                ? InkWell(
+                    borderRadius: BorderRadius.circular(5),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Detail(
+                            veri1: datahaber[index]["haberbaslik"],
+                            veri3: datahaber[index]["resimminnak"],
+                            veri5: datahaber[index]["resim"],
+                            veri6: datahaber[index]["gecenzaman"],
+                            veri7: datahaber[index]["yazar"],
+                            veri8: datahaber[index]["ozet"],
+                            veri9: datahaber[index]["link"],
+                            veri10: datahaber[index]["kategori"],
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          filterQuality: FilterQuality.high,
+                          image: CachedNetworkImageProvider(
+                            datahaber[index]["resimminnak"],
+                          ),
+                        ),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black.withOpacity(0.7),
+                              Colors.transparent,
+                            ],
+                            stops: const [0.0, 0.8],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(7, 0, 7, 7),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundImage:
+                                          CachedNetworkImageProvider(
+                                        datahaber[index]["yazaravatar"],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      datahaber[index]["yazar"],
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Icon(Icons.visibility),
+                                        const SizedBox(width: 3),
+                                        Text(
+                                          datahaber[index]["goruntulen"],
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  datahaber[index]["ozet"],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(
+                    width: screenWidth,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.grey[700],
+                    ),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+          },
+        ),
+      ],
+    );
+  }
+
   Widget _xphorizontalListView() {
     return xpsiralama.isEmpty
         ? const CircularProgressIndicator()
@@ -1492,7 +1672,7 @@ class _SearchState extends State<Search> {
           );
   }
 
-  Widget _horizontalChipListView() {
+  Widget _chipListView() {
     get_chip(name) {
       return FilterChip(
         selectedColor: Colors.blue.shade800,
@@ -1508,17 +1688,53 @@ class _SearchState extends State<Search> {
       return hashtagler.map((tag) => get_chip(tag));
     }
 
-    return SizedBox(
-      child: Wrap(
-        spacing: 8.0, // gap between adjacent chips
-        runSpacing: 4.0, // gap between lines
-        direction: Axis.horizontal,
-        verticalDirection: VerticalDirection.down,
-        alignment: WrapAlignment.start,
-        runAlignment: WrapAlignment.start,
-
-        children: <Widget>[...generate_tags()],
-      ),
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "Konular",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+              ),
+            ),
+            InkWell(
+              borderRadius: BorderRadius.circular(30),
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const ThemeConsumer(
+                //       child: News(),
+                //     ),
+                //   ),
+                // );
+              },
+              child: const Icon(
+                Icons.arrow_forward,
+                color: Colors.blue,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        hashtagler.isNotEmpty
+            ? SizedBox(
+                child: Wrap(
+                  spacing: 8.0, // gap between adjacent chips
+                  runSpacing: 4.0, // gap between lines
+                  direction: Axis.horizontal,
+                  verticalDirection: VerticalDirection.down,
+                  alignment: WrapAlignment.start,
+                  runAlignment: WrapAlignment.start,
+                  children: <Widget>[...generate_tags()],
+                ),
+              )
+            : const CircularProgressIndicator(),
+      ],
     );
   }
 

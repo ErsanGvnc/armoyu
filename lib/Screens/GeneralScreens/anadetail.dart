@@ -2,7 +2,6 @@
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
-import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
 class AnaDetail extends StatefulWidget {
@@ -43,46 +42,46 @@ class AnaDetail extends StatefulWidget {
 }
 
 class _AnaDetailState extends State<AnaDetail> {
-  List resimler = [];
-  List yorumlar = [];
-  String paylasimtip = "";
+  List images = [];
+  List comments = [];
+  String shareType = "";
 
   @override
   void initState() {
-    detaycek();
-    yorumcek();
+    getDetails();
+    getComments();
     super.initState();
   }
 
-  detaycek() async {
+  getDetails() async {
     var gelen = await http.get(
       Uri.parse(detaylink),
     );
-    detaylar = jsonDecode(gelen.body);
+    postDetails = jsonDecode(gelen.body);
 
-    if (detaylar[0]["paylasimfoto"] != null) {
-      for (var i = 0; i < detaylar[0]["paylasimfoto"].length; i++) {
-        resimler.add(detaylar[0]["paylasimfoto"][i]["fotoufakurl"]);
+    if (postDetails[0]["paylasimfoto"] != null) {
+      for (var i = 0; i < postDetails[0]["paylasimfoto"].length; i++) {
+        images.add(postDetails[0]["paylasimfoto"][i]["fotoufakurl"]);
       }
-      paylasimtip = detaylar[0]["paylasimfoto"][0]["paylasimkategori"];
+      shareType = postDetails[0]["paylasimfoto"][0]["paylasimkategori"];
     }
 
     setState(() {});
   }
 
-  yorumcek() async {
+  getComments() async {
     var gelen = await http.get(
       Uri.parse(detaylink),
     );
-    detaylar = jsonDecode(gelen.body);
+    postDetails = jsonDecode(gelen.body);
 
-    if (detaylar[0]["yorumlar"] != null) {
-      for (var i = 0; i < detaylar[0]["yorumlar"].length; i++) {
-        yorumlar.add(detaylar[0]["yorumlar"][i]);
+    if (postDetails[0]["yorumlar"] != null) {
+      for (var i = 0; i < postDetails[0]["yorumlar"].length; i++) {
+        comments.add(postDetails[0]["yorumlar"][i]);
       }
     }
 
-    print(yorumlar);
+    // print(comments);
 
     setState(() {});
   }
@@ -124,7 +123,7 @@ class _AnaDetailState extends State<AnaDetail> {
     });
     print(isLike);
 
-    yorumID = yorum["yorumid"];
+    yorumID = yorum["yorumID"];
     print("onCommentLikeButtonTapped");
 
     postyorumlike(yorum);
@@ -132,217 +131,238 @@ class _AnaDetailState extends State<AnaDetail> {
     return isLike;
   }
 
-  galeriresim() {
-    // print(paylasimtip);
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
-    if (resimler.length == 1)
-      return Padding(
-        padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-        child: OpenContainer(
-          transitionType: ContainerTransitionType.fade,
-          openColor: Colors.transparent,
-          closedColor: Colors.transparent,
-          openElevation: 0,
-          closedElevation: 0,
-          closedBuilder: (context, openWidget) {
-            return InkWell(
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              onTap: openWidget,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        resimler[0],
-                        fit: BoxFit.cover,
-                        filterQuality: FilterQuality.high,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-          openBuilder: (context, closeWidget) {
-            return Resiminceleme(
-              veri1: resimler,
-            );
-          },
-        ),
-      );
-    if (resimler.length == 2)
-      return Padding(
-        padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-        child: Row(
-          children: [
-            Flexible(
-              child: InkWell(
+  getPostMedia() {
+    // print(shareType);
+    if (shareType == "image/jpeg" ||
+        shareType == "image/png" ||
+        shareType == "image/jpg") {
+      if (images.length == 1)
+        return Padding(
+          padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+          child: OpenContainer(
+            transitionType: ContainerTransitionType.fade,
+            openColor: Colors.transparent,
+            closedColor: Colors.transparent,
+            openElevation: 0,
+            closedElevation: 0,
+            closedBuilder: (context, openWidget) {
+              return InkWell(
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
-                onTap: () {
-                  print("2 resim");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Resiminceleme(
-                        veri1: resimler,
-                      ),
-                    ),
-                  );
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    resimler[0],
-                    fit: BoxFit.cover,
-                    filterQuality: FilterQuality.high,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: screenWidth / 35),
-            Flexible(
-              child: InkWell(
-                highlightColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                onTap: () {
-                  print("2 resim");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Resiminceleme(
-                        veri1: resimler,
-                      ),
-                    ),
-                  );
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    resimler[1],
-                    fit: BoxFit.cover,
-                    filterQuality: FilterQuality.high,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    if (resimler.length > 2)
-      return Padding(
-        padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-        child: Row(
-          children: [
-            Flexible(
-              child: InkWell(
-                highlightColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                onTap: () {
-                  print("3 ve üstü resim");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Resiminceleme(
-                        veri1: resimler,
-                      ),
-                    ),
-                  );
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    resimler[0],
-                    fit: BoxFit.cover,
-                    filterQuality: FilterQuality.high,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: screenWidth / 35),
-            Flexible(
-              child: InkWell(
-                highlightColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                onTap: () {
-                  print("3 ve üstü resim");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Resiminceleme(
-                        veri1: resimler,
-                      ),
-                    ),
-                  );
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      ColorFiltered(
-                        colorFilter: ColorFilter.srgbToLinearGamma(),
+                onTap: openWidget,
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          resimler[1],
+                          images[0],
                           fit: BoxFit.cover,
                           filterQuality: FilterQuality.high,
                         ),
                       ),
-                      Text(
-                        "+ ${resimler.length - 1}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+              );
+            },
+            openBuilder: (context, closeWidget) {
+              return Resiminceleme(
+                veri1: images,
+              );
+            },
+          ),
+        );
+      if (images.length == 2)
+        return Padding(
+          padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+          child: Row(
+            children: [
+              Flexible(
+                child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    print("2 resim");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Resiminceleme(
+                          veri1: images,
                         ),
                       ),
-                    ],
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      images[0],
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(width: screenWidth / 35),
+              Flexible(
+                child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    print("2 resim");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Resiminceleme(
+                          veri1: images,
+                        ),
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      images[1],
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      if (images.length > 2)
+        return Padding(
+          padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+          child: Row(
+            children: [
+              Flexible(
+                child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    print("3 ve üstü resim");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Resiminceleme(
+                          veri1: images,
+                        ),
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      images[0],
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: screenWidth / 35),
+              Flexible(
+                child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    print("3 ve üstü resim");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Resiminceleme(
+                          veri1: images,
+                        ),
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        ColorFiltered(
+                          colorFilter: ColorFilter.srgbToLinearGamma(),
+                          child: Image.network(
+                            images[1],
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.high,
+                          ),
+                        ),
+                        Text(
+                          "+ ${images.length - 1}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+    } else if (shareType == "application/octet-stream" ||
+        shareType == "video/x-matroska" ||
+        shareType == "video/mp4") {
+      return Padding(
+        padding: EdgeInsets.all(10),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: VideoWidgetDetail(
+            play: true,
+            url: images[0],
+          ),
         ),
       );
+    }
   }
 
-  galerivideo() {
-    print(paylasimtip);
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
-    // return Padding(
-    //   padding: EdgeInsets.all(10),
-    //   child: Row(
-    //     children: [
-    //       Flexible(
-    //         child: ClipRRect(
-    //           borderRadius: BorderRadius.circular(10),
-    //           child: BetterPlayer.network(
-    //             resimler[0],
-    //             betterPlayerConfiguration: BetterPlayerConfiguration(
-    //               aspectRatio: 19 / 9,
-    //               fit: BoxFit.cover,
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
-  }
+  // galerivideo() {
+  //   print(shareType);
+  //   return Padding(
+  //     padding: EdgeInsets.all(10),
+  //     child: ClipRRect(
+  //       borderRadius: BorderRadius.circular(10),
+  //       child: VideoWidgetDetails(
+  //         play: true,
+  //         url: images[0],
+  //       ),
+  //     ),
+  //   );
+
+  //   // return Padding(
+  //   //   padding: EdgeInsets.all(10),
+  //   //   child: Row(
+  //   //     children: [
+  //   //       Flexible(
+  //   //         child: ClipRRect(
+  //   //           borderRadius: BorderRadius.circular(10),
+  //   //           child: BetterPlayer.network(
+  //   //             images[0],
+  //   //             betterPlayerConfiguration: BetterPlayerConfiguration(
+  //   //               aspectRatio: 19 / 9,
+  //   //               fit: BoxFit.cover,
+  //   //             ),
+  //   //           ),
+  //   //         ),
+  //   //       ),
+  //   //     ],
+  //   //   ),
+  //   // );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
-
     Future<void> _refresh() async {
       postID = widget.veri10;
-      yorumlar.clear();
-      yorumcek();
+      comments.clear();
+      getComments();
     }
 
     return Scaffold(
@@ -476,9 +496,23 @@ class _AnaDetailState extends State<AnaDetail> {
                                                         onTap: () {
                                                           postID =
                                                               widget.veri10;
-                                                          // postsil();
+
                                                           Navigator.pop(
                                                               context);
+
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  ThemeConsumer(
+                                                                child: Post(
+                                                                  veri1: "",
+                                                                  veri2: widget
+                                                                      .veri3,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
                                                         },
                                                         child: ListTile(
                                                           leading: Icon(
@@ -502,6 +536,18 @@ class _AnaDetailState extends State<AnaDetail> {
                                                               context);
                                                           Navigator.pop(
                                                               context);
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg:
+                                                                removePostNotification,
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .CENTER,
+                                                            timeInSecForIosWeb:
+                                                                1,
+                                                          );
                                                         },
                                                         child: ListTile(
                                                           leading: Icon(Icons
@@ -726,16 +772,18 @@ class _AnaDetailState extends State<AnaDetail> {
                             ),
                             SizedBox(height: screenHeight / 35),
 
-                            if (paylasimtip == "video/x-matroska" ||
-                                paylasimtip == "video/mp4")
-                              Text("-- Video --"),
-                            // galerivideo(),
+                            // if (shareType == "video/x-matroska" ||
+                            //     shareType == "video/mp4")
+                            //   // Text("-- Video --"),
+                            //   galerivideo(),
 
-                            if (paylasimtip == "image/jpeg" ||
-                                paylasimtip == "image/png" ||
-                                paylasimtip == "image/jpg" ||
-                                paylasimtip == "application/octet-stream")
-                              galeriresim(),
+                            if (shareType == "image/jpeg" ||
+                                shareType == "image/png" ||
+                                shareType == "image/jpg" ||
+                                shareType == "application/octet-stream" ||
+                                shareType == "video/x-matroska" ||
+                                shareType == "video/mp4")
+                              getPostMedia(),
                             // buraya resim yüklenirken animasyon koy.
 
                             SimpleUrlPreview(
@@ -925,7 +973,7 @@ class _AnaDetailState extends State<AnaDetail> {
                             // Yorumlar
                             Divider(),
 
-                            for (int i = 0; i < yorumlar.length; i++)
+                            for (int i = 0; i < comments.length; i++)
                               Column(
                                 children: [
                                   ListTile(
@@ -938,7 +986,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                           MaterialPageRoute(
                                             builder: (context) => ThemeConsumer(
                                               child: Profile(
-                                                veri1: yorumlar[i]["yorumcuid"],
+                                                veri1: comments[i]["yorumcuid"],
                                               ),
                                             ),
                                           ),
@@ -948,7 +996,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                         radius: screenWidth / 12,
                                         backgroundImage:
                                             CachedNetworkImageProvider(
-                                          yorumlar[i]["yorumcuminnakavatar"],
+                                          comments[i]["yorumcuminnakavatar"],
                                         ),
                                         backgroundColor: Colors.grey[700],
                                       ),
@@ -963,7 +1011,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                 builder: (context) =>
                                                     ThemeConsumer(
                                                   child: Profile(
-                                                    veri1: yorumlar[i]
+                                                    veri1: comments[i]
                                                         ["yorumcuid"],
                                                   ),
                                                 ),
@@ -971,11 +1019,11 @@ class _AnaDetailState extends State<AnaDetail> {
                                             );
                                           },
                                           child: Text(
-                                            yorumlar[i]["yorumcuadsoyad"],
+                                            comments[i]["yorumcuadsoyad"],
                                           ),
                                         ),
                                         Text(
-                                          "  -  " + yorumlar[i]["yorumcuzaman"],
+                                          "  -  " + comments[i]["yorumcuzaman"],
                                           style: TextStyle(fontSize: 12),
                                         ),
                                         Spacer(),
@@ -1034,7 +1082,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                               ),
                                                             ),
                                                             Visibility(
-                                                              visible: yorumlar[
+                                                              visible: comments[
                                                                               i]
                                                                           [
                                                                           "yorumcuid"] ==
@@ -1044,9 +1092,14 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                   : false,
                                                               child: InkWell(
                                                                 onTap: () {
-                                                                  postID = widget
-                                                                      .veri10;
-                                                                  // postsil();
+                                                                  setState(() {
+                                                                    yorumID =
+                                                                        comments[i]
+                                                                            [
+                                                                            "yorumID"];
+                                                                  });
+
+                                                                  postyorumsil();
                                                                   Navigator.pop(
                                                                       context);
                                                                 },
@@ -1062,7 +1115,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                             InkWell(
                                                               onTap: () {
                                                                 Share.share(
-                                                                    yorumlar[i][
+                                                                    comments[i][
                                                                         "oyunculink"]);
                                                                 Navigator.pop(
                                                                     context);
@@ -1079,7 +1132,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                 Clipboard
                                                                     .setData(
                                                                   ClipboardData(
-                                                                    text: yorumlar[
+                                                                    text: comments[
                                                                             i][
                                                                         "oyunculink"],
                                                                   ),
@@ -1108,7 +1161,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                               ),
                                                             ),
                                                             Visibility(
-                                                              visible: yorumlar[
+                                                              visible: comments[
                                                                               i]
                                                                           [
                                                                           "yorumcuid"] ==
@@ -1119,7 +1172,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                               child: Divider(),
                                                             ),
                                                             Visibility(
-                                                              visible: yorumlar[
+                                                              visible: comments[
                                                                               i]
                                                                           [
                                                                           "yorumcuid"] ==
@@ -1192,7 +1245,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                                               ),
                                                             ),
                                                             Visibility(
-                                                              visible: yorumlar[
+                                                              visible: comments[
                                                                               i]
                                                                           [
                                                                           "yorumcuid"] ==
@@ -1243,7 +1296,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                         "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
                                         multiLine: true,
                                       ),
-                                      text: yorumlar[i]["yorumcuicerik"],
+                                      text: comments[i]["yorumcuicerik"],
                                       basicStyle: TextStyle(
                                         fontSize: 14,
                                       ),
@@ -1265,18 +1318,18 @@ class _AnaDetailState extends State<AnaDetail> {
                                           onTap: (bool isLike) {
                                             return onCommentLikeButtonTapped(
                                               isLike,
-                                              yorumlar[i],
+                                              comments[i],
                                             );
                                           },
                                           countPostion: CountPostion.right,
                                           isLiked:
-                                              yorumlar[i]["benbegendim"] != 0
+                                              comments[i]["benbegendim"] != 0
                                                   ? true
                                                   : false,
-                                          likeCount: yorumlar[i]
+                                          likeCount: comments[i]
                                                       ["yorumbegenisayi"] !=
                                                   "0"
-                                              ? int.parse(yorumlar[i]
+                                              ? int.parse(comments[i]
                                                   ["yorumbegenisayi"])
                                               : null,
                                           likeBuilder: (bool isLiked) {
@@ -1298,7 +1351,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                         IconButton(
                                           onPressed: () {
                                             yorum.text =
-                                                "${yorumlar[i]["yorumcuetiketad"]} ";
+                                                "${comments[i]["yorumcuetiketad"]} ";
                                             focusNodeAnaDetail.requestFocus();
                                           },
                                           icon: Icon(
@@ -1330,7 +1383,7 @@ class _AnaDetailState extends State<AnaDetail> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                yorumlar.isNotEmpty
+                                comments.isNotEmpty
                                     ? Icon(
                                         Icons.radio_button_checked,
                                         color: Colors.grey,
@@ -1390,7 +1443,12 @@ class _AnaDetailState extends State<AnaDetail> {
                     bottom: 0,
                     width: screenWidth,
                     child: Container(
-                      color: Colors.grey[850],
+                      color: ThemeProvider.controllerOf(context)
+                                  .currentThemeId
+                                  .toString() !=
+                              "default_dark_theme"
+                          ? Colors.grey
+                          : Colors.grey[850],
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(5, 2, 5, 5),
                         child: DetectableTextField(
@@ -1418,7 +1476,7 @@ class _AnaDetailState extends State<AnaDetail> {
                               padding: EdgeInsets.only(right: 5),
                               child: CircleAvatar(
                                 backgroundImage: CachedNetworkImageProvider(
-                                  girisdata["presimufak"],
+                                  girisdata["presimminnak"],
                                 ),
                                 backgroundColor: Colors.transparent,
                               ),
@@ -1434,26 +1492,18 @@ class _AnaDetailState extends State<AnaDetail> {
                                 if (yorum.text.isNotEmpty) {
                                   postyorum();
                                   yorum.clear();
-                                  yorumlar.clear();
+                                  comments.clear();
                                   Future.delayed(Duration(milliseconds: 100),
                                       () {
-                                    yorumcek();
+                                    getComments();
                                   });
 
                                   widget.veri6 =
                                       (int.parse(widget.veri6) + 1).toString();
                                   setState(() {});
-                                  print("Yorum yapıldı !");
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("Yorum yapıldı ! " +
-                                          "${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
-                                      shape: const StadiumBorder(),
-                                    ),
-                                  );
                                 } else {
-                                  yorumlar.clear();
-                                  yorumcek();
+                                  comments.clear();
+                                  getComments();
                                   setState(() {});
                                   print("Yorum boş olamaz !");
                                   ScaffoldMessenger.of(context).showSnackBar(

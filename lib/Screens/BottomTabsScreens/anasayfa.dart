@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, prefer_interpolation_to_compose_strings
+// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, prefer_interpolation_to_compose_strings, unnecessary_null_comparison
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:skeletons/skeletons.dart';
@@ -90,38 +90,176 @@ class AnaSayfaState extends State<AnaSayfa> {
   // videolu fotografların çekildigi yer.
 
   gonderifotocek() {
-    screenWidth = MediaQuery.of(context).size.width;
+    // print(gonderifotolar[0]["paylasimkategori"]);
 
     // anasayfa video kısmı.
 
     if (gonderifotolar.length == 1 &&
         gonderifotolar[0]["paylasimkategori"] == "video/mp4") {
-      return const Text("-- Video --");
+      // return const Text("-- Video --");
 
-      // return Padding(
-      //   padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-      //   child: Row(
-      //     children: [
-      //       Flexible(
-      //         child: ClipRRect(
-      //           borderRadius: BorderRadius.circular(10),
-      //           child: BetterPlayer.network(
-      //             gonderifotolar[0]["fotoufakurl"],
-      //             betterPlayerConfiguration: BetterPlayerConfiguration(
-      //               aspectRatio: 19 / 9,
-      //               fit: BoxFit.cover,
-      //             ),
-      //           ),
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: VideoWidget(
+          play: false,
+          url: gonderifotolar[0]["fotoufakurl"],
+        ),
+      );
+
+      // return Row(
+      //   children: [
+      //     Flexible(
+      //       child: ClipRRect(
+      //         borderRadius: BorderRadius.circular(10),
+      //         child: FutureBuilder(
+      //           future: _initializeVideoPlayer,
+      //           builder: (context, snapshot) {
+      //             if (snapshot.connectionState == ConnectionState.done) {
+      //               return Stack(
+      //                 children: [
+      //                   InkWell(
+      //                     onTap: () {
+      //                       _videoPlayerController.value.isPlaying
+      //                           ? _videoPlayerController.pause()
+      //                           : _videoPlayerController.play();
+      //                       setState(() {});
+      //                     },
+      //                     child: AspectRatio(
+      //                       aspectRatio: 16 / 9,
+      //                       child: VideoPlayer(
+      //                         _videoPlayerController,
+      //                       ),
+      //                     ),
+      //                   ),
+      //                   Positioned(
+      //                     top: 5,
+      //                     right: 5,
+      //                     child: Container(
+      //                       decoration: BoxDecoration(
+      //                         color: Colors.black.withOpacity(0.5),
+      //                         borderRadius: BorderRadius.circular(5),
+      //                       ),
+      //                       padding: const EdgeInsets.all(3),
+      //                       child: Lottie.asset(
+      //                         "assets/animations/sound.json",
+      //                         // controller: _animationController,
+      //                         animate: _videoPlayerController.value.isPlaying
+      //                             ? true
+      //                             : false,
+      //                         repeat: true,
+      //                       ),
+      //                     ),
+      //                   ),
+      //                   Positioned(
+      //                     bottom: 5,
+      //                     left: 5,
+      //                     right: 5,
+      //                     child: Column(
+      //                       children: [
+      //                         Row(
+      //                           mainAxisAlignment:
+      //                               MainAxisAlignment.spaceBetween,
+      //                           children: [
+      //                             Container(
+      //                               decoration: BoxDecoration(
+      //                                 color: Colors.black.withOpacity(0.5),
+      //                                 borderRadius: BorderRadius.circular(5),
+      //                               ),
+      //                               padding: const EdgeInsets.all(3),
+      //                               child: Text(
+      //                                 getVideoPosition(),
+      //                               ),
+      //                             ),
+      //                             InkWell(
+      //                               onTap: () {
+      //                                 setState(() {
+      //                                   isMusicOn = !isMusicOn;
+      //                                   isMusicOn == false
+      //                                       ? _videoPlayerController
+      //                                           .setVolume(0)
+      //                                       : _videoPlayerController
+      //                                           .setVolume(1);
+      //                                 });
+      //                               },
+      //                               child: Container(
+      //                                 decoration: BoxDecoration(
+      //                                   color: Colors.black.withOpacity(0.5),
+      //                                   borderRadius: BorderRadius.circular(30),
+      //                                 ),
+      //                                 padding: const EdgeInsets.all(3),
+      //                                 child: Icon(
+      //                                   isMusicOn
+      //                                       ? Icons.volume_up
+      //                                       : Icons.volume_off,
+      //                                 ),
+      //                               ),
+      //                             ),
+      //                           ],
+      //                         ),
+      //                         const SizedBox(height: 5),
+      //                         VideoProgressIndicator(
+      //                           _videoPlayerController,
+      //                           allowScrubbing: true,
+      //                           colors: const VideoProgressColors(
+      //                             playedColor: Colors.white,
+      //                             bufferedColor: Colors.grey,
+      //                           ),
+      //                         ),
+      //                         const SizedBox(height: 5),
+      //                       ],
+      //                     ),
+      //                   ),
+      //                 ],
+      //               );
+      //             } else {
+      //               return const Center(
+      //                 child: CircularProgressIndicator(),
+      //               );
+      //             }
+      //           },
       //         ),
       //       ),
-      //     ],
-      //   ),
+      //     ),
+      //   ],
       // );
     }
 
     if (gonderifotolar.length == 1 &&
         gonderifotolar[0]["paylasimkategori"] == "video/x-matroska") {
-      return const Text("-- Video --");
+      // return const Text("-- Video --");
+
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: VideoWidget(
+          play: false,
+          url: gonderifotolar[0]["fotoufakurl"],
+        ),
+      );
+
+      // return Row(
+      //   children: [
+      //     Flexible(
+      //       child: ClipRRect(
+      //         borderRadius: BorderRadius.circular(10),
+      //         child: FutureBuilder(
+      //           future: _initializeVideoPlayer,
+      //           builder: (context, snapshot) {
+      //             if (snapshot.connectionState == ConnectionState.done) {
+      //               return AspectRatio(
+      //                 aspectRatio: 16 / 9,
+      //                 child: VideoPlayer(_videoPlayerController),
+      //               );
+      //             } else {
+      //               return const Center(
+      //                 child: CircularProgressIndicator(),
+      //               );
+      //             }
+      //           },
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // );
 
       // return Padding(
       //   padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -555,9 +693,6 @@ class AnaSayfaState extends State<AnaSayfa> {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-
     Future<bool> onLikeButtonTapped(bool isLike, int index) async {
       setState(() {
         dataanasayfa[index]["benbegendim"] =
@@ -622,9 +757,39 @@ class AnaSayfaState extends State<AnaSayfa> {
                     onLikeButtonTapped,
                   );
                 } else if (index == 3) {
-                  return _xphorizontalListView();
+                  return Column(
+                    children: [
+                      _xphorizontalListView(),
+                      const Divider(),
+                      _MainListView(
+                        context,
+                        index,
+                        screenWidth,
+                        postsil,
+                        _refresh,
+                        postbildir,
+                        screenHeight,
+                        onLikeButtonTapped,
+                      ),
+                    ],
+                  );
                 } else if (index == 10) {
-                  return _pophorizontalListView();
+                  return Column(
+                    children: [
+                      _pophorizontalListView(),
+                      const Divider(),
+                      _MainListView(
+                        context,
+                        index,
+                        screenWidth,
+                        postsil,
+                        _refresh,
+                        postbildir,
+                        screenHeight,
+                        onLikeButtonTapped,
+                      ),
+                    ],
+                  );
                 } else {
                   return _MainListView(
                     context,
@@ -759,10 +924,9 @@ class AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
+        ).whenComplete(
+          () => isMusicOn = false,
         );
-        // .whenComplete(
-        //   () => _refresh(),
-        // );
 
         setState(() {
           detayid = dataanasayfa[index]["postID"];
@@ -773,12 +937,26 @@ class AnaSayfaState extends State<AnaSayfa> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: screenWidth / 12,
-            backgroundImage: CachedNetworkImageProvider(
-              dataanasayfa[index]["sahipavatarminnak"],
+          InkWell(
+            borderRadius: BorderRadius.circular(30),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ThemeConsumer(
+                    child: Profile(
+                      veri1: dataanasayfa[index]["sahipID"],
+                    ),
+                  ),
+                ),
+              );
+            },
+            child: CircleAvatar(
+              radius: screenWidth / 12,
+              backgroundImage: CachedNetworkImageProvider(
+                dataanasayfa[index]["sahipavatarminnak"],
+              ),
             ),
-            backgroundColor: Colors.transparent,
           ),
           SizedBox(width: screenWidth / 35),
           Expanded(
@@ -788,10 +966,24 @@ class AnaSayfaState extends State<AnaSayfa> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      dataanasayfa[index]["sahipad"],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ThemeConsumer(
+                              child: Profile(
+                                veri1: dataanasayfa[index]["sahipID"],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        dataanasayfa[index]["sahipad"],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Text(
@@ -851,8 +1043,22 @@ class AnaSayfaState extends State<AnaSayfa> {
                                           onTap: () {
                                             postID =
                                                 dataanasayfa[index]["postID"];
-                                            // postsil();
+
                                             Navigator.pop(context);
+
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ThemeConsumer(
+                                                  child: Post(
+                                                    veri1: "",
+                                                    veri2: dataanasayfa[index]
+                                                        ["sosyalicerik"],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
                                           },
                                           child: ListTile(
                                             leading:
@@ -879,6 +1085,12 @@ class AnaSayfaState extends State<AnaSayfa> {
                                                 ), () {
                                               _refresh();
                                             });
+                                            Fluttertoast.showToast(
+                                              msg: removePostNotification,
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
+                                            );
                                           },
                                           child: ListTile(
                                             leading: const Icon(
@@ -1043,6 +1255,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                     multiLine: true,
                   ),
                   text: dataanasayfa[index]["sosyalicerik"],
+                  trimCollapsedText: " devamını oku",
+                  trimExpandedText: " daha az göster",
+                  lessStyle: const TextStyle(color: Colors.grey),
+                  moreStyle: const TextStyle(color: Colors.grey),
                   basicStyle: const TextStyle(
                     fontSize: 16,
                   ),
@@ -1139,6 +1355,8 @@ class AnaSayfaState extends State<AnaSayfa> {
                                 ),
                               ),
                             ),
+                          ).whenComplete(
+                            () => isMusicOn = false,
                           );
 
                           setState(() {
@@ -1230,183 +1448,191 @@ class AnaSayfaState extends State<AnaSayfa> {
   }
 
   Widget _xphorizontalListView() {
-    return SizedBox(
-      height: 220,
-      child: ListView.separated(
-        controller: xpHorizontalScrollController,
-        shrinkWrap: true,
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(15),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ThemeConsumer(
-                    child: Profile(
-                      veri1: xpsiralama[index]["oyuncuID"],
-                    ),
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
-                  image: CachedNetworkImageProvider(
-                    xpsiralama[index]["oyuncuavatar"],
-                  ),
-                ),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
+    return xpsiralama != null
+        ? SizedBox(
+            height: 220,
+            child: ListView.separated(
+              controller: xpHorizontalScrollController,
+              shrinkWrap: true,
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return InkWell(
                   borderRadius: BorderRadius.circular(15),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black.withOpacity(0.7),
-                      Colors.transparent,
-                    ],
-                    stops: const [0.0, 0.4],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(7, 0, 7, 7),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          xpsiralama[index]["oyuncuadsoyad"],
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ThemeConsumer(
+                          child: Profile(
+                            veri1: xpsiralama[index]["oyuncuID"],
                           ),
                         ),
-                        Text(
-                          xpsiralama[index]["oyuncuseviyexp"] + " XP",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
+                        image: CachedNetworkImageProvider(
+                          xpsiralama[index]["oyuncuavatar"],
+                        ),
+                      ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(0.7),
+                            Colors.transparent,
+                          ],
+                          stops: const [0.0, 0.4],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(7, 0, 7, 7),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                xpsiralama[index]["oyuncuadsoyad"],
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                xpsiralama[index]["oyuncuseviyexp"] + " XP",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(width: 20),
             ),
+          )
+        : const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-        separatorBuilder: (context, index) => const SizedBox(width: 20),
-      ),
-    );
   }
 
   Widget _pophorizontalListView() {
-    return SizedBox(
-      height: 220,
-      child: ListView.separated(
-        controller: popHorizontalScrollController,
-        shrinkWrap: true,
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(15),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ThemeConsumer(
-                    child: Profile(
-                      veri1: popsiralama[index]["oyuncuID"],
-                    ),
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
-                  image: CachedNetworkImageProvider(
-                    popsiralama[index]["oyuncuavatar"],
-                  ),
-                ),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
+    return popsiralama != null
+        ? SizedBox(
+            height: 220,
+            child: ListView.separated(
+              controller: popHorizontalScrollController,
+              shrinkWrap: true,
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return InkWell(
                   borderRadius: BorderRadius.circular(15),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black.withOpacity(0.7),
-                      Colors.transparent,
-                    ],
-                    stops: const [0.0, 0.4],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(7, 0, 7, 7),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          popsiralama[index]["oyuncuadsoyad"],
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ThemeConsumer(
+                          child: Profile(
+                            veri1: popsiralama[index]["oyuncuID"],
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.remove_red_eye_outlined,
-                              size: 15,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              popsiralama[index]["oyuncupop"],
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
+                        image: CachedNetworkImageProvider(
+                          popsiralama[index]["oyuncuavatar"],
                         ),
-                      ],
+                      ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(0.7),
+                            Colors.transparent,
+                          ],
+                          stops: const [0.0, 0.4],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(7, 0, 7, 7),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                popsiralama[index]["oyuncuadsoyad"],
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.remove_red_eye_outlined,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    popsiralama[index]["oyuncupop"],
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(width: 20),
             ),
+          )
+        : const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-        separatorBuilder: (context, index) => const SizedBox(width: 20),
-      ),
-    );
   }
 }

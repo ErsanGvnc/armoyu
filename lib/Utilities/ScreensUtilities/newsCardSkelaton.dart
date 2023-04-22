@@ -9,8 +9,6 @@ class NewsCardSkelton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
     return Row(
       children: [
         Skeleton(height: screenHeight / 6, width: screenWidth / 3.3),

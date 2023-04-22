@@ -22,6 +22,13 @@ class _ResimincelemeState extends State<Resiminceleme> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(
+            color:
+                ThemeProvider.controllerOf(context).currentThemeId.toString() !=
+                        "default_dark_theme"
+                    ? Colors.black
+                    : Colors.white,
+          ),
         ),
         body: InkWell(
           child: DismissiblePage(

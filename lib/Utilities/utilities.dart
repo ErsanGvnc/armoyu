@@ -15,54 +15,170 @@ import 'package:http/http.dart' as http;
 //   );
 // }
 
-postlike() {
-  http.post(
+postlike() async {
+  var gelen = await http.post(
     Uri.parse(postbegenlink),
     body: {
       "postID": postID,
+      "kategori": "post",
     },
   );
+  try {
+    response = jsonDecode(gelen.body);
+    print(response["durum"]);
+
+    if (response["durum"] != 1) {
+      print(response["aciklama"]);
+    }
+  } catch (e) {
+    print(e);
+  }
 }
 
-postyorum() {
-  http.post(
-    Uri.parse(
-      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/yorum/0/0/",
-    ),
+postyorum() async {
+  var gelen = await http.post(
+    Uri.parse(postyorumlink),
     body: {
       "yorumicerik": yorum.text,
       "postID": postID,
+      "kimeyanit": "0",
+      "kategori": "sosyal",
     },
   );
+
+  try {
+    response = jsonDecode(gelen.body);
+    print(response["durum"]);
+
+    if (response["durum"] != 1) {
+      print(response["aciklama"]);
+    }
+  } catch (e) {
+    print(e);
+  }
 }
 
-postbildir() {
-  http.post(
+postyorumsil() async {
+  var gelen = await http.post(
+    Uri.parse(postyorumsillink),
+    body: {
+      "yorumID": yorumID,
+    },
+  );
+
+  try {
+    response = jsonDecode(gelen.body);
+    print(response["durum"]);
+
+    if (response["durum"] != 1) {
+      print(response["aciklama"]);
+    }
+  } catch (e) {
+    print(e);
+  }
+}
+
+postbildir() async {
+  var gelen = await http.post(
     Uri.parse(postbildirlink),
     body: {
       "postID": postID,
+      "bildirikategori": "postbildiri",
     },
   );
+
+  try {
+    response = jsonDecode(gelen.body);
+    print(response["durum"]);
+
+    if (response["durum"] != 1) {
+      print(response["aciklama"]);
+    }
+  } catch (e) {
+    print(e);
+  }
 }
 
-postsil() {
-  http.post(
+postsil() async {
+  var gelen = await http.post(
     Uri.parse(postsillink),
     body: {
       "postID": postID,
     },
   );
+
+  try {
+    response = jsonDecode(gelen.body);
+    print(response["durum"]);
+
+    if (response["durum"] != 1) {
+      print(response["aciklama"]);
+    }
+  } catch (e) {
+    print(e);
+  }
 }
 
-postyorumlike(dynamic yorum) {
-  http.post(
+postDuzenle(content) async {
+  var gelen = await http.post(
+    Uri.parse(postduzenle),
+    body: {
+      "postID": postID,
+      "sosyalicerik": content,
+    },
+  );
+
+  try {
+    response = jsonDecode(gelen.body);
+    print(response["durum"]);
+
+    if (response["durum"] != 1) {
+      print(response["aciklama"]);
+    }
+  } catch (e) {
+    print(e);
+  }
+}
+
+postyorumlike(dynamic yorum) async {
+  var gelen = await http.post(
     Uri.parse(yorumlike),
     body: {
-      "postID": yorum["postid"],
-      "yorumID": yorum["yorumid"],
+      "postID": yorum["yorumID"],
       "kategori": "postyorum",
     },
   );
+
+  try {
+    response = jsonDecode(gelen.body);
+    print(response["durum"]);
+
+    if (response["durum"] != 1) {
+      print(response["aciklama"]);
+    }
+  } catch (e) {
+    print(e);
+  }
+}
+
+editProfie(content) async {
+  var gelen = await http.post(
+    Uri.parse(editProfileUrl),
+    body: {
+      "hakkimda": content,
+    },
+  );
+
+  try {
+    response = jsonDecode(gelen.body);
+    print(response["durum"]);
+
+    if (response["durum"] != 1) {
+      print(response["aciklama"]);
+    }
+  } catch (e) {
+    print(e);
+  }
 }
 
 postbyrcek() {
@@ -107,15 +223,4 @@ toplanticek() async {
   }
   print("toplantilar");
   print(toplantilar);
-}
-
-toplantigonder() {
-  http.post(
-    Uri.parse(
-      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/toplantilar/$toplantiid/0/",
-    ),
-    body: {
-      "icerik": toplanti.text,
-    },
-  );
 }

@@ -19,8 +19,6 @@ class _CekilisState extends State<Cekilis> {
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-
     return ThemeConsumer(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -46,7 +44,7 @@ class _CekilisState extends State<Cekilis> {
                   CircleAvatar(
                     radius: screenWidth / 12,
                     backgroundImage: NetworkImage(
-                      girisdata["presimufak"],
+                      girisdata["presimminnak"],
                     ),
                     backgroundColor: Colors.transparent,
                   ),

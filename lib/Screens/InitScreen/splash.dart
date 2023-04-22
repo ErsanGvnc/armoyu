@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unrelated_type_equality_checks, avoid_print
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
@@ -9,11 +9,35 @@ class Splash extends StatefulWidget {
   SplashState createState() => SplashState();
 }
 
-class SplashState extends State<Splash> {
+class SplashState extends State<Splash> with TickerProviderStateMixin {
+  late final AnimationController _controller;
+
   @override
   void initState() {
     super.initState();
-    navigate();
+    _controller = AnimationController(vsync: this);
+    connectionStatus();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  connectionStatus() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult != ConnectivityResult.none) {
+      await navigate();
+      setState(() {});
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const NoInternet(),
+        ),
+      );
+    }
   }
 
   navigate() async {
@@ -45,7 +69,11 @@ class SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return const ThemeConsumer(
-      child: Scaffold(),
+      child: Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }

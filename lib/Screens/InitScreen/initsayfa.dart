@@ -11,8 +11,6 @@ class InitPage extends StatefulWidget {
 
 class _InitPageState extends State<InitPage> {
   gonderifotocek() {
-    screenWidth = MediaQuery.of(context).size.width;
-
     // anasayfa video kısmı.
 
     if (gonderifotolar.length == 1 &&
@@ -375,8 +373,6 @@ class _InitPageState extends State<InitPage> {
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-
     // main 308 & splash 41; InitPage ile deiş.
 
     return Container(
@@ -473,8 +469,6 @@ class _InitPageState extends State<InitPage> {
   }
 
   Widget _InitPagePost() {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -564,7 +558,7 @@ class _InitPageState extends State<InitPage> {
                                           ),
                                         );
                                       },
-                                      child:  ListTile(
+                                      child: ListTile(
                                         leading: const Icon(Icons.content_copy),
                                         title: Text(shareUserProfileLink),
                                       ),

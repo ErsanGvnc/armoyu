@@ -141,14 +141,15 @@ class MyHomePageState extends State<MyHomePage> {
 
   void oturumKontrol() {
     timer = Timer.periodic(
-      const Duration(seconds: 5),
+      const Duration(seconds: 10),
       (timer) async {
         try {
           await http.get(
             Uri.parse(oturumkontrolurl),
           );
         } catch (e) {
-          print(e);
+          // print("oturumKontrol");
+          // print(e);
         }
       },
     );
@@ -253,83 +254,12 @@ class MyHomePageState extends State<MyHomePage> {
     );
     try {
       gruplarim = jsonDecode(gelengrup.body);
+      // print(gruplarim);
     } catch (e) {
       print('Unknown exception: $e');
     }
 
     setState(() {});
-  }
-
-  showAlertDialog(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 0.8),
-      title: const Text(
-        "ARMOYU",
-        style: TextStyle(color: Colors.black),
-      ),
-      content: const Text(
-        "Çıkış Yapmak İstediğinize Emin misiniz?",
-        style: TextStyle(color: Colors.black),
-      ),
-      actions: [
-        InkWell(
-          onTap: () async {
-            Navigator.of(context).pop();
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Login(),
-              ),
-            );
-            var sharedPreferences = await SharedPreferences.getInstance();
-            setState(() {
-              sharedPreferences.setString("ad", "");
-              sharedPreferences.setString("sifre", "");
-              gruplarim.clear();
-              gkontrolAd = "";
-              gkontrolSifre = "";
-            });
-            timer!.cancel();
-          },
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.black,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(13),
-              child: Text(
-                "Evet",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.black,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(13),
-              child: Text(
-                "Hayır",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 
   @override
@@ -362,7 +292,6 @@ class MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                           );
-                          print("Profile");
                         },
                         child: DrawerHeader(
                           decoration: BoxDecoration(
@@ -380,7 +309,7 @@ class MyHomePageState extends State<MyHomePage> {
                                 child: CircleAvatar(
                                   radius: screenWidth / 8,
                                   backgroundImage: CachedNetworkImageProvider(
-                                    girisdata["presimufak"],
+                                    girisdata["presimminnak"],
                                   ),
                                   backgroundColor: Colors.transparent,
                                 ),
@@ -399,6 +328,92 @@ class MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
+
+                      ExpansionTile(
+                        backgroundColor: ThemeProvider.controllerOf(context)
+                                    .currentThemeId
+                                    .toString() !=
+                                "default_dark_theme"
+                            ? Colors.grey
+                            : Colors.grey[900],
+                        collapsedBackgroundColor:
+                            ThemeProvider.controllerOf(context)
+                                        .currentThemeId
+                                        .toString() !=
+                                    "default_dark_theme"
+                                ? Colors.grey
+                                : Colors.grey[900],
+                        leading: const Icon(Icons.diversity_3),
+                        title: const Text("Gruplarım"),
+                        children: [
+                          for (int i = 0; i < gruplarim.length; i++)
+                            ListTile(
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: CachedNetworkImage(
+                                  imageUrl: gruplarim[i]["grupufaklogo"],
+                                  placeholder: (context, url) => Container(
+                                    color: Colors.grey[700],
+                                  ),
+                                  fit: BoxFit.cover,
+                                  width: 35,
+                                  height: 35,
+                                ),
+                              ),
+                              title: Text(gruplarim[i]["grupadi"]),
+                              onTap: () {
+                                setState(() {
+                                  grupid = gruplarim[i]["grupID"];
+                                  grupdetail =
+                                      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                  print(grupdetail);
+                                });
+                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Grup(
+                                      veri1: gruplarim[i]["grupadi"],
+                                      veri2: gruplarim[i]["grupID"],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                        ],
+                      ),
+
+                      // ExpansionPanelList(
+                      //   expansionCallback: (int index, bool isExpanded) {},
+                      //   children: [
+                      //     ExpansionPanel(
+                      //       headerBuilder:
+                      //           (BuildContext context, bool isExpanded) {
+                      //         return const ListTile(
+                      //           title: Text('Item 1'),
+                      //         );
+                      //       },
+                      //       body: const ListTile(
+                      //         title: Text('Item 1 child'),
+                      //         subtitle: Text('Details goes here'),
+                      //       ),
+                      //       isExpanded: true,
+                      //     ),
+                      //     ExpansionPanel(
+                      //       headerBuilder:
+                      //           (BuildContext context, bool isExpanded) {
+                      //         return const ListTile(
+                      //           title: Text('Item 2'),
+                      //         );
+                      //       },
+                      //       body: const ListTile(
+                      //         title: Text('Item 2 child'),
+                      //         subtitle: Text('Details goes here'),
+                      //       ),
+                      //       isExpanded: false,
+                      //     ),
+                      //   ],
+                      // ),
 
                       ListTile(
                         leading: const Icon(Icons.article),
@@ -480,97 +495,106 @@ class MyHomePageState extends State<MyHomePage> {
                       // ),
 
                       // Hakkımızda
+                      const Divider(),
+                      ListTile(
+                        leading: const Icon(Icons.settings),
+                        title: const Text("Ayarlar"),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ThemeConsumer(
+                                child: Settings(),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
-                Visibility(
-                  visible: gruplarim.isNotEmpty ? true : false,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text("Gruplarım"),
-                            ],
-                          ),
-                          Stack(
-                            children: [
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const BouncingScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                controller: drawerScrollController,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        grupid = gruplarim[index]["grupID"];
-                                        grupdetail =
-                                            "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
-                                      });
-
-                                      Navigator.pop(context);
-
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Grup(
-                                            veri1: gruplarim[index]["grupadi"],
-                                            veri2: grupdetail,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          height: 50,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8),
-                                            child: Row(
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: gruplarim[index]
-                                                        ["grupufaklogo"],
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            Container(
-                                                      color: Colors.grey[700],
-                                                    ),
-                                                    fit: BoxFit.cover,
-                                                    width: 35,
-                                                    height: 35,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    width: screenWidth / 25),
-                                                Text(gruplarim[index]
-                                                    ["grupadi"]),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                                itemCount: gruplarim.length,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Visibility(
+                //   visible: gruplarim.isNotEmpty ? true : false,
+                //   child: Align(
+                //     alignment: Alignment.bottomCenter,
+                //     child: Padding(
+                //       padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                //       child: Column(
+                //         children: [
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: const [
+                //               Text("Gruplarım"),
+                //             ],
+                //           ),
+                //           Stack(
+                //             children: [
+                //               ListView.builder(
+                //                 shrinkWrap: true,
+                //                 physics: const BouncingScrollPhysics(),
+                //                 scrollDirection: Axis.vertical,
+                //                 controller: drawerScrollController,
+                //                 itemBuilder: (context, index) {
+                //                   return InkWell(
+                //                     onTap: () {
+                //                       Navigator.pop(context);
+                //                       Navigator.push(
+                //                         context,
+                //                         MaterialPageRoute(
+                //                           builder: (context) => Grup(
+                //                             veri1: gruplarim[index]["grupadi"],
+                //                             veri2: gruplarim[index]["grupID"],
+                //                           ),
+                //                         ),
+                //                       );
+                //                     },
+                //                     child: Row(
+                //                       children: [
+                //                         SizedBox(
+                //                           height: 50,
+                //                           child: Padding(
+                //                             padding: const EdgeInsets.symmetric(
+                //                                 horizontal: 8),
+                //                             child: Row(
+                //                               children: [
+                //                                 ClipRRect(
+                //                                   borderRadius:
+                //                                       BorderRadius.circular(5),
+                //                                   child: CachedNetworkImage(
+                //                                     imageUrl: gruplarim[index]
+                //                                         ["grupufaklogo"],
+                //                                     placeholder:
+                //                                         (context, url) =>
+                //                                             Container(
+                //                                       color: Colors.grey[700],
+                //                                     ),
+                //                                     fit: BoxFit.cover,
+                //                                     width: 35,
+                //                                     height: 35,
+                //                                   ),
+                //                                 ),
+                //                                 SizedBox(
+                //                                     width: screenWidth / 25),
+                //                                 Text(gruplarim[index]
+                //                                     ["grupadi"]),
+                //                               ],
+                //                             ),
+                //                           ),
+                //                         ),
+                //                       ],
+                //                     ),
+                //                   );
+                //                 },
+                //                 itemCount: gruplarim.length,
+                //               ),
+                //             ],
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const Align(
                   alignment: Alignment.bottomCenter,
                   child: Divider(thickness: 2),
@@ -581,45 +605,45 @@ class MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     child: Row(
                       children: [
-                        InkWell(
-                          onTap: () async {
-                            showAlertDialog(context);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.logout),
-                                SizedBox(width: screenWidth / 13),
-                                const Text('Çıkış Yap'),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ThemeConsumer(
-                                  child: Site(
-                                    verilink:
-                                        "https://aramizdakioyuncu.com/gizlilik-politikasi",
-                                    veribaslik: "Gizlilik Politikası",
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.info_outline),
-                        ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     showAlertDialog(context);
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Row(
+                        //       children: [
+                        //         const Icon(Icons.logout),
+                        //         SizedBox(width: screenWidth / 13),
+                        //         const Text('Çıkış Yap'),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // const Spacer(),
+                        // IconButton(
+                        //   onPressed: () {
+                        //     Navigator.pop(context);
+                        //     Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //         builder: (context) => ThemeConsumer(
+                        //           child: Site(
+                        //             verilink: gizliliklink,
+                        //             veribaslik: privacyPolicy,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     );
+                        //   },
+                        //   icon: const Icon(Icons.info_outline),
+                        // ),
                         IconButton(
                           onPressed:
                               ThemeProvider.controllerOf(context).nextTheme,
                           icon: const Icon(Icons.dark_mode_outlined),
                         ),
+                        const Spacer(),
                         IconButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -661,7 +685,94 @@ class MyHomePageState extends State<MyHomePage> {
               visible: currentIndex == 2 ? true : false,
               child: IconButton(
                 onPressed: () {
-                  // print(bildirimler);
+                  showModalBottomSheet<void>(
+                    backgroundColor: ThemeProvider.controllerOf(context)
+                                .currentThemeId
+                                .toString() !=
+                            "default_dark_theme"
+                        ? Colors.white
+                        : Colors.grey[850],
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(10),
+                      ),
+                    ),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SafeArea(
+                        child: Wrap(
+                          children: [
+                            Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[900],
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(30),
+                                      ),
+                                    ),
+                                    width: screenWidth / 4,
+                                    height: 5,
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      hasNotificationBeenSeen = false;
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.playlist_add_check,
+                                      color: ThemeProvider.controllerOf(context)
+                                                  .currentThemeId
+                                                  .toString() !=
+                                              "default_dark_theme"
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
+                                    title: Text(
+                                      markAllasRead,
+                                      style: TextStyle(
+                                        color:
+                                            ThemeProvider.controllerOf(context)
+                                                        .currentThemeId
+                                                        .toString() !=
+                                                    "default_dark_theme"
+                                                ? Colors.black
+                                                : Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+                icon: const Icon(Icons.checklist_outlined),
+              ),
+            ),
+            Visibility(
+              visible: currentIndex == 2 ? true : false,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ThemeConsumer(
+                        child: NotificationInSettings(),
+                      ),
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.settings),
               ),
@@ -759,6 +870,7 @@ class MyHomePageState extends State<MyHomePage> {
                   return ThemeConsumer(
                     child: Post(
                       veri1: "",
+                      veri2: "",
                     ),
                   );
                 },

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
@@ -12,8 +12,6 @@ import 'package:http/http.dart' as http;
 // class _RegisterState extends State<Register> {
 //   @override
 //   Widget build(BuildContext context) {
-//     screenWidth = MediaQuery.of(context).size.width;
-//     screenHeight = MediaQuery.of(context).size.height;
 //     register() async {
 //       http.post(
 //         Uri.parse(
@@ -403,13 +401,9 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
     register() async {
-      http.post(
-        Uri.parse(
-          "https://aramizdakioyuncu.com/botlar/$botId1/kayit-ol/0/0/0/0/",
-        ),
+      var gelen = await http.post(
+        Uri.parse(kayitolLink),
         body: {
           "ad": adi.text,
           "soyad": soyadi.text,
@@ -417,28 +411,51 @@ class _RegisterState extends State<Register> {
           "email": eposta.text,
           "parola": parola.text,
           "parolakontrol": parolatekrar.text,
+          "dogumtarihi": dogumtarihi.text,
+          "cinsiyet": userGender,
+          "telefon": userPhonenumber,
+          "ulke": "212",
+          "il": "63",
         },
-      ).then((cevap) async {
-        print(cevap.body);
-        print(cevap.body[10]);
-        cevap.body[10] == "1"
-            ? Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Login(),
-                ),
-              )
-            : print("hata");
-        adi.clear();
-        soyadi.clear();
-        kadi.clear();
-        eposta.clear();
-        parola.clear();
-        parolatekrar.clear();
-        setState(() {
-          setstatedegiden = cevap.body;
-        });
-      });
+      );
+
+      try {
+        response = jsonDecode(gelen.body);
+        print(response["durum"]);
+
+        if (response["durum"] == 1) {
+          await Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Login(),
+            ),
+          );
+          adi.clear();
+          soyadi.clear();
+          kadi.clear();
+          eposta.clear();
+          parola.clear();
+          parolatekrar.clear();
+          dogumTarihi = "";
+          userGender = "";
+          userPhonenumber = "";
+          userCountry = "";
+          userState = "";
+          setState(() {});
+          print(response["aciklama"]);
+        }
+      } catch (e) {
+        print(e);
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(response["aciklama"]),
+        ),
+      );
+
+      print(response);
+
       print("register");
     }
 
@@ -482,12 +499,12 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: screenHeight / 15),
                   TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_]"),
-                      ),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.allow(
+                    //     RegExp(
+                    //         "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_]"),
+                    //   ),
+                    // ],
                     controller: adi,
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
@@ -511,12 +528,12 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: screenHeight / 30),
                   TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_]"),
-                      ),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.allow(
+                    //     RegExp(
+                    //         "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_]"),
+                    //   ),
+                    // ],
                     controller: soyadi,
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
@@ -540,12 +557,12 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: screenHeight / 30),
                   TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
-                      ),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.allow(
+                    //     RegExp(
+                    //         "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                    //   ),
+                    // ],
                     controller: eposta,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
@@ -570,12 +587,12 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: screenHeight / 30),
                   TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
-                      ),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.allow(
+                    //     RegExp(
+                    //         "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                    //   ),
+                    // ],
                     controller: kadi,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
@@ -600,12 +617,12 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: screenHeight / 30),
                   TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
-                      ),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.allow(
+                    //     RegExp(
+                    //         "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                    //   ),
+                    // ],
                     controller: parola,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
@@ -631,12 +648,12 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: screenHeight / 30),
                   TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
-                      ),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.allow(
+                    //     RegExp(
+                    //         "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                    //   ),
+                    // ],
                     controller: parolatekrar,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
@@ -660,6 +677,212 @@ class _RegisterState extends State<Register> {
                     ),
                     onEditingComplete: () => TextInput.finishAutofillContext(),
                   ),
+                  SizedBox(height: screenHeight / 30),
+                  TextField(
+                    onTap: () {
+                      DatePicker.showDatePicker(
+                        context,
+                        showTitleActions: true,
+                        minTime: DateTime(1923, 0, 0),
+                        maxTime: DateTime.now(),
+                        onChanged: (date) {
+                          setState(() {
+                            dogumTarihi =
+                                "${date.year}-${date.day}-${date.month}";
+                            dogumtarihi.text = dogumTarihi.toString();
+                          });
+                        },
+                        onConfirm: (date) {
+                          setState(() {
+                            dogumTarihi =
+                                "${date.year}-${date.day}-${date.month}";
+                            dogumtarihi.text = dogumTarihi.toString();
+                          });
+                        },
+                        currentTime: DateTime.now(),
+                        locale: LocaleType.tr,
+                      );
+                    },
+                    controller: dogumtarihi,
+                    textInputAction: TextInputAction.next,
+                    autofillHints: const [AutofillHints.birthday],
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      prefixIcon: const Icon(Icons.date_range),
+                      prefixIconColor: Colors.white,
+                      hintText: "Doğum Tarihi",
+                      hintStyle: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey.shade900,
+                    ),
+                    onEditingComplete: () => TextInput.finishAutofillContext(),
+                    readOnly: true,
+                  ),
+                  SizedBox(height: screenHeight / 30),
+                  InternationalPhoneNumberInput(
+                    // searchBoxDecoration: InputDecoration(
+                    //   border: const OutlineInputBorder(
+                    //     borderSide: BorderSide.none,
+                    //   ),
+                    //   prefixIconColor: Colors.white,
+                    //   hintText: "Telefon Numarası",
+                    //   hintStyle: const TextStyle(
+                    //     color: Colors.white,
+                    //   ),
+                    //   filled: true,
+                    //   fillColor: Colors.grey.shade900,
+                    // ),
+                    autoValidateMode: AutovalidateMode.always,
+                    spaceBetweenSelectorAndTextField: 0,
+                    maxLength: 13,
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                    ),
+                    selectorTextStyle: const TextStyle(
+                      color: Colors.white,
+                    ),
+                    onInputChanged: (PhoneNumber number) {
+                      // print(number.phoneNumber);
+                      setState(() {
+                        userPhonenumber = number.phoneNumber!;
+                      });
+                    },
+                    onInputValidated: (bool value) {
+                      setState(() {
+                        if (value == true) {
+                          isPhoneValidate = true;
+                        } else {
+                          isPhoneValidate = false;
+                        }
+                      });
+                    },
+                    selectorConfig: const SelectorConfig(
+                      selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                    ),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      signed: true,
+                      decimal: true,
+                    ),
+                    initialValue: PhoneNumber(isoCode: 'TR'),
+                    inputDecoration: InputDecoration(
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      prefixIconColor: Colors.white,
+                      hintText: "Telefon Numarası",
+                      hintStyle: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey.shade900,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight / 30),
+                  CSCPicker(
+                    dropdownDecoration: BoxDecoration(
+                      color: Colors.grey.shade900,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    dropdownDialogRadius: 5,
+                    defaultCountry: CscCountry.Turkey,
+                    showCities: false,
+                    selectedItemStyle: const TextStyle(
+                      color: Colors.white,
+                    ),
+                    onCountryChanged: (value) {
+                      setState(() {
+                        // print(value);
+                        userCountry = value;
+                      });
+                    },
+                    onStateChanged: (value) {
+                      setState(() {
+                        // print(value);
+                        value != null ? userState = value : null;
+                      });
+                    },
+                    onCityChanged: (value) {},
+                  ),
+                  SizedBox(height: screenHeight / 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () => setState(() {
+                          isMale = !isMale;
+                          isFemale = false;
+                          userGender = "E";
+                          print(userGender);
+                        }),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: isMale
+                                ? Border.all(
+                                    color: Colors.blue,
+                                    width: 2,
+                                  )
+                                : Border.all(
+                                    color: Colors.grey.shade900,
+                                    width: 2,
+                                  ),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(30),
+                            child: Center(
+                              child: Icon(
+                                Icons.man,
+                                size: 40,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: screenHeight / 30),
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () => setState(() {
+                          isFemale = !isFemale;
+                          isMale = false;
+                          userGender = "K";
+                          print(userGender);
+                        }),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: isFemale
+                                ? Border.all(
+                                    color: Colors.pink,
+                                    width: 2,
+                                  )
+                                : Border.all(
+                                    color: Colors.grey.shade900,
+                                    width: 2,
+                                  ),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(30),
+                            child: Center(
+                              child: Icon(
+                                Icons.woman,
+                                size: 40,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: screenHeight / 15),
                   Center(
                     child: InkWell(
@@ -670,11 +893,16 @@ class _RegisterState extends State<Register> {
                             kadi.text == "" ||
                             eposta.text == "" ||
                             parola.text == "" ||
-                            parolatekrar.text == "") {
+                            parolatekrar.text == "" ||
+                            dogumtarihi.text == "" ||
+                            userGender == "" ||
+                            isPhoneValidate == false ||
+                            userPhonenumber == "" ||
+                            userCountry == "" ||
+                            userState == "") {
                           const snackBar = SnackBar(
                             content:
                                 Text('Kayıt Bilgilerinizi Boş Bıraktınız!'),
-                            shape: StadiumBorder(),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
@@ -683,14 +911,19 @@ class _RegisterState extends State<Register> {
                               kadi.text != "" ||
                               eposta.text != "" ||
                               parola.text != "" ||
-                              parolatekrar.text != "") {
+                              parolatekrar.text != "" ||
+                              dogumtarihi.text != "" ||
+                              userGender != "" ||
+                              isPhoneValidate != false ||
+                              userPhonenumber != "" ||
+                              userCountry != "" ||
+                              userState != "") {
                             if (parola.text == parolatekrar.text) {
                               register();
                             } else {
                               print("sifreler uyusmuyor");
                               const snackBar = SnackBar(
                                 content: Text('Şifreler uyuşmuyor!'),
-                                shape: StadiumBorder(),
                               );
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
@@ -700,6 +933,11 @@ class _RegisterState extends State<Register> {
                               print(eposta.text);
                               print(parola.text);
                               print(parolatekrar.text);
+                              print(dogumtarihi.text);
+                              print(userGender);
+                              print(isPhoneValidate);
+                              print(userCountry);
+                              print(userState);
                             }
                           }
                         }
@@ -736,7 +974,7 @@ class _RegisterState extends State<Register> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const Login(),

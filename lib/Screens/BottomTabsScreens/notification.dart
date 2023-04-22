@@ -26,14 +26,35 @@ class _NotifState extends State<Notif> {
     setState(() {});
   }
 
+  arkadascevap(int index, String evethayir) async {
+    var gelen = await http.post(
+      Uri.parse(arkadascevaplink),
+      body: {
+        "oyuncubakid": bildirimler[index]["bildirimkimID"],
+        "cevap": evethayir,
+      },
+    );
+
+    try {
+      response = jsonDecode(gelen.body);
+      print(response["durum"]);
+
+      if (response["durum"] != 1) {
+        print(response["aciklama"]);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> _refresh() async {
-    bildirimcek();
+    await bildirimcek();
+    // print(bildirimler[0]["bildirimzamandetay"]);
+    // print(bildirimler[0]["bildirimzamandetay"].substring(0, 2));
   }
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-
     return FutureBuilder(
       initialData: bildirimcek(),
       future: bildirimcek(),
@@ -46,6 +67,11 @@ class _NotifState extends State<Notif> {
                 scrollDirection: Axis.vertical,
                 itemCount: bildirimler.length,
                 itemBuilder: (BuildContext context, int index) {
+                  // if (bildirimler[index]["bildirimzamandetay"]
+                  //         .substring(0, 2) <=
+                  //     "24") {
+                  //   return const Text("data");
+                  // } else {
                   return InkWell(
                     onTap: () {
                       Navigator.push(
@@ -64,26 +90,39 @@ class _NotifState extends State<Notif> {
                         badgeColor: Colors.blue,
                       ),
                       position: badge.BadgePosition.topStart(),
-                      showBadge: bildirimler[index]["bildirimdurum"] == "1"
-                          ? true
-                          : false,
+                      showBadge: hasNotificationBeenSeen,
                       ignorePointer: true,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: CachedNetworkImageProvider(
-                                  bildirimler[index]["bildirimkimavatar"] ??
-                                      "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ThemeConsumer(
+                                    child: Profile(
+                                      veri1: bildirimler[index]
+                                          ["bildirimkimID"],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                    bildirimler[index]["bildirimkimavatar"] ??
+                                        "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
+                                  ),
                                 ),
                               ),
+                              width: 50,
+                              height: 50,
                             ),
-                            width: 50,
-                            height: 50,
                           ),
                           const SizedBox(width: 10),
                           Flexible(
@@ -99,13 +138,29 @@ class _NotifState extends State<Notif> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          bildirimler[index]
-                                                  ["bildirimkimadsoyad"] ??
-                                              "",
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ThemeConsumer(
+                                                  child: Profile(
+                                                    veri1: bildirimler[index]
+                                                        ["bildirimkimID"],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            bildirimler[index]
+                                                    ["bildirimkimadsoyad"] ??
+                                                "",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                            ),
                                           ),
                                         ),
                                         Text(
@@ -147,7 +202,10 @@ class _NotifState extends State<Notif> {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () async {
+                                                  await arkadascevap(
+                                                      index, "evet");
+                                                },
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -179,7 +237,10 @@ class _NotifState extends State<Notif> {
                                               ),
                                               const SizedBox(width: 10),
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () async {
+                                                  await arkadascevap(
+                                                      index, "hayır");
+                                                },
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -223,6 +284,7 @@ class _NotifState extends State<Notif> {
                       ),
                     ),
                   );
+                  // }
                 },
                 padding: const EdgeInsets.only(
                   top: 10,

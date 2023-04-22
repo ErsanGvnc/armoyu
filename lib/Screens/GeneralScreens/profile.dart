@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, avoid_print, unnecessary_null_comparison, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unused_element
+// ignore_for_file: must_be_immutable, avoid_print, unnecessary_null_comparison, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unused_element, use_build_context_synchronously
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:skeletons/skeletons.dart';
@@ -26,6 +26,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     profilcek();
     postcek();
     medyacek();
+    isSocial = false;
   }
 
   List resimler = [];
@@ -42,6 +43,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
           profiledata = jsonDecode(cevap.body);
           // print(profiledata);
           arkadasdurum();
+          sosyalLink();
         } catch (e) {
           print('Unknown exception: $e');
         }
@@ -76,6 +78,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       setState(() {
         try {
           medyadata = jsonDecode(cevap.body);
+          // print(medyadata);
         } catch (e) {
           print('Unknown exception: $e');
         }
@@ -90,14 +93,54 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     });
   }
 
-  gonderifotocek() {
-    screenWidth = MediaQuery.of(context).size.width;
+  medyaSil(content) async {
+    var gelen = await http.post(
+      Uri.parse(medyaSilLink),
+      body: {
+        "medyaID": content,
+      },
+    );
+    // print(content);
 
+    try {
+      response = jsonDecode(gelen.body);
+      print(response["durum"]);
+
+      if (response["durum"] == 1) {
+        print(response["aciklama"]);
+        medyadata.clear();
+        resimler.clear();
+        await medyacek();
+      } else {
+        print(response["aciklama"]);
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(response["aciklama"]),
+        ),
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    setState(() {});
+  }
+
+  gonderifotocek() {
     // anasayfa video kısmı.
 
     if (gonderifotolar.length == 1 &&
         gonderifotolar[0]["paylasimkategori"] == "video/mp4") {
-      return const Text("-- Video --");
+      // return const Text("-- Video --");
+
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: VideoWidget(
+          play: false,
+          url: gonderifotolar[0]["fotoufakurl"],
+        ),
+      );
 
       // return Padding(
       //   padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -122,7 +165,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
     if (gonderifotolar.length == 1 &&
         gonderifotolar[0]["paylasimkategori"] == "video/x-matroska") {
-      return const Text("-- Video --");
+      // return const Text("-- Video --");
+
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: VideoWidget(
+          play: false,
+          url: gonderifotolar[0]["fotoufakurl"],
+        ),
+      );
 
       // return Padding(
       //   padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -591,7 +642,25 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         } catch (e) {
           print('Unknown exception: $e');
         }
-        print(arkadas);
+        // print(arkadas);
+      });
+    });
+  }
+
+  arkadasCikar() async {
+    http.post(
+      Uri.parse(arkadascikarlink),
+      body: {
+        "oyuncubakid": widget.veri1,
+      },
+    ).then((cevap) {
+      setState(() {
+        try {
+          arkadas = jsonDecode(cevap.body);
+        } catch (e) {
+          print('Unknown exception: $e');
+        }
+        // print(arkadas);
       });
     });
   }
@@ -619,10 +688,28 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     setState(() {});
   }
 
+  sosyalLink() async {
+    // print(isSocial);
+    if (profiledata["github"] != "" ||
+        profiledata["linkedin"] != "" ||
+        profiledata["reddit"] != "" ||
+        profiledata["twitch"] != null ||
+        profiledata["youtube"] != null ||
+        profiledata["instagram"] != null ||
+        profiledata["facebook"] != null) {
+      setState(() {
+        isSocial = true;
+      });
+    } else {
+      setState(() {
+        isSocial = false;
+      });
+    }
+    // print(isSocial);
+  }
+
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-
     return profiledata != null
         ? Scaffold(
             body: DefaultTabController(
@@ -709,9 +796,65 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                           Visibility(
                                             visible: profiledata["oyuncuID"] ==
                                                     girisdata["oyuncuID"]
+                                                ? true
+                                                : false,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                setState(() {
+                                                  isEditProfileIconShow = true;
+                                                });
+                                                Navigator.pop(context);
+                                              },
+                                              child: ListTile(
+                                                leading: const Icon(
+                                                  Icons.edit_outlined,
+                                                ),
+                                                title: Text(editProfile),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: profiledata["oyuncuID"] ==
+                                                    girisdata["oyuncuID"]
                                                 ? false
                                                 : true,
                                             child: const Divider(),
+                                          ),
+                                          Visibility(
+                                            visible: profiledata["oyuncuID"] ==
+                                                    girisdata["oyuncuID"]
+                                                ? false
+                                                : profiledata["arkadasdurum"] ==
+                                                        "1"
+                                                    ? true
+                                                    : false,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                profileID = widget.veri1;
+                                                Navigator.pop(context);
+                                                setState(() {
+                                                  arkadasText = "Arkadaş Ol";
+                                                });
+                                                // print("Arkadaş Çıkar");
+                                                await arkadasCikar();
+                                                Fluttertoast.showToast(
+                                                  msg:
+                                                      "Arkadaşlardan Çıkarıldı !",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
+                                                );
+                                              },
+                                              child: ListTile(
+                                                textColor: Colors.red,
+                                                leading: const Icon(
+                                                  Icons.person_off_outlined,
+                                                  color: Colors.red,
+                                                ),
+                                                title: Text(removeFriend),
+                                              ),
+                                            ),
                                           ),
                                           Visibility(
                                             visible: profiledata["oyuncuID"] ==
@@ -721,9 +864,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             child: InkWell(
                                               onTap: () {
                                                 profileID = widget.veri1;
-                                                postbildir();
+                                                // postbildir();
                                                 Navigator.pop(context);
-
                                                 Fluttertoast.showToast(
                                                   msg: "Engellendi !",
                                                   toastLength:
@@ -751,7 +893,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                               onTap: () {
                                                 profileID = widget.veri1;
                                                 // profilebildir();
-                                                print(profileID);
+                                                // print(profileID);
                                                 Navigator.pop(context);
                                                 Fluttertoast.showToast(
                                                   msg: "Bildirildi !",
@@ -977,33 +1119,39 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 child: CircleAvatar(
                                                   radius: 45,
                                                   backgroundImage: NetworkImage(
-                                                    profiledata["presimufak"],
+                                                    profiledata["presimminnak"],
                                                   ),
                                                 ),
                                               ),
                                               Positioned(
                                                 bottom: 0,
                                                 right: 0,
-                                                child: Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Color(
-                                                      profiledata["seviyerenk"] !=
-                                                              false
-                                                          ? int.parse("0xFF" +
-                                                              profiledata[
-                                                                  "seviyerenk"])
-                                                          : 0xFF,
+                                                child: Visibility(
+                                                  visible:
+                                                      profiledata["seviye"] != 0
+                                                          ? true
+                                                          : false,
+                                                  child: Container(
+                                                    width: 35,
+                                                    height: 35,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color(
+                                                        profiledata["seviyerenk"] !=
+                                                                false
+                                                            ? int.parse("0xFF" +
+                                                                profiledata[
+                                                                    "seviyerenk"])
+                                                            : 0xFF,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      profiledata["seviye"],
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                    child: Center(
+                                                      child: Text(
+                                                        profiledata["seviye"],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -1047,61 +1195,77 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Visibility(
-                                        visible: profiledata["oyuncuID"] ==
-                                                girisdata["oyuncuID"]
-                                            ? false
-                                            : true,
-                                        child: InkWell(
-                                          borderRadius:
-                                              const BorderRadius.horizontal(
-                                            left: Radius.circular(30),
-                                            right: Radius.circular(30),
-                                          ),
-                                          onTap: () {
-                                            if (profiledata["arkadasdurum"] ==
-                                                "1") {
-                                              setState(() {
-                                                arkadasText = "Mesaj Gönder";
-                                              });
-                                              print("Mesaj Gönder");
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                const SnackBar(
-                                                  duration:
-                                                      Duration(seconds: 1),
-                                                  content: Text("Yakında !"),
-                                                  shape: StadiumBorder(),
-                                                ),
-                                              );
-                                            } else if (profiledata[
-                                                    "arkadasdurum"] ==
-                                                "0") {
-                                              setState(() {
-                                                arkadasText = "Bekleniyor...";
-                                              });
-                                              print("Arkadaş Ol");
-                                              arkadasol();
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 40,
-                                            width: 150,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                                  BorderRadius.horizontal(
-                                                left: Radius.circular(30),
-                                                right: Radius.circular(30),
-                                              ),
+                                      InkWell(
+                                        borderRadius:
+                                            const BorderRadius.horizontal(
+                                          left: Radius.circular(30),
+                                          right: Radius.circular(30),
+                                        ),
+                                        onTap: () async {
+                                          profiledata["oyuncuID"] ==
+                                                  girisdata["oyuncuID"]
+                                              ? {
+                                                  setState(() {
+                                                    isEditProfileIconShow =
+                                                        true;
+                                                  }),
+                                                }
+                                              : {
+                                                  if (profiledata[
+                                                          "arkadasdurum"] ==
+                                                      "1")
+                                                    {
+                                                      setState(() {
+                                                        arkadasText =
+                                                            "Mesaj Gönder";
+                                                      }),
+                                                      // print("Mesaj Gönder"),
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        const SnackBar(
+                                                          duration: Duration(
+                                                              seconds: 1),
+                                                          content:
+                                                              Text("Yakında !"),
+                                                          shape:
+                                                              StadiumBorder(),
+                                                        ),
+                                                      ),
+                                                    }
+                                                  else if (profiledata[
+                                                          "arkadasdurum"] ==
+                                                      "0")
+                                                    {
+                                                      setState(() {
+                                                        arkadasText =
+                                                            "Bekleniyor...";
+                                                      }),
+                                                      // print("Arkadaş Ol"),
+                                                      await arkadasol(),
+                                                    }
+                                                };
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          width: 150,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius:
+                                                BorderRadius.horizontal(
+                                              left: Radius.circular(30),
+                                              right: Radius.circular(30),
                                             ),
-                                            child: Center(
-                                              child: Text(
-                                                arkadasText,
-                                                style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              profiledata["oyuncuID"] ==
+                                                      girisdata["oyuncuID"]
+                                                  ? "Profili Düzenle"
+                                                  : arkadasText,
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
                                           ),
@@ -1160,43 +1324,90 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 15),
-                              InkWell(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onLongPress: () async {
-                                  Clipboard.setData(
-                                    ClipboardData(
-                                      text: profiledata["hakkimda"],
-                                    ),
-                                  ).then((_) {
-                                    Fluttertoast.showToast(
-                                      msg: "Kopyalandı !",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 1,
-                                    );
-                                  });
-                                },
-                                child: DetectableText(
-                                  detectionRegExp: RegExp(
-                                    "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
-                                    multiLine: true,
-                                  ),
-                                  text: profiledata["hakkimda"],
-                                  trimExpandedText: " Daha az",
-                                  trimCollapsedText: " Daha Fazla",
-                                  trimMode: TrimMode.Line,
-                                  basicStyle: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                  detectedStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.blue,
-                                  ),
-                                ),
+                              Visibility(
+                                visible: profiledata["hakkimda"] != ""
+                                    ? true
+                                    : false,
+                                child: const SizedBox(height: 15),
                               ),
+                              !isEditProfileIconShow
+                                  ? Visibility(
+                                      visible: profiledata["hakkimda"] != ""
+                                          ? true
+                                          : false,
+                                      child: InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
+                                        onLongPress: () async {
+                                          Clipboard.setData(
+                                            ClipboardData(
+                                              text: profiledata["hakkimda"],
+                                            ),
+                                          ).then((_) {
+                                            Fluttertoast.showToast(
+                                              msg: "Kopyalandı !",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
+                                            );
+                                          });
+                                        },
+                                        child: DetectableText(
+                                          detectionRegExp: RegExp(
+                                            "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
+                                            multiLine: true,
+                                          ),
+                                          text: profiledata["hakkimda"],
+                                          trimExpandedText: " Daha Az",
+                                          trimCollapsedText: " Daha Fazla",
+                                          lessStyle: const TextStyle(
+                                              color: Colors.grey),
+                                          moreStyle: const TextStyle(
+                                              color: Colors.grey),
+                                          trimMode: TrimMode.Line,
+                                          basicStyle: const TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                          detectedStyle: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : TextField(
+                                      controller: hakkimda,
+                                      decoration: InputDecoration(
+                                        suffixIcon: IconButton(
+                                          onPressed: () async {
+                                            await editProfie(hakkimda.text);
+                                            hakkimda.clear();
+                                            setState(() {
+                                              isEditProfileIconShow = false;
+                                            });
+                                            profilcek();
+                                            setState(() {});
+                                          },
+                                          icon: const Icon(
+                                            Icons.send,
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                        enabledBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 3,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        focusedBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 3,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                               const SizedBox(height: 15),
                               Row(
                                 children: [
@@ -1256,188 +1467,240 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              SizedBox(
-                                height: 50,
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  children: [
-                                    Visibility(
-                                      visible: profiledata["github"] == null ||
-                                              profiledata["github"] == ""
-                                          ? false
-                                          : true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Site(
-                                                verilink: profiledata["github"],
-                                                veribaslik: "Github",
+                              Visibility(
+                                visible: isSocial,
+                                child: SizedBox(
+                                  height: 50,
+                                  child: ListView(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      Visibility(
+                                        visible:
+                                            profiledata["github"] == null ||
+                                                    profiledata["github"] == ""
+                                                ? false
+                                                : true,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Site(
+                                                  verilink:
+                                                      profiledata["github"],
+                                                  veribaslik: "Github",
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.github,
-                                          color: Colors.white,
-                                          size: 30,
+                                            );
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.github,
+                                            color: ThemeProvider.controllerOf(
+                                                            context)
+                                                        .currentThemeId
+                                                        .toString() !=
+                                                    "default_dark_theme"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            size: 30,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Visibility(
-                                      visible:
-                                          profiledata["linkedin"] == null ||
-                                                  profiledata["linkedin"] == ""
-                                              ? false
-                                              : true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Site(
-                                                verilink:
-                                                    profiledata["linkedin"],
-                                                veribaslik: "LinkedIn",
+                                      Visibility(
+                                        visible: profiledata["linkedin"] ==
+                                                    null ||
+                                                profiledata["linkedin"] == ""
+                                            ? false
+                                            : true,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Site(
+                                                  verilink:
+                                                      profiledata["linkedin"],
+                                                  veribaslik: "LinkedIn",
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.linkedin,
-                                          color: Colors.white,
-                                          size: 30,
+                                            );
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.linkedin,
+                                            color: ThemeProvider.controllerOf(
+                                                            context)
+                                                        .currentThemeId
+                                                        .toString() !=
+                                                    "default_dark_theme"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            size: 30,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Visibility(
-                                      visible: profiledata["reddit"] == null ||
-                                              profiledata["reddit"] == ""
-                                          ? false
-                                          : true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Site(
-                                                verilink: profiledata["reddit"],
-                                                veribaslik: "Reddit",
+                                      Visibility(
+                                        visible:
+                                            profiledata["reddit"] == null ||
+                                                    profiledata["reddit"] == ""
+                                                ? false
+                                                : true,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Site(
+                                                  verilink:
+                                                      profiledata["reddit"],
+                                                  veribaslik: "Reddit",
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.reddit,
-                                          color: Colors.white,
-                                          size: 30,
+                                            );
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.reddit,
+                                            color: ThemeProvider.controllerOf(
+                                                            context)
+                                                        .currentThemeId
+                                                        .toString() !=
+                                                    "default_dark_theme"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            size: 30,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Visibility(
-                                      visible: profiledata["twitch"] == null ||
-                                              profiledata["twitch"] == ""
-                                          ? false
-                                          : true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Site(
-                                                verilink: profiledata["twitch"],
-                                                veribaslik: "Twitch",
+                                      Visibility(
+                                        visible:
+                                            profiledata["twitch"] == null ||
+                                                    profiledata["twitch"] == ""
+                                                ? false
+                                                : true,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Site(
+                                                  verilink:
+                                                      profiledata["twitch"],
+                                                  veribaslik: "Twitch",
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.twitch,
-                                          color: Colors.white,
-                                          size: 30,
+                                            );
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.twitch,
+                                            color: ThemeProvider.controllerOf(
+                                                            context)
+                                                        .currentThemeId
+                                                        .toString() !=
+                                                    "default_dark_theme"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            size: 30,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Visibility(
-                                      visible: profiledata["youtube"] == null ||
-                                              profiledata["youtube"] == ""
-                                          ? false
-                                          : true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Site(
-                                                verilink:
-                                                    profiledata["youtube"],
-                                                veribaslik: "YouTube",
+                                      Visibility(
+                                        visible:
+                                            profiledata["youtube"] == null ||
+                                                    profiledata["youtube"] == ""
+                                                ? false
+                                                : true,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Site(
+                                                  verilink:
+                                                      profiledata["youtube"],
+                                                  veribaslik: "YouTube",
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.youtube,
-                                          color: Colors.white,
-                                          size: 30,
+                                            );
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.youtube,
+                                            color: ThemeProvider.controllerOf(
+                                                            context)
+                                                        .currentThemeId
+                                                        .toString() !=
+                                                    "default_dark_theme"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            size: 30,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Visibility(
-                                      visible:
-                                          profiledata["instagram"] == null ||
-                                                  profiledata["instagram"] == ""
-                                              ? false
-                                              : true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Site(
-                                                verilink:
-                                                    profiledata["instagram"],
-                                                veribaslik: "Instagram",
+                                      Visibility(
+                                        visible: profiledata["instagram"] ==
+                                                    null ||
+                                                profiledata["instagram"] == ""
+                                            ? false
+                                            : true,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Site(
+                                                  verilink:
+                                                      profiledata["instagram"],
+                                                  veribaslik: "Instagram",
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.instagram,
-                                          color: Colors.white,
-                                          size: 30,
+                                            );
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.instagram,
+                                            color: ThemeProvider.controllerOf(
+                                                            context)
+                                                        .currentThemeId
+                                                        .toString() !=
+                                                    "default_dark_theme"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            size: 30,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Visibility(
-                                      visible:
-                                          profiledata["facebook"] == null ||
-                                                  profiledata["facebook"] == ""
-                                              ? false
-                                              : true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Site(
-                                                verilink:
-                                                    profiledata["facebook"],
-                                                veribaslik: "Facebook",
+                                      Visibility(
+                                        visible: profiledata["facebook"] ==
+                                                    null ||
+                                                profiledata["facebook"] == ""
+                                            ? false
+                                            : true,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Site(
+                                                  verilink:
+                                                      profiledata["facebook"],
+                                                  veribaslik: "Facebook",
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.facebook,
-                                          color: Colors.white,
-                                          size: 30,
+                                            );
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.facebook,
+                                            color: ThemeProvider.controllerOf(
+                                                            context)
+                                                        .currentThemeId
+                                                        .toString() !=
+                                                    "default_dark_theme"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            size: 30,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -1480,6 +1743,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                     veri1: profiledata["oyuncuID"] == girisdata["oyuncuID"]
                         ? ""
                         : "@" "${profiledata["kullaniciadi"]} ",
+                    veri2: "",
                   ),
                 );
               },
@@ -1647,9 +1911,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 ////////////////////////////////////////////////////////////////////////////////
 
   MyPostView() {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
-
     Future<void> _refresh() {
       postdata.clear();
       return postcek();
@@ -1732,9 +1993,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   }
 
   MyMediaView() {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-
     Future<void> _refresh() {
       medyadata.clear();
       resimler.clear();
@@ -1776,7 +2034,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                     // openWithTap: true,
                     menuItems: <FocusedMenuItem>[
                       FocusedMenuItem(
-                        title: const Text("Open"),
+                        title: const Text("Tarayıcıda aç"),
                         trailingIcon: const Icon(Icons.open_in_new),
                         onPressed: () {
                           Navigator.push(
@@ -1791,23 +2049,38 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                         },
                       ),
                       FocusedMenuItem(
-                        title: const Text("Share"),
+                        title: const Text("Paylaş"),
                         trailingIcon: const Icon(Icons.share),
                         onPressed: () {
                           Share.share(medyadata[index]["medyaorijinal"]);
                         },
                       ),
                       FocusedMenuItem(
-                        title: const Text("Save to Gallery"),
+                        title: const Text("Galeriye kaydet"),
                         trailingIcon: const Icon(Icons.file_download_outlined),
                         onPressed: () {
                           GallerySaver.saveImage(
                               medyadata[index]["medyaorijinal"]);
                         },
                       ),
+                      FocusedMenuItem(
+                        title: const Text(
+                          "Profil galerimden sil",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                        trailingIcon: const Icon(
+                          Icons.delete_outline,
+                          color: Colors.red,
+                        ),
+                        onPressed: () async {
+                          await medyaSil(medyadata[index]["medyaID"]);
+                        },
+                      ),
                     ],
                     onPressed: () {
-                      print(resimler);
+                      // print(resimler);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -1848,9 +2121,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   }
 
   MyFavoriteView() {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-
     Future<void> _refresh() {
       return postcek();
     }
@@ -1868,9 +2138,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   }
 
   MyReactionView() {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-
     Future<void> _refresh() {
       return postcek();
     }
@@ -2005,8 +2272,21 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         child: InkWell(
                                           onTap: () {
                                             postID = postdata[index]["postID"];
-                                            // postsil();
+
                                             Navigator.pop(context);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ThemeConsumer(
+                                                  child: Post(
+                                                    veri1: "",
+                                                    veri2: postdata[index]
+                                                        ["sosyalicerik"],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
                                           },
                                           child: ListTile(
                                             leading:
@@ -2112,7 +2392,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                               timeInSecForIosWeb: 1,
                                             );
                                           },
-                                          child:  ListTile(
+                                          child: ListTile(
                                             textColor: Colors.red,
                                             leading: const Icon(
                                               Icons.person_outline,
@@ -2140,6 +2420,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                 ),
                 SizedBox(height: screenHeight / 90),
                 DetectableText(
+                  trimCollapsedText: " devamını oku",
+                  trimExpandedText: " daha az göster",
+                  lessStyle: const TextStyle(color: Colors.grey),
+                  moreStyle: const TextStyle(color: Colors.grey),
                   detectionRegExp: RegExp(
                     "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
                     multiLine: true,
@@ -2391,13 +2675,15 @@ class Delegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
     return PreferredSize(
       preferredSize: Size(screenWidth, 48),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey[850],
+          color:
+              ThemeProvider.controllerOf(context).currentThemeId.toString() !=
+                      "default_dark_theme"
+                  ? null
+                  : Colors.grey[850],
           border: const Border(
             bottom: BorderSide(
               color: Colors.grey,
@@ -2448,6 +2734,11 @@ class Delegate extends SliverPersistentHeaderDelegate {
             fontWeight: FontWeight.bold,
             fontSize: 15,
           ),
+          labelColor:
+              ThemeProvider.controllerOf(context).currentThemeId.toString() !=
+                      "default_dark_theme"
+                  ? Colors.black
+                  : Colors.white,
           tabs: const [
             Tab(text: "Postlar"),
             Tab(text: "Medya"),

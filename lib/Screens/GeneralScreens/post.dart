@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously
+// ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously, unnecessary_null_comparison
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
@@ -6,10 +6,12 @@ import 'package:intl/intl.dart';
 
 class Post extends StatefulWidget {
   String veri1;
+  String veri2;
 
   Post({
     Key? key,
     required this.veri1,
+    required this.veri2,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,16 @@ class _PostState extends State<Post> {
   void initState() {
     super.initState();
     // _initSpeech();
+
     post.text = widget.veri1;
+    if (widget.veri2 != "") {
+      post.text = widget.veri2;
+      isEditPost = true;
+    } else {
+      isEditPost = false;
+    }
+
+    // widget.veri2 != "" ? post.text = widget.veri2 : null;
   }
 
   Future<MultipartFile> generateImageFile(XFile file) async {
@@ -29,7 +40,7 @@ class _PostState extends State<Post> {
         contentType: MediaType("image", "jpg"));
   }
 
-  Future<Response> postgonder(List<XFile> files) async {
+  Future<Response> postGonder(List<XFile> files) async {
     List<MultipartFile> photosCollection = [];
     for (var file in files) {
       photosCollection.add(await generateImageFile(file));
@@ -39,6 +50,7 @@ class _PostState extends State<Post> {
     var formData = FormData.fromMap({
       "paylasimfoto[]": photosCollection,
       "sosyalicerik": post.text,
+      "cihazicerik": "mobil",
     });
 
     print(photosCollection);
@@ -63,9 +75,14 @@ class _PostState extends State<Post> {
     });
   }
 
+  // _videoFromGallery() async {
+  //   final ImagePicker picker = ImagePicker();
+  //   video = await picker.pickVideo(source: ImageSource.gallery);
+  // }
+
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
+    
 
     return ThemeConsumer(
       child: Scaffold(
@@ -92,12 +109,16 @@ class _PostState extends State<Post> {
                 splashColor: Colors.transparent,
                 onTap: () async {
                   if (post.text.isNotEmpty) {
-                    print("Paylaşıldı !");
+                    isEditPost != true
+                        ? print("Paylaşıldı !")
+                        : print("Düzenlendi !");
                     setState(() {
                       isUpload = true;
                     });
 
-                    await postgonder(images);
+                    isEditPost != true
+                        ? await postGonder(images)
+                        : postDuzenle(post.text);
                     setState(() {
                       isUpload = false;
                     });
@@ -106,7 +127,7 @@ class _PostState extends State<Post> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                            "Paylaşıldı ! ${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
+                            "  ${isEditPost != true ? sharePostNotice : editPostNotice} ${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
                         shape: const StadiumBorder(),
                       ),
                     );
@@ -118,12 +139,12 @@ class _PostState extends State<Post> {
                     color: post.text.isNotEmpty ? Colors.blue : Colors.grey,
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                     child: Center(
                       child: Text(
-                        "Gönder",
-                        style: TextStyle(
+                        isEditPost != true ? "Gönder" : "Yeniden Gönder",
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -148,7 +169,7 @@ class _PostState extends State<Post> {
                     CircleAvatar(
                       radius: 25,
                       backgroundImage: CachedNetworkImageProvider(
-                        girisdata["presimufak"],
+                        girisdata["presimminnak"],
                       ),
                       backgroundColor: Colors.transparent,
                     ),
@@ -216,9 +237,6 @@ class _PostState extends State<Post> {
                   },
                 ),
               ),
-              // AnyLinkPreview(
-              //   link: "https://vardaan.app/",
-              // ),
               Visibility(
                 visible: images.isNotEmpty ? true : false,
                 child: SizedBox(
@@ -326,6 +344,8 @@ class _PostState extends State<Post> {
                                     shape: StadiumBorder(),
                                   ),
                                 );
+
+                                // _videoFromGallery();
                               },
                               icon: const Icon(
                                 Icons.video_camera_back_outlined,

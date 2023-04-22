@@ -27,9 +27,6 @@ class NewsState extends State<News> {
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
-
     Future<void> _refresh() {
       return habercek();
     }
@@ -52,8 +49,8 @@ class NewsState extends State<News> {
                           MaterialPageRoute(
                             builder: (context) => Detail(
                               veri1: datahaber[index]["haberbaslik"],
-                              veri3: datahaber[index]["resim"],
-                              veri5: datahaber[index]["resimorijinal"],
+                              veri3: datahaber[index]["resimminnak"],
+                              veri5: datahaber[index]["resim"],
                               veri6: datahaber[index]["gecenzaman"],
                               veri7: datahaber[index]["yazar"],
                               veri8: datahaber[index]["ozet"],
@@ -70,7 +67,7 @@ class NewsState extends State<News> {
                             SizedBox(
                               width: screenWidth / 3,
                               height: screenHeight / 6,
-                              child: datahaber[index]["resim"] != null
+                              child: datahaber[index]["resimminnak"] != null
                                   ? CachedNetworkImage(
                                       imageUrl: datahaber[index]["resim"],
                                     )

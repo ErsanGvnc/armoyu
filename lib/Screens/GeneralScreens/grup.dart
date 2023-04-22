@@ -28,15 +28,13 @@ class _GrupState extends State<Grup> {
     );
     datagrup = jsonDecode(gelen.body);
     setState(() {
+      print(datagrup);
       print(grupdetail);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
-
     Future<void> _refresh() {
       return fetchData();
     }
@@ -291,5 +289,10 @@ class _GrupState extends State<Grup> {
         ),
       ),
     );
+
+    // return Scaffold(
+    //   appBar: AppBar(),
+    //   body: Container(),
+    // );
   }
 }

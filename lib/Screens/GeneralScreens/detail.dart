@@ -23,8 +23,6 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-
     String _content = widget.veri9;
     void _shareContent() {
       Share.share(_content);

@@ -1,13 +1,22 @@
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
+var kayitolLink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/kayit-ol/0/0/0/0/";
+var sifreSifirlaLink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/sifremi-unuttum/0/0/0/0/";
+var sifreDogrulaLink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/sifremi-unuttum-dogrula/0/0/0/0/";
 var qrlink =
     "https://aramizdakioyuncu.com/botlar/$botId1/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
+var gizliliklink = "https://aramizdakioyuncu.com/gizlilik-politikasi";
 // var gonderiurl =
 //     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/$startPage/0/";
 var haberurl =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/haberler/0/0/";
 var oturumkontrolurl =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
+var editProfileUrl =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/profil/hakkimda/0/0/";
 var grupurl =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/gruplarim/0/0/";
 var grupdetail =
@@ -23,9 +32,13 @@ var cekilislink =
 var postlink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/profil/0/";
 var postyorumlink =
-    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/yorum/0/0/";
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/yorum-olustur/0/0/";
+var postyorumsillink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/yorum-sil/0/0/";
 var medyalink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/medya/0/0/";
+var medyaSilLink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/medya/sil/0/";
 // var reactionlink =
 //     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/tepki/0/0/";
 var postbildirlink =
@@ -34,10 +47,16 @@ var postbegenlink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/";
 var postsillink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/sil/0/0/";
+var postduzenle =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/duzenle/0/0/";
 var yorumlike =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begen/0/0/";
 var arkadasollink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/arkadas-ol/0/0/";
+var arkadascikarlink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/arkadas-cikar/0/0/";
+var arkadascevaplink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/arkadas-cevap/0/0/";
 var xplink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/xpsiralama/0/0/";
 var poplink =

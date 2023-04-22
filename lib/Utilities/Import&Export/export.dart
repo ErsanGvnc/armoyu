@@ -29,6 +29,7 @@ export 'package:armoyu/Screens/GeneralScreens/grup.dart';
 export 'package:armoyu/Screens/GeneralScreens/toplanti.dart';
 export 'package:armoyu/Screens/GeneralScreens/resiminceleme.dart';
 export 'package:armoyu/Screens/GeneralScreens/etkinlikdetay.dart';
+export 'package:armoyu/Screens/Settings/settings.dart';
 
 //  Screens / InitScreen  //
 export 'package:armoyu/Screens/InitScreen/splash.dart';
@@ -37,8 +38,16 @@ export 'package:armoyu/Screens/InitScreen/splash.dart';
 export 'package:armoyu/Screens/Login&RegisterScreens/register.dart';
 export 'package:armoyu/Screens/Login&RegisterScreens/login.dart';
 
+//  Screens / Settings  //
+export 'package:armoyu/Screens/Settings/notificationsettings.dart';
+
 //  UtilitiesScreens / ScreensUtilities  //
 export 'package:armoyu/Utilities/ScreensUtilities/skelaton.dart';
+export 'package:armoyu/Utilities/ScreensUtilities/noInternet.dart';
+export 'package:armoyu/Utilities/ScreensUtilities/videoPlayer/video_widget.dart';
+export 'package:armoyu/Utilities/ScreensUtilities/videoPlayer/video_widget_detail.dart';
+export 'package:armoyu/Utilities/ScreensUtilities/videoPlayer/video_fullscreen.dart';
+export 'package:armoyu/Utilities/ScreensUtilities/videoPlayer/video_landscape.dart';
 //?  ----------  Screens  ----------  //
 
 //?  ----------  Files  ----------  //
@@ -54,6 +63,8 @@ export 'package:armoyu/Variables/variables.dart';
 //  Utilities  //
 export 'package:armoyu/Utilities/links.dart';
 export 'package:armoyu/Utilities/utilities.dart';
+
+//  Utilities / ScreensUtilities  //
 export 'package:armoyu/Utilities/ScreensUtilities/newsCardSkelaton.dart';
 //?  ----------  Files  ----------  //
 
@@ -84,4 +95,15 @@ export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:gallery_saver/gallery_saver.dart';
 export 'package:photo_view/photo_view_gallery.dart';
 export 'package:photo_view/photo_view.dart';
+export 'package:video_player/video_player.dart';
+// export 'package:inview_notifier_list/inview_notifier_list.dart';
+export 'package:wakelock/wakelock.dart';
+export 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+export 'package:intl_phone_number_input/intl_phone_number_input.dart';
+export 'package:csc_picker/csc_picker.dart';
+export 'package:carousel_slider/carousel_slider.dart';
+export 'package:in_app_review/in_app_review.dart';
+export 'package:connectivity_plus/connectivity_plus.dart';
+export 'package:lottie/lottie.dart';
+export 'package:circular_countdown_timer/circular_countdown_timer.dart';
 //?  ----------  Libraries  ----------  //

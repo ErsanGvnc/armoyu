@@ -20,8 +20,6 @@ class ByrDetail extends StatefulWidget {
 class _ByrDetailState extends State<ByrDetail> {
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-
     String _title = "";
 
     if (widget.veri1 == 0) {
