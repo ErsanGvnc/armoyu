@@ -143,3 +143,6 @@ FocusNode focusNodeSearch = FocusNode();
 
 //  GlobalKey  //
 GlobalKey autocompleteKey = GlobalKey();
+
+//  StreamSubscription  //
+// StreamSubscription? subscription;

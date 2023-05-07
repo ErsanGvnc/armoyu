@@ -942,6 +942,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      Visibility(
+                                        visible: Platform.isIOS ? true : false,
+                                        child: const SizedBox(width: 48),
+                                      ),
                                       Text(
                                         profiledata["adim"],
                                         style: const TextStyle(
@@ -949,13 +953,16 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         ),
                                       ),
                                       const SizedBox(width: 5),
-                                      profiledata["oyuncuID"] == "11"
-                                          ? const Icon(
-                                              Icons.check_circle,
-                                              color: Colors.blue,
-                                              size: 20,
-                                            )
-                                          : const Text(""),
+                                      Visibility(
+                                        visible: profiledata["oyuncuID"] == "11"
+                                            ? true
+                                            : false,
+                                        child: const Icon(
+                                          Icons.check_circle,
+                                          color: Colors.blue,
+                                          size: 20,
+                                        ),
+                                      )
                                     ],
                                   ),
                             background: FocusedMenuHolder(

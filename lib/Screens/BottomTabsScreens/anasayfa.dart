@@ -20,6 +20,12 @@ class AnaSayfaState extends State<AnaSayfa> {
     xpcek();
     kullanicicek();
 
+    // subscription = Connectivity().onConnectivityChanged.listen((event) {
+    //   print("anasayfa");
+    //   print(subscription);
+    //   print(Connectivity().checkConnectivity().toString());
+    // });
+
     anaSayfaScrollController.addListener(() {
       if (anaSayfaScrollController.position.pixels ==
               anaSayfaScrollController.position.maxScrollExtent &&
@@ -33,6 +39,7 @@ class AnaSayfaState extends State<AnaSayfa> {
   @override
   void dispose() {
     anaSayfaScrollController.dispose();
+    // subscription!.cancel();
     super.dispose();
   }
 

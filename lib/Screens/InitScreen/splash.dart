@@ -10,23 +10,35 @@ class Splash extends StatefulWidget {
 }
 
 class SplashState extends State<Splash> with TickerProviderStateMixin {
-  late final AnimationController _controller;
-
+  // late StreamSubscription _subscription;
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
-    connectionStatus();
+
+    // connectionStatus();
+
+    Platform.isAndroid ? connectionStatus() : navigate();
+
+    // Platform.isAndroid ? connectionStatus() : null;
+
+    // _subscription = Connectivity().onConnectivityChanged.listen((event) async {
+    //   print("splash");
+    //   print(_subscription);
+    //   final connectivityResult = await Connectivity().checkConnectivity();
+    //   connectivityResult != ConnectivityResult.none ? await navigate() : null;
+    // });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    // _subscription.cancel();
     super.dispose();
   }
 
   connectionStatus() async {
+    print("splash connectionStatus");
     final connectivityResult = await (Connectivity().checkConnectivity());
+    print(connectivityResult);
     if (connectivityResult != ConnectivityResult.none) {
       await navigate();
       setState(() {});
