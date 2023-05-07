@@ -56,6 +56,7 @@ String blockUser = "Kullanıcıyı engelle.";
 String removeFriend = "Arkadaşı çıkar.";
 String reportUser = "Kullanıcıyı bildir.";
 String editProfile = "Profili düzenle.";
+String removeGalleryfromProfile = "Profil galerimden sil";
 String dogumTarihi = "";
 String userGender = "";
 String userPhonenumber = "";
@@ -65,14 +66,16 @@ String markAllasRead = "Tümünü okundu işaretle.";
 String comingSoon = "Yakında";
 String privacyPolicy = "Gizlilik Politikası";
 String exitApp = "ARMOYU'dan çıkış yapmak istediğine emin misin?";
+String removeAccount = "Hesabını kalıcı olarak silmek istediğine emin misin?";
+String removeAccountInformation =
+    "Hesap silme talebinizi aldık 30 gün içinde hesabınız silinecek.";
 
 //  int  //
 int startPage = 0;
 int currentIndex = 0;
 int profileCurrentIndex = 0;
 int aratildi = 0;
-int appIcon = 1;
-int countTimerTime = 120;
+int appIcon = Platform.isAndroid ? 1 : 0;
 
 //  bool  //
 bool? gkontrolHatirla;
@@ -132,7 +135,7 @@ final screens = [
 
 //  Timer  //
 Timer? timer;
-Timer? countTimer;
+Timer? coolDown;
 
 //  FocusNode  //
 FocusNode focusNodeAnaDetail = FocusNode();

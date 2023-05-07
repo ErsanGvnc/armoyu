@@ -85,6 +85,69 @@ class _SettingsState extends State<Settings> {
       );
     }
 
+    showRemoveAccountAlertDialog(BuildContext context) {
+      AlertDialog alert = AlertDialog(
+        title: Text(
+          girisdata["eposta"],
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Text(
+          removeAccount,
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        actions: [
+          InkWell(
+            onTap: () async {
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(removeAccountInformation),
+                ),
+              );
+            },
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(13),
+                child: Text(
+                  "Sil",
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(13),
+                child: Text(
+                  "İptal et",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
@@ -93,119 +156,119 @@ class _SettingsState extends State<Settings> {
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(10),
         children: [
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Hesaplar",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28,
-                    ),
-                  ),
-                  Text(
-                    "Beta",
-                    style: TextStyle(
-                      fontSize: 28,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    onTap: () {
-                      Fluttertoast.showToast(
-                        msg: comingSoon,
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                      );
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: CachedNetworkImageProvider(
-                            girisdata["presimminnak"],
-                          ),
-                          radius: 40,
-                          backgroundColor: Colors.transparent,
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          girisdata["adim"],
-                          style: const TextStyle(
-                            fontSize: 18,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "@" + girisdata["kullaniciadi"],
-                              style: const TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    onTap: () {
-                      Fluttertoast.showToast(
-                        msg: comingSoon,
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                      );
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 40,
-                          backgroundColor: Colors.grey[900],
-                          child: const Icon(Icons.add),
-                        ),
-                        const SizedBox(height: 5),
-                        const Text(
-                          ".....",
-                          style: TextStyle(
-                            fontSize: 18,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const Text(
-                          "@.....",
-                          style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          const Divider(thickness: 2),
+          // Column(
+          //   children: [
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       children: const [
+          //         Text(
+          //           "Hesaplar",
+          //           style: TextStyle(
+          //             fontWeight: FontWeight.bold,
+          //             fontSize: 28,
+          //           ),
+          //         ),
+          //         Text(
+          //           "Beta",
+          //           style: TextStyle(
+          //             fontSize: 28,
+          //             color: Colors.blue,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //     const SizedBox(height: 10),
+          //     Row(
+          //       children: [
+          //         InkWell(
+          //           borderRadius: BorderRadius.circular(10),
+          //           onTap: () {
+          //             Fluttertoast.showToast(
+          //               msg: comingSoon,
+          //               toastLength: Toast.LENGTH_SHORT,
+          //               gravity: ToastGravity.CENTER,
+          //               timeInSecForIosWeb: 1,
+          //             );
+          //           },
+          //           child: Column(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             children: [
+          //               CircleAvatar(
+          //                 backgroundImage: CachedNetworkImageProvider(
+          //                   girisdata["presimminnak"],
+          //                 ),
+          //                 radius: 40,
+          //                 backgroundColor: Colors.transparent,
+          //               ),
+          //               const SizedBox(height: 5),
+          //               Text(
+          //                 girisdata["adim"],
+          //                 style: const TextStyle(
+          //                   fontSize: 18,
+          //                   overflow: TextOverflow.ellipsis,
+          //                 ),
+          //               ),
+          //               Row(
+          //                 mainAxisAlignment: MainAxisAlignment.start,
+          //                 crossAxisAlignment: CrossAxisAlignment.start,
+          //                 children: [
+          //                   Text(
+          //                     "@" + girisdata["kullaniciadi"],
+          //                     style: const TextStyle(
+          //                       overflow: TextOverflow.ellipsis,
+          //                       color: Colors.grey,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //         const SizedBox(width: 10),
+          //         InkWell(
+          //           borderRadius: BorderRadius.circular(10),
+          //           onTap: () {
+          //             Fluttertoast.showToast(
+          //               msg: comingSoon,
+          //               toastLength: Toast.LENGTH_SHORT,
+          //               gravity: ToastGravity.CENTER,
+          //               timeInSecForIosWeb: 1,
+          //             );
+          //           },
+          //           child: Column(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             children: [
+          //               CircleAvatar(
+          //                 radius: 40,
+          //                 backgroundColor: Colors.grey[900],
+          //                 child: const Icon(Icons.add),
+          //               ),
+          //               const SizedBox(height: 5),
+          //               const Text(
+          //                 ".....",
+          //                 style: TextStyle(
+          //                   fontSize: 18,
+          //                   overflow: TextOverflow.ellipsis,
+          //                 ),
+          //               ),
+          //               const Text(
+          //                 "@.....",
+          //                 style: TextStyle(
+          //                   overflow: TextOverflow.ellipsis,
+          //                   color: Colors.grey,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(height: 10),
+          // const Divider(thickness: 2),
           Column(
             children: [
               Row(
@@ -417,167 +480,168 @@ class _SettingsState extends State<Settings> {
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Uygulama Simgesi",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28,
-                    ),
-                  ),
-                  Text(
-                    "Beta",
-                    style: TextStyle(
-                      fontSize: 28,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Flexible(
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () {
-                        // setState(() {
-                        //   appIcon = 0;
-                        // });
-                        Fluttertoast.showToast(
-                          msg: comingSoon,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                        );
-                      },
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(30),
-                              border: appIcon == 0
-                                  ? Border.all(
-                                      color: Colors.blue,
-                                      width: 2,
-                                    )
-                                  : const Border(),
-                            ),
-                            child: Image.asset("assets/images/yenilogo.png"),
-                          ),
-                          Visibility(
-                            visible: appIcon == 0 ? true : false,
-                            child: const Icon(
-                              Icons.check_circle,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () {
-                        // setState(() {
-                        //   appIcon = 1;
-                        // });
-                        Fluttertoast.showToast(
-                          msg: comingSoon,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                        );
-                      },
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                              border: appIcon == 1
-                                  ? Border.all(
-                                      color: Colors.blue,
-                                      width: 2,
-                                    )
-                                  : const Border(),
-                            ),
-                            child: Image.asset("assets/images/yenilogo.png"),
-                          ),
-                          Visibility(
-                            visible: appIcon == 1 ? true : false,
-                            child: const Icon(
-                              Icons.check_circle,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () {
-                        // setState(() {
-                        //   appIcon = 2;
-                        // });
-                        Fluttertoast.showToast(
-                          msg: comingSoon,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                        );
-                      },
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              border: appIcon == 2
-                                  ? Border.all(
-                                      color: Colors.blue,
-                                      width: 2,
-                                    )
-                                  : const Border(),
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Colors.blue,
-                                  Colors.red,
-                                ],
-                                stops: [0.0, 1],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              ),
-                            ),
-                            child: Image.asset("assets/images/yenilogo.png"),
-                          ),
-                          Visibility(
-                            visible: appIcon == 2 ? true : false,
-                            child: const Icon(
-                              Icons.check_circle,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const Divider(),
+          const SizedBox(height: 10),
+          // const SizedBox(height: 20),
+          // Column(
+          //   children: [
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       children: const [
+          //         Text(
+          //           "Uygulama Simgesi",
+          //           style: TextStyle(
+          //             fontWeight: FontWeight.bold,
+          //             fontSize: 28,
+          //           ),
+          //         ),
+          //         Text(
+          //           "Beta",
+          //           style: TextStyle(
+          //             fontSize: 28,
+          //             color: Colors.blue,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //     const SizedBox(height: 10),
+          //     Row(
+          //       children: [
+          //         Flexible(
+          //           child: InkWell(
+          //             borderRadius: BorderRadius.circular(30),
+          //             onTap: () {
+          //               // setState(() {
+          //               //   appIcon = 0;
+          //               // });
+          //               Fluttertoast.showToast(
+          //                 msg: comingSoon,
+          //                 toastLength: Toast.LENGTH_SHORT,
+          //                 gravity: ToastGravity.CENTER,
+          //                 timeInSecForIosWeb: 1,
+          //               );
+          //             },
+          //             child: Stack(
+          //               children: [
+          //                 Container(
+          //                   decoration: BoxDecoration(
+          //                     color: Colors.black,
+          //                     borderRadius: BorderRadius.circular(30),
+          //                     border: appIcon == 0
+          //                         ? Border.all(
+          //                             color: Colors.blue,
+          //                             width: 2,
+          //                           )
+          //                         : const Border(),
+          //                   ),
+          //                   child: Image.asset("assets/images/yenilogo.png"),
+          //                 ),
+          //                 Visibility(
+          //                   visible: appIcon == 0 ? true : false,
+          //                   child: const Icon(
+          //                     Icons.check_circle,
+          //                     color: Colors.blue,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //         const SizedBox(width: 10),
+          //         Flexible(
+          //           child: InkWell(
+          //             borderRadius: BorderRadius.circular(30),
+          //             onTap: () {
+          //               // setState(() {
+          //               //   appIcon = 1;
+          //               // });
+          //               Fluttertoast.showToast(
+          //                 msg: comingSoon,
+          //                 toastLength: Toast.LENGTH_SHORT,
+          //                 gravity: ToastGravity.CENTER,
+          //                 timeInSecForIosWeb: 1,
+          //               );
+          //             },
+          //             child: Stack(
+          //               children: [
+          //                 Container(
+          //                   decoration: BoxDecoration(
+          //                     color: Colors.white,
+          //                     borderRadius: BorderRadius.circular(30),
+          //                     border: appIcon == 1
+          //                         ? Border.all(
+          //                             color: Colors.blue,
+          //                             width: 2,
+          //                           )
+          //                         : const Border(),
+          //                   ),
+          //                   child: Image.asset("assets/images/yenilogo.png"),
+          //                 ),
+          //                 Visibility(
+          //                   visible: appIcon == 1 ? true : false,
+          //                   child: const Icon(
+          //                     Icons.check_circle,
+          //                     color: Colors.blue,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //         const SizedBox(width: 10),
+          //         Flexible(
+          //           child: InkWell(
+          //             borderRadius: BorderRadius.circular(30),
+          //             onTap: () {
+          //               // setState(() {
+          //               //   appIcon = 2;
+          //               // });
+          //               Fluttertoast.showToast(
+          //                 msg: comingSoon,
+          //                 toastLength: Toast.LENGTH_SHORT,
+          //                 gravity: ToastGravity.CENTER,
+          //                 timeInSecForIosWeb: 1,
+          //               );
+          //             },
+          //             child: Stack(
+          //               children: [
+          //                 Container(
+          //                   decoration: BoxDecoration(
+          //                     borderRadius: BorderRadius.circular(30),
+          //                     border: appIcon == 2
+          //                         ? Border.all(
+          //                             color: Colors.blue,
+          //                             width: 2,
+          //                           )
+          //                         : const Border(),
+          //                     gradient: const LinearGradient(
+          //                       colors: [
+          //                         Colors.blue,
+          //                         Colors.red,
+          //                       ],
+          //                       stops: [0.0, 1],
+          //                       begin: Alignment.centerLeft,
+          //                       end: Alignment.centerRight,
+          //                     ),
+          //                   ),
+          //                   child: Image.asset("assets/images/yenilogo.png"),
+          //                 ),
+          //                 Visibility(
+          //                   visible: appIcon == 2 ? true : false,
+          //                   child: const Icon(
+          //                     Icons.check_circle,
+          //                     color: Colors.blue,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(height: 20),
+          // const Divider(),
           ListTile(
             leading: const Icon(Icons.notifications_outlined),
             title: const Text("Bildirim"),
@@ -667,6 +731,19 @@ class _SettingsState extends State<Settings> {
             ),
             onTap: () {
               showAlertDialog(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.delete_forever_outlined,
+              color: Colors.red,
+            ),
+            title: const Text(
+              "Hesabı Sil",
+              style: TextStyle(color: Colors.red),
+            ),
+            onTap: () async {
+              showRemoveAccountAlertDialog(context);
             },
           ),
         ],

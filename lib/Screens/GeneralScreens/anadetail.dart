@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, use_key_in_widget_constructors, library_private_types_in_public_api, avoid_print, prefer_interpolation_to_compose_strings, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, curly_braces_in_flow_control_structures, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, unnecessary_string_interpolations, prefer_adjacent_string_concatenation
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors, library_private_types_in_public_api, avoid_print, prefer_interpolation_to_compose_strings, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, curly_braces_in_flow_control_structures, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, use_build_context_synchronously
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
@@ -131,6 +131,65 @@ class _AnaDetailState extends State<AnaDetail> {
     return isLike;
   }
 
+  postyorum() async {
+    var gelen = await http.post(
+      Uri.parse(postyorumlink),
+      body: {
+        "yorumicerik": yorum.text,
+        "postID": postID,
+        "kimeyanit": "0",
+        "kategori": "sosyal",
+      },
+    );
+    try {
+      response = jsonDecode(gelen.body);
+
+      if (response["durum"] == 1) {
+        yorum.clear();
+        comments.clear();
+        await getComments();
+        widget.veri13 = 1;
+        widget.veri6 = (int.parse(widget.veri6) + 1).toString();
+        setState(() {});
+        print(response["aciklama"]);
+      } else {
+        print(response["aciklama"]);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  postyorumsil() async {
+    var gelen = await http.post(
+      Uri.parse(postyorumsillink),
+      body: {
+        "yorumID": yorumID,
+      },
+    );
+
+    try {
+      response = jsonDecode(gelen.body);
+      print(response["durum"]);
+
+      if (response["durum"] == 1) {
+        postID = widget.veri10;
+        comments.clear();
+        getComments();
+        widget.veri13 = 0;
+        widget.veri6 = "0";
+        setState(() {});
+        Navigator.pop(context);
+
+        print(response["aciklama"]);
+      } else {
+        print(response["aciklama"]);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   getPostMedia() {
     // print(shareType);
     if (shareType == "image/jpeg" ||
@@ -157,6 +216,7 @@ class _AnaDetailState extends State<AnaDetail> {
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
                           images[0],
+                          width: double.infinity,
                           fit: BoxFit.cover,
                           filterQuality: FilterQuality.high,
                         ),
@@ -197,6 +257,7 @@ class _AnaDetailState extends State<AnaDetail> {
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
                       images[0],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                     ),
@@ -223,6 +284,7 @@ class _AnaDetailState extends State<AnaDetail> {
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
                       images[1],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                     ),
@@ -256,6 +318,7 @@ class _AnaDetailState extends State<AnaDetail> {
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
                       images[0],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                     ),
@@ -287,6 +350,7 @@ class _AnaDetailState extends State<AnaDetail> {
                           colorFilter: ColorFilter.srgbToLinearGamma(),
                           child: Image.network(
                             images[1],
+                            width: double.infinity,
                             fit: BoxFit.cover,
                             filterQuality: FilterQuality.high,
                           ),
@@ -728,6 +792,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                     child: Icon(
                                       Icons.more_vert,
                                       size: 20,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ],
@@ -940,20 +1005,30 @@ class _AnaDetailState extends State<AnaDetail> {
                                       // print(widget.veri13.runtimeType);
                                     },
                                     icon: widget.veri13 == 0
-                                        ? Icon(
-                                            Icons.chat_bubble_outline,
+                                        ? const FaIcon(
+                                            FontAwesomeIcons.comment,
                                             color: Colors.grey,
+                                            size: 22,
                                           )
-                                        : Icon(
-                                            Icons.chat_bubble,
+                                        : const FaIcon(
+                                            FontAwesomeIcons.solidComment,
                                             color: Colors.blue,
+                                            size: 22,
                                           ),
                                   ),
                                   IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.repeat,
+                                    onPressed: () {
+                                      Fluttertoast.showToast(
+                                        msg: comingSoon,
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 1,
+                                      );
+                                    },
+                                    icon: const FaIcon(
+                                      FontAwesomeIcons.retweet,
                                       color: Colors.grey,
+                                      size: 22,
                                     ),
                                   ),
                                   IconButton(
@@ -1081,37 +1156,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                     "Yorumu favorilere ekle."),
                                                               ),
                                                             ),
-                                                            Visibility(
-                                                              visible: comments[
-                                                                              i]
-                                                                          [
-                                                                          "yorumcuid"] ==
-                                                                      girisdata[
-                                                                          "oyuncuID"]
-                                                                  ? true
-                                                                  : false,
-                                                              child: InkWell(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    yorumID =
-                                                                        comments[i]
-                                                                            [
-                                                                            "yorumID"];
-                                                                  });
-
-                                                                  postyorumsil();
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: ListTile(
-                                                                  leading: Icon(
-                                                                      Icons
-                                                                          .delete_sweep_outlined),
-                                                                  title: Text(
-                                                                      "Yorumu kaldır."),
-                                                                ),
-                                                              ),
-                                                            ),
                                                             InkWell(
                                                               onTap: () {
                                                                 Share.share(
@@ -1161,15 +1205,45 @@ class _AnaDetailState extends State<AnaDetail> {
                                                               ),
                                                             ),
                                                             Visibility(
+                                                              visible: true,
+                                                              child: Divider(),
+                                                            ),
+                                                            Visibility(
                                                               visible: comments[
                                                                               i]
                                                                           [
                                                                           "yorumcuid"] ==
                                                                       girisdata[
                                                                           "oyuncuID"]
-                                                                  ? false
-                                                                  : true,
-                                                              child: Divider(),
+                                                                  ? true
+                                                                  : false,
+                                                              child: InkWell(
+                                                                onTap:
+                                                                    () async {
+                                                                  setState(() {
+                                                                    yorumID =
+                                                                        comments[i]
+                                                                            [
+                                                                            "yorumID"];
+                                                                  });
+
+                                                                  await postyorumsil();
+                                                                },
+                                                                child: ListTile(
+                                                                  leading: Icon(
+                                                                    Icons
+                                                                        .delete_sweep_outlined,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  ),
+                                                                  title: Text(
+                                                                    "Yorumu kaldır.",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .red),
+                                                                  ),
+                                                                ),
+                                                              ),
                                                             ),
                                                             Visibility(
                                                               visible: comments[
@@ -1201,8 +1275,10 @@ class _AnaDetailState extends State<AnaDetail> {
                                                               ),
                                                             ),
                                                             Visibility(
-                                                              visible: widget
-                                                                          .veri11 ==
+                                                              visible: comments[
+                                                                              i]
+                                                                          [
+                                                                          "yorumcuid"] ==
                                                                       girisdata[
                                                                           "oyuncuID"]
                                                                   ? false
@@ -1214,7 +1290,6 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                   postbildir();
                                                                   Navigator.pop(
                                                                       context);
-
                                                                   Fluttertoast
                                                                       .showToast(
                                                                     msg:
@@ -1287,6 +1362,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                           child: Icon(
                                             Icons.more_vert,
                                             size: 15,
+                                            color: Colors.grey,
                                           ),
                                         ),
                                       ],
@@ -1354,10 +1430,10 @@ class _AnaDetailState extends State<AnaDetail> {
                                                 "${comments[i]["yorumcuetiketad"]} ";
                                             focusNodeAnaDetail.requestFocus();
                                           },
-                                          icon: Icon(
-                                            Icons.chat_bubble_outline,
+                                          icon: const FaIcon(
+                                            FontAwesomeIcons.comment,
                                             color: Colors.grey,
-                                            size: 19,
+                                            size: 21,
                                           ),
                                         ),
                                         IconButton(
@@ -1485,31 +1561,16 @@ class _AnaDetailState extends State<AnaDetail> {
                             counterText: "",
                             hintText: "Yorum Yap",
                             suffixIcon: IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 postID = widget.veri10;
                                 FocusManager.instance.primaryFocus?.unfocus();
-
                                 if (yorum.text.isNotEmpty) {
-                                  postyorum();
-                                  yorum.clear();
-                                  comments.clear();
-                                  Future.delayed(Duration(milliseconds: 100),
-                                      () {
-                                    getComments();
-                                  });
-
-                                  widget.veri6 =
-                                      (int.parse(widget.veri6) + 1).toString();
-                                  setState(() {});
+                                  await postyorum();
                                 } else {
-                                  comments.clear();
-                                  getComments();
-                                  setState(() {});
                                   print("Yorum boş olamaz !");
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text("Yorum boş olamaz !"),
-                                      shape: const StadiumBorder(),
                                     ),
                                   );
                                 }
