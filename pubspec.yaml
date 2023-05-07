@@ -95,6 +95,9 @@ dependencies:
   # Utilities
   http_parser: ^4.0.2
 
+  # Settings
+  app_settings: ^4.2.0
+
   # speech_to_text: ^5.6.1
   # better_player: ^0.0.83
   # confetti: ^0.7.0
@@ -104,13 +107,14 @@ dependencies:
   # link_preview_generator: ^1.2.0
   # flutter_link_preview: ^1.4.2
 
-  # Splash Screen
+  # Launcher Icons
 flutter_icons:
   image_path: "assets/images/yenilogo.png"
   android: true
   ios: true
   remove_alpha_ios: true
-
+  
+  # Splash Screen
 flutter_native_splash:
   image: "assets/images/yenilogo.png"
   color: "#000000"

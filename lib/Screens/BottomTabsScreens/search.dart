@@ -1431,7 +1431,7 @@ class _SearchState extends State<Search> {
             ),
             InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {
+              onTap: () async {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -1678,8 +1678,14 @@ class _SearchState extends State<Search> {
         selectedColor: Colors.blue.shade800,
         labelStyle: const TextStyle(fontWeight: FontWeight.bold),
         label: Text("#${name["etiketadi"]}"),
-        onSelected: (bool value) {
+        onSelected: (bool value) async {
           print("$name");
+          Fluttertoast.showToast(
+            msg: comingSoon,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+          );
         },
       );
     }
@@ -1703,15 +1709,13 @@ class _SearchState extends State<Search> {
             ),
             InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const ThemeConsumer(
-                //       child: News(),
-                //     ),
-                //   ),
-                // );
+              onTap: () async {
+                Fluttertoast.showToast(
+                  msg: comingSoon,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                );
               },
               child: const Icon(
                 Icons.arrow_forward,

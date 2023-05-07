@@ -11,22 +11,35 @@ class NoInternet extends StatefulWidget {
 
 class _NoInternetState extends State<NoInternet> with TickerProviderStateMixin {
   late final AnimationController _controller;
+  // late StreamSubscription _subscription;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    connectionStatus();
+    // Platform.isAndroid ? connectionStatus() : navigate();
+
+    // connectionStatus();
+
+    // _subscription = Connectivity().onConnectivityChanged.listen((event) {
+    //   print("noInternet");
+    //   print(_subscription);
+    //   print(Connectivity().checkConnectivity().toString());
+    //   connectionStatus();
+    // });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    // _subscription.cancel();
     super.dispose();
   }
 
   connectionStatus() async {
+    print("noInternet connectionStatus");
     final connectivityResult = await (Connectivity().checkConnectivity());
+    print(connectivityResult);
     if (connectivityResult != ConnectivityResult.none) {
       await navigate();
       setState(() {});

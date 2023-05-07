@@ -27,6 +27,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     postcek();
     medyacek();
     isSocial = false;
+    isEditProfileIconShow = false;
   }
 
   List resimler = [];
@@ -210,6 +211,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
                 fit: BoxFit.cover,
+                width: double.infinity,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
                   color: Colors.grey[700],
@@ -227,6 +229,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -241,6 +244,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[1]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -259,6 +263,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -278,6 +283,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                     colorFilter: const ColorFilter.srgbToLinearGamma(),
                     child: CachedNetworkImage(
                       imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                       placeholder: (context, url) => Container(
@@ -310,6 +316,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -328,6 +335,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -342,6 +350,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[1]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -360,6 +369,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -379,6 +389,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                     colorFilter: const ColorFilter.srgbToLinearGamma(),
                     child: CachedNetworkImage(
                       imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                       placeholder: (context, url) => Container(
@@ -411,6 +422,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -429,6 +441,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -443,6 +456,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[1]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -461,6 +475,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -480,6 +495,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                     colorFilter: const ColorFilter.srgbToLinearGamma(),
                     child: CachedNetworkImage(
                       imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                       placeholder: (context, url) => Container(
@@ -512,6 +528,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -530,6 +547,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -544,6 +562,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[1]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -562,6 +581,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -581,6 +601,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                     colorFilter: const ColorFilter.srgbToLinearGamma(),
                     child: CachedNetworkImage(
                       imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                       placeholder: (context, url) => Container(
@@ -942,6 +963,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      Visibility(
+                                        visible: Platform.isIOS ? true : false,
+                                        child: const SizedBox(width: 48),
+                                      ),
                                       Text(
                                         profiledata["adim"],
                                         style: const TextStyle(
@@ -949,13 +974,16 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         ),
                                       ),
                                       const SizedBox(width: 5),
-                                      profiledata["oyuncuID"] == "11"
-                                          ? const Icon(
-                                              Icons.check_circle,
-                                              color: Colors.blue,
-                                              size: 20,
-                                            )
-                                          : const Text(""),
+                                      Visibility(
+                                        visible: profiledata["oyuncuID"] == "11"
+                                            ? true
+                                            : false,
+                                        child: const Icon(
+                                          Icons.check_circle,
+                                          color: Colors.blue,
+                                          size: 20,
+                                        ),
+                                      )
                                     ],
                                   ),
                             background: FocusedMenuHolder(
@@ -2017,90 +2045,164 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   crossAxisCount: 2,
                 ),
                 itemBuilder: (BuildContext context, index) {
-                  return FocusedMenuHolder(
-                    menuWidth: MediaQuery.of(context).size.width * 0.50,
-                    blurSize: 5.0,
-                    menuItemExtent: 45,
-                    menuBoxDecoration: const BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15.0),
-                      ),
-                    ),
-                    duration: const Duration(milliseconds: 100),
-                    animateMenuItems: true,
-                    blurBackgroundColor: Colors.black54,
-                    bottomOffsetHeight: 100,
-                    // openWithTap: true,
-                    menuItems: <FocusedMenuItem>[
-                      FocusedMenuItem(
-                        title: const Text("Tarayıcıda aç"),
-                        trailingIcon: const Icon(Icons.open_in_new),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Site(
-                                verilink: medyadata[index]["medyaorijinal"],
-                                veribaslik: profiledata["adim"],
+                  return profiledata["oyuncuID"] == girisdata["oyuncuID"]
+                      ? FocusedMenuHolder(
+                          menuWidth: MediaQuery.of(context).size.width * 0.50,
+                          blurSize: 5.0,
+                          menuItemExtent: 45,
+                          menuBoxDecoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15.0),
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 100),
+                          animateMenuItems: true,
+                          blurBackgroundColor: Colors.black54,
+                          bottomOffsetHeight: 100,
+                          // openWithTap: true,
+                          menuItems: <FocusedMenuItem>[
+                            FocusedMenuItem(
+                              title: const Text("Tarayıcıda aç"),
+                              trailingIcon: const Icon(Icons.open_in_new),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Site(
+                                      verilink: medyadata[index]
+                                          ["medyaorijinal"],
+                                      veribaslik: profiledata["adim"],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            FocusedMenuItem(
+                              title: const Text("Paylaş"),
+                              trailingIcon: const Icon(Icons.share),
+                              onPressed: () {
+                                Share.share(medyadata[index]["medyaorijinal"]);
+                              },
+                            ),
+                            FocusedMenuItem(
+                              title: const Text("Galeriye kaydet"),
+                              trailingIcon:
+                                  const Icon(Icons.file_download_outlined),
+                              onPressed: () {
+                                GallerySaver.saveImage(
+                                    medyadata[index]["medyaorijinal"]);
+                              },
+                            ),
+                            FocusedMenuItem(
+                              title: Text(
+                                removeGalleryfromProfile,
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              trailingIcon: const Icon(
+                                Icons.delete_outline,
+                                color: Colors.red,
+                              ),
+                              onPressed: () async {
+                                await medyaSil(medyadata[index]["medyaID"]);
+                              },
+                            ),
+                          ],
+                          onPressed: () {
+                            // print(resimler);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Resiminceleme(
+                                  veri1: resimler,
+                                ),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: CachedNetworkImage(
+                              imageUrl: medyadata[index]["medyaufaklik"],
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Container(
+                                color: Colors.grey[700],
                               ),
                             ),
-                          );
-                        },
-                      ),
-                      FocusedMenuItem(
-                        title: const Text("Paylaş"),
-                        trailingIcon: const Icon(Icons.share),
-                        onPressed: () {
-                          Share.share(medyadata[index]["medyaorijinal"]);
-                        },
-                      ),
-                      FocusedMenuItem(
-                        title: const Text("Galeriye kaydet"),
-                        trailingIcon: const Icon(Icons.file_download_outlined),
-                        onPressed: () {
-                          GallerySaver.saveImage(
-                              medyadata[index]["medyaorijinal"]);
-                        },
-                      ),
-                      FocusedMenuItem(
-                        title: const Text(
-                          "Profil galerimden sil",
-                          style: TextStyle(
-                            color: Colors.red,
                           ),
-                        ),
-                        trailingIcon: const Icon(
-                          Icons.delete_outline,
-                          color: Colors.red,
-                        ),
-                        onPressed: () async {
-                          await medyaSil(medyadata[index]["medyaID"]);
-                        },
-                      ),
-                    ],
-                    onPressed: () {
-                      // print(resimler);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Resiminceleme(
-                            veri1: resimler,
+                        )
+                      : FocusedMenuHolder(
+                          menuWidth: MediaQuery.of(context).size.width * 0.50,
+                          blurSize: 5.0,
+                          menuItemExtent: 45,
+                          menuBoxDecoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15.0),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: medyadata[index]["medyaufaklik"],
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) => Container(
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ),
-                  );
+                          duration: const Duration(milliseconds: 100),
+                          animateMenuItems: true,
+                          blurBackgroundColor: Colors.black54,
+                          bottomOffsetHeight: 100,
+                          // openWithTap: true,
+                          menuItems: <FocusedMenuItem>[
+                            FocusedMenuItem(
+                              title: const Text("Tarayıcıda aç"),
+                              trailingIcon: const Icon(Icons.open_in_new),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Site(
+                                      verilink: medyadata[index]
+                                          ["medyaorijinal"],
+                                      veribaslik: profiledata["adim"],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            FocusedMenuItem(
+                              title: const Text("Paylaş"),
+                              trailingIcon: const Icon(Icons.share),
+                              onPressed: () {
+                                Share.share(medyadata[index]["medyaorijinal"]);
+                              },
+                            ),
+                            FocusedMenuItem(
+                              title: const Text("Galeriye kaydet"),
+                              trailingIcon:
+                                  const Icon(Icons.file_download_outlined),
+                              onPressed: () {
+                                GallerySaver.saveImage(
+                                    medyadata[index]["medyaorijinal"]);
+                              },
+                            ),
+                          ],
+                          onPressed: () {
+                            // print(resimler);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Resiminceleme(
+                                  veri1: resimler,
+                                ),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: CachedNetworkImage(
+                              imageUrl: medyadata[index]["medyaufaklik"],
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Container(
+                                color: Colors.grey[700],
+                              ),
+                            ),
+                          ),
+                        );
                 },
                 itemCount: medyadata.length,
               )
@@ -2414,6 +2516,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       child: const Icon(
                         Icons.more_vert,
                         size: 20,
+                        color: Colors.grey,
                       ),
                     ),
                   ],
@@ -2534,13 +2637,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                           child: Row(
                             children: [
                               postdata[index]["benyorumladim"] == 0
-                                  ? const Icon(
-                                      Icons.chat_bubble_outline,
+                                  ? const FaIcon(
+                                      FontAwesomeIcons.comment,
                                       color: Colors.grey,
+                                      size: 22,
                                     )
-                                  : const Icon(
-                                      Icons.chat_bubble,
+                                  : const FaIcon(
+                                      FontAwesomeIcons.solidComment,
                                       color: Colors.blue,
+                                      size: 22,
                                     ),
                               const SizedBox(
                                 width: 10,
@@ -2563,9 +2668,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              const Icon(
-                                Icons.repeat,
+                              const FaIcon(
+                                FontAwesomeIcons.retweet,
                                 color: Colors.grey,
+                                size: 22,
                               ),
                               const SizedBox(
                                 width: 5,

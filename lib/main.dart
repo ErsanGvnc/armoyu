@@ -8,19 +8,19 @@ import 'package:http/http.dart' as http;
 Future<void> main() async {
   await dotenv.load(fileName: "assets/.env");
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseConfig.platformOptions,
-  );
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  NotificationSettings settings = await messaging.requestPermission(
-    alert: true,
-    announcement: true,
-    badge: true,
-    carPlay: true,
-    sound: true,
-    criticalAlert: true,
-    provisional: true,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseConfig.platformOptions,
+  // );
+  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  // NotificationSettings settings = await messaging.requestPermission(
+  //   alert: true,
+  //   announcement: true,
+  //   badge: true,
+  //   carPlay: true,
+  //   sound: true,
+  //   criticalAlert: true,
+  //   provisional: true,
+  // );
 
   // // Get any initial links
   // final PendingDynamicLinkData? initialLink =

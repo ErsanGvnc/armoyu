@@ -20,6 +20,12 @@ class AnaSayfaState extends State<AnaSayfa> {
     xpcek();
     kullanicicek();
 
+    // subscription = Connectivity().onConnectivityChanged.listen((event) {
+    //   print("anasayfa");
+    //   print(subscription);
+    //   print(Connectivity().checkConnectivity().toString());
+    // });
+
     anaSayfaScrollController.addListener(() {
       if (anaSayfaScrollController.position.pixels ==
               anaSayfaScrollController.position.maxScrollExtent &&
@@ -33,6 +39,7 @@ class AnaSayfaState extends State<AnaSayfa> {
   @override
   void dispose() {
     anaSayfaScrollController.dispose();
+    // subscription!.cancel();
     super.dispose();
   }
 
@@ -295,6 +302,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -313,6 +321,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -327,6 +336,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[1]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -345,6 +355,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -364,6 +375,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                     colorFilter: const ColorFilter.srgbToLinearGamma(),
                     child: CachedNetworkImage(
                       imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                       placeholder: (context, url) => Container(
@@ -396,6 +408,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -414,6 +427,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -428,6 +442,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[1]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -446,6 +461,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -465,6 +481,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                     colorFilter: const ColorFilter.srgbToLinearGamma(),
                     child: CachedNetworkImage(
                       imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                       placeholder: (context, url) => Container(
@@ -497,6 +514,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -515,6 +533,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -529,6 +548,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[1]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -547,6 +567,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -566,6 +587,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                     colorFilter: const ColorFilter.srgbToLinearGamma(),
                     child: CachedNetworkImage(
                       imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                       placeholder: (context, url) => Container(
@@ -598,6 +620,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -616,6 +639,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -630,6 +654,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[1]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -648,6 +673,7 @@ class AnaSayfaState extends State<AnaSayfa> {
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 imageUrl: gonderifotolar[0]["fotoufakurl"],
+                width: double.infinity,
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
                 placeholder: (context, url) => Container(
@@ -667,6 +693,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                     colorFilter: const ColorFilter.srgbToLinearGamma(),
                     child: CachedNetworkImage(
                       imageUrl: gonderifotolar[1]["fotoufakurl"],
+                      width: double.infinity,
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                       placeholder: (context, url) => Container(
@@ -1244,6 +1271,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                       child: const Icon(
                         Icons.more_vert,
                         size: 20,
+                        color: Colors.grey,
                       ),
                     ),
                   ],
@@ -1371,13 +1399,15 @@ class AnaSayfaState extends State<AnaSayfa> {
                           child: Row(
                             children: [
                               dataanasayfa[index]["benyorumladim"] == 0
-                                  ? const Icon(
-                                      Icons.chat_bubble_outline,
+                                  ? const FaIcon(
+                                      FontAwesomeIcons.comment,
                                       color: Colors.grey,
+                                      size: 22,
                                     )
-                                  : const Icon(
-                                      Icons.chat_bubble,
+                                  : const FaIcon(
+                                      FontAwesomeIcons.solidComment,
                                       color: Colors.blue,
+                                      size: 22,
                                     ),
                               const SizedBox(
                                 width: 10,
@@ -1395,14 +1425,22 @@ class AnaSayfaState extends State<AnaSayfa> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Fluttertoast.showToast(
+                            msg: comingSoon,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                          );
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              const Icon(
-                                Icons.repeat,
+                              const FaIcon(
+                                FontAwesomeIcons.retweet,
                                 color: Colors.grey,
+                                size: 22,
                               ),
                               const SizedBox(
                                 width: 10,
