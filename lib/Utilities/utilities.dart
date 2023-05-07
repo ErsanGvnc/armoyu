@@ -35,49 +35,6 @@ postlike() async {
   }
 }
 
-postyorum() async {
-  var gelen = await http.post(
-    Uri.parse(postyorumlink),
-    body: {
-      "yorumicerik": yorum.text,
-      "postID": postID,
-      "kimeyanit": "0",
-      "kategori": "sosyal",
-    },
-  );
-
-  try {
-    response = jsonDecode(gelen.body);
-    print(response["durum"]);
-
-    if (response["durum"] != 1) {
-      print(response["aciklama"]);
-    }
-  } catch (e) {
-    print(e);
-  }
-}
-
-postyorumsil() async {
-  var gelen = await http.post(
-    Uri.parse(postyorumsillink),
-    body: {
-      "yorumID": yorumID,
-    },
-  );
-
-  try {
-    response = jsonDecode(gelen.body);
-    print(response["durum"]);
-
-    if (response["durum"] != 1) {
-      print(response["aciklama"]);
-    }
-  } catch (e) {
-    print(e);
-  }
-}
-
 postbildir() async {
   var gelen = await http.post(
     Uri.parse(postbildirlink),

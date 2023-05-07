@@ -36,9 +36,9 @@ class SplashState extends State<Splash> with TickerProviderStateMixin {
   }
 
   connectionStatus() async {
-    print("splash connectionStatus");
+    // print("splash connectionStatus");
     final connectivityResult = await (Connectivity().checkConnectivity());
-    print(connectivityResult);
+    // print(connectivityResult);
     if (connectivityResult != ConnectivityResult.none) {
       await navigate();
       setState(() {});

@@ -1431,7 +1431,7 @@ class _SearchState extends State<Search> {
             ),
             InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {
+              onTap: () async {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -1674,13 +1674,22 @@ class _SearchState extends State<Search> {
 
   Widget _chipListView() {
     get_chip(name) {
-      return FilterChip(
-        selectedColor: Colors.blue.shade800,
-        labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        label: Text("#${name["etiketadi"]}"),
-        onSelected: (bool value) {
-          print("$name");
-        },
+      return Padding(
+        padding: const EdgeInsets.only(right: 8),
+        child: FilterChip(
+          selectedColor: Colors.blue.shade800,
+          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          label: Text("#${name["etiketadi"]}"),
+          onSelected: (bool value) async {
+            print("$name");
+            Fluttertoast.showToast(
+              msg: comingSoon,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+            );
+          },
+        ),
       );
     }
 
@@ -1703,15 +1712,13 @@ class _SearchState extends State<Search> {
             ),
             InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const ThemeConsumer(
-                //       child: News(),
-                //     ),
-                //   ),
-                // );
+              onTap: () async {
+                Fluttertoast.showToast(
+                  msg: comingSoon,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                );
               },
               child: const Icon(
                 Icons.arrow_forward,
@@ -1724,8 +1731,8 @@ class _SearchState extends State<Search> {
         hashtagler.isNotEmpty
             ? SizedBox(
                 child: Wrap(
-                  spacing: 8.0, // gap between adjacent chips
-                  runSpacing: 4.0, // gap between lines
+                  // spacing: 8, // gap between adjacent chips
+                  runSpacing: 4, // gap between lines
                   direction: Axis.horizontal,
                   verticalDirection: VerticalDirection.down,
                   alignment: WrapAlignment.start,
