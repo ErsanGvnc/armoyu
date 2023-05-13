@@ -725,6 +725,11 @@ class _RegisterState extends State<Register> {
                     onEditingComplete: () => TextInput.finishAutofillContext(),
                     readOnly: true,
                   ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    "Optional",
+                    style: TextStyle(color: Colors.grey),
+                  ),
                   SizedBox(height: screenHeight / 30),
                   InternationalPhoneNumberInput(
                     // searchBoxDecoration: InputDecoration(
@@ -783,6 +788,11 @@ class _RegisterState extends State<Register> {
                       filled: true,
                       fillColor: Colors.grey.shade900,
                     ),
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    "Optional",
+                    style: TextStyle(color: Colors.grey),
                   ),
                   SizedBox(height: screenHeight / 30),
                   CSCPicker(
@@ -883,6 +893,11 @@ class _RegisterState extends State<Register> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    "Optional",
+                    style: TextStyle(color: Colors.grey),
+                  ),
                   SizedBox(height: screenHeight / 15),
                   Center(
                     child: InkWell(
@@ -894,10 +909,10 @@ class _RegisterState extends State<Register> {
                             eposta.text == "" ||
                             parola.text == "" ||
                             parolatekrar.text == "" ||
-                            dogumtarihi.text == "" ||
-                            userGender == "" ||
-                            isPhoneValidate == false ||
-                            userPhonenumber == "" ||
+                            // dogumtarihi.text == "" ||
+                            // userGender == "" ||
+                            // isPhoneValidate == false ||
+                            // userPhonenumber == "" ||
                             userCountry == "" ||
                             userState == "") {
                           const snackBar = SnackBar(
@@ -912,10 +927,10 @@ class _RegisterState extends State<Register> {
                               eposta.text != "" ||
                               parola.text != "" ||
                               parolatekrar.text != "" ||
-                              dogumtarihi.text != "" ||
-                              userGender != "" ||
-                              isPhoneValidate != false ||
-                              userPhonenumber != "" ||
+                              // dogumtarihi.text != "" ||
+                              // userGender != "" ||
+                              // isPhoneValidate != false ||
+                              // userPhonenumber != "" ||
                               userCountry != "" ||
                               userState != "") {
                             if (parola.text == parolatekrar.text) {
