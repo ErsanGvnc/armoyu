@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, avoid_print, unnecessary_null_comparison, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unused_element, use_build_context_synchronously
+// ignore_for_file: must_be_immutable, avoid_print, unnecessary_null_comparison, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unused_element, use_build_context_synchronously, unnecessary_statements
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:skeletons/skeletons.dart';
@@ -1256,8 +1256,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                               seconds: 1),
                                                           content:
                                                               Text("Yakında !"),
-                                                          shape:
-                                                              StadiumBorder(),
+                                                          
                                                         ),
                                                       ),
                                                     }
@@ -2523,15 +2522,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                 ),
                 SizedBox(height: screenHeight / 90),
                 DetectableText(
-                  trimCollapsedText: " devamını oku",
-                  trimExpandedText: " daha az göster",
-                  lessStyle: const TextStyle(color: Colors.grey),
-                  moreStyle: const TextStyle(color: Colors.grey),
                   detectionRegExp: RegExp(
                     "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
                     multiLine: true,
                   ),
                   text: postdata[index]["sosyalicerik"],
+                  trimCollapsedText: " devamını oku",
+                  trimExpandedText: " daha az göster",
+                  lessStyle: const TextStyle(color: Colors.grey),
+                  moreStyle: const TextStyle(color: Colors.grey),
                   basicStyle: const TextStyle(
                     fontSize: 16,
                   ),
