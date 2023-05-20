@@ -271,9 +271,9 @@ class _SettingsState extends State<Settings> {
           // const Divider(thickness: 2),
           Column(
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "Tema",
                     style: TextStyle(

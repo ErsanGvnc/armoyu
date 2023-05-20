@@ -824,10 +824,16 @@ class _AnaDetailState extends State<AnaDetail> {
                                     multiLine: true,
                                   ),
                                   text: widget.veri3,
-                                  basicStyle: TextStyle(
+                                  trimCollapsedText: " devamını oku",
+                                  trimExpandedText: " daha az göster",
+                                  lessStyle:
+                                      const TextStyle(color: Colors.grey),
+                                  moreStyle:
+                                      const TextStyle(color: Colors.grey),
+                                  basicStyle: const TextStyle(
                                     fontSize: 16,
                                   ),
-                                  detectedStyle: TextStyle(
+                                  detectedStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.blue,
@@ -835,7 +841,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: screenHeight / 35),
+                            // SizedBox(height: screenHeight / 35),
 
                             // if (shareType == "video/x-matroska" ||
                             //     shareType == "video/mp4")
@@ -1524,10 +1530,11 @@ class _AnaDetailState extends State<AnaDetail> {
                                   .toString() !=
                               "default_dark_theme"
                           ? Colors.grey
-                          : Colors.grey[850],
+                          : Colors.grey[900],
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(5, 2, 5, 5),
+                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                         child: DetectableTextField(
+                          onChanged: (value) => setState(() {}),
                           focusNode: focusNodeAnaDetail,
                           detectionRegExp: RegExp(
                             "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
@@ -1548,8 +1555,9 @@ class _AnaDetailState extends State<AnaDetail> {
                             ),
                           ],
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(right: 5),
+                              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                               child: CircleAvatar(
                                 backgroundImage: CachedNetworkImageProvider(
                                   girisdata["presimminnak"],
@@ -1557,7 +1565,24 @@ class _AnaDetailState extends State<AnaDetail> {
                                 backgroundColor: Colors.transparent,
                               ),
                             ),
-                            border: UnderlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            fillColor: ThemeProvider.controllerOf(context)
+                                        .currentThemeId
+                                        .toString() !=
+                                    "default_dark_theme"
+                                ? Colors.white
+                                : Colors.grey[850],
+                            filled: true,
                             counterText: "",
                             hintText: "Yorum Yap",
                             suffixIcon: IconButton(
@@ -1577,7 +1602,9 @@ class _AnaDetailState extends State<AnaDetail> {
                               },
                               icon: Icon(
                                 Icons.send,
-                                color: Colors.blue,
+                                color: yorum.text.isNotEmpty
+                                    ? Colors.blue
+                                    : Colors.grey,
                               ),
                             ),
                           ),

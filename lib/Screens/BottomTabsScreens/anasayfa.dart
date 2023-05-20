@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, prefer_interpolation_to_compose_strings, unnecessary_null_comparison
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
+// import 'package:extended_image/extended_image.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:http/http.dart' as http;
 
@@ -848,8 +849,8 @@ class AnaSayfaState extends State<AnaSayfa> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: const [
+                        const Row(
+                          children: [
                             Expanded(
                               child: SkeletonLine(),
                             ),
@@ -888,13 +889,15 @@ class AnaSayfaState extends State<AnaSayfa> {
                                 Icons.favorite_outline,
                                 color: Colors.grey,
                               ),
-                              const Icon(
-                                Icons.chat_bubble_outline,
+                              const FaIcon(
+                                FontAwesomeIcons.comment,
                                 color: Colors.grey,
+                                size: 22,
                               ),
-                              const Icon(
-                                Icons.repeat,
+                              const FaIcon(
+                                FontAwesomeIcons.retweet,
                                 color: Colors.grey,
+                                size: 22,
                               ),
                               const Icon(
                                 Icons.share_outlined,

@@ -1256,8 +1256,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                               seconds: 1),
                                                           content:
                                                               Text("Yakında !"),
-                                                          shape:
-                                                              StadiumBorder(),
+                                                          
                                                         ),
                                                       ),
                                                     }
@@ -2523,15 +2522,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                 ),
                 SizedBox(height: screenHeight / 90),
                 DetectableText(
-                  trimCollapsedText: " devamını oku",
-                  trimExpandedText: " daha az göster",
-                  lessStyle: const TextStyle(color: Colors.grey),
-                  moreStyle: const TextStyle(color: Colors.grey),
                   detectionRegExp: RegExp(
                     "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
                     multiLine: true,
                   ),
                   text: postdata[index]["sosyalicerik"],
+                  trimCollapsedText: " devamını oku",
+                  trimExpandedText: " daha az göster",
+                  lessStyle: const TextStyle(color: Colors.grey),
+                  moreStyle: const TextStyle(color: Colors.grey),
                   basicStyle: const TextStyle(
                     fontSize: 16,
                   ),

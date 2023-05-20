@@ -127,7 +127,6 @@ class MyHomePageState extends State<MyHomePage> {
     } else {
       const snackBar = SnackBar(
         content: Text('Hatalı Kullanıcı Adı Veya Parola!'),
-        shape: StadiumBorder(),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -206,13 +205,13 @@ class MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    Row(
+                    const Row(
                       children: [
                         Flexible(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 "Giriş Yapılıyor !",
                                 style: TextStyle(
@@ -294,6 +293,7 @@ class MyHomePageState extends State<MyHomePage> {
                           );
                         },
                         child: DrawerHeader(
+                          margin: EdgeInsets.zero,
                           decoration: BoxDecoration(
                             color: const Color.fromRGBO(0, 0, 0, 1),
                             image: DecorationImage(
@@ -329,58 +329,61 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
 
-                      ExpansionTile(
-                        backgroundColor: ThemeProvider.controllerOf(context)
-                                    .currentThemeId
-                                    .toString() !=
-                                "default_dark_theme"
-                            ? Colors.grey
-                            : Colors.grey[900],
-                        collapsedBackgroundColor:
-                            ThemeProvider.controllerOf(context)
-                                        .currentThemeId
-                                        .toString() !=
-                                    "default_dark_theme"
-                                ? Colors.grey
-                                : Colors.grey[900],
-                        leading: const Icon(Icons.diversity_3),
-                        title: const Text("Gruplarım"),
-                        children: [
-                          for (int i = 0; i < gruplarim.length; i++)
-                            ListTile(
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: CachedNetworkImage(
-                                  imageUrl: gruplarim[i]["grupufaklogo"],
-                                  placeholder: (context, url) => Container(
-                                    color: Colors.grey[700],
-                                  ),
-                                  fit: BoxFit.cover,
-                                  width: 35,
-                                  height: 35,
-                                ),
-                              ),
-                              title: Text(gruplarim[i]["grupadi"]),
-                              onTap: () {
-                                setState(() {
-                                  grupid = gruplarim[i]["grupID"];
-                                  grupdetail =
-                                      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
-                                  print(grupdetail);
-                                });
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Grup(
-                                      veri1: gruplarim[i]["grupadi"],
-                                      veri2: gruplarim[i]["grupID"],
+                      Visibility(
+                        visible: gruplarim.isNotEmpty ? true : false,
+                        child: ExpansionTile(
+                          backgroundColor: ThemeProvider.controllerOf(context)
+                                      .currentThemeId
+                                      .toString() !=
+                                  "default_dark_theme"
+                              ? Colors.grey
+                              : Colors.grey[900],
+                          collapsedBackgroundColor:
+                              ThemeProvider.controllerOf(context)
+                                          .currentThemeId
+                                          .toString() !=
+                                      "default_dark_theme"
+                                  ? Colors.grey
+                                  : Colors.grey[900],
+                          leading: const Icon(Icons.diversity_3),
+                          title: const Text("Gruplarım"),
+                          children: [
+                            for (int i = 0; i < gruplarim.length; i++)
+                              ListTile(
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: CachedNetworkImage(
+                                    imageUrl: gruplarim[i]["grupufaklogo"],
+                                    placeholder: (context, url) => Container(
+                                      color: Colors.grey[700],
                                     ),
+                                    fit: BoxFit.cover,
+                                    width: 35,
+                                    height: 35,
                                   ),
-                                );
-                              },
-                            ),
-                        ],
+                                ),
+                                title: Text(gruplarim[i]["grupadi"]),
+                                onTap: () {
+                                  setState(() {
+                                    grupid = gruplarim[i]["grupID"];
+                                    grupdetail =
+                                        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                    print(grupdetail);
+                                  });
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Grup(
+                                        veri1: gruplarim[i]["grupadi"],
+                                        veri2: gruplarim[i]["grupID"],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                          ],
+                        ),
                       ),
 
                       // ExpansionPanelList(
