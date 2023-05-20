@@ -29,6 +29,7 @@ export 'package:armoyu/Screens/GeneralScreens/grup.dart';
 export 'package:armoyu/Screens/GeneralScreens/toplanti.dart';
 export 'package:armoyu/Screens/GeneralScreens/resiminceleme.dart';
 export 'package:armoyu/Screens/GeneralScreens/etkinlikdetay.dart';
+export 'package:armoyu/Screens/GeneralScreens/searchdelegate.dart';
 export 'package:armoyu/Screens/Settings/settings.dart';
 
 //  Screens / InitScreen  //
@@ -82,7 +83,7 @@ export 'package:image_picker/image_picker.dart';
 export 'package:http_parser/http_parser.dart';
 export 'package:dio/dio.dart';
 export 'package:webview_flutter/webview_flutter.dart';
-export 'package:simple_url_preview/simple_url_preview.dart';
+export 'package:simple_url_preview_v2/simple_url_preview.dart';
 export 'package:like_button/like_button.dart';
 export 'package:share_plus/share_plus.dart';
 export 'package:fluttertoast/fluttertoast.dart';
@@ -96,9 +97,7 @@ export 'package:gallery_saver/gallery_saver.dart';
 export 'package:photo_view/photo_view_gallery.dart';
 export 'package:photo_view/photo_view.dart';
 export 'package:video_player/video_player.dart';
-// export 'package:inview_notifier_list/inview_notifier_list.dart';
 export 'package:wakelock/wakelock.dart';
-export 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 export 'package:intl_phone_number_input/intl_phone_number_input.dart';
 export 'package:csc_picker/csc_picker.dart';
 export 'package:carousel_slider/carousel_slider.dart';

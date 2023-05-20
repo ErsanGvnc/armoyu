@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print, sort_child_properties_last
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print, sort_child_properties_last, unnecessary_statements
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:badges/badges.dart' as badge;
@@ -31,8 +31,8 @@ Future<void> main() async {
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.transparent,
       statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
     ),
   );
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -127,7 +127,6 @@ class MyHomePageState extends State<MyHomePage> {
     } else {
       const snackBar = SnackBar(
         content: Text('Hatalı Kullanıcı Adı Veya Parola!'),
-        shape: StadiumBorder(),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -206,13 +205,13 @@ class MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    Row(
+                    const Row(
                       children: [
                         Flexible(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 "Giriş Yapılıyor !",
                                 style: TextStyle(
@@ -294,6 +293,7 @@ class MyHomePageState extends State<MyHomePage> {
                           );
                         },
                         child: DrawerHeader(
+                          margin: EdgeInsets.zero,
                           decoration: BoxDecoration(
                             color: const Color.fromRGBO(0, 0, 0, 1),
                             image: DecorationImage(
@@ -329,58 +329,61 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
 
-                      ExpansionTile(
-                        backgroundColor: ThemeProvider.controllerOf(context)
-                                    .currentThemeId
-                                    .toString() !=
-                                "default_dark_theme"
-                            ? Colors.grey
-                            : Colors.grey[900],
-                        collapsedBackgroundColor:
-                            ThemeProvider.controllerOf(context)
-                                        .currentThemeId
-                                        .toString() !=
-                                    "default_dark_theme"
-                                ? Colors.grey
-                                : Colors.grey[900],
-                        leading: const Icon(Icons.diversity_3),
-                        title: const Text("Gruplarım"),
-                        children: [
-                          for (int i = 0; i < gruplarim.length; i++)
-                            ListTile(
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: CachedNetworkImage(
-                                  imageUrl: gruplarim[i]["grupufaklogo"],
-                                  placeholder: (context, url) => Container(
-                                    color: Colors.grey[700],
-                                  ),
-                                  fit: BoxFit.cover,
-                                  width: 35,
-                                  height: 35,
-                                ),
-                              ),
-                              title: Text(gruplarim[i]["grupadi"]),
-                              onTap: () {
-                                setState(() {
-                                  grupid = gruplarim[i]["grupID"];
-                                  grupdetail =
-                                      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
-                                  print(grupdetail);
-                                });
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Grup(
-                                      veri1: gruplarim[i]["grupadi"],
-                                      veri2: gruplarim[i]["grupID"],
+                      Visibility(
+                        visible: gruplarim.isNotEmpty ? true : false,
+                        child: ExpansionTile(
+                          backgroundColor: ThemeProvider.controllerOf(context)
+                                      .currentThemeId
+                                      .toString() !=
+                                  "default_dark_theme"
+                              ? Colors.grey
+                              : Colors.grey[900],
+                          collapsedBackgroundColor:
+                              ThemeProvider.controllerOf(context)
+                                          .currentThemeId
+                                          .toString() !=
+                                      "default_dark_theme"
+                                  ? Colors.grey
+                                  : Colors.grey[900],
+                          leading: const Icon(Icons.diversity_3),
+                          title: const Text("Gruplarım"),
+                          children: [
+                            for (int i = 0; i < gruplarim.length; i++)
+                              ListTile(
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: CachedNetworkImage(
+                                    imageUrl: gruplarim[i]["grupufaklogo"],
+                                    placeholder: (context, url) => Container(
+                                      color: Colors.grey[700],
                                     ),
+                                    fit: BoxFit.cover,
+                                    width: 35,
+                                    height: 35,
                                   ),
-                                );
-                              },
-                            ),
-                        ],
+                                ),
+                                title: Text(gruplarim[i]["grupadi"]),
+                                onTap: () {
+                                  setState(() {
+                                    grupid = gruplarim[i]["grupID"];
+                                    grupdetail =
+                                        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                    print(grupdetail);
+                                  });
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Grup(
+                                        veri1: gruplarim[i]["grupadi"],
+                                        veri2: gruplarim[i]["grupID"],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                          ],
+                        ),
                       ),
 
                       // ExpansionPanelList(
@@ -680,6 +683,150 @@ class MyHomePageState extends State<MyHomePage> {
               );
             },
           ),
+          // title: Visibility(
+          //   visible: currentIndex == 1 ? true : false,
+          //   //   // child: TextFormField(
+          //   //   //   onChanged: (value) => setState(() {}),
+          //   //   //   focusNode: focusNodeSearch,
+          //   //   //   controller: searchtec,
+          //   //   //   maxLength: 150,
+          //   //   //   keyboardType: TextInputType.text,
+          //   //   //   textInputAction: TextInputAction.search,
+          //   //   //   inputFormatters: [
+          //   //   //     FilteringTextInputFormatter.allow(
+          //   //   //       RegExp(
+          //   //   //         r"[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*# ]",
+          //   //   //         caseSensitive: true,
+          //   //   //         unicode: true,
+          //   //   //         dotAll: true,
+          //   //   //       ),
+          //   //   //     ),
+          //   //   //   ],
+          //   //   //   decoration: InputDecoration(
+          //   //   //     contentPadding: const EdgeInsets.all(10),
+          //   //   //     border: OutlineInputBorder(
+          //   //   //       borderRadius: BorderRadius.circular(30),
+          //   //   //     ),
+          //   //   //     enabledBorder: OutlineInputBorder(
+          //   //   //       borderSide: BorderSide.none,
+          //   //   //       borderRadius: BorderRadius.circular(30),
+          //   //   //     ),
+          //   //   //     disabledBorder: OutlineInputBorder(
+          //   //   //       borderSide: BorderSide.none,
+          //   //   //       borderRadius: BorderRadius.circular(30),
+          //   //   //     ),
+          //   //   //     focusedBorder: const OutlineInputBorder(
+          //   //   //       borderRadius: BorderRadius.all(
+          //   //   //         Radius.circular(30),
+          //   //   //       ),
+          //   //   //       borderSide: BorderSide.none,
+          //   //   //     ),
+          //   //   //     fillColor: ThemeProvider.controllerOf(context)
+          //   //   //                 .currentThemeId
+          //   //   //                 .toString() !=
+          //   //   //             "default_dark_theme"
+          //   //   //         ? Colors.white
+          //   //   //         : Colors.grey[850],
+          //   //   //     filled: true,
+          //   //   //     counterText: "",
+          //   //   //     hintText: "Ara...",
+          //   //   //     suffixIcon: searchtec.text.isNotEmpty
+          //   //   //         ? IconButton(
+          //   //   //             onPressed: () {
+          //   //   //               searchtec.clear();
+          //   //   //             },
+          //   //   //             icon: const Icon(Icons.clear),
+          //   //   //           )
+          //   //   //         : null,
+          //   //   //   ),
+          //   //   // ),
+
+          //   child: TextFormField(
+          //     onTap: () async {
+          //       await showSearch(
+          //         // query: "app",
+          //         context: context,
+          //         delegate: CustomSearchDelegate(),
+          //       );
+          //     },
+          //     readOnly: true,
+          //     decoration: InputDecoration(
+          //       contentPadding: const EdgeInsets.all(10),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(30),
+          //       ),
+          //       enabledBorder: OutlineInputBorder(
+          //         borderSide: BorderSide.none,
+          //         borderRadius: BorderRadius.circular(30),
+          //       ),
+          //       disabledBorder: OutlineInputBorder(
+          //         borderSide: BorderSide.none,
+          //         borderRadius: BorderRadius.circular(30),
+          //       ),
+          //       focusedBorder: const OutlineInputBorder(
+          //         borderRadius: BorderRadius.all(
+          //           Radius.circular(30),
+          //         ),
+          //         borderSide: BorderSide.none,
+          //       ),
+          //       fillColor: ThemeProvider.controllerOf(context)
+          //                   .currentThemeId
+          //                   .toString() !=
+          //               "default_dark_theme"
+          //           ? Colors.white
+          //           : Colors.grey[850],
+          //       filled: true,
+          //       counterText: "",
+          //       hintText: "Ara...",
+          //     ),
+          //   ),
+
+          //   //   child: TextFormField(
+          //   //     controller: searchtec,
+          //   //     autofocus: false,
+          //   //     focusNode: focusNodeSearch,
+          //   //     onTap: () => FocusManager.instance.primaryFocus?.requestFocus(),
+          //   //     decoration: InputDecoration(
+          //   //       enabledBorder: const OutlineInputBorder(
+          //   //         borderRadius: BorderRadius.all(
+          //   //           Radius.circular(30),
+          //   //         ),
+          //   //         borderSide: BorderSide(
+          //   //           color: Colors.grey,
+          //   //           width: 1,
+          //   //         ),
+          //   //       ),
+          //   //       focusedBorder: const OutlineInputBorder(
+          //   //         borderRadius: BorderRadius.all(
+          //   //           Radius.circular(30),
+          //   //         ),
+          //   //         borderSide: BorderSide(
+          //   //           color: Colors.grey,
+          //   //           width: 1,
+          //   //         ),
+          //   //       ),
+          //   //       prefixIcon: const Icon(Icons.search),
+          //   //       suffixIcon: searchtec.text.isNotEmpty
+          //   //           ? IconButton(
+          //   //               onPressed: () {
+          //   //                 searchtec.clear();
+          //   //                 // resimler.clear();
+          //   //               },
+          //   //               icon: const Icon(Icons.clear),
+          //   //             )
+          //   //           : null,
+          //   //       hintText: "Ara...",
+          //   //       hintStyle: const TextStyle(
+          //   //         fontWeight: FontWeight.bold,
+          //   //       ),
+          //   //       border: InputBorder.none,
+          //   //     ),
+          //   //     textInputAction: TextInputAction.search,
+          //   //     onFieldSubmitted: (String value) {
+          //   //       RawAutocomplete.onFieldSubmitted(autocompleteKey);
+          //   //     },
+          //   //   ),
+          // ),
           actions: [
             Visibility(
               visible: currentIndex == 2 ? true : false,

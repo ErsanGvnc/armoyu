@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, unnecessary_statements
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
@@ -271,9 +271,9 @@ class _SettingsState extends State<Settings> {
           // const Divider(thickness: 2),
           Column(
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "Tema",
                     style: TextStyle(

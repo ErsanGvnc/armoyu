@@ -267,10 +267,10 @@ class _GrupState extends State<Grup> {
                 : ListView.separated(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) => Column(
+                    itemBuilder: (context, index) => const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         SizedBox(height: 150),
                         Text(
                           "Henüz grubunuzda hiç\npaylaşım yapılmamış...",

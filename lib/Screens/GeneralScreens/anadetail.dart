@@ -431,32 +431,598 @@ class _AnaDetailState extends State<AnaDetail> {
 
     return Scaffold(
       appBar: AppBar(),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: _refresh,
-          child: InkWell(
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Container(
-              child: Stack(
-                children: [
-                  ListView(
-                    controller: anaSayfaDetailScrollController,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: screenHeight / 60),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  InkWell(
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Container(
+            child: Stack(
+              children: [
+                ListView(
+                  controller: anaSayfaDetailScrollController,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  children: [
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: screenHeight / 60),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  borderRadius:
+                                      BorderRadius.circular(screenWidth / 12),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ThemeConsumer(
+                                          child: Profile(
+                                            veri1: widget.veri11,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: CircleAvatar(
+                                    radius: screenWidth / 12,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                      widget.veri1,
+                                    ),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                ),
+                                SizedBox(width: screenWidth / 35),
+                                InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ThemeConsumer(
+                                          child: Profile(
+                                            veri1: widget.veri11,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    widget.veri2,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(10),
+                                  onTap: () {
+                                    showModalBottomSheet<void>(
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(10),
+                                        ),
+                                      ),
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return SafeArea(
+                                          child: Wrap(
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 10),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.grey[900],
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .all(
+                                                          Radius.circular(30),
+                                                        ),
+                                                      ),
+                                                      width: screenWidth / 4,
+                                                      height: 5,
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: ListTile(
+                                                      leading:
+                                                          Icon(Icons.post_add),
+                                                      title:
+                                                          Text(addFavoritePost),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: widget.veri11 ==
+                                                            girisdata[
+                                                                "oyuncuID"]
+                                                        ? true
+                                                        : false,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        postID = widget.veri10;
+
+                                                        Navigator.pop(context);
+
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ThemeConsumer(
+                                                              child: Post(
+                                                                veri1: "",
+                                                                veri2: widget
+                                                                    .veri3,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: ListTile(
+                                                        leading: Icon(
+                                                            Icons.edit_note),
+                                                        title: Text(editPost),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: widget.veri11 ==
+                                                            girisdata[
+                                                                "oyuncuID"]
+                                                        ? true
+                                                        : false,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        postID = widget.veri10;
+                                                        postsil();
+                                                        Navigator.pop(context);
+                                                        Navigator.pop(context);
+                                                        Fluttertoast.showToast(
+                                                          msg:
+                                                              removePostNotification,
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .CENTER,
+                                                          timeInSecForIosWeb: 1,
+                                                        );
+                                                      },
+                                                      child: ListTile(
+                                                        leading: Icon(Icons
+                                                            .delete_sweep_outlined),
+                                                        title: Text(removePost),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Share.share(
+                                                          widget.veri14);
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: ListTile(
+                                                      leading: Icon(
+                                                          Icons.share_outlined),
+                                                      title: Text(shareUser),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Clipboard.setData(
+                                                        ClipboardData(
+                                                          text: widget.veri14,
+                                                        ),
+                                                      );
+                                                      Navigator.pop(context);
+
+                                                      Fluttertoast.showToast(
+                                                        msg: "Kopyalandı !",
+                                                        toastLength:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity:
+                                                            ToastGravity.CENTER,
+                                                        timeInSecForIosWeb: 1,
+                                                      );
+                                                    },
+                                                    child: ListTile(
+                                                      leading: Icon(
+                                                          Icons.content_copy),
+                                                      title: Text(
+                                                          shareUserProfileLink),
+                                                    ),
+                                                  ),
+                                                  // buraya web de aç özelliği ekle bunun için sitede her post için ayrı sayfa yapılmalı.
+                                                  Visibility(
+                                                    visible: widget.veri11 ==
+                                                            girisdata[
+                                                                "oyuncuID"]
+                                                        ? false
+                                                        : true,
+                                                    child: Divider(),
+                                                  ),
+                                                  Visibility(
+                                                    visible: widget.veri11 ==
+                                                            girisdata[
+                                                                "oyuncuID"]
+                                                        ? false
+                                                        : true,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        postID = widget.veri10;
+                                                        postbildir();
+                                                        Navigator.pop(context);
+
+                                                        Fluttertoast.showToast(
+                                                          msg: "Bildirildi !",
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .CENTER,
+                                                          timeInSecForIosWeb: 1,
+                                                        );
+                                                      },
+                                                      child: ListTile(
+                                                        textColor: Colors.red,
+                                                        leading: Icon(
+                                                          Icons.flag_outlined,
+                                                          color: Colors.red,
+                                                        ),
+                                                        title: Text(reportPost),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: widget.veri11 ==
+                                                            girisdata[
+                                                                "oyuncuID"]
+                                                        ? false
+                                                        : true,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        postID = widget.veri10;
+                                                        postbildir();
+                                                        Navigator.pop(context);
+
+                                                        Fluttertoast.showToast(
+                                                          msg: "Engellendi !",
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .CENTER,
+                                                          timeInSecForIosWeb: 1,
+                                                        );
+                                                      },
+                                                      child: ListTile(
+                                                        textColor: Colors.red,
+                                                        leading: Icon(
+                                                          Icons
+                                                              .person_off_outlined,
+                                                          color: Colors.red,
+                                                        ),
+                                                        title: Text(blockUser),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: widget.veri11 ==
+                                                            girisdata[
+                                                                "oyuncuID"]
+                                                        ? false
+                                                        : true,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        postID = widget.veri10;
+                                                        postbildir();
+                                                        Navigator.pop(context);
+
+                                                        Fluttertoast.showToast(
+                                                          msg: "Bildirildi !",
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .CENTER,
+                                                          timeInSecForIosWeb: 1,
+                                                        );
+                                                      },
+                                                      child: ListTile(
+                                                        textColor: Colors.red,
+                                                        leading: Icon(
+                                                          Icons.person_outline,
+                                                          color: Colors.red,
+                                                        ),
+                                                        title: Text(reportUser),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.more_vert,
+                                    size: 20,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: screenHeight / 35),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              onLongPress: () async {
+                                Clipboard.setData(
+                                  ClipboardData(
+                                    text: widget.veri3,
+                                  ),
+                                ).then((_) {
+                                  Fluttertoast.showToast(
+                                    msg: "Kopyalandı !",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                  );
+                                });
+                              },
+                              child: DetectableText(
+                                detectionRegExp: RegExp(
+                                  "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
+                                  multiLine: true,
+                                ),
+                                text: widget.veri3,
+                                trimCollapsedText: " devamını oku",
+                                trimExpandedText: " daha az göster",
+                                lessStyle: const TextStyle(color: Colors.grey),
+                                moreStyle: const TextStyle(color: Colors.grey),
+                                basicStyle: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                                detectedStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ),
+                          // SizedBox(height: screenHeight / 35),
+
+                          // if (shareType == "video/x-matroska" ||
+                          //     shareType == "video/mp4")
+                          //   // Text("-- Video --"),
+                          //   galerivideo(),
+
+                          if (shareType == "image/jpeg" ||
+                              shareType == "image/png" ||
+                              shareType == "image/jpg" ||
+                              shareType == "application/octet-stream" ||
+                              shareType == "video/x-matroska" ||
+                              shareType == "video/mp4")
+                            getPostMedia(),
+                          // buraya resim yüklenirken animasyon koy.
+
+                          SimpleUrlPreview(
+                            url: widget.veri3,
+                            isClosable: true,
+                            imageLoaderColor: Colors.blue,
+                            titleStyle: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            descriptionStyle: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            siteNameStyle: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: screenHeight / 50),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  widget.veri4,
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Text(
+                                  " - ",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                // buraya for web ise web e basılınca sitede postu aç bunun için sitede her post için ayrı sayfa yapılması lazım.
+                                Text(
+                                  widget.veri12 == ""
+                                      ? "For Web"
+                                      : "For Mobile",
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(endIndent: 10, indent: 10),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      byr = widget.veri10;
+                                    });
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      children: [
+                                        Text(widget.veri5),
+                                        Text(
+                                          "  Beğeni",
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      byr = widget.veri10;
+                                    });
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      children: [
+                                        Text(widget.veri6),
+                                        Text(
+                                          "  Yorum",
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      byr = widget.veri10;
+                                    });
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      children: [
+                                        Text(widget.veri7),
+                                        Text(
+                                          "  Repost",
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(endIndent: 10, indent: 10),
+                          Container(
+                            color: Colors.transparent,
+                            width: screenWidth,
+                            height: screenHeight / 20,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                LikeButton(
+                                  onTap: (bool isLike) {
+                                    return onLikeButtonTapped(isLike);
+                                  },
+                                  countPostion: CountPostion.right,
+                                  isLiked: widget.veri9 != 0 ? true : false,
+                                  // likeCount: int.parse(widget.veri5),
+                                  likeBuilder: (bool isLiked) {
+                                    return isLiked
+                                        ? Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                          )
+                                        : Icon(
+                                            Icons.favorite_outline,
+                                            color: Colors.grey,
+                                          );
+                                  },
+                                  bubblesColor: BubblesColor(
+                                    dotPrimaryColor: Colors.red,
+                                    dotSecondaryColor: Colors.blue,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    focusNodeAnaDetail.requestFocus();
+                                    // print(widget.veri13);
+                                    // print(widget.veri13.runtimeType);
+                                  },
+                                  icon: widget.veri13 == 0
+                                      ? const FaIcon(
+                                          FontAwesomeIcons.comment,
+                                          color: Colors.grey,
+                                          size: 22,
+                                        )
+                                      : const FaIcon(
+                                          FontAwesomeIcons.solidComment,
+                                          color: Colors.blue,
+                                          size: 22,
+                                        ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Fluttertoast.showToast(
+                                      msg: comingSoon,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                    );
+                                  },
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.retweet,
+                                    color: Colors.grey,
+                                    size: 22,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Share.share(
+                                      widget.veri3,
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.share_outlined,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Yorumlar
+                          Divider(),
+
+                          for (int i = 0; i < comments.length; i++)
+                            Column(
+                              children: [
+                                ListTile(
+                                  leading: InkWell(
                                     borderRadius:
                                         BorderRadius.circular(screenWidth / 12),
                                     onTap: () {
@@ -465,7 +1031,7 @@ class _AnaDetailState extends State<AnaDetail> {
                                         MaterialPageRoute(
                                           builder: (context) => ThemeConsumer(
                                             child: Profile(
-                                              veri1: widget.veri11,
+                                              veri1: comments[i]["yorumcuid"],
                                             ),
                                           ),
                                         ),
@@ -475,719 +1041,223 @@ class _AnaDetailState extends State<AnaDetail> {
                                       radius: screenWidth / 12,
                                       backgroundImage:
                                           CachedNetworkImageProvider(
-                                        widget.veri1,
+                                        comments[i]["yorumcuminnakavatar"],
                                       ),
-                                      backgroundColor: Colors.transparent,
+                                      backgroundColor: Colors.grey[700],
                                     ),
                                   ),
-                                  SizedBox(width: screenWidth / 35),
-                                  InkWell(
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ThemeConsumer(
-                                            child: Profile(
-                                              veri1: widget.veri11,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      widget.veri2,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  InkWell(
-                                    borderRadius: BorderRadius.circular(10),
-                                    onTap: () {
-                                      showModalBottomSheet<void>(
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(10),
-                                          ),
-                                        ),
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return SafeArea(
-                                            child: Wrap(
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 10),
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Colors.grey[900],
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                  .all(
-                                                            Radius.circular(30),
-                                                          ),
-                                                        ),
-                                                        width: screenWidth / 4,
-                                                        height: 5,
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: ListTile(
-                                                        leading: Icon(
-                                                            Icons.post_add),
-                                                        title: Text(
-                                                            addFavoritePost),
-                                                      ),
-                                                    ),
-                                                    Visibility(
-                                                      visible: widget.veri11 ==
-                                                              girisdata[
-                                                                  "oyuncuID"]
-                                                          ? true
-                                                          : false,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          postID =
-                                                              widget.veri10;
-
-                                                          Navigator.pop(
-                                                              context);
-
-                                                          Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  ThemeConsumer(
-                                                                child: Post(
-                                                                  veri1: "",
-                                                                  veri2: widget
-                                                                      .veri3,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                        child: ListTile(
-                                                          leading: Icon(
-                                                              Icons.edit_note),
-                                                          title: Text(editPost),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Visibility(
-                                                      visible: widget.veri11 ==
-                                                              girisdata[
-                                                                  "oyuncuID"]
-                                                          ? true
-                                                          : false,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          postID =
-                                                              widget.veri10;
-                                                          postsil();
-                                                          Navigator.pop(
-                                                              context);
-                                                          Navigator.pop(
-                                                              context);
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg:
-                                                                removePostNotification,
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .CENTER,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                          );
-                                                        },
-                                                        child: ListTile(
-                                                          leading: Icon(Icons
-                                                              .delete_sweep_outlined),
-                                                          title:
-                                                              Text(removePost),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Share.share(
-                                                            widget.veri14);
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: ListTile(
-                                                        leading: Icon(Icons
-                                                            .share_outlined),
-                                                        title: Text(shareUser),
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Clipboard.setData(
-                                                          ClipboardData(
-                                                            text: widget.veri14,
-                                                          ),
-                                                        );
-                                                        Navigator.pop(context);
-
-                                                        Fluttertoast.showToast(
-                                                          msg: "Kopyalandı !",
-                                                          toastLength: Toast
-                                                              .LENGTH_SHORT,
-                                                          gravity: ToastGravity
-                                                              .CENTER,
-                                                          timeInSecForIosWeb: 1,
-                                                        );
-                                                      },
-                                                      child: ListTile(
-                                                        leading: Icon(
-                                                            Icons.content_copy),
-                                                        title: Text(
-                                                            shareUserProfileLink),
-                                                      ),
-                                                    ),
-                                                    // buraya web de aç özelliği ekle bunun için sitede her post için ayrı sayfa yapılmalı.
-                                                    Visibility(
-                                                      visible: widget.veri11 ==
-                                                              girisdata[
-                                                                  "oyuncuID"]
-                                                          ? false
-                                                          : true,
-                                                      child: Divider(),
-                                                    ),
-                                                    Visibility(
-                                                      visible: widget.veri11 ==
-                                                              girisdata[
-                                                                  "oyuncuID"]
-                                                          ? false
-                                                          : true,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          postID =
-                                                              widget.veri10;
-                                                          postbildir();
-                                                          Navigator.pop(
-                                                              context);
-
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg: "Bildirildi !",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .CENTER,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                          );
-                                                        },
-                                                        child: ListTile(
-                                                          textColor: Colors.red,
-                                                          leading: Icon(
-                                                            Icons.flag_outlined,
-                                                            color: Colors.red,
-                                                          ),
-                                                          title:
-                                                              Text(reportPost),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Visibility(
-                                                      visible: widget.veri11 ==
-                                                              girisdata[
-                                                                  "oyuncuID"]
-                                                          ? false
-                                                          : true,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          postID =
-                                                              widget.veri10;
-                                                          postbildir();
-                                                          Navigator.pop(
-                                                              context);
-
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg: "Engellendi !",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .CENTER,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                          );
-                                                        },
-                                                        child: ListTile(
-                                                          textColor: Colors.red,
-                                                          leading: Icon(
-                                                            Icons
-                                                                .person_off_outlined,
-                                                            color: Colors.red,
-                                                          ),
-                                                          title:
-                                                              Text(blockUser),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Visibility(
-                                                      visible: widget.veri11 ==
-                                                              girisdata[
-                                                                  "oyuncuID"]
-                                                          ? false
-                                                          : true,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          postID =
-                                                              widget.veri10;
-                                                          postbildir();
-                                                          Navigator.pop(
-                                                              context);
-
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg: "Bildirildi !",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .CENTER,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                          );
-                                                        },
-                                                        child: ListTile(
-                                                          textColor: Colors.red,
-                                                          leading: Icon(
-                                                            Icons
-                                                                .person_outline,
-                                                            color: Colors.red,
-                                                          ),
-                                                          title:
-                                                              Text(reportUser),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                  ],
+                                  title: Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ThemeConsumer(
+                                                child: Profile(
+                                                  veri1: comments[i]
+                                                      ["yorumcuid"],
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           );
                                         },
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.more_vert,
-                                      size: 20,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: screenHeight / 35),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: InkWell(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onLongPress: () async {
-                                  Clipboard.setData(
-                                    ClipboardData(
-                                      text: widget.veri3,
-                                    ),
-                                  ).then((_) {
-                                    Fluttertoast.showToast(
-                                      msg: "Kopyalandı !",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 1,
-                                    );
-                                  });
-                                },
-                                child: DetectableText(
-                                  detectionRegExp: RegExp(
-                                    "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
-                                    multiLine: true,
-                                  ),
-                                  text: widget.veri3,
-                                  basicStyle: TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                  detectedStyle: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: screenHeight / 35),
-
-                            // if (shareType == "video/x-matroska" ||
-                            //     shareType == "video/mp4")
-                            //   // Text("-- Video --"),
-                            //   galerivideo(),
-
-                            if (shareType == "image/jpeg" ||
-                                shareType == "image/png" ||
-                                shareType == "image/jpg" ||
-                                shareType == "application/octet-stream" ||
-                                shareType == "video/x-matroska" ||
-                                shareType == "video/mp4")
-                              getPostMedia(),
-                            // buraya resim yüklenirken animasyon koy.
-
-                            SimpleUrlPreview(
-                              url: widget.veri3,
-                              isClosable: true,
-                              imageLoaderColor: Colors.blue,
-                              titleStyle: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              descriptionStyle: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              siteNameStyle: const TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(height: screenHeight / 50),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    widget.veri4,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Text(
-                                    " - ",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  // buraya for web ise web e basılınca sitede postu aç bunun için sitede her post için ayrı sayfa yapılması lazım.
-                                  Text(
-                                    widget.veri12 == ""
-                                        ? "For Web"
-                                        : "For Mobile",
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Divider(endIndent: 10, indent: 10),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        byr = widget.veri10;
-                                      });
-                                    },
-                                    child: Container(
-                                      child: Row(
-                                        children: [
-                                          Text(widget.veri5),
-                                          Text(
-                                            "  Beğeni",
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
+                                        child: Text(
+                                          comments[i]["yorumcuadsoyad"],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        byr = widget.veri10;
-                                      });
-                                    },
-                                    child: Container(
-                                      child: Row(
-                                        children: [
-                                          Text(widget.veri6),
-                                          Text(
-                                            "  Yorum",
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
+                                      Text(
+                                        "  -  " + comments[i]["yorumcuzaman"],
+                                        style: TextStyle(fontSize: 12),
                                       ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        byr = widget.veri10;
-                                      });
-                                    },
-                                    child: Container(
-                                      child: Row(
-                                        children: [
-                                          Text(widget.veri7),
-                                          Text(
-                                            "  Repost",
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Divider(endIndent: 10, indent: 10),
-                            Container(
-                              color: Colors.transparent,
-                              width: screenWidth,
-                              height: screenHeight / 20,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  LikeButton(
-                                    onTap: (bool isLike) {
-                                      return onLikeButtonTapped(isLike);
-                                    },
-                                    countPostion: CountPostion.right,
-                                    isLiked: widget.veri9 != 0 ? true : false,
-                                    // likeCount: int.parse(widget.veri5),
-                                    likeBuilder: (bool isLiked) {
-                                      return isLiked
-                                          ? Icon(
-                                              Icons.favorite,
-                                              color: Colors.red,
-                                            )
-                                          : Icon(
-                                              Icons.favorite_outline,
-                                              color: Colors.grey,
-                                            );
-                                    },
-                                    bubblesColor: BubblesColor(
-                                      dotPrimaryColor: Colors.red,
-                                      dotSecondaryColor: Colors.blue,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      focusNodeAnaDetail.requestFocus();
-                                      // print(widget.veri13);
-                                      // print(widget.veri13.runtimeType);
-                                    },
-                                    icon: widget.veri13 == 0
-                                        ? const FaIcon(
-                                            FontAwesomeIcons.comment,
-                                            color: Colors.grey,
-                                            size: 22,
-                                          )
-                                        : const FaIcon(
-                                            FontAwesomeIcons.solidComment,
-                                            color: Colors.blue,
-                                            size: 22,
-                                          ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Fluttertoast.showToast(
-                                        msg: comingSoon,
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.CENTER,
-                                        timeInSecForIosWeb: 1,
-                                      );
-                                    },
-                                    icon: const FaIcon(
-                                      FontAwesomeIcons.retweet,
-                                      color: Colors.grey,
-                                      size: 22,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Share.share(
-                                        widget.veri3,
-                                      );
-                                    },
-                                    icon: Icon(
-                                      Icons.share_outlined,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // Yorumlar
-                            Divider(),
-
-                            for (int i = 0; i < comments.length; i++)
-                              Column(
-                                children: [
-                                  ListTile(
-                                    leading: InkWell(
-                                      borderRadius: BorderRadius.circular(
-                                          screenWidth / 12),
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ThemeConsumer(
-                                              child: Profile(
-                                                veri1: comments[i]["yorumcuid"],
+                                      Spacer(),
+                                      InkWell(
+                                        onTap: () {
+                                          showModalBottomSheet<void>(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                top: Radius.circular(10),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                      child: CircleAvatar(
-                                        radius: screenWidth / 12,
-                                        backgroundImage:
-                                            CachedNetworkImageProvider(
-                                          comments[i]["yorumcuminnakavatar"],
-                                        ),
-                                        backgroundColor: Colors.grey[700],
-                                      ),
-                                    ),
-                                    title: Row(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ThemeConsumer(
-                                                  child: Profile(
-                                                    veri1: comments[i]
-                                                        ["yorumcuid"],
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: Text(
-                                            comments[i]["yorumcuadsoyad"],
-                                          ),
-                                        ),
-                                        Text(
-                                          "  -  " + comments[i]["yorumcuzaman"],
-                                          style: TextStyle(fontSize: 12),
-                                        ),
-                                        Spacer(),
-                                        InkWell(
-                                          onTap: () {
-                                            showModalBottomSheet<void>(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.vertical(
-                                                  top: Radius.circular(10),
-                                                ),
-                                              ),
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return SafeArea(
-                                                  child: Wrap(
-                                                    children: [
-                                                      Container(
-                                                        child: Column(
-                                                          children: [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          10),
-                                                              child: Container(
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Colors
-                                                                          .grey[
-                                                                      900],
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .all(
-                                                                    Radius
-                                                                        .circular(
-                                                                            30),
-                                                                  ),
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return SafeArea(
+                                                child: Wrap(
+                                                  children: [
+                                                    Container(
+                                                      child: Column(
+                                                        children: [
+                                                          Padding(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        10),
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .grey[900],
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          30),
                                                                 ),
-                                                                width:
-                                                                    screenWidth /
-                                                                        4,
-                                                                height: 5,
                                                               ),
+                                                              width:
+                                                                  screenWidth /
+                                                                      4,
+                                                              height: 5,
                                                             ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child: ListTile(
-                                                                leading: Icon(Icons
-                                                                    .post_add),
-                                                                title: Text(
-                                                                    "Yorumu favorilere ekle."),
-                                                              ),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: ListTile(
+                                                              leading: Icon(Icons
+                                                                  .post_add),
+                                                              title: Text(
+                                                                  "Yorumu favorilere ekle."),
                                                             ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                Share.share(
-                                                                    comments[i][
-                                                                        "oyunculink"]);
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child: ListTile(
-                                                                leading: Icon(Icons
-                                                                    .share_outlined),
-                                                                title: Text(
-                                                                    shareUser),
-                                                              ),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              Share.share(comments[
+                                                                      i][
+                                                                  "oyunculink"]);
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: ListTile(
+                                                              leading: Icon(Icons
+                                                                  .share_outlined),
+                                                              title: Text(
+                                                                  shareUser),
                                                             ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                Clipboard
-                                                                    .setData(
-                                                                  ClipboardData(
-                                                                    text: comments[
-                                                                            i][
-                                                                        "oyunculink"],
-                                                                  ),
-                                                                );
-                                                                Navigator.pop(
-                                                                    context);
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              Clipboard.setData(
+                                                                ClipboardData(
+                                                                  text: comments[
+                                                                          i][
+                                                                      "oyunculink"],
+                                                                ),
+                                                              );
+                                                              Navigator.pop(
+                                                                  context);
 
+                                                              Fluttertoast
+                                                                  .showToast(
+                                                                msg:
+                                                                    "Kopyalandı !",
+                                                                toastLength: Toast
+                                                                    .LENGTH_SHORT,
+                                                                gravity:
+                                                                    ToastGravity
+                                                                        .CENTER,
+                                                                timeInSecForIosWeb:
+                                                                    1,
+                                                              );
+                                                            },
+                                                            child: ListTile(
+                                                              leading: Icon(Icons
+                                                                  .content_copy),
+                                                              title: Text(
+                                                                  shareUserProfileLink),
+                                                            ),
+                                                          ),
+                                                          Visibility(
+                                                            visible: true,
+                                                            child: Divider(),
+                                                          ),
+                                                          Visibility(
+                                                            visible: comments[i]
+                                                                        [
+                                                                        "yorumcuid"] ==
+                                                                    girisdata[
+                                                                        "oyuncuID"]
+                                                                ? true
+                                                                : false,
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                setState(() {
+                                                                  yorumID =
+                                                                      comments[
+                                                                              i]
+                                                                          [
+                                                                          "yorumID"];
+                                                                });
+
+                                                                await postyorumsil();
+                                                              },
+                                                              child: ListTile(
+                                                                leading: Icon(
+                                                                  Icons
+                                                                      .delete_sweep_outlined,
+                                                                  color: Colors
+                                                                      .red,
+                                                                ),
+                                                                title: Text(
+                                                                  "Yorumu kaldır.",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .red),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Visibility(
+                                                            visible: comments[i]
+                                                                        [
+                                                                        "yorumcuid"] ==
+                                                                    girisdata[
+                                                                        "oyuncuID"]
+                                                                ? false
+                                                                : true,
+                                                            child: InkWell(
+                                                              onTap: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: ListTile(
+                                                                textColor:
+                                                                    Colors.red,
+                                                                leading: Icon(
+                                                                  Icons
+                                                                      .flag_outlined,
+                                                                  color: Colors
+                                                                      .red,
+                                                                ),
+                                                                title: Text(
+                                                                    "Yorumu bildir."),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Visibility(
+                                                            visible: comments[i]
+                                                                        [
+                                                                        "yorumcuid"] ==
+                                                                    girisdata[
+                                                                        "oyuncuID"]
+                                                                ? false
+                                                                : true,
+                                                            child: InkWell(
+                                                              onTap: () {
+                                                                postID = widget
+                                                                    .veri10;
+                                                                postbildir();
+                                                                Navigator.pop(
+                                                                    context);
                                                                 Fluttertoast
                                                                     .showToast(
                                                                   msg:
-                                                                      "Kopyalandı !",
+                                                                      "Engellendi !",
                                                                   toastLength: Toast
                                                                       .LENGTH_SHORT,
                                                                   gravity:
@@ -1198,336 +1268,227 @@ class _AnaDetailState extends State<AnaDetail> {
                                                                 );
                                                               },
                                                               child: ListTile(
-                                                                leading: Icon(Icons
-                                                                    .content_copy),
+                                                                textColor:
+                                                                    Colors.red,
+                                                                leading: Icon(
+                                                                  Icons
+                                                                      .person_off_outlined,
+                                                                  color: Colors
+                                                                      .red,
+                                                                ),
                                                                 title: Text(
-                                                                    shareUserProfileLink),
+                                                                    blockUser),
                                                               ),
                                                             ),
-                                                            Visibility(
-                                                              visible: true,
-                                                              child: Divider(),
-                                                            ),
-                                                            Visibility(
-                                                              visible: comments[
-                                                                              i]
-                                                                          [
-                                                                          "yorumcuid"] ==
-                                                                      girisdata[
-                                                                          "oyuncuID"]
-                                                                  ? true
-                                                                  : false,
-                                                              child: InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  setState(() {
-                                                                    yorumID =
-                                                                        comments[i]
-                                                                            [
-                                                                            "yorumID"];
-                                                                  });
-
-                                                                  await postyorumsil();
-                                                                },
-                                                                child: ListTile(
-                                                                  leading: Icon(
-                                                                    Icons
-                                                                        .delete_sweep_outlined,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                  title: Text(
-                                                                    "Yorumu kaldır.",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .red),
-                                                                  ),
+                                                          ),
+                                                          Visibility(
+                                                            visible: comments[i]
+                                                                        [
+                                                                        "yorumcuid"] ==
+                                                                    girisdata[
+                                                                        "oyuncuID"]
+                                                                ? false
+                                                                : true,
+                                                            child: InkWell(
+                                                              onTap: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: ListTile(
+                                                                textColor:
+                                                                    Colors.red,
+                                                                leading: Icon(
+                                                                  Icons
+                                                                      .person_outline,
+                                                                  color: Colors
+                                                                      .red,
                                                                 ),
+                                                                title: Text(
+                                                                    reportUser),
                                                               ),
                                                             ),
-                                                            Visibility(
-                                                              visible: comments[
-                                                                              i]
-                                                                          [
-                                                                          "yorumcuid"] ==
-                                                                      girisdata[
-                                                                          "oyuncuID"]
-                                                                  ? false
-                                                                  : true,
-                                                              child: InkWell(
-                                                                onTap: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: ListTile(
-                                                                  textColor:
-                                                                      Colors
-                                                                          .red,
-                                                                  leading: Icon(
-                                                                    Icons
-                                                                        .flag_outlined,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                  title: Text(
-                                                                      "Yorumu bildir."),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Visibility(
-                                                              visible: comments[
-                                                                              i]
-                                                                          [
-                                                                          "yorumcuid"] ==
-                                                                      girisdata[
-                                                                          "oyuncuID"]
-                                                                  ? false
-                                                                  : true,
-                                                              child: InkWell(
-                                                                onTap: () {
-                                                                  postID = widget
-                                                                      .veri10;
-                                                                  postbildir();
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                  Fluttertoast
-                                                                      .showToast(
-                                                                    msg:
-                                                                        "Engellendi !",
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_SHORT,
-                                                                    gravity:
-                                                                        ToastGravity
-                                                                            .CENTER,
-                                                                    timeInSecForIosWeb:
-                                                                        1,
-                                                                  );
-                                                                },
-                                                                child: ListTile(
-                                                                  textColor:
-                                                                      Colors
-                                                                          .red,
-                                                                  leading: Icon(
-                                                                    Icons
-                                                                        .person_off_outlined,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                  title: Text(
-                                                                      blockUser),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Visibility(
-                                                              visible: comments[
-                                                                              i]
-                                                                          [
-                                                                          "yorumcuid"] ==
-                                                                      girisdata[
-                                                                          "oyuncuID"]
-                                                                  ? false
-                                                                  : true,
-                                                              child: InkWell(
-                                                                onTap: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: ListTile(
-                                                                  textColor:
-                                                                      Colors
-                                                                          .red,
-                                                                  leading: Icon(
-                                                                    Icons
-                                                                        .person_outline,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                  title: Text(
-                                                                      reportUser),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const SizedBox(
-                                                                height: 10),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.more_vert,
+                                          size: 15,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  subtitle: DetectableText(
+                                    detectionRegExp: RegExp(
+                                      "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
+                                      multiLine: true,
+                                    ),
+                                    text: comments[i]["yorumcuicerik"],
+                                    basicStyle: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                    detectedStyle: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: screenWidth,
+                                  height: screenHeight / 20,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      LikeButton(
+                                        onTap: (bool isLike) {
+                                          return onCommentLikeButtonTapped(
+                                            isLike,
+                                            comments[i],
+                                          );
+                                        },
+                                        countPostion: CountPostion.right,
+                                        isLiked: comments[i]["benbegendim"] != 0
+                                            ? true
+                                            : false,
+                                        likeCount: comments[i]
+                                                    ["yorumbegenisayi"] !=
+                                                "0"
+                                            ? int.parse(
+                                                comments[i]["yorumbegenisayi"])
+                                            : null,
+                                        likeBuilder: (bool isLiked) {
+                                          return isLiked
+                                              ? Icon(
+                                                  Icons.favorite,
+                                                  color: Colors.red,
+                                                )
+                                              : Icon(
+                                                  Icons.favorite_outline,
+                                                  color: Colors.grey,
                                                 );
-                                              },
-                                            );
-                                          },
-                                          child: Icon(
-                                            Icons.more_vert,
-                                            size: 15,
-                                            color: Colors.grey,
-                                          ),
+                                        },
+                                        bubblesColor: BubblesColor(
+                                          dotPrimaryColor: Colors.red,
+                                          dotSecondaryColor: Colors.blue,
                                         ),
-                                      ],
-                                    ),
-                                    subtitle: DetectableText(
-                                      detectionRegExp: RegExp(
-                                        "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
-                                        multiLine: true,
                                       ),
-                                      text: comments[i]["yorumcuicerik"],
-                                      basicStyle: TextStyle(
-                                        fontSize: 14,
+                                      IconButton(
+                                        onPressed: () {
+                                          yorum.text =
+                                              "${comments[i]["yorumcuetiketad"]} ";
+                                          focusNodeAnaDetail.requestFocus();
+                                        },
+                                        icon: const FaIcon(
+                                          FontAwesomeIcons.comment,
+                                          color: Colors.grey,
+                                          size: 21,
+                                        ),
                                       ),
-                                      detectedStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.blue,
+                                      IconButton(
+                                        onPressed: () {
+                                          Share.share(
+                                            widget.veri3,
+                                          );
+                                        },
+                                        icon: Icon(
+                                          Icons.share_outlined,
+                                          color: Colors.grey,
+                                          size: 19,
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    width: screenWidth,
-                                    height: screenHeight / 20,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        LikeButton(
-                                          onTap: (bool isLike) {
-                                            return onCommentLikeButtonTapped(
-                                              isLike,
-                                              comments[i],
-                                            );
-                                          },
-                                          countPostion: CountPostion.right,
-                                          isLiked:
-                                              comments[i]["benbegendim"] != 0
-                                                  ? true
-                                                  : false,
-                                          likeCount: comments[i]
-                                                      ["yorumbegenisayi"] !=
-                                                  "0"
-                                              ? int.parse(comments[i]
-                                                  ["yorumbegenisayi"])
-                                              : null,
-                                          likeBuilder: (bool isLiked) {
-                                            return isLiked
-                                                ? Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.red,
-                                                  )
-                                                : Icon(
-                                                    Icons.favorite_outline,
-                                                    color: Colors.grey,
-                                                  );
-                                          },
-                                          bubblesColor: BubblesColor(
-                                            dotPrimaryColor: Colors.red,
-                                            dotSecondaryColor: Colors.blue,
-                                          ),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            yorum.text =
-                                                "${comments[i]["yorumcuetiketad"]} ";
-                                            focusNodeAnaDetail.requestFocus();
-                                          },
-                                          icon: const FaIcon(
-                                            FontAwesomeIcons.comment,
-                                            color: Colors.grey,
-                                            size: 21,
-                                          ),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            Share.share(
-                                              widget.veri3,
-                                            );
-                                          },
-                                          icon: Icon(
-                                            Icons.share_outlined,
-                                            color: Colors.grey,
-                                            size: 19,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Divider(),
-                                ],
-                              ),
-
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                comments.isNotEmpty
-                                    ? Icon(
-                                        Icons.radio_button_checked,
-                                        color: Colors.grey,
-                                      )
-                                    : Column(
-                                        children: [
-                                          SizedBox(height: 100),
-                                          Text(
-                                            "Yorum yapan ilk kişi olun",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          SizedBox(height: 25),
-                                          InkWell(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            onTap: () => focusNodeAnaDetail
-                                                .requestFocus(),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                border: Border.all(
-                                                  color: Colors.blue,
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Text(
-                                                  "Yorum Yap",
-                                                  style: TextStyle(
-                                                    color: Colors.blue,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                ),
+                                Divider(),
                               ],
                             ),
 
-                            SizedBox(height: 450),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  // yorum yeri
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              comments.isNotEmpty
+                                  ? Icon(
+                                      Icons.radio_button_checked,
+                                      color: Colors.grey,
+                                    )
+                                  : Column(
+                                      children: [
+                                        SizedBox(height: 100),
+                                        Text(
+                                          "Yorum yapan ilk kişi olun",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(height: 25),
+                                        InkWell(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          onTap: () =>
+                                              focusNodeAnaDetail.requestFocus(),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              border: Border.all(
+                                                color: Colors.blue,
+                                                width: 2,
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Text(
+                                                "Yorum Yap",
+                                                style: TextStyle(
+                                                  color: Colors.blue,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ],
+                          ),
 
-                  Positioned(
-                    bottom: 0,
-                    width: screenWidth,
-                    child: Container(
-                      color: ThemeProvider.controllerOf(context)
-                                  .currentThemeId
-                                  .toString() !=
-                              "default_dark_theme"
-                          ? Colors.grey
-                          : Colors.grey[850],
+                          SizedBox(height: 450),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                // yorum yeri
+
+                Positioned(
+                  bottom: 0,
+                  width: screenWidth,
+                  child: Container(
+                    color: ThemeProvider.controllerOf(context)
+                                .currentThemeId
+                                .toString() !=
+                            "default_dark_theme"
+                        ? Colors.grey
+                        : Colors.grey[900],
+                    child: SafeArea(
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(5, 2, 5, 5),
+                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                         child: DetectableTextField(
+                          onChanged: (value) => setState(() {}),
                           focusNode: focusNodeAnaDetail,
                           detectionRegExp: RegExp(
                             "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
@@ -1548,8 +1509,9 @@ class _AnaDetailState extends State<AnaDetail> {
                             ),
                           ],
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(right: 5),
+                              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                               child: CircleAvatar(
                                 backgroundImage: CachedNetworkImageProvider(
                                   girisdata["presimminnak"],
@@ -1557,7 +1519,30 @@ class _AnaDetailState extends State<AnaDetail> {
                                 backgroundColor: Colors.transparent,
                               ),
                             ),
-                            border: UnderlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30),
+                              ),
+                              borderSide: BorderSide.none,
+                            ),
+                            fillColor: ThemeProvider.controllerOf(context)
+                                        .currentThemeId
+                                        .toString() !=
+                                    "default_dark_theme"
+                                ? Colors.white
+                                : Colors.grey[850],
+                            filled: true,
                             counterText: "",
                             hintText: "Yorum Yap",
                             suffixIcon: IconButton(
@@ -1577,7 +1562,9 @@ class _AnaDetailState extends State<AnaDetail> {
                               },
                               icon: Icon(
                                 Icons.send,
-                                color: Colors.blue,
+                                color: yorum.text.isNotEmpty
+                                    ? Colors.blue
+                                    : Colors.grey,
                               ),
                             ),
                           ),
@@ -1585,8 +1572,8 @@ class _AnaDetailState extends State<AnaDetail> {
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

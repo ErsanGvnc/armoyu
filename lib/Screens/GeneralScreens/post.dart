@@ -82,8 +82,6 @@ class _PostState extends State<Post> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return ThemeConsumer(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -128,7 +126,6 @@ class _PostState extends State<Post> {
                       SnackBar(
                         content: Text(
                             "  ${isEditPost != true ? sharePostNotice : editPostNotice} ${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
-                        shape: const StadiumBorder(),
                       ),
                     );
                     Navigator.pop(context);
@@ -326,7 +323,7 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    shape: StadiumBorder(),
+                                    
                                   ),
                                 );
                               },
@@ -341,7 +338,7 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    shape: StadiumBorder(),
+                                    
                                   ),
                                 );
 
@@ -358,7 +355,7 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    shape: StadiumBorder(),
+                                    
                                   ),
                                 );
                               },
@@ -373,7 +370,7 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    shape: StadiumBorder(),
+                                    
                                   ),
                                 );
                               },
@@ -388,7 +385,7 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    shape: StadiumBorder(),
+                                   
                                   ),
                                 );
                               },
