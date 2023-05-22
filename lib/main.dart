@@ -683,6 +683,150 @@ class MyHomePageState extends State<MyHomePage> {
               );
             },
           ),
+          // title: Visibility(
+          //   visible: currentIndex == 1 ? true : false,
+          //   //   // child: TextFormField(
+          //   //   //   onChanged: (value) => setState(() {}),
+          //   //   //   focusNode: focusNodeSearch,
+          //   //   //   controller: searchtec,
+          //   //   //   maxLength: 150,
+          //   //   //   keyboardType: TextInputType.text,
+          //   //   //   textInputAction: TextInputAction.search,
+          //   //   //   inputFormatters: [
+          //   //   //     FilteringTextInputFormatter.allow(
+          //   //   //       RegExp(
+          //   //   //         r"[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*# ]",
+          //   //   //         caseSensitive: true,
+          //   //   //         unicode: true,
+          //   //   //         dotAll: true,
+          //   //   //       ),
+          //   //   //     ),
+          //   //   //   ],
+          //   //   //   decoration: InputDecoration(
+          //   //   //     contentPadding: const EdgeInsets.all(10),
+          //   //   //     border: OutlineInputBorder(
+          //   //   //       borderRadius: BorderRadius.circular(30),
+          //   //   //     ),
+          //   //   //     enabledBorder: OutlineInputBorder(
+          //   //   //       borderSide: BorderSide.none,
+          //   //   //       borderRadius: BorderRadius.circular(30),
+          //   //   //     ),
+          //   //   //     disabledBorder: OutlineInputBorder(
+          //   //   //       borderSide: BorderSide.none,
+          //   //   //       borderRadius: BorderRadius.circular(30),
+          //   //   //     ),
+          //   //   //     focusedBorder: const OutlineInputBorder(
+          //   //   //       borderRadius: BorderRadius.all(
+          //   //   //         Radius.circular(30),
+          //   //   //       ),
+          //   //   //       borderSide: BorderSide.none,
+          //   //   //     ),
+          //   //   //     fillColor: ThemeProvider.controllerOf(context)
+          //   //   //                 .currentThemeId
+          //   //   //                 .toString() !=
+          //   //   //             "default_dark_theme"
+          //   //   //         ? Colors.white
+          //   //   //         : Colors.grey[850],
+          //   //   //     filled: true,
+          //   //   //     counterText: "",
+          //   //   //     hintText: "Ara...",
+          //   //   //     suffixIcon: searchtec.text.isNotEmpty
+          //   //   //         ? IconButton(
+          //   //   //             onPressed: () {
+          //   //   //               searchtec.clear();
+          //   //   //             },
+          //   //   //             icon: const Icon(Icons.clear),
+          //   //   //           )
+          //   //   //         : null,
+          //   //   //   ),
+          //   //   // ),
+
+          //   child: TextFormField(
+          //     onTap: () async {
+          //       await showSearch(
+          //         // query: "app",
+          //         context: context,
+          //         delegate: CustomSearchDelegate(),
+          //       );
+          //     },
+          //     readOnly: true,
+          //     decoration: InputDecoration(
+          //       contentPadding: const EdgeInsets.all(10),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(30),
+          //       ),
+          //       enabledBorder: OutlineInputBorder(
+          //         borderSide: BorderSide.none,
+          //         borderRadius: BorderRadius.circular(30),
+          //       ),
+          //       disabledBorder: OutlineInputBorder(
+          //         borderSide: BorderSide.none,
+          //         borderRadius: BorderRadius.circular(30),
+          //       ),
+          //       focusedBorder: const OutlineInputBorder(
+          //         borderRadius: BorderRadius.all(
+          //           Radius.circular(30),
+          //         ),
+          //         borderSide: BorderSide.none,
+          //       ),
+          //       fillColor: ThemeProvider.controllerOf(context)
+          //                   .currentThemeId
+          //                   .toString() !=
+          //               "default_dark_theme"
+          //           ? Colors.white
+          //           : Colors.grey[850],
+          //       filled: true,
+          //       counterText: "",
+          //       hintText: "Ara...",
+          //     ),
+          //   ),
+
+          //   //   child: TextFormField(
+          //   //     controller: searchtec,
+          //   //     autofocus: false,
+          //   //     focusNode: focusNodeSearch,
+          //   //     onTap: () => FocusManager.instance.primaryFocus?.requestFocus(),
+          //   //     decoration: InputDecoration(
+          //   //       enabledBorder: const OutlineInputBorder(
+          //   //         borderRadius: BorderRadius.all(
+          //   //           Radius.circular(30),
+          //   //         ),
+          //   //         borderSide: BorderSide(
+          //   //           color: Colors.grey,
+          //   //           width: 1,
+          //   //         ),
+          //   //       ),
+          //   //       focusedBorder: const OutlineInputBorder(
+          //   //         borderRadius: BorderRadius.all(
+          //   //           Radius.circular(30),
+          //   //         ),
+          //   //         borderSide: BorderSide(
+          //   //           color: Colors.grey,
+          //   //           width: 1,
+          //   //         ),
+          //   //       ),
+          //   //       prefixIcon: const Icon(Icons.search),
+          //   //       suffixIcon: searchtec.text.isNotEmpty
+          //   //           ? IconButton(
+          //   //               onPressed: () {
+          //   //                 searchtec.clear();
+          //   //                 // resimler.clear();
+          //   //               },
+          //   //               icon: const Icon(Icons.clear),
+          //   //             )
+          //   //           : null,
+          //   //       hintText: "Ara...",
+          //   //       hintStyle: const TextStyle(
+          //   //         fontWeight: FontWeight.bold,
+          //   //       ),
+          //   //       border: InputBorder.none,
+          //   //     ),
+          //   //     textInputAction: TextInputAction.search,
+          //   //     onFieldSubmitted: (String value) {
+          //   //       RawAutocomplete.onFieldSubmitted(autocompleteKey);
+          //   //     },
+          //   //   ),
+          // ),
           actions: [
             Visibility(
               visible: currentIndex == 2 ? true : false,

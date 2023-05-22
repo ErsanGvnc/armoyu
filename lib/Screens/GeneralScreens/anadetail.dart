@@ -1530,6 +1530,12 @@ class _AnaDetailState extends State<AnaDetail> {
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(30),
                             ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30),
+                              ),
+                              borderSide: BorderSide.none,
+                            ),
                             fillColor: ThemeProvider.controllerOf(context)
                                         .currentThemeId
                                         .toString() !=

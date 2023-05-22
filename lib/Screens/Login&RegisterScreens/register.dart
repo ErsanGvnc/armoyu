@@ -2,7 +2,7 @@
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+// import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
-
     register() async {
       var gelen = await http.post(
         Uri.parse(kayitolLink),
@@ -73,7 +72,6 @@ class _RegisterState extends State<Register> {
       print("register");
     }
 
-    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blueGrey[900],
@@ -292,234 +290,235 @@ class _RegisterState extends State<Register> {
                     ),
                     onEditingComplete: () => TextInput.finishAutofillContext(),
                   ),
-                  SizedBox(height: screenHeight / 30),
-                  TextField(
-                    onTap: () {
-                      DatePicker.showDatePicker(
-                        context,
-                        showTitleActions: true,
-                        minTime: DateTime(1923, 0, 0),
-                        maxTime: DateTime.now(),
-                        onChanged: (date) {
-                          setState(() {
-                            dogumTarihi =
-                                "${date.year}-${date.day}-${date.month}";
-                            dogumtarihi.text = dogumTarihi.toString();
-                          });
-                        },
-                        onConfirm: (date) {
-                          setState(() {
-                            dogumTarihi =
-                                "${date.year}-${date.day}-${date.month}";
-                            dogumtarihi.text = dogumTarihi.toString();
-                          });
-                        },
-                        currentTime: DateTime.now(),
-                        locale: LocaleType.tr,
-                      );
-                    },
-                    controller: dogumtarihi,
-                    textInputAction: TextInputAction.next,
-                    autofillHints: const [AutofillHints.birthday],
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                      prefixIcon: const Icon(Icons.date_range),
-                      prefixIconColor: Colors.white,
-                      hintText: "Doğum Tarihi (Optional)",
-                      hintStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey.shade900,
-                    ),
-                    onEditingComplete: () => TextInput.finishAutofillContext(),
-                    readOnly: true,
-                  ),
-                  SizedBox(height: screenHeight / 30),
-                  InternationalPhoneNumberInput(
-                    // searchBoxDecoration: InputDecoration(
-                    //   border: const OutlineInputBorder(
-                    //     borderSide: BorderSide.none,
-                    //   ),
-                    //   prefixIconColor: Colors.white,
-                    //   hintText: "Telefon Numarası",
-                    //   hintStyle: const TextStyle(
-                    //     color: Colors.white,
-                    //   ),
-                    //   filled: true,
-                    //   fillColor: Colors.grey.shade900,
-                    // ),
-                    autoValidateMode: AutovalidateMode.always,
-                    spaceBetweenSelectorAndTextField: 0,
-                    maxLength: 13,
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                    ),
-                    selectorTextStyle: const TextStyle(
-                      color: Colors.white,
-                    ),
-                    onInputChanged: (PhoneNumber number) {
-                      // print(number.phoneNumber);
-                      setState(() {
-                        userPhonenumber = number.phoneNumber!;
-                      });
-                    },
-                    onInputValidated: (bool value) {
-                      setState(() {
-                        if (value == true) {
-                          isPhoneValidate = true;
-                        } else {
-                          isPhoneValidate = false;
-                        }
-                      });
-                    },
-                    selectorConfig: const SelectorConfig(
-                      selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                    ),
-                    keyboardType: const TextInputType.numberWithOptions(
-                      signed: true,
-                      decimal: true,
-                    ),
-                    initialValue: PhoneNumber(isoCode: 'TR'),
-                    inputDecoration: InputDecoration(
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                      prefixIconColor: Colors.white,
-                      hintText: "Telefon Numarası (Optional)",
-                      hintStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey.shade900,
-                    ),
-                  ),
-                  SizedBox(height: screenHeight / 30),
-                  CSCPicker(
-                    dropdownDecoration: BoxDecoration(
-                      color: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    dropdownDialogRadius: 5,
-                    defaultCountry: CscCountry.Turkey,
-                    showCities: false,
-                    selectedItemStyle: const TextStyle(
-                      color: Colors.white,
-                    ),
-                    onCountryChanged: (value) {
-                      setState(() {
-                        // print(value);
-                        userCountry = value;
-                      });
-                    },
-                    onStateChanged: (value) {
-                      setState(() {
-                        // print(value);
-                        value != null ? userState = value : null;
-                      });
-                    },
-                    onCityChanged: (value) {},
-                  ),
-                  SizedBox(height: screenHeight / 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        borderRadius: BorderRadius.circular(10),
-                        onTap: () => setState(() {
-                          isMale = !isMale;
-                          isFemale = false;
-                          userGender = "E";
-                          print(userGender);
-                        }),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: isMale
-                                ? Border.all(
-                                    color: Colors.blue,
-                                    width: 2,
-                                  )
-                                : Border.all(
-                                    color: Colors.grey.shade900,
-                                    width: 2,
-                                  ),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(30),
-                            child: Center(
-                              child: Icon(
-                                Icons.man,
-                                size: 40,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: screenHeight / 30),
-                      InkWell(
-                        borderRadius: BorderRadius.circular(10),
-                        onTap: () => setState(() {
-                          isFemale = !isFemale;
-                          isMale = false;
-                          userGender = "K";
-                          print(userGender);
-                        }),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: isFemale
-                                ? Border.all(
-                                    color: Colors.pink,
-                                    width: 2,
-                                  )
-                                : Border.all(
-                                    color: Colors.grey.shade900,
-                                    width: 2,
-                                  ),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(30),
-                            child: Center(
-                              child: Icon(
-                                Icons.woman,
-                                size: 40,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    "Optional",
-                    style: TextStyle(color: Colors.grey),
-                  ),
+                  // SizedBox(height: screenHeight / 30),
+                  // TextField(
+                  //   onTap: () {
+                  //     DatePicker.showDatePicker(
+                  //       context,
+                  //       showTitleActions: true,
+                  //       minTime: DateTime(1923, 0, 0),
+                  //       maxTime: DateTime.now(),
+                  //       onChanged: (date) {
+                  //         setState(() {
+                  //           dogumTarihi =
+                  //               "${date.year}-${date.day}-${date.month}";
+                  //           dogumtarihi.text = dogumTarihi.toString();
+                  //         });
+                  //       },
+                  //       onConfirm: (date) {
+                  //         setState(() {
+                  //           dogumTarihi =
+                  //               "${date.year}-${date.day}-${date.month}";
+                  //           dogumtarihi.text = dogumTarihi.toString();
+                  //         });
+                  //       },
+                  //       currentTime: DateTime.now(),
+                  //       locale: LocaleType.tr,
+                  //     );
+                  //   },
+                  //   controller: dogumtarihi,
+                  //   textInputAction: TextInputAction.next,
+                  //   autofillHints: const [AutofillHints.birthday],
+                  //   style: const TextStyle(
+                  //     color: Colors.white,
+                  //   ),
+                  //   decoration: InputDecoration(
+                  //     border: const OutlineInputBorder(
+                  //       borderSide: BorderSide.none,
+                  //     ),
+                  //     prefixIcon: const Icon(Icons.date_range),
+                  //     prefixIconColor: Colors.white,
+                  //     hintText: "Doğum Tarihi (Optional)",
+                  //     hintStyle: const TextStyle(
+                  //       color: Colors.white,
+                  //     ),
+                  //     filled: true,
+                  //     fillColor: Colors.grey.shade900,
+                  //   ),
+                  //   onEditingComplete: () => TextInput.finishAutofillContext(),
+                  //   readOnly: true,
+                  // ),
+                  // SizedBox(height: screenHeight / 30),
+                  // InternationalPhoneNumberInput(
+                  //   // searchBoxDecoration: InputDecoration(
+                  //   //   border: const OutlineInputBorder(
+                  //   //     borderSide: BorderSide.none,
+                  //   //   ),
+                  //   //   prefixIconColor: Colors.white,
+                  //   //   hintText: "Telefon Numarası",
+                  //   //   hintStyle: const TextStyle(
+                  //   //     color: Colors.white,
+                  //   //   ),
+                  //   //   filled: true,
+                  //   //   fillColor: Colors.grey.shade900,
+                  //   // ),
+                  //   autoValidateMode: AutovalidateMode.always,
+                  //   spaceBetweenSelectorAndTextField: 0,
+                  //   maxLength: 13,
+                  //   textStyle: const TextStyle(
+                  //     color: Colors.white,
+                  //   ),
+                  //   selectorTextStyle: const TextStyle(
+                  //     color: Colors.white,
+                  //   ),
+                  //   onInputChanged: (PhoneNumber number) {
+                  //     // print(number.phoneNumber);
+                  //     setState(() {
+                  //       userPhonenumber = number.phoneNumber!;
+                  //     });
+                  //   },
+                  //   onInputValidated: (bool value) {
+                  //     setState(() {
+                  //       if (value == true) {
+                  //         isPhoneValidate = true;
+                  //       } else {
+                  //         isPhoneValidate = false;
+                  //       }
+                  //     });
+                  //   },
+                  //   selectorConfig: const SelectorConfig(
+                  //     selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                  //   ),
+                  //   keyboardType: const TextInputType.numberWithOptions(
+                  //     signed: true,
+                  //     decimal: true,
+                  //   ),
+                  //   initialValue: PhoneNumber(isoCode: 'TR'),
+                  //   inputDecoration: InputDecoration(
+                  //     border: const OutlineInputBorder(
+                  //       borderSide: BorderSide.none,
+                  //     ),
+                  //     prefixIconColor: Colors.white,
+                  //     hintText: "Telefon Numarası (Optional)",
+                  //     hintStyle: const TextStyle(
+                  //       color: Colors.white,
+                  //     ),
+                  //     filled: true,
+                  //     fillColor: Colors.grey.shade900,
+                  //   ),
+                  // ),
+                  // SizedBox(height: screenHeight / 30),
+                  // CSCPicker(
+                  //   dropdownDecoration: BoxDecoration(
+                  //     color: Colors.grey.shade900,
+                  //     borderRadius: BorderRadius.circular(5),
+                  //   ),
+                  //   dropdownDialogRadius: 5,
+                  //   defaultCountry: CscCountry.Turkey,
+                  //   showCities: false,
+                  //   selectedItemStyle: const TextStyle(
+                  //     color: Colors.white,
+                  //   ),
+                  //   onCountryChanged: (value) {
+                  //     setState(() {
+                  //       // print(value);
+                  //       userCountry = value;
+                  //     });
+                  //   },
+                  //   onStateChanged: (value) {
+                  //     setState(() {
+                  //       // print(value);
+                  //       value != null ? userState = value : null;
+                  //     });
+                  //   },
+                  //   onCityChanged: (value) {},
+                  // ),
+                  // SizedBox(height: screenHeight / 30),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     InkWell(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       onTap: () => setState(() {
+                  //         isMale = !isMale;
+                  //         isFemale = false;
+                  //         userGender = "E";
+                  //         print(userGender);
+                  //       }),
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //           border: isMale
+                  //               ? Border.all(
+                  //                   color: Colors.blue,
+                  //                   width: 2,
+                  //                 )
+                  //               : Border.all(
+                  //                   color: Colors.grey.shade900,
+                  //                   width: 2,
+                  //                 ),
+                  //         ),
+                  //         child: const Padding(
+                  //           padding: EdgeInsets.all(30),
+                  //           child: Center(
+                  //             child: Icon(
+                  //               Icons.man,
+                  //               size: 40,
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: screenHeight / 30),
+                  //     InkWell(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       onTap: () => setState(() {
+                  //         isFemale = !isFemale;
+                  //         isMale = false;
+                  //         userGender = "K";
+                  //         print(userGender);
+                  //       }),
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //           border: isFemale
+                  //               ? Border.all(
+                  //                   color: Colors.pink,
+                  //                   width: 2,
+                  //                 )
+                  //               : Border.all(
+                  //                   color: Colors.grey.shade900,
+                  //                   width: 2,
+                  //                 ),
+                  //         ),
+                  //         child: const Padding(
+                  //           padding: EdgeInsets.all(30),
+                  //           child: Center(
+                  //             child: Icon(
+                  //               Icons.woman,
+                  //               size: 40,
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 5),
+                  // const Text(
+                  //   "Optional",
+                  //   style: TextStyle(color: Colors.grey),
+                  // ),
                   SizedBox(height: screenHeight / 15),
                   Center(
                     child: InkWell(
                       onTap: () async {
                         FocusManager.instance.primaryFocus?.unfocus();
                         if (adi.text == "" ||
-                            soyadi.text == "" ||
-                            kadi.text == "" ||
-                            eposta.text == "" ||
-                            parola.text == "" ||
-                            parolatekrar.text == "" ||
+                                soyadi.text == "" ||
+                                kadi.text == "" ||
+                                eposta.text == "" ||
+                                parola.text == "" ||
+                                parolatekrar.text == ""
                             // dogumtarihi.text == "" ||
                             // userGender == "" ||
                             // isPhoneValidate == false ||
                             // userPhonenumber == "" ||
-                            userCountry == "" ||
-                            userState == "") {
+                            // userCountry == "" ||
+                            // userState == ""
+                            ) {
                           const snackBar = SnackBar(
                             content:
                                 Text('Kayıt Bilgilerinizi Boş Bıraktınız!'),
@@ -527,17 +526,18 @@ class _RegisterState extends State<Register> {
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
                           if (adi.text != "" ||
-                              soyadi.text != "" ||
-                              kadi.text != "" ||
-                              eposta.text != "" ||
-                              parola.text != "" ||
-                              parolatekrar.text != "" ||
+                                  soyadi.text != "" ||
+                                  kadi.text != "" ||
+                                  eposta.text != "" ||
+                                  parola.text != "" ||
+                                  parolatekrar.text != ""
                               // dogumtarihi.text != "" ||
                               // userGender != "" ||
                               // isPhoneValidate != false ||
                               // userPhonenumber != "" ||
-                              userCountry != "" ||
-                              userState != "") {
+                              // userCountry != "" ||
+                              // userState != ""
+                              ) {
                             if (parola.text == parolatekrar.text) {
                               register();
                             } else {

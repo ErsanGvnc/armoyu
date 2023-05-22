@@ -29,7 +29,7 @@ export 'package:armoyu/Screens/GeneralScreens/grup.dart';
 export 'package:armoyu/Screens/GeneralScreens/toplanti.dart';
 export 'package:armoyu/Screens/GeneralScreens/resiminceleme.dart';
 export 'package:armoyu/Screens/GeneralScreens/etkinlikdetay.dart';
-export 'package:armoyu/Screens/Settings/settings.dart';
+export 'package:armoyu/Screens/GeneralScreens/searchdelegate.dart';
 
 //  Screens / InitScreen  //
 export 'package:armoyu/Screens/InitScreen/splash.dart';
@@ -39,6 +39,7 @@ export 'package:armoyu/Screens/Login&RegisterScreens/register.dart';
 export 'package:armoyu/Screens/Login&RegisterScreens/login.dart';
 
 //  Screens / Settings  //
+export 'package:armoyu/Screens/Settings/settings.dart';
 export 'package:armoyu/Screens/Settings/notificationsettings.dart';
 
 //  UtilitiesScreens / ScreensUtilities  //

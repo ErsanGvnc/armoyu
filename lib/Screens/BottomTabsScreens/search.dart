@@ -654,15 +654,12 @@ class _SearchState extends State<Search> {
                                         id = option[0];
                                         kulAdSoyad = option[1];
                                         searchtec.text = kulAdSoyad;
-
                                         resimler.clear();
                                         searchgaleri.clear();
                                         searchhaber.clear();
-
                                         search(id);
                                         medyacek(id);
                                         habercek(id);
-
                                         setState(() {
                                           aratildi = 1;
                                         });
@@ -676,15 +673,12 @@ class _SearchState extends State<Search> {
                                             id = option[0];
                                             kulAdSoyad = option[1];
                                             searchtec.text = kulAdSoyad;
-
                                             resimler.clear();
                                             searchgaleri.clear();
                                             searchhaber.clear();
-
                                             search(id);
                                             medyacek(id);
                                             habercek(id);
-
                                             setState(() {
                                               aratildi = 1;
                                             });
