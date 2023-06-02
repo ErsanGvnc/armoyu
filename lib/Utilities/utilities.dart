@@ -138,14 +138,24 @@ editProfie(content) async {
   }
 }
 
-postbyrcek() {
-  http.post(
-    Uri.parse(postbyrlink),
-    body: {
-      "postID": postID,
-    },
-  );
-}
+// postbegenenlercek(postID) async {
+//   var gelen = await http.post(
+//     Uri.parse(postbegenenlerlink),
+//     body: {
+//       "postID": postID,
+//     },
+//   );
+//   try {
+//     postbyr = jsonDecode(gelen.body);
+//     print(postbyr);
+//     print(response["durum"]);
+//     if (response["durum"] != 1) {
+//       print(response["aciklama"]);
+//     }
+//   } catch (e) {
+//     print(e);
+//   }
+// }
 
 // Cekilis //
 cekiliscek() async {

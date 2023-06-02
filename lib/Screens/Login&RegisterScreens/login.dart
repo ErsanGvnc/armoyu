@@ -248,12 +248,12 @@ class _LoginState extends State<Login> {
                   ),
                   SizedBox(height: screenHeight / 15),
                   TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_]"),
-                      ),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.allow(
+                    //     RegExp(
+                    //         "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                    //   ),
+                    // ],
                     controller: ad,
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
@@ -277,12 +277,12 @@ class _LoginState extends State<Login> {
                   ),
                   SizedBox(height: screenHeight / 30),
                   TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(
-                            "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
-                      ),
-                    ],
+                    // inputFormatters: [
+                    //   FilteringTextInputFormatter.allow(
+                    //     RegExp(
+                    //         "[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQX0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*]"),
+                    //   ),
+                    // ],
                     controller: sifre,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,

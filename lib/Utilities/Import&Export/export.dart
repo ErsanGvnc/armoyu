@@ -30,6 +30,7 @@ export 'package:armoyu/Screens/GeneralScreens/toplanti.dart';
 export 'package:armoyu/Screens/GeneralScreens/resiminceleme.dart';
 export 'package:armoyu/Screens/GeneralScreens/etkinlikdetay.dart';
 export 'package:armoyu/Screens/GeneralScreens/searchdelegate.dart';
+export 'package:armoyu/Screens/GeneralScreens/lcrdetail.dart';
 
 //  Screens / InitScreen  //
 export 'package:armoyu/Screens/InitScreen/splash.dart';
@@ -105,4 +106,5 @@ export 'package:in_app_review/in_app_review.dart';
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:lottie/lottie.dart';
 export 'package:circular_countdown_timer/circular_countdown_timer.dart';
+// export 'package:flutter_mentions/flutter_mentions.dart';
 //?  ----------  Libraries  ----------  //
