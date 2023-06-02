@@ -93,6 +93,16 @@ class AnaSayfaState extends State<AnaSayfa> {
         kullanicilar = jsonDecode(gelen.body);
       });
     }
+
+    for (var i = 0; i < kullanicilar.length; i++) {
+      userSearchTerms.add(
+        [
+          [kullanicilar[i]["adsoyad"]].toString(),
+          [kullanicilar[i]["ID"]].toString(),
+          [kullanicilar[i]["avatar"]].toString(),
+        ],
+      );
+    }
   }
 
   // videolu fotografların çekildigi yer.
@@ -719,40 +729,40 @@ class AnaSayfaState extends State<AnaSayfa> {
     }
   }
 
+  Future<bool> onLikeButtonTapped(bool isLike, int index) async {
+    setState(() {
+      dataanasayfa[index]["benbegendim"] =
+          dataanasayfa[index]["benbegendim"] == 0 ? 1 : 0;
+
+      isLike = !isLike;
+
+      if (isLike == true) {
+        dataanasayfa[index]["begenisay"] =
+            (int.parse(dataanasayfa[index]["begenisay"]) + 1).toString();
+      } else {
+        dataanasayfa[index]["begenisay"] =
+            (int.parse(dataanasayfa[index]["begenisay"]) - 1).toString();
+      }
+    });
+    print(isLike);
+    postID = dataanasayfa[index]["postID"];
+    print("onLikeButtonTapped");
+
+    postlike();
+
+    return isLike;
+  }
+
+  Future<void> _refresh() {
+    setState(() {
+      dataanasayfa.clear();
+      gonderifotolar.clear();
+    });
+    return gondericek(0);
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<bool> onLikeButtonTapped(bool isLike, int index) async {
-      setState(() {
-        dataanasayfa[index]["benbegendim"] =
-            dataanasayfa[index]["benbegendim"] == 0 ? 1 : 0;
-
-        isLike = !isLike;
-
-        if (isLike == true) {
-          dataanasayfa[index]["begenisay"] =
-              (int.parse(dataanasayfa[index]["begenisay"]) + 1).toString();
-        } else {
-          dataanasayfa[index]["begenisay"] =
-              (int.parse(dataanasayfa[index]["begenisay"]) - 1).toString();
-        }
-      });
-      print(isLike);
-      postID = dataanasayfa[index]["postID"];
-      print("onLikeButtonTapped");
-
-      postlike();
-
-      return isLike;
-    }
-
-    Future<void> _refresh() {
-      setState(() {
-        dataanasayfa.clear();
-        gonderifotolar.clear();
-      });
-      return gondericek(0);
-    }
-
     return RefreshIndicator(
       onRefresh: _refresh,
       child: dataanasayfa.isNotEmpty

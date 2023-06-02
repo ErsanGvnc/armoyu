@@ -875,10 +875,19 @@ class _AnaDetailState extends State<AnaDetail> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      byr = widget.veri10;
-                                    });
+                                  onTap: () async {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ThemeConsumer(
+                                          child: PostLCRScreen(
+                                            veri1: widget.veri10,
+                                            veri2: 0,
+                                            veri3: postbegenenlerlink,
+                                          ),
+                                        ),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     child: Row(
@@ -895,10 +904,19 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      byr = widget.veri10;
-                                    });
+                                  onTap: () async {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => ThemeConsumer(
+                                    //       child: PostLCRScreen(
+                                    //         veri1: widget.veri10,
+                                    //         veri2: 1,
+                                    //         veri3: postyorumlayanlarlink,
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // );
                                   },
                                   child: Container(
                                     child: Row(
@@ -915,10 +933,19 @@ class _AnaDetailState extends State<AnaDetail> {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      byr = widget.veri10;
-                                    });
+                                  onTap: () async {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => ThemeConsumer(
+                                    //       child: PostLCRScreen(
+                                    //         veri1: widget.veri10,
+                                    //         veri2: 2,
+                                    //         veri3: postrepostlayanlarlink,
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // );
                                   },
                                   child: Container(
                                     child: Row(
@@ -1068,7 +1095,8 @@ class _AnaDetailState extends State<AnaDetail> {
                                         ),
                                       ),
                                       Text(
-                                        "  -  " + comments[i]["yorumcuzaman"],
+                                        "",
+                                        // "  -  " + comments[i]["yorumcuzaman"],
                                         style: TextStyle(fontSize: 12),
                                       ),
                                       Spacer(),
@@ -1498,16 +1526,16 @@ class _AnaDetailState extends State<AnaDetail> {
                           maxLength: 150,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.next,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                              RegExp(
-                                r"[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*# ]",
-                                caseSensitive: true,
-                                unicode: true,
-                                dotAll: true,
-                              ),
-                            ),
-                          ],
+                          // inputFormatters: [
+                          //   FilteringTextInputFormatter.allow(
+                          //     RegExp(
+                          //       r"[abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=?)({}/&%+^^'!é)*# ]",
+                          //       caseSensitive: true,
+                          //       unicode: true,
+                          //       dotAll: true,
+                          //     ),
+                          //   ),
+                          // ],
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10),
                             prefixIcon: Padding(

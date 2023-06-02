@@ -63,7 +63,12 @@ var poplink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/popsiralama/0/0/";
 var kullanicilink =
     "https://aramizdakioyuncu.com/botlar/ana-arama-motoru.php?deger=0";
-var postbyrlink = "";
+var postbegenenlerlink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/begenenler/0/";
+var postyorumlayanlarlink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/yorumlayanlar/0/";
+var postrepostlayanlarlink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/postrepostlayanlarlink/0/";
 var ayinpostulink =
     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/ayinpostu/0/";
 var hashtaglink =

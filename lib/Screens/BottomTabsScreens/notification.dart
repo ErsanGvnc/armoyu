@@ -74,16 +74,37 @@ class _NotifState extends State<Notif> {
                   // } else {
                   return InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ThemeConsumer(
-                            child: Profile(
-                              veri1: bildirimler[index]["bildirimkimID"],
+                      if (bildirimler[index]["bildirimkategori"] == "post" ||
+                          bildirimler[index]["bildirimkategori"] ==
+                              "postyorum" ||
+                          bildirimler[index]["bildirimkategori"] ==
+                              "postbildiri") {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => ThemeConsumer(
+                        //       child: Profile(
+                        //         veri1: bildirimler[index]["bildirimkimID"],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // );
+                      } else if (bildirimler[index]["bildirimkategori"] ==
+                              "kabul" ||
+                          bildirimler[index]["bildirimkategori"] == "ret") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ThemeConsumer(
+                              child: Profile(
+                                veri1: bildirimler[index]["bildirimkimID"],
+                              ),
                             ),
                           ),
-                        ),
-                      );
+                        );
+                      }
+
+                      print(bildirimler[index]);
                     },
                     child: badge.Badge(
                       badgeStyle: const badge.BadgeStyle(

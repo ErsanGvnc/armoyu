@@ -19,15 +19,17 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   @override
   initState() {
-    super.initState();
+    profiledata = null;
     postdata.clear();
     medyadata.clear();
     resimler.clear();
+    profileFriends.clear();
     profilcek();
     postcek();
     medyacek();
     isSocial = false;
     isEditProfileIconShow = false;
+    super.initState();
   }
 
   List resimler = [];
@@ -42,7 +44,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       setState(() {
         try {
           profiledata = jsonDecode(cevap.body);
-          // print(profiledata);
+          profileFriends = profiledata["arkadasliste"];
+          // print(profileFriends);
           arkadasdurum();
           sosyalLink();
         } catch (e) {
@@ -729,6 +732,63 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     // print(isSocial);
   }
 
+  Widget friendWidget() {
+    if (profileFriends.isNotEmpty) {
+      if (profileFriends.length == 1) {
+        return CircleAvatar(
+          backgroundImage: CachedNetworkImageProvider(
+            profileFriends[0]["oyuncuminnakavatar"],
+          ),
+        );
+      } else if (profileFriends.length == 2) {
+        return Stack(
+          children: [
+            CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
+                profileFriends[0]["oyuncuminnakavatar"],
+              ),
+            ),
+            Positioned(
+              left: 25,
+              child: CircleAvatar(
+                backgroundImage: CachedNetworkImageProvider(
+                  profileFriends[1]["oyuncuminnakavatar"],
+                ),
+              ),
+            ),
+          ],
+        );
+      } else if (profileFriends.length == 3) {
+        return Stack(
+          children: [
+            CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
+                profileFriends[0]["oyuncuminnakavatar"],
+              ),
+            ),
+            Positioned(
+              left: 25,
+              child: CircleAvatar(
+                backgroundImage: CachedNetworkImageProvider(
+                  profileFriends[1]["oyuncuminnakavatar"],
+                ),
+              ),
+            ),
+            Positioned(
+              left: 50,
+              child: CircleAvatar(
+                backgroundImage: CachedNetworkImageProvider(
+                  profileFriends[2]["oyuncuminnakavatar"],
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+    }
+    return const SizedBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return profiledata != null
@@ -785,10 +845,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                   profiledata["oyunculink"]);
                                               Navigator.pop(context);
                                             },
-                                            child: const ListTile(
-                                              leading:
-                                                  Icon(Icons.share_outlined),
-                                              title: Text("Profili paylaş."),
+                                            child: ListTile(
+                                              leading: const Icon(
+                                                  Icons.share_outlined),
+                                              title: Text(shareProfile),
                                             ),
                                           ),
                                           InkWell(
@@ -808,10 +868,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 timeInSecForIosWeb: 1,
                                               );
                                             },
-                                            child: const ListTile(
-                                              leading: Icon(Icons.content_copy),
-                                              title: Text(
-                                                  "Profil linkini kopyala."),
+                                            child: ListTile(
+                                              leading: const Icon(
+                                                  Icons.content_copy),
+                                              title: Text(copyProfileLink),
                                             ),
                                           ),
                                           Visibility(
@@ -1256,7 +1316,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                               seconds: 1),
                                                           content:
                                                               Text("Yakında !"),
-                                                          
                                                         ),
                                                       ),
                                                     }
@@ -1299,11 +1358,18 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         ),
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                        profiledata["arkadassayim"] != "0"
-                                            ? profiledata["arkadassayim"] +
-                                                " arkadaş"
-                                            : "",
+                                      SizedBox(
+                                        width: 150,
+                                        height: 40,
+                                        child: Visibility(
+                                          visible: profileFriends.isNotEmpty
+                                              ? true
+                                              : false,
+                                          child: InkWell(
+                                            onTap: () {},
+                                            child: friendWidget(),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -1816,31 +1882,49 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                       height: 90,
                                     ),
                                   ),
-                                  Visibility(
-                                    // visible: "kullanıcı id" == girisdata["oyuncuID"]
-                                    //     ? true
-                                    //     : false,
-                                    visible: true,
-                                    child: Container(
-                                      height: 40,
-                                      width: 150,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.horizontal(
-                                          left: Radius.circular(30),
-                                          right: Radius.circular(30),
-                                        ),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          "Arkadaş Ol",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 150,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius: BorderRadius.horizontal(
+                                            left: Radius.circular(30),
+                                            right: Radius.circular(30),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                      const SizedBox(height: 10),
+                                      SizedBox(
+                                        width: 150,
+                                        height: 40,
+                                        child: Stack(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: Colors.grey[900],
+                                            ),
+                                            Positioned(
+                                              left: 25,
+                                              child: CircleAvatar(
+                                                backgroundColor:
+                                                    Colors.grey[900],
+                                              ),
+                                            ),
+                                            Positioned(
+                                              left: 50,
+                                              child: CircleAvatar(
+                                                backgroundColor:
+                                                    Colors.grey[900],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

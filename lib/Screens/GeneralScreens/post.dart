@@ -188,6 +188,7 @@ class _PostState extends State<Post> {
                   ],
                 ),
               ),
+
               Flexible(
                 child: DetectableTextField(
                   detectionRegExp: RegExp(
@@ -234,6 +235,35 @@ class _PostState extends State<Post> {
                   },
                 ),
               ),
+
+              // Flexible(
+              //   child: FlutterMentions(
+              //     suggestionPosition: SuggestionPosition.Bottom,
+              //     maxLines: 5,
+              //     minLines: 1,
+              //     mentions: [
+              //       Mention(
+              //         trigger: "@",
+              //         style: const TextStyle(color: Colors.purple),
+              //         data: [
+              //           {
+              //             "id": "61as61fsa",
+              //             "display": "fayeedP",
+              //             "photo":
+              //                 "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
+              //           },
+              //           {
+              //             "id": "61asasgasgsag6a",
+              //             "display": "khaled",
+              //             "photo":
+              //                 "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+              //           },
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
+
               Visibility(
                 visible: images.isNotEmpty ? true : false,
                 child: SizedBox(
@@ -323,7 +353,6 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    
                                   ),
                                 );
                               },
@@ -338,7 +367,6 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    
                                   ),
                                 );
 
@@ -355,7 +383,6 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    
                                   ),
                                 );
                               },
@@ -370,7 +397,6 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                    
                                   ),
                                 );
                               },
@@ -385,7 +411,6 @@ class _PostState extends State<Post> {
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
                                     content: Text("Yakında !"),
-                                   
                                   ),
                                 );
                               },
