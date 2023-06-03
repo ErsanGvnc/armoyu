@@ -45,7 +45,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         try {
           profiledata = jsonDecode(cevap.body);
           profileFriends = profiledata["arkadasliste"];
-          print(profileFriends);
+          // print(profileFriends);
           arkadasdurum();
           sosyalLink();
         } catch (e) {

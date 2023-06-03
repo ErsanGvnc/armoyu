@@ -23,19 +23,14 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
-    String _content = widget.veri9;
-    void _shareContent() {
-      Share.share(_content);
-    }
-
     return ThemeConsumer(
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.veri1),
           actions: [
             IconButton(
-              onPressed: () {
-                _shareContent();
+              onPressed: () async {
+                await Share.share(widget.veri9);
               },
               icon: const Icon(Icons.more_vert),
             ),
@@ -49,6 +44,7 @@ class _DetailState extends State<Detail> {
                 width: screenWidth,
                 child: CachedNetworkImage(
                   imageUrl: widget.veri5,
+                  fit: BoxFit.cover,
                   placeholder: (context, url) => Container(
                     color: Colors.grey[700],
                   ),
@@ -81,9 +77,10 @@ class _DetailState extends State<Detail> {
                           ),
                         ),
                         const Spacer(),
-                        Text(
-                          widget.veri6,
-                          style: const TextStyle(
+                        const Text(
+                          "",
+                          // widget.veri6,
+                          style: TextStyle(
                             color: Colors.grey,
                           ),
                         ),

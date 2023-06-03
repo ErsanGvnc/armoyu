@@ -1095,7 +1095,8 @@ class _AnaDetailState extends State<AnaDetail> {
                                         ),
                                       ),
                                       Text(
-                                        "  -  " + comments[i]["yorumcuzaman"],
+                                        "",
+                                        // "  -  " + comments[i]["yorumcuzaman"],
                                         style: TextStyle(fontSize: 12),
                                       ),
                                       Spacer(),

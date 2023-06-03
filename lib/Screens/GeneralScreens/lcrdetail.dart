@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, no_leading_underscores_for_local_identifiers, avoid_print
+// ignore_for_file: must_be_immutable, no_leading_underscores_for_local_identifiers, avoid_print, unnecessary_statements
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
@@ -30,8 +30,8 @@ class _ByrDetailState extends State<PostLCRScreen> {
         try {
           postlcrMap = jsonDecode(cevap.body);
           postlcrMap["durum"] == 1 ? postlcr = postlcrMap["icerik"] : null;
-          print(postlcrMap["durum"]);
-          print(postlcr);
+          // print(postlcrMap["durum"]);
+          // print(postlcr);
         } catch (e) {
           print('Unknown exception: $e');
         }

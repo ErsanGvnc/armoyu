@@ -117,7 +117,8 @@ class NewsState extends State<News> {
                                         ),
                                         SizedBox(width: screenWidth / 75),
                                         Text(
-                                          datahaber[index]["gecenzaman"],
+                                          "",
+                                          // datahaber[index]["gecenzaman"],
                                           style: TextStyle(
                                             color: Colors.grey,
                                             fontSize: screenWidth / 30,
