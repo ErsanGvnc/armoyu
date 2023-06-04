@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, use_build_context_synchronously
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 

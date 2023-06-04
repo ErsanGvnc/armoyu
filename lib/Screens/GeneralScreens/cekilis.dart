@@ -29,7 +29,9 @@ class _CekilisState extends State<Cekilis> {
               onPressed: () {
                 cekiliscek();
                 print("yenilendi");
-                setState(() {});
+                if (mounted) {
+                  setState(() {});
+                }
               },
               icon: const Icon(Icons.refresh),
             ),

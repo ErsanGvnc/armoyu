@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, unnecessary_null_comparison
+// ignore_for_file: must_be_immutable
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
@@ -22,13 +22,13 @@ class _EtkinlikDetayState extends State<EtkinlikDetay> {
           title: Text(widget.veri),
         ),
         body: Container(
-          child: dataanasayfa != null
+          child: mainFeed.isNotEmpty
               ? ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    if (dataanasayfa[index]["paylasimfoto"] != null) {
-                      gonderifotolar = dataanasayfa[index]["paylasimfoto"];
+                    if (mainFeed[index]["paylasimfoto"] != null) {
+                      gonderifotolar = mainFeed[index]["paylasimfoto"];
                       visible = true;
                     } else {
                       visible = false;
@@ -39,7 +39,7 @@ class _EtkinlikDetayState extends State<EtkinlikDetay> {
                     );
                   },
                   separatorBuilder: (context, index) => const Divider(),
-                  itemCount: dataanasayfa.length,
+                  itemCount: mainFeed.length,
                   padding: const EdgeInsets.only(
                     top: 10,
                     left: 10,

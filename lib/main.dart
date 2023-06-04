@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print, sort_child_properties_last, unnecessary_statements
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:badges/badges.dart' as badge;
@@ -28,6 +28,10 @@ Future<void> main() async {
   // runApp(MyApp(initialLink));
 
   runApp(const MyApp());
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+  appVersion = packageInfo.version;
+  appBuildNumber = packageInfo.buildNumber;
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -159,11 +163,13 @@ class MyHomePageState extends State<MyHomePage> {
     FlutterBarcodeScanner.scanBarcode("#000000", "Cancel", true, ScanMode.QR)
         .then(
       (value) {
-        setState(() {
-          gelenID = value;
-          qrlink =
-              "https://aramizdakioyuncu.com/botlar/$botId1/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
-        });
+        if (mounted) {
+          setState(() {
+            gelenID = value;
+            qrlink =
+                "https://aramizdakioyuncu.com/botlar/$botId1/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
+          });
+        }
 
         Navigator.pushReplacement(
           context,
@@ -258,8 +264,9 @@ class MyHomePageState extends State<MyHomePage> {
     } catch (e) {
       print('Unknown exception: $e');
     }
-
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -365,17 +372,19 @@ class MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: Text(gruplarim[i]["grupadi"]),
                                 onTap: () {
-                                  setState(() {
-                                    grupid = gruplarim[i]["grupID"];
-                                    grupdetail =
-                                        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
-                                    print(grupdetail);
-                                  });
+                                  if (mounted) {
+                                    setState(() {
+                                      grupid = gruplarim[i]["grupID"];
+                                      grupdetail =
+                                          "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                      print(grupdetail);
+                                    });
+                                  }
                                   Navigator.pop(context);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => Grup(
+                                      builder: (context) => GrupFeed(
                                         veri1: gruplarim[i]["grupadi"],
                                         veri2: gruplarim[i]["grupID"],
                                       ),
@@ -868,9 +877,11 @@ class MyHomePageState extends State<MyHomePage> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    setState(() {
-                                      hasNotificationBeenSeen = false;
-                                    });
+                                    if (mounted) {
+                                      setState(() {
+                                        hasNotificationBeenSeen = false;
+                                      });
+                                    }
                                     Navigator.pop(context);
                                   },
                                   child: ListTile(
@@ -961,36 +972,40 @@ class MyHomePageState extends State<MyHomePage> {
               label: "",
             ),
           ],
-          onTap: (index) => setState(() {
-            currentIndex == index && currentIndex == 0
-                ? anaSayfaScrollController.animateTo(
-                    0,
-                    duration: const Duration(milliseconds: 1000),
-                    curve: Curves.easeOut,
-                  )
-                : null;
+          onTap: (index) => mounted == true
+              ? {
+                  setState(() {
+                    currentIndex == index && currentIndex == 0
+                        ? anaSayfaScrollController.animateTo(
+                            0,
+                            duration: const Duration(milliseconds: 1000),
+                            curve: Curves.easeOut,
+                          )
+                        : null;
 
-            currentIndex == index && currentIndex == 1
-                ? searchMainScrollController.animateTo(
-                    0,
-                    duration: const Duration(milliseconds: 1000),
-                    curve: Curves.easeOut,
-                  )
-                : null;
+                    currentIndex == index && currentIndex == 1
+                        ? searchMainScrollController.animateTo(
+                            0,
+                            duration: const Duration(milliseconds: 1000),
+                            curve: Curves.easeOut,
+                          )
+                        : null;
 
-            currentIndex == index && currentIndex == 2
-                ? notificationScrollController.animateTo(
-                    0,
-                    duration: const Duration(milliseconds: 1000),
-                    curve: Curves.easeOut,
-                  )
-                : null;
+                    currentIndex == index && currentIndex == 2
+                        ? notificationScrollController.animateTo(
+                            0,
+                            duration: const Duration(milliseconds: 1000),
+                            curve: Curves.easeOut,
+                          )
+                        : null;
 
-            if (currentIndex == 2 || index == 2) {
-              showNotification = false;
-            }
-            currentIndex = index;
-          }),
+                    if (currentIndex == 2 || index == 2) {
+                      showNotification = false;
+                    }
+                    currentIndex = index;
+                  }),
+                }
+              : null,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: Colors.blue,
@@ -1006,17 +1021,17 @@ class MyHomePageState extends State<MyHomePage> {
                 closedBuilder: (context, openWidget) {
                   return FloatingActionButton(
                     backgroundColor: Colors.red,
+                    onPressed: openWidget,
                     child: const Icon(
                       Icons.edit_note,
                       color: Colors.black,
                       size: 35,
                     ),
-                    onPressed: openWidget,
                   );
                 },
                 openBuilder: (context, closeWidget) {
                   return ThemeConsumer(
-                    child: Post(
+                    child: SharePost(
                       veri1: "",
                       veri2: "",
                     ),

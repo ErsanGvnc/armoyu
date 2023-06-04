@@ -14,18 +14,18 @@ export 'dart:io';
 export 'package:armoyu/main.dart';
 
 //  Screens / BottomTabsScreens  //
-export 'package:armoyu/Screens/BottomTabsScreens/anasayfa.dart';
+export 'package:armoyu/Screens/BottomTabsScreens/mainFeed.dart';
 export 'package:armoyu/Screens/BottomTabsScreens/search.dart';
-export 'package:armoyu/Screens/BottomTabsScreens/notification.dart';
+export 'package:armoyu/Screens/BottomTabsScreens/notifications.dart';
 
 //  Screens / GeneralScreens  //
-export 'package:armoyu/Screens/GeneralScreens/anadetail.dart';
-export 'package:armoyu/Screens/GeneralScreens/detail.dart';
+export 'package:armoyu/Screens/GeneralScreens/postDetail.dart';
+export 'package:armoyu/Screens/GeneralScreens/newsDetail.dart';
 export 'package:armoyu/Screens/GeneralScreens/site.dart';
 export 'package:armoyu/Screens/GeneralScreens/news.dart';
 export 'package:armoyu/Screens/GeneralScreens/profile.dart';
-export 'package:armoyu/Screens/GeneralScreens/post.dart';
-export 'package:armoyu/Screens/GeneralScreens/grup.dart';
+export 'package:armoyu/Screens/GeneralScreens/sharePost.dart';
+export 'package:armoyu/Screens/GeneralScreens/grupFeed.dart';
 export 'package:armoyu/Screens/GeneralScreens/toplanti.dart';
 export 'package:armoyu/Screens/GeneralScreens/resiminceleme.dart';
 export 'package:armoyu/Screens/GeneralScreens/etkinlikdetay.dart';
@@ -106,5 +106,6 @@ export 'package:in_app_review/in_app_review.dart';
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:lottie/lottie.dart';
 export 'package:circular_countdown_timer/circular_countdown_timer.dart';
+export 'package:package_info_plus/package_info_plus.dart';
 // export 'package:flutter_mentions/flutter_mentions.dart';
 //?  ----------  Libraries  ----------  //

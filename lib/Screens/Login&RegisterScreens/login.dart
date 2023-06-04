@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, unnecessary_statements
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
@@ -53,8 +53,9 @@ class _LoginState extends State<Login> {
             ),
             curve: Curves.easeIn,
           );
-
-          setState(() {});
+          if (mounted) {
+            setState(() {});
+          }
           print(response["aciklama"]);
         }
       } catch (e) {
@@ -89,7 +90,9 @@ class _LoginState extends State<Login> {
             ),
             curve: Curves.easeIn,
           );
-          setState(() {});
+          if (mounted) {
+            setState(() {});
+          }
           print(response["aciklama"]);
         }
       } catch (e) {
@@ -139,7 +142,9 @@ class _LoginState extends State<Login> {
             ),
             curve: Curves.easeIn,
           );
-          setState(() {});
+          if (mounted) {
+            setState(() {});
+          }
           print(response["aciklama"]);
         }
       } catch (e) {
@@ -174,8 +179,9 @@ class _LoginState extends State<Login> {
 
         if (response["durum"] == 1) {
           Navigator.pop(context);
-
-          setState(() {});
+          if (mounted) {
+            setState(() {});
+          }
           print(response["aciklama"]);
         }
       } catch (e) {
@@ -205,7 +211,9 @@ class _LoginState extends State<Login> {
       verified6.clear();
       forgetparola.clear();
       forgetparolatekrar.clear();
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
 
     return Scaffold(
@@ -312,9 +320,11 @@ class _LoginState extends State<Login> {
                     children: [
                       InkWell(
                         onTap: () {
-                          setState(() {
-                            beniHatirla = !beniHatirla;
-                          });
+                          if (mounted) {
+                            setState(() {
+                              beniHatirla = !beniHatirla;
+                            });
+                          }
                         },
                         child: Row(
                           children: [
@@ -322,9 +332,11 @@ class _LoginState extends State<Login> {
                               activeColor: Colors.grey[900],
                               value: beniHatirla,
                               onChanged: (bool? value) {
-                                setState(() {
-                                  beniHatirla = value!;
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    beniHatirla = value!;
+                                  });
+                                }
                               },
                             ),
                             const Text(
@@ -473,24 +485,28 @@ class _LoginState extends State<Login> {
                                                           DateTime(1923, 0, 0),
                                                       maxTime: DateTime.now(),
                                                       onChanged: (date) {
-                                                        setState(() {
-                                                          dogumTarihi =
-                                                              "${date.year}-${date.day}-${date.month}";
-                                                          forgetdogumtarihi
-                                                                  .text =
-                                                              dogumTarihi
-                                                                  .toString();
-                                                        });
+                                                        if (mounted) {
+                                                          setState(() {
+                                                            dogumTarihi =
+                                                                "${date.year}-${date.day}-${date.month}";
+                                                            forgetdogumtarihi
+                                                                    .text =
+                                                                dogumTarihi
+                                                                    .toString();
+                                                          });
+                                                        }
                                                       },
                                                       onConfirm: (date) {
-                                                        setState(() {
-                                                          dogumTarihi =
-                                                              "${date.year}-${date.day}-${date.month}";
-                                                          forgetdogumtarihi
-                                                                  .text =
-                                                              dogumTarihi
-                                                                  .toString();
-                                                        });
+                                                        if (mounted) {
+                                                          setState(() {
+                                                            dogumTarihi =
+                                                                "${date.year}-${date.day}-${date.month}";
+                                                            forgetdogumtarihi
+                                                                    .text =
+                                                                dogumTarihi
+                                                                    .toString();
+                                                          });
+                                                        }
                                                       },
                                                       currentTime:
                                                           DateTime.now(),
@@ -550,18 +566,24 @@ class _LoginState extends State<Login> {
                                                                   .text !=
                                                               "") {
                                                         await firstResetPassword();
-                                                        setState(() {});
+                                                        if (mounted) {
+                                                          setState(() {});
+                                                        }
                                                       } else {
-                                                        setState(() {
-                                                          forgetError = true;
-                                                        });
+                                                        if (mounted) {
+                                                          setState(() {
+                                                            forgetError = true;
+                                                          });
+                                                        }
                                                         await Future.delayed(
                                                           const Duration(
                                                               seconds: 1),
                                                         );
-                                                        setState(() {
-                                                          forgetError = false;
-                                                        });
+                                                        if (mounted) {
+                                                          setState(() {
+                                                            forgetError = false;
+                                                          });
+                                                        }
                                                       }
                                                     },
                                                     child: Container(
@@ -612,10 +634,13 @@ class _LoginState extends State<Login> {
                                                 onTap: () async {
                                                   isMobileEnable == true
                                                       ? {
-                                                          setState(() {
-                                                            sifirlamatercihi =
-                                                                "telefon";
-                                                          }),
+                                                          if (mounted)
+                                                            {
+                                                              setState(() {
+                                                                sifirlamatercihi =
+                                                                    "telefon";
+                                                              }),
+                                                            },
                                                           await resetPassword(),
                                                         }
                                                       : print("null");
@@ -675,9 +700,11 @@ class _LoginState extends State<Login> {
                                                   height: screenHeight / 30),
                                               InkWell(
                                                 onTap: () async {
-                                                  setState(() {
-                                                    sifirlamatercihi = "mail";
-                                                  });
+                                                  if (mounted) {
+                                                    setState(() {
+                                                      sifirlamatercihi = "mail";
+                                                    });
+                                                  }
                                                   await resetPassword();
                                                   // forgetPasswordScrollController
                                                   //     .nextPage(
@@ -1327,13 +1354,15 @@ class _LoginState extends State<Login> {
                             sharedPreferences.setString("ad", ad.text);
                             sharedPreferences.setString("sifre", sifre.text);
                             sharedPreferences.setBool("beniHatirla", true);
-                            setState(() {
-                              gkontrolAd = sharedPreferences.getString("ad");
-                              gkontrolSifre =
-                                  sharedPreferences.getString("sifre");
-                              gkontrolHatirla =
-                                  sharedPreferences.getBool("beniHatirla");
-                            });
+                            if (mounted) {
+                              setState(() {
+                                gkontrolAd = sharedPreferences.getString("ad");
+                                gkontrolSifre =
+                                    sharedPreferences.getString("sifre");
+                                gkontrolHatirla =
+                                    sharedPreferences.getBool("beniHatirla");
+                              });
+                            }
                           } else {
                             var sharedPreferences =
                                 await SharedPreferences.getInstance();
@@ -1341,13 +1370,17 @@ class _LoginState extends State<Login> {
                             sharedPreferences.setString("sifre", "");
                             sharedPreferences.setBool("beniHatirla", false);
                           }
-                          setState(() {
-                            checked = true;
-                          });
+                          if (mounted) {
+                            setState(() {
+                              checked = true;
+                            });
+                          }
                           await MyHomePageState().girisKontrol(context);
-                          setState(() {
-                            checked = false;
-                          });
+                          if (mounted) {
+                            setState(() {
+                              checked = false;
+                            });
+                          }
                         }
                       },
                       child: Container(

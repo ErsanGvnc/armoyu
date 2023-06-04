@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, unnecessary_null_comparison, unused_element, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, prefer_interpolation_to_compose_strings
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
@@ -31,7 +31,9 @@ class _SearchState extends State<Search> {
 
     if (gelen.statusCode == 200) {
       ayinpostu = jsonDecode(gelen.body);
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -40,7 +42,9 @@ class _SearchState extends State<Search> {
       Uri.parse(haberurl),
     );
     datahaber = jsonDecode(gelen.body);
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   popcek() async {
@@ -61,7 +65,9 @@ class _SearchState extends State<Search> {
 
     if (gelen.statusCode == 200) {
       xpsiralama = jsonDecode(gelen.body);
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -442,20 +448,22 @@ class _SearchState extends State<Search> {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<bool> onLikeButtonTapped(bool isLike, int index) async {
-    setState(() {
-      ayinpostu[index]["benbegendim"] =
-          ayinpostu[index]["benbegendim"] == 0 ? 1 : 0;
+    if (mounted) {
+      setState(() {
+        ayinpostu[index]["benbegendim"] =
+            ayinpostu[index]["benbegendim"] == 0 ? 1 : 0;
 
-      isLike = !isLike;
+        isLike = !isLike;
 
-      if (isLike == true) {
-        ayinpostu[index]["begenisay"] =
-            (int.parse(ayinpostu[index]["begenisay"]) + 1).toString();
-      } else {
-        ayinpostu[index]["begenisay"] =
-            (int.parse(ayinpostu[index]["begenisay"]) - 1).toString();
-      }
-    });
+        if (isLike == true) {
+          ayinpostu[index]["begenisay"] =
+              (int.parse(ayinpostu[index]["begenisay"]) + 1).toString();
+        } else {
+          ayinpostu[index]["begenisay"] =
+              (int.parse(ayinpostu[index]["begenisay"]) - 1).toString();
+        }
+      });
+    }
     print(isLike);
     postID = ayinpostu[index]["postID"];
     print("onLikeButtonTapped");
@@ -470,75 +478,79 @@ class _SearchState extends State<Search> {
     xpcek();
     hashtagcek();
     popcek();
-    setState(() {
-      searchler.clear();
-    });
+    if (mounted) {
+      setState(() {
+        searchler.clear();
+      });
+    }
     return searchcek();
   }
 
   @override
   Widget build(BuildContext context) {
-    search(id) async {
-      http.post(
-        Uri.parse(oturumkontrolurl),
-        body: {
-          "oyuncubakid": id,
-        },
-      ).then((cevap) {
-        setState(() {
-          try {
-            profiledata = jsonDecode(cevap.body);
-            print(profiledata);
-          } catch (e) {
-            print('Unknown exception: $e');
-          }
-        });
-      });
-    }
+    // search(id) async {
+    //   http.post(
+    //     Uri.parse(oturumkontrolurl),
+    //     body: {
+    //       "oyuncubakid": id,
+    //     },
+    //   ).then((cevap) {
+    //     if (mounted) {
+    //       setState(() {
+    //         try {
+    //           profiledata = jsonDecode(cevap.body);
+    //           print(profiledata);
+    //         } catch (e) {
+    //           print('Unknown exception: $e');
+    //         }
+    //       });
+    //     }
+    //   });
+    // }
 
-    medyacek(id) async {
-      http.post(
-        Uri.parse(medyalink),
-        body: {
-          "oyuncubakid": id,
-        },
-      ).then((cevap) {
-        setState(() {
-          try {
-            searchgaleri = jsonDecode(cevap.body);
-            // print(searchgaleri);
-          } catch (e) {
-            print('Unknown exception: $e');
-          }
-          if (searchgaleri != null) {
-            for (var i = 0; i < searchgaleri.length; i++) {
-              resimler.add(searchgaleri[i]["medyaufaklik"]);
-            }
-            // print(resimler);
-          } else {
-            print("resim yok");
-          }
-        });
-      });
-    }
+    // medyacek(id) async {
+    //   http.post(
+    //     Uri.parse(medyalink),
+    //     body: {
+    //       "oyuncubakid": id,
+    //     },
+    //   ).then((cevap) {
+    //     setState(() {
+    //       try {
+    //         searchgaleri = jsonDecode(cevap.body);
+    //         // print(searchgaleri);
+    //       } catch (e) {
+    //         print('Unknown exception: $e');
+    //       }
+    //       if (searchgaleri != null) {
+    //         for (var i = 0; i < searchgaleri.length; i++) {
+    //           resimler.add(searchgaleri[i]["medyaufaklik"]);
+    //         }
+    //         // print(resimler);
+    //       } else {
+    //         print("resim yok");
+    //       }
+    //     });
+    //   });
+    // }
 
-    habercek(id) async {
-      http.post(
-        Uri.parse(searchaberlink),
-        body: {
-          "oyuncubakid": id,
-        },
-      ).then((cevap) {
-        setState(() {
-          try {
-            searchhaber = jsonDecode(cevap.body);
-            // print(searchhaber);
-          } catch (e) {
-            print('Unknown exception: $e');
-          }
-        });
-      });
-    }
+    // habercek(id) async {
+    //   http.post(
+    //     Uri.parse(searchaberlink),
+    //     body: {
+    //       "oyuncubakid": id,
+    //     },
+    //   ).then((cevap) {
+    //     setState(() {
+    //       try {
+    //         searchhaber = jsonDecode(cevap.body);
+    //         // print(searchhaber);
+    //       } catch (e) {
+    //         print('Unknown exception: $e');
+    //       }
+    //     });
+    //   });
+    // }
 
     return RefreshIndicator(
       onRefresh: _refresh,
@@ -841,8 +853,9 @@ class _SearchState extends State<Search> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Detail(
+                                builder: (context) => NewsDetail(
                                   veri1: searchhaber[index]["haberbaslik"],
+                                  veri2: searchhaber[index]["zaman"],
                                   veri3: searchhaber[index]["resim"],
                                   veri5: searchhaber[index]["resimorijinal"],
                                   veri6: searchhaber[index]["gecenzaman"],
@@ -959,474 +972,469 @@ class _SearchState extends State<Search> {
           );
   }
 
-  Widget _MainListView(
-    BuildContext context,
-    int index,
-    double screenWidth,
-    postsil,
-    Future<void> Function() _refresh,
-    postbildir,
-    double screenHeight,
-    Future<bool> Function(bool isLike, int index) onLikeButtonTapped,
-  ) {
-    return ayinpostu.isNotEmpty
-        ? InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ThemeConsumer(
-                    child: AnaDetail(
-                      veri1: ayinpostu[index]["sahipavatarminnak"],
-                      veri2: ayinpostu[index]["sahipad"],
-                      veri3: ayinpostu[index]["sosyalicerik"],
-                      veri4: ayinpostu[index]["paylasimzaman"],
-                      veri5: ayinpostu[index]["begenisay"],
-                      veri6: ayinpostu[index]["yorumsay"],
-                      veri7: ayinpostu[index]["repostsay"],
-                      veri8: ayinpostu[index]["sikayetsay"],
-                      veri9: ayinpostu[index]["benbegendim"],
-                      veri10: ayinpostu[index]["postID"],
-                      veri11: ayinpostu[index]["sahipID"],
-                      veri12: ayinpostu[index]["paylasimnereden"],
-                      veri13: ayinpostu[index]["benyorumladim"],
-                      veri14: ayinpostu[index]["oyunculink"],
-                    ),
-                  ),
-                ),
-              );
-              // sayfaya geri gelince sayfayı yenileme. _refresh yapınca en üste dönüyo
-              // setState() calısmadı.
-              // stateManagement (Get) ile yapılması mantıklı.
-              // ).then((value) {
-              //   // _refresh();
-              //   setState(() {});
-              //   print("refresh");
-              // });
-
-              setState(() {
-                detayid = ayinpostu[index]["postID"];
-                detaylink =
-                    "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-              });
-            },
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: screenWidth / 12,
-                  backgroundImage: NetworkImage(
-                    ayinpostu[index]["sahipavatarminnak"],
-                  ),
-                  backgroundColor: Colors.transparent,
-                ),
-                SizedBox(width: screenWidth / 35),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            ayinpostu[index]["sahipad"],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "  -  " + ayinpostu[index]["paylasimzamangecen"],
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Spacer(),
-                          InkWell(
-                            onTap: () {
-                              showModalBottomSheet<void>(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(10),
-                                  ),
-                                ),
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return SafeArea(
-                                    child: Wrap(
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.grey[900],
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(30),
-                                                  ),
-                                                ),
-                                                width: screenWidth / 4,
-                                                height: 5,
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: ListTile(
-                                                leading:
-                                                    const Icon(Icons.post_add),
-                                                title: Text(addFavoritePost),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: ayinpostu[index]
-                                                          ["sahipID"] ==
-                                                      girisdata["oyuncuID"]
-                                                  ? true
-                                                  : false,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  postID = ayinpostu[index]
-                                                      ["postID"];
-                                                  // postsil();
-                                                  Navigator.pop(context);
-                                                },
-                                                child: ListTile(
-                                                  leading: const Icon(
-                                                      Icons.edit_note),
-                                                  title: Text(editPost),
-                                                ),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: ayinpostu[index]
-                                                          ["sahipID"] ==
-                                                      girisdata["oyuncuID"]
-                                                  ? true
-                                                  : false,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  postID = ayinpostu[index]
-                                                      ["postID"];
-                                                  postsil();
-                                                  Navigator.pop(context);
-                                                  Future.delayed(
-                                                      const Duration(
-                                                        milliseconds: 100,
-                                                      ), () {
-                                                    _refresh();
-                                                  });
-                                                },
-                                                child: ListTile(
-                                                  leading: const Icon(Icons
-                                                      .delete_sweep_outlined),
-                                                  title: Text(removePost),
-                                                ),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: ListTile(
-                                                leading: const Icon(
-                                                    Icons.share_outlined),
-                                                title: Text(shareUser),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                Clipboard.setData(
-                                                  ClipboardData(
-                                                    text: ayinpostu[index]
-                                                        ["sahipID"],
-                                                  ),
-                                                );
-                                                Navigator.pop(context);
-
-                                                Fluttertoast.showToast(
-                                                  msg: "Kopyalandı !",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.CENTER,
-                                                  timeInSecForIosWeb: 1,
-                                                );
-                                              },
-                                              child: ListTile(
-                                                leading: const Icon(
-                                                    Icons.content_copy),
-                                                title:
-                                                    Text(shareUserProfileLink),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: ayinpostu[index]
-                                                          ["sahipID"] ==
-                                                      girisdata["oyuncuID"]
-                                                  ? false
-                                                  : true,
-                                              child: const Divider(),
-                                            ),
-                                            Visibility(
-                                              visible: ayinpostu[index]
-                                                          ["sahipID"] ==
-                                                      girisdata["oyuncuID"]
-                                                  ? false
-                                                  : true,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  postID = ayinpostu[index]
-                                                      ["postID"];
-                                                  postbildir();
-                                                  Navigator.pop(context);
-
-                                                  Fluttertoast.showToast(
-                                                    msg: "Bildirildi !",
-                                                    toastLength:
-                                                        Toast.LENGTH_SHORT,
-                                                    gravity:
-                                                        ToastGravity.CENTER,
-                                                    timeInSecForIosWeb: 1,
-                                                  );
-                                                },
-                                                child: ListTile(
-                                                  textColor: Colors.red,
-                                                  leading: const Icon(
-                                                    Icons.flag_outlined,
-                                                    color: Colors.red,
-                                                  ),
-                                                  title: Text(reportPost),
-                                                ),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: ayinpostu[index]
-                                                          ["sahipID"] ==
-                                                      girisdata["oyuncuID"]
-                                                  ? false
-                                                  : true,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  postID = ayinpostu[index]
-                                                      ["postID"];
-                                                  postbildir();
-                                                  Navigator.pop(context);
-
-                                                  Fluttertoast.showToast(
-                                                    msg: "Bildirildi !",
-                                                    toastLength:
-                                                        Toast.LENGTH_SHORT,
-                                                    gravity:
-                                                        ToastGravity.CENTER,
-                                                    timeInSecForIosWeb: 1,
-                                                  );
-                                                },
-                                                child: ListTile(
-                                                  textColor: Colors.red,
-                                                  leading: const Icon(
-                                                    Icons.person_outline,
-                                                    color: Colors.red,
-                                                  ),
-                                                  title: Text(reportUser),
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: const Icon(
-                              Icons.more_vert,
-                              size: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: screenHeight / 90),
-                      DetectableText(
-                        detectionRegExp: RegExp(
-                          "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
-                          multiLine: true,
-                        ),
-                        text: ayinpostu[index]["sosyalicerik"],
-                        basicStyle: const TextStyle(
-                          fontSize: 16,
-                        ),
-                        detectedStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      SizedBox(height: screenHeight / 50),
-                      Visibility(
-                        visible: visible,
-                        child: Container(
-                          child: gonderifotocek(),
-                        ),
-                      ),
-                      SizedBox(height: screenHeight / 65),
-                      Container(
-                        color: Colors.transparent,
-                        width: screenWidth,
-                        height: screenHeight / 20,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            LikeButton(
-                              onTap: (bool isLike) {
-                                return onLikeButtonTapped(
-                                  isLike,
-                                  index,
-                                );
-                              },
-                              countPostion: CountPostion.right,
-                              isLiked: ayinpostu[index]["benbegendim"] != 0
-                                  ? true
-                                  : false,
-                              likeCount: ayinpostu[index]["begenisay"] != "0"
-                                  ? int.parse(ayinpostu[index]["begenisay"])
-                                  : null,
-                              likeBuilder: (bool isLiked) {
-                                return isLiked
-                                    ? const Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                      )
-                                    : const Icon(
-                                        Icons.favorite_outline,
-                                        color: Colors.grey,
-                                      );
-                              },
-                              bubblesColor: const BubblesColor(
-                                dotPrimaryColor: Colors.red,
-                                dotSecondaryColor: Colors.blue,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AnaDetail(
-                                      veri1: ayinpostu[index]
-                                          ["sahipavatarminnak"],
-                                      veri2: ayinpostu[index]["sahipad"],
-                                      veri3: ayinpostu[index]["sosyalicerik"],
-                                      veri4: ayinpostu[index]["paylasimzaman"],
-                                      veri5: ayinpostu[index]["begenisay"],
-                                      veri6: ayinpostu[index]["yorumsay"],
-                                      veri7: ayinpostu[index]["repostsay"],
-                                      veri8: ayinpostu[index]["sikayetsay"],
-                                      veri9: ayinpostu[index]["benbegendim"],
-                                      veri10: ayinpostu[index]["postID"],
-                                      veri11: ayinpostu[index]["sahipID"],
-                                      veri12: ayinpostu[index]
-                                          ["paylasimnereden"],
-                                      veri13: ayinpostu[index]["benyorumladim"],
-                                      veri14: ayinpostu[index]["oyunculink"],
-                                    ),
-                                  ),
-                                );
-
-                                setState(() {
-                                  detayid = ayinpostu[index]["postID"];
-                                  // print(detaylink);
-                                  detaylink =
-                                      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-                                });
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    ayinpostu[index]["benyorumladim"] == 0
-                                        ? const Icon(
-                                            Icons.chat_bubble_outline,
-                                            color: Colors.grey,
-                                          )
-                                        : const Icon(
-                                            Icons.chat_bubble,
-                                            color: Colors.blue,
-                                          ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    (ayinpostu[index]["yorumsay"] != "0")
-                                        ? Text(
-                                            ayinpostu[index]["yorumsay"],
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          )
-                                        : const Text(""),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.repeat,
-                                      color: Colors.grey,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    (ayinpostu[index]["repostsay"] != "0")
-                                        ? Text(
-                                            ayinpostu[index]["repostsay"],
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          )
-                                        : const Text(""),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Share.share(
-                                  ayinpostu[index]["sosyalicerik"],
-                                );
-                              },
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.share_outlined,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: screenWidth / 15,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
-        : const CircularProgressIndicator();
-  }
+  // Widget _MainListView(
+  //   BuildContext context,
+  //   int index,
+  //   double screenWidth,
+  //   postsil,
+  //   Future<void> Function() _refresh,
+  //   postbildir,
+  //   double screenHeight,
+  //   Future<bool> Function(bool isLike, int index) onLikeButtonTapped,
+  // ) {
+  //   return ayinpostu.isNotEmpty
+  //       ? InkWell(
+  //           onTap: () {
+  //             Navigator.push(
+  //               context,
+  //               MaterialPageRoute(
+  //                 builder: (context) => ThemeConsumer(
+  //                   child: AnaDetail(
+  //                     veri1: ayinpostu[index]["sahipavatarminnak"],
+  //                     veri2: ayinpostu[index]["sahipad"],
+  //                     veri3: ayinpostu[index]["sosyalicerik"],
+  //                     veri4: ayinpostu[index]["paylasimzaman"],
+  //                     veri5: ayinpostu[index]["begenisay"],
+  //                     veri6: ayinpostu[index]["yorumsay"],
+  //                     veri7: ayinpostu[index]["repostsay"],
+  //                     veri8: ayinpostu[index]["sikayetsay"],
+  //                     veri9: ayinpostu[index]["benbegendim"],
+  //                     veri10: ayinpostu[index]["postID"],
+  //                     veri11: ayinpostu[index]["sahipID"],
+  //                     veri12: ayinpostu[index]["paylasimnereden"],
+  //                     veri13: ayinpostu[index]["benyorumladim"],
+  //                     veri14: ayinpostu[index]["oyunculink"],
+  //                   ),
+  //                 ),
+  //               ),
+  //             );
+  //             // sayfaya geri gelince sayfayı yenileme. _refresh yapınca en üste dönüyo
+  //             // setState() calısmadı.
+  //             // stateManagement (Get) ile yapılması mantıklı.
+  //             // ).then((value) {
+  //             //   // _refresh();
+  //             //   setState(() {});
+  //             //   print("refresh");
+  //             // });
+  //             setState(() {
+  //               detayid = ayinpostu[index]["postID"];
+  //               detaylink =
+  //                   "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+  //             });
+  //           },
+  //           child: Row(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               CircleAvatar(
+  //                 radius: screenWidth / 12,
+  //                 backgroundImage: NetworkImage(
+  //                   ayinpostu[index]["sahipavatarminnak"],
+  //                 ),
+  //                 backgroundColor: Colors.transparent,
+  //               ),
+  //               SizedBox(width: screenWidth / 35),
+  //               Expanded(
+  //                 child: Column(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     Row(
+  //                       children: [
+  //                         Text(
+  //                           ayinpostu[index]["sahipad"],
+  //                           style: const TextStyle(
+  //                             fontWeight: FontWeight.bold,
+  //                           ),
+  //                         ),
+  //                         Text(
+  //                           "  -  " + ayinpostu[index]["paylasimzamangecen"],
+  //                           style: const TextStyle(
+  //                             color: Colors.grey,
+  //                             fontWeight: FontWeight.bold,
+  //                           ),
+  //                         ),
+  //                         const Spacer(),
+  //                         InkWell(
+  //                           onTap: () {
+  //                             showModalBottomSheet<void>(
+  //                               shape: const RoundedRectangleBorder(
+  //                                 borderRadius: BorderRadius.vertical(
+  //                                   top: Radius.circular(10),
+  //                                 ),
+  //                               ),
+  //                               context: context,
+  //                               builder: (BuildContext context) {
+  //                                 return SafeArea(
+  //                                   child: Wrap(
+  //                                     children: [
+  //                                       Column(
+  //                                         children: [
+  //                                           Padding(
+  //                                             padding:
+  //                                                 const EdgeInsets.symmetric(
+  //                                                     vertical: 10),
+  //                                             child: Container(
+  //                                               decoration: BoxDecoration(
+  //                                                 color: Colors.grey[900],
+  //                                                 borderRadius:
+  //                                                     const BorderRadius.all(
+  //                                                   Radius.circular(30),
+  //                                                 ),
+  //                                               ),
+  //                                               width: screenWidth / 4,
+  //                                               height: 5,
+  //                                             ),
+  //                                           ),
+  //                                           InkWell(
+  //                                             onTap: () {
+  //                                               Navigator.pop(context);
+  //                                             },
+  //                                             child: ListTile(
+  //                                               leading:
+  //                                                   const Icon(Icons.post_add),
+  //                                               title: Text(addFavoritePost),
+  //                                             ),
+  //                                           ),
+  //                                           Visibility(
+  //                                             visible: ayinpostu[index]
+  //                                                         ["sahipID"] ==
+  //                                                     girisdata["oyuncuID"]
+  //                                                 ? true
+  //                                                 : false,
+  //                                             child: InkWell(
+  //                                               onTap: () {
+  //                                                 postID = ayinpostu[index]
+  //                                                     ["postID"];
+  //                                                 // postsil();
+  //                                                 Navigator.pop(context);
+  //                                               },
+  //                                               child: ListTile(
+  //                                                 leading: const Icon(
+  //                                                     Icons.edit_note),
+  //                                                 title: Text(editPost),
+  //                                               ),
+  //                                             ),
+  //                                           ),
+  //                                           Visibility(
+  //                                             visible: ayinpostu[index]
+  //                                                         ["sahipID"] ==
+  //                                                     girisdata["oyuncuID"]
+  //                                                 ? true
+  //                                                 : false,
+  //                                             child: InkWell(
+  //                                               onTap: () {
+  //                                                 postID = ayinpostu[index]
+  //                                                     ["postID"];
+  //                                                 postsil();
+  //                                                 Navigator.pop(context);
+  //                                                 Future.delayed(
+  //                                                     const Duration(
+  //                                                       milliseconds: 100,
+  //                                                     ), () {
+  //                                                   _refresh();
+  //                                                 });
+  //                                               },
+  //                                               child: ListTile(
+  //                                                 leading: const Icon(Icons
+  //                                                     .delete_sweep_outlined),
+  //                                                 title: Text(removePost),
+  //                                               ),
+  //                                             ),
+  //                                           ),
+  //                                           InkWell(
+  //                                             onTap: () {
+  //                                               Navigator.pop(context);
+  //                                             },
+  //                                             child: ListTile(
+  //                                               leading: const Icon(
+  //                                                   Icons.share_outlined),
+  //                                               title: Text(shareUser),
+  //                                             ),
+  //                                           ),
+  //                                           InkWell(
+  //                                             onTap: () {
+  //                                               Clipboard.setData(
+  //                                                 ClipboardData(
+  //                                                   text: ayinpostu[index]
+  //                                                       ["sahipID"],
+  //                                                 ),
+  //                                               );
+  //                                               Navigator.pop(context);
+  //                                               Fluttertoast.showToast(
+  //                                                 msg: "Kopyalandı !",
+  //                                                 toastLength:
+  //                                                     Toast.LENGTH_SHORT,
+  //                                                 gravity: ToastGravity.CENTER,
+  //                                                 timeInSecForIosWeb: 1,
+  //                                               );
+  //                                             },
+  //                                             child: ListTile(
+  //                                               leading: const Icon(
+  //                                                   Icons.content_copy),
+  //                                               title:
+  //                                                   Text(shareUserProfileLink),
+  //                                             ),
+  //                                           ),
+  //                                           Visibility(
+  //                                             visible: ayinpostu[index]
+  //                                                         ["sahipID"] ==
+  //                                                     girisdata["oyuncuID"]
+  //                                                 ? false
+  //                                                 : true,
+  //                                             child: const Divider(),
+  //                                           ),
+  //                                           Visibility(
+  //                                             visible: ayinpostu[index]
+  //                                                         ["sahipID"] ==
+  //                                                     girisdata["oyuncuID"]
+  //                                                 ? false
+  //                                                 : true,
+  //                                             child: InkWell(
+  //                                               onTap: () {
+  //                                                 postID = ayinpostu[index]
+  //                                                     ["postID"];
+  //                                                 postbildir();
+  //                                                 Navigator.pop(context);
+  //                                                 Fluttertoast.showToast(
+  //                                                   msg: "Bildirildi !",
+  //                                                   toastLength:
+  //                                                       Toast.LENGTH_SHORT,
+  //                                                   gravity:
+  //                                                       ToastGravity.CENTER,
+  //                                                   timeInSecForIosWeb: 1,
+  //                                                 );
+  //                                               },
+  //                                               child: ListTile(
+  //                                                 textColor: Colors.red,
+  //                                                 leading: const Icon(
+  //                                                   Icons.flag_outlined,
+  //                                                   color: Colors.red,
+  //                                                 ),
+  //                                                 title: Text(reportPost),
+  //                                               ),
+  //                                             ),
+  //                                           ),
+  //                                           Visibility(
+  //                                             visible: ayinpostu[index]
+  //                                                         ["sahipID"] ==
+  //                                                     girisdata["oyuncuID"]
+  //                                                 ? false
+  //                                                 : true,
+  //                                             child: InkWell(
+  //                                               onTap: () {
+  //                                                 postID = ayinpostu[index]
+  //                                                     ["postID"];
+  //                                                 postbildir();
+  //                                                 Navigator.pop(context);
+  //                                                 Fluttertoast.showToast(
+  //                                                   msg: "Bildirildi !",
+  //                                                   toastLength:
+  //                                                       Toast.LENGTH_SHORT,
+  //                                                   gravity:
+  //                                                       ToastGravity.CENTER,
+  //                                                   timeInSecForIosWeb: 1,
+  //                                                 );
+  //                                               },
+  //                                               child: ListTile(
+  //                                                 textColor: Colors.red,
+  //                                                 leading: const Icon(
+  //                                                   Icons.person_outline,
+  //                                                   color: Colors.red,
+  //                                                 ),
+  //                                                 title: Text(reportUser),
+  //                                               ),
+  //                                             ),
+  //                                           ),
+  //                                           const SizedBox(height: 10),
+  //                                         ],
+  //                                       ),
+  //                                     ],
+  //                                   ),
+  //                                 );
+  //                               },
+  //                             );
+  //                           },
+  //                           child: const Icon(
+  //                             Icons.more_vert,
+  //                             size: 20,
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     SizedBox(height: screenHeight / 90),
+  //                     DetectableText(
+  //                       detectionRegExp: RegExp(
+  //                         "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
+  //                         multiLine: true,
+  //                       ),
+  //                       text: ayinpostu[index]["sosyalicerik"],
+  //                       basicStyle: const TextStyle(
+  //                         fontSize: 16,
+  //                       ),
+  //                       detectedStyle: const TextStyle(
+  //                         fontSize: 16,
+  //                         fontWeight: FontWeight.w500,
+  //                         color: Colors.blue,
+  //                       ),
+  //                     ),
+  //                     SizedBox(height: screenHeight / 50),
+  //                     Visibility(
+  //                       visible: visible,
+  //                       child: Container(
+  //                         child: gonderifotocek(),
+  //                       ),
+  //                     ),
+  //                     SizedBox(height: screenHeight / 65),
+  //                     Container(
+  //                       color: Colors.transparent,
+  //                       width: screenWidth,
+  //                       height: screenHeight / 20,
+  //                       child: Row(
+  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                         children: [
+  //                           LikeButton(
+  //                             onTap: (bool isLike) {
+  //                               return onLikeButtonTapped(
+  //                                 isLike,
+  //                                 index,
+  //                               );
+  //                             },
+  //                             countPostion: CountPostion.right,
+  //                             isLiked: ayinpostu[index]["benbegendim"] != 0
+  //                                 ? true
+  //                                 : false,
+  //                             likeCount: ayinpostu[index]["begenisay"] != "0"
+  //                                 ? int.parse(ayinpostu[index]["begenisay"])
+  //                                 : null,
+  //                             likeBuilder: (bool isLiked) {
+  //                               return isLiked
+  //                                   ? const Icon(
+  //                                       Icons.favorite,
+  //                                       color: Colors.red,
+  //                                     )
+  //                                   : const Icon(
+  //                                       Icons.favorite_outline,
+  //                                       color: Colors.grey,
+  //                                     );
+  //                             },
+  //                             bubblesColor: const BubblesColor(
+  //                               dotPrimaryColor: Colors.red,
+  //                               dotSecondaryColor: Colors.blue,
+  //                             ),
+  //                           ),
+  //                           InkWell(
+  //                             onTap: () {
+  //                               Navigator.push(
+  //                                 context,
+  //                                 MaterialPageRoute(
+  //                                   builder: (context) => AnaDetail(
+  //                                     veri1: ayinpostu[index]
+  //                                         ["sahipavatarminnak"],
+  //                                     veri2: ayinpostu[index]["sahipad"],
+  //                                     veri3: ayinpostu[index]["sosyalicerik"],
+  //                                     veri4: ayinpostu[index]["paylasimzaman"],
+  //                                     veri5: ayinpostu[index]["begenisay"],
+  //                                     veri6: ayinpostu[index]["yorumsay"],
+  //                                     veri7: ayinpostu[index]["repostsay"],
+  //                                     veri8: ayinpostu[index]["sikayetsay"],
+  //                                     veri9: ayinpostu[index]["benbegendim"],
+  //                                     veri10: ayinpostu[index]["postID"],
+  //                                     veri11: ayinpostu[index]["sahipID"],
+  //                                     veri12: ayinpostu[index]
+  //                                         ["paylasimnereden"],
+  //                                     veri13: ayinpostu[index]["benyorumladim"],
+  //                                     veri14: ayinpostu[index]["oyunculink"],
+  //                                   ),
+  //                                 ),
+  //                               );
+  //                               setState(() {
+  //                                 detayid = ayinpostu[index]["postID"];
+  //                                 // print(detaylink);
+  //                                 detaylink =
+  //                                     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+  //                               });
+  //                             },
+  //                             child: Padding(
+  //                               padding: const EdgeInsets.all(8.0),
+  //                               child: Row(
+  //                                 children: [
+  //                                   ayinpostu[index]["benyorumladim"] == 0
+  //                                       ? const Icon(
+  //                                           Icons.chat_bubble_outline,
+  //                                           color: Colors.grey,
+  //                                         )
+  //                                       : const Icon(
+  //                                           Icons.chat_bubble,
+  //                                           color: Colors.blue,
+  //                                         ),
+  //                                   const SizedBox(
+  //                                     width: 10,
+  //                                   ),
+  //                                   (ayinpostu[index]["yorumsay"] != "0")
+  //                                       ? Text(
+  //                                           ayinpostu[index]["yorumsay"],
+  //                                           style: const TextStyle(
+  //                                             color: Colors.grey,
+  //                                           ),
+  //                                         )
+  //                                       : const Text(""),
+  //                                 ],
+  //                               ),
+  //                             ),
+  //                           ),
+  //                           InkWell(
+  //                             onTap: () {},
+  //                             child: Padding(
+  //                               padding: const EdgeInsets.all(8.0),
+  //                               child: Row(
+  //                                 children: [
+  //                                   const Icon(
+  //                                     Icons.repeat,
+  //                                     color: Colors.grey,
+  //                                   ),
+  //                                   const SizedBox(
+  //                                     width: 10,
+  //                                   ),
+  //                                   (ayinpostu[index]["repostsay"] != "0")
+  //                                       ? Text(
+  //                                           ayinpostu[index]["repostsay"],
+  //                                           style: const TextStyle(
+  //                                             color: Colors.grey,
+  //                                           ),
+  //                                         )
+  //                                       : const Text(""),
+  //                                 ],
+  //                               ),
+  //                             ),
+  //                           ),
+  //                           InkWell(
+  //                             onTap: () {
+  //                               Share.share(
+  //                                 ayinpostu[index]["sosyalicerik"],
+  //                               );
+  //                             },
+  //                             child: const Padding(
+  //                               padding: EdgeInsets.all(8.0),
+  //                               child: Icon(
+  //                                 Icons.share_outlined,
+  //                                 color: Colors.grey,
+  //                               ),
+  //                             ),
+  //                           ),
+  //                           SizedBox(
+  //                             width: screenWidth / 15,
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         )
+  //       : const CircularProgressIndicator();
+  // }
 
   Widget _carouselSlider() {
     return Column(
@@ -1484,8 +1492,9 @@ class _SearchState extends State<Search> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Detail(
+                          builder: (context) => NewsDetail(
                             veri1: datahaber[index]["haberbaslik"],
+                            veri2: datahaber[index]["zaman"],
                             veri3: datahaber[index]["resimminnak"],
                             veri5: datahaber[index]["resim"],
                             veri6: datahaber[index]["gecenzaman"],

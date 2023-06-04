@@ -6,7 +6,6 @@ import 'package:armoyu/Utilities/Import&Export/export.dart';
 var botId1 = dotenv.env['botId1'];
 var girisdata;
 var datahaber;
-var datagrup;
 var grupid;
 var detayid;
 var profiledata;
@@ -25,7 +24,8 @@ var screenHeight;
 var response;
 
 //  String  //
-// String version = "";
+String appVersion = "";
+String appBuildNumber = "";
 String mevcutpage = "anasayfa";
 String sifirlamatercihi = "";
 String completeVerified = "";
@@ -70,6 +70,8 @@ String exitApp = "ARMOYU'dan çıkış yapmak istediğine emin misin?";
 String removeAccount = "Hesabını kalıcı olarak silmek istediğine emin misin?";
 String removeAccountInformation =
     "Hesap silme talebinizi aldık 30 gün içinde hesabınız silinecek.";
+String notLikedPostYet = "Henüz kimse postu beğenmedi";
+String unexpectedError = "Beklenmedik bir hata oluştu";
 
 //  int  //
 int startPage = 0;
@@ -101,10 +103,13 @@ bool checked = false;
 bool isSocial = false;
 bool beingChecked = false;
 bool hasNotificationBeenSeen = true;
+bool commentsIsLoading = false;
+bool commentsIsUploading = false;
 
 //  List  //
+List mainFeed = [];
+List grupFeed = [];
 List gruplarim = [];
-List dataanasayfa = [];
 List gonderifotolar = [];
 List postDetails = [];
 List toplantilar = [];
@@ -133,9 +138,9 @@ Map postlcrMap = {};
 
 //  final  //
 final screens = [
-  const AnaSayfa(),
+  const MainFeed(),
   const Search(),
-  const Notif(),
+  const Notifications(),
 ];
 // late final XFile? video;
 

@@ -475,7 +475,7 @@
 //         CircleAvatar(
 //           radius: screenWidth / 12,
 //           backgroundImage: CachedNetworkImageProvider(
-//             dataanasayfa[0]["sahipavatarminnak"],
+//             mainFeed[0]["sahipavatarminnak"],
 //           ),
 //           backgroundColor: Colors.transparent,
 //         ),
@@ -488,13 +488,13 @@
 //               Row(
 //                 children: [
 //                   Text(
-//                     dataanasayfa[0]["sahipad"],
+//                     mainFeed[0]["sahipad"],
 //                     style: const TextStyle(
 //                       fontWeight: FontWeight.bold,
 //                     ),
 //                   ),
 //                   Text(
-//                     "  -  " + dataanasayfa[0]["paylasimzamangecen"],
+//                     "  -  " + mainFeed[0]["paylasimzamangecen"],
 //                     style: const TextStyle(
 //                       color: Colors.grey,
 //                       fontWeight: FontWeight.bold,
@@ -533,7 +533,7 @@
 //                                     InkWell(
 //                                       onTap: () {
 //                                         Share.share(
-//                                             dataanasayfa[0]["oyunculink"]);
+//                                             mainFeed[0]["oyunculink"]);
 //                                         Navigator.pop(context);
 //                                       },
 //                                       child: ListTile(
@@ -546,7 +546,7 @@
 //                                       onTap: () {
 //                                         Clipboard.setData(
 //                                           ClipboardData(
-//                                             text: dataanasayfa[0]["oyunculink"],
+//                                             text: mainFeed[0]["oyunculink"],
 //                                           ),
 //                                         );
 //                                         Navigator.pop(context);
@@ -585,7 +585,7 @@
 //                   "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
 //                   multiLine: true,
 //                 ),
-//                 text: dataanasayfa[0]["sosyalicerik"],
+//                 text: mainFeed[0]["sosyalicerik"],
 //                 basicStyle: const TextStyle(
 //                   fontSize: 16,
 //                 ),
@@ -626,9 +626,9 @@
 //                             const SizedBox(
 //                               width: 10,
 //                             ),
-//                             (dataanasayfa[10]["yorumsay"] != "0")
+//                             (mainFeed[10]["yorumsay"] != "0")
 //                                 ? Text(
-//                                     dataanasayfa[0]["yorumsay"],
+//                                     mainFeed[0]["yorumsay"],
 //                                     style: const TextStyle(
 //                                       color: Colors.grey,
 //                                     ),
@@ -651,9 +651,9 @@
 //                             const SizedBox(
 //                               width: 10,
 //                             ),
-//                             (dataanasayfa[0]["repostsay"] != "0")
+//                             (mainFeed[0]["repostsay"] != "0")
 //                                 ? Text(
-//                                     dataanasayfa[0]["repostsay"],
+//                                     mainFeed[0]["repostsay"],
 //                                     style: const TextStyle(
 //                                       color: Colors.grey,
 //                                     ),
@@ -666,7 +666,7 @@
 //                     InkWell(
 //                       onTap: () {
 //                         Share.share(
-//                           dataanasayfa[0]["sosyalicerik"],
+//                           mainFeed[0]["sosyalicerik"],
 //                         );
 //                       },
 //                       child: const Padding(
