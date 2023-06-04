@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, avoid_print, unnecessary_null_comparison, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unused_element, use_build_context_synchronously, unnecessary_statements
+// ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, unused_element
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:skeletons/skeletons.dart';
@@ -41,17 +41,19 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         "oyuncubakid": widget.veri1,
       },
     ).then((cevap) {
-      setState(() {
-        try {
-          profiledata = jsonDecode(cevap.body);
-          profileFriends = profiledata["arkadasliste"];
-          // print(profileFriends);
-          arkadasdurum();
-          sosyalLink();
-        } catch (e) {
-          print('Unknown exception: $e');
-        }
-      });
+      if (mounted) {
+        setState(() {
+          try {
+            profiledata = jsonDecode(cevap.body);
+            profileFriends = profiledata["arkadasliste"];
+            // print(profileFriends);
+            arkadasdurum();
+            sosyalLink();
+          } catch (e) {
+            print('Unknown exception: $e');
+          }
+        });
+      }
     });
   }
 
@@ -62,13 +64,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         "oyuncubakid": widget.veri1,
       },
     ).then((cevap) {
-      setState(() {
-        try {
-          postdata = jsonDecode(cevap.body);
-        } catch (e) {
-          print('Unknown exception: $e');
-        }
-      });
+      if (mounted) {
+        setState(() {
+          try {
+            postdata = jsonDecode(cevap.body);
+          } catch (e) {
+            print('Unknown exception: $e');
+          }
+        });
+      }
     });
   }
 
@@ -79,21 +83,23 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         "oyuncubakid": widget.veri1,
       },
     ).then((cevap) {
-      setState(() {
-        try {
-          medyadata = jsonDecode(cevap.body);
-          // print(medyadata);
-        } catch (e) {
-          print('Unknown exception: $e');
-        }
-        if (medyadata != null) {
-          for (var i = 0; i < medyadata.length; i++) {
-            resimler.add(medyadata[i]["medyaufaklik"]);
+      if (mounted) {
+        setState(() {
+          try {
+            medyadata = jsonDecode(cevap.body);
+            // print(medyadata);
+          } catch (e) {
+            print('Unknown exception: $e');
           }
-        } else {
-          print("resim yok");
-        }
-      });
+          if (medyadata.isNotEmpty) {
+            for (var i = 0; i < medyadata.length; i++) {
+              resimler.add(medyadata[i]["medyaufaklik"]);
+            }
+          } else {
+            print("resim yok");
+          }
+        });
+      }
     });
   }
 
@@ -127,8 +133,9 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     } catch (e) {
       print(e);
     }
-
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   gonderifotocek() {
@@ -630,20 +637,22 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   }
 
   Future<bool> onLikeButtonTapped(bool isLike, int index) async {
-    setState(() {
-      postdata[index]["benbegendim"] =
-          postdata[index]["benbegendim"] == 0 ? 1 : 0;
+    if (mounted) {
+      setState(() {
+        postdata[index]["benbegendim"] =
+            postdata[index]["benbegendim"] == 0 ? 1 : 0;
 
-      isLike = !isLike;
+        isLike = !isLike;
 
-      if (isLike == true) {
-        postdata[index]["begenisay"] =
-            (int.parse(postdata[index]["begenisay"]) + 1).toString();
-      } else {
-        postdata[index]["begenisay"] =
-            (int.parse(postdata[index]["begenisay"]) - 1).toString();
-      }
-    });
+        if (isLike == true) {
+          postdata[index]["begenisay"] =
+              (int.parse(postdata[index]["begenisay"]) + 1).toString();
+        } else {
+          postdata[index]["begenisay"] =
+              (int.parse(postdata[index]["begenisay"]) - 1).toString();
+        }
+      });
+    }
     print(isLike);
     postID = postdata[index]["postID"];
     print("onLikeButtonTapped");
@@ -678,38 +687,50 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         "oyuncubakid": widget.veri1,
       },
     ).then((cevap) {
-      setState(() {
-        try {
-          arkadas = jsonDecode(cevap.body);
-        } catch (e) {
-          print('Unknown exception: $e');
-        }
-        // print(arkadas);
-      });
+      if (mounted) {
+        setState(() {
+          try {
+            arkadas = jsonDecode(cevap.body);
+          } catch (e) {
+            print('Unknown exception: $e');
+          }
+          // print(arkadas);
+        });
+      }
     });
   }
 
   arkadasdurum() async {
     if (profiledata["arkadasdurum"] == "0") {
-      setState(() {
-        arkadasText = "Arkadaş Ol";
-      });
+      if (mounted) {
+        setState(() {
+          arkadasText = "Arkadaş Ol";
+        });
+      }
     } else if (profiledata["arkadasdurum"] == "1") {
-      setState(() {
-        arkadasText = "Mesaj Gönder";
-      });
+      if (mounted) {
+        setState(() {
+          arkadasText = "Mesaj Gönder";
+        });
+      }
     } else if (profiledata["arkadasdurum"] == "2") {
-      setState(() {
-        arkadasText = "Bekleniyor...";
-      });
+      if (mounted) {
+        setState(() {
+          arkadasText = "Bekleniyor...";
+        });
+      }
     } else if (profiledata["arkadasdurum"] == null) {
-      setState(() {
-        arkadasText = "";
-      });
+      if (mounted) {
+        setState(() {
+          arkadasText = "";
+        });
+      }
     } else {
       null;
     }
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   sosyalLink() async {
@@ -721,13 +742,17 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         profiledata["youtube"] != null ||
         profiledata["instagram"] != null ||
         profiledata["facebook"] != null) {
-      setState(() {
-        isSocial = true;
-      });
+      if (mounted) {
+        setState(() {
+          isSocial = true;
+        });
+      }
     } else {
-      setState(() {
-        isSocial = false;
-      });
+      if (mounted) {
+        setState(() {
+          isSocial = false;
+        });
+      }
     }
     // print(isSocial);
   }
@@ -881,9 +906,12 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 : false,
                                             child: InkWell(
                                               onTap: () async {
-                                                setState(() {
-                                                  isEditProfileIconShow = true;
-                                                });
+                                                if (mounted) {
+                                                  setState(() {
+                                                    isEditProfileIconShow =
+                                                        true;
+                                                  });
+                                                }
                                                 Navigator.pop(context);
                                               },
                                               child: ListTile(
@@ -913,9 +941,11 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                               onTap: () async {
                                                 profileID = widget.veri1;
                                                 Navigator.pop(context);
-                                                setState(() {
-                                                  arkadasText = "Arkadaş Ol";
-                                                });
+                                                if (mounted) {
+                                                  setState(() {
+                                                    arkadasText = "Arkadaş Ol";
+                                                  });
+                                                }
                                                 // print("Arkadaş Çıkar");
                                                 await arkadasCikar();
                                                 Fluttertoast.showToast(
@@ -1199,9 +1229,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 backgroundColor: Color(
                                                   profiledata["seviyerenk"] !=
                                                           false
-                                                      ? int.parse("0xFF" +
-                                                          profiledata[
-                                                              "seviyerenk"])
+                                                      ? int.parse(
+                                                          "0xFF${profiledata["seviyerenk"]}")
                                                       : 0xFF,
                                                 ),
                                                 child: CircleAvatar(
@@ -1227,9 +1256,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                       color: Color(
                                                         profiledata["seviyerenk"] !=
                                                                 false
-                                                            ? int.parse("0xFF" +
-                                                                profiledata[
-                                                                    "seviyerenk"])
+                                                            ? int.parse(
+                                                                "0xFF${profiledata["seviyerenk"]}")
                                                             : 0xFF,
                                                       ),
                                                     ),
@@ -1293,20 +1321,26 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                           profiledata["oyuncuID"] ==
                                                   girisdata["oyuncuID"]
                                               ? {
-                                                  setState(() {
-                                                    isEditProfileIconShow =
-                                                        true;
-                                                  }),
+                                                  if (mounted)
+                                                    {
+                                                      setState(() {
+                                                        isEditProfileIconShow =
+                                                            true;
+                                                      }),
+                                                    }
                                                 }
                                               : {
                                                   if (profiledata[
                                                           "arkadasdurum"] ==
                                                       "1")
                                                     {
-                                                      setState(() {
-                                                        arkadasText =
-                                                            "Mesaj Gönder";
-                                                      }),
+                                                      if (mounted)
+                                                        {
+                                                          setState(() {
+                                                            arkadasText =
+                                                                "Mesaj Gönder";
+                                                          }),
+                                                        },
                                                       // print("Mesaj Gönder"),
                                                       ScaffoldMessenger.of(
                                                               context)
@@ -1323,10 +1357,13 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                           "arkadasdurum"] ==
                                                       "0")
                                                     {
-                                                      setState(() {
-                                                        arkadasText =
-                                                            "Bekleniyor...";
-                                                      }),
+                                                      if (mounted)
+                                                        {
+                                                          setState(() {
+                                                            arkadasText =
+                                                                "Bekleniyor...";
+                                                          }),
+                                                        },
                                                       // print("Arkadaş Ol"),
                                                       await arkadasol(),
                                                     }
@@ -1400,7 +1437,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                               Row(
                                 children: [
                                   Text(
-                                    "@" + profiledata["kullaniciadi"],
+                                    "@${profiledata["kullaniciadi"]}",
                                     style: const TextStyle(
                                       color: Colors.grey,
                                     ),
@@ -1411,7 +1448,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     style: TextStyle(
                                       color: Color(
                                         int.parse(
-                                            "0xFF" + profiledata["yetkirenk"]),
+                                            "0xFF${profiledata["yetkirenk"]}"),
                                       ),
                                     ),
                                   ),
@@ -1476,11 +1513,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                           onPressed: () async {
                                             await editProfie(hakkimda.text);
                                             hakkimda.clear();
-                                            setState(() {
-                                              isEditProfileIconShow = false;
-                                            });
+                                            if (mounted) {
+                                              setState(() {
+                                                isEditProfileIconShow = false;
+                                              });
+                                            }
                                             profilcek();
-                                            setState(() {});
+                                            if (mounted) {
+                                              setState(() {});
+                                            }
                                           },
                                           icon: const Icon(
                                             Icons.send,
@@ -1822,17 +1863,17 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
               closedBuilder: (context, openWidget) {
                 return FloatingActionButton(
                   backgroundColor: Colors.red,
+                  onPressed: openWidget,
                   child: const Icon(
                     Icons.edit_note,
                     color: Colors.black,
                     size: 35,
                   ),
-                  onPressed: openWidget,
                 );
               },
               openBuilder: (context, closeWidget) {
                 return ThemeConsumer(
-                  child: Post(
+                  child: SharePost(
                     veri1: profiledata["oyuncuID"] == girisdata["oyuncuID"]
                         ? ""
                         : "@" "${profiledata["kullaniciadi"]} ",
@@ -2131,7 +2172,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   return profiledata["oyuncuID"] == girisdata["oyuncuID"]
                       ? FocusedMenuHolder(
                           menuWidth: MediaQuery.of(context).size.width * 0.50,
-                          blurSize: 5.0,
+                          blurSize: 2,
                           menuItemExtent: 45,
                           menuBoxDecoration: const BoxDecoration(
                             color: Colors.grey,
@@ -2217,7 +2258,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                         )
                       : FocusedMenuHolder(
                           menuWidth: MediaQuery.of(context).size.width * 0.50,
-                          blurSize: 5.0,
+                          blurSize: 2,
                           menuItemExtent: 45,
                           menuBoxDecoration: const BoxDecoration(
                             color: Colors.grey,
@@ -2351,7 +2392,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
           context,
           MaterialPageRoute(
             builder: (context) => ThemeConsumer(
-              child: AnaDetail(
+              child: PostDetail(
                 veri1: postdata[index]["sahipavatarminnak"],
                 veri2: postdata[index]["sahipad"],
                 veri3: postdata[index]["sosyalicerik"],
@@ -2370,13 +2411,14 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
             ),
           ),
         );
+        if (mounted) {
+          setState(() {
+            detayid = postdata[index]["postID"];
 
-        setState(() {
-          detayid = postdata[index]["postID"];
-
-          detaylink =
-              "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-        });
+            detaylink =
+                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+          });
+        }
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2403,7 +2445,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                       ),
                     ),
                     Text(
-                      "  -  " + postdata[index]["paylasimzamangecen"],
+                      "  -  ${postdata[index]["paylasimzamangecen"]}",
                       style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
@@ -2464,7 +2506,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     ThemeConsumer(
-                                                  child: Post(
+                                                  child: SharePost(
                                                     veri1: "",
                                                     veri2: postdata[index]
                                                         ["sosyalicerik"],
@@ -2632,7 +2674,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   ),
                 ),
                 SimpleUrlPreview(
-                  url: dataanasayfa[index]["sosyalicerik"],
+                  url: mainFeed[index]["sosyalicerik"],
                   isClosable: true,
                   imageLoaderColor: Colors.blue,
                   titleStyle: const TextStyle(
@@ -2689,7 +2731,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AnaDetail(
+                              builder: (context) => PostDetail(
                                 veri1: postdata[index]["sahipavatarminnak"],
                                 veri2: postdata[index]["sahipad"],
                                 veri3: postdata[index]["sosyalicerik"],
@@ -2707,13 +2749,14 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                               ),
                             ),
                           );
+                          if (mounted) {
+                            setState(() {
+                              detayid = postdata[index]["postID"];
 
-                          setState(() {
-                            detayid = postdata[index]["postID"];
-
-                            detaylink =
-                                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-                          });
+                              detaylink =
+                                  "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                            });
+                          }
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

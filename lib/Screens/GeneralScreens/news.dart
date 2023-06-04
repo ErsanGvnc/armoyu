@@ -1,3 +1,5 @@
+
+
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import '../../Utilities/Import&Export/export.dart';
@@ -22,7 +24,9 @@ class NewsState extends State<News> {
       Uri.parse(haberurl),
     );
     datahaber = jsonDecode(gelen.body);
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -47,8 +51,9 @@ class NewsState extends State<News> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Detail(
+                            builder: (context) => NewsDetail(
                               veri1: datahaber[index]["haberbaslik"],
+                              veri2: datahaber[index]["zaman"],
                               veri3: datahaber[index]["resimminnak"],
                               veri5: datahaber[index]["resim"],
                               veri6: datahaber[index]["gecenzaman"],
@@ -117,8 +122,7 @@ class NewsState extends State<News> {
                                         ),
                                         SizedBox(width: screenWidth / 75),
                                         Text(
-                                          "",
-                                          // datahaber[index]["gecenzaman"],
+                                          datahaber[index]["gecenzaman"],
                                           style: TextStyle(
                                             color: Colors.grey,
                                             fontSize: screenWidth / 30,

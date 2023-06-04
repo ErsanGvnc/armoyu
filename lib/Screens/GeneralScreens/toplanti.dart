@@ -31,7 +31,7 @@ class _ToplantiState extends State<Toplanti> {
 
     try {
       response = jsonDecode(gelen.body);
-      print(response["durum"]);
+      // print(response["durum"]);
 
       if (response["durum"] == 1) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -40,10 +40,12 @@ class _ToplantiState extends State<Toplanti> {
                 "Bildirildi ! ${DateFormat('kk:mm , d MMM y').format(DateTime.now())}"),
           ),
         );
-        print(response["aciklama"]);
+        // print(response["aciklama"]);
         toplanti.clear();
         toplantiid = "";
-        setState(() {});
+        if (mounted) {
+          setState(() {});
+        }
       }
     } catch (e) {
       print(e);
@@ -62,9 +64,11 @@ class _ToplantiState extends State<Toplanti> {
               child: IconButton(
                 onPressed: () {
                   toplanti.clear();
-                  setState(() {
-                    textLength = 0;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      textLength = 0;
+                    });
+                  }
                 },
                 icon: const Icon(Icons.clear),
               ),
@@ -178,9 +182,11 @@ class _ToplantiState extends State<Toplanti> {
                     counterText: "",
                   ),
                   onChanged: (value) {
-                    setState(() {
-                      textLength = value.length;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        textLength = value.length;
+                      });
+                    }
                     // print(textLength.toDouble());
                   },
                 ),
@@ -256,7 +262,9 @@ class _ToplantiState extends State<Toplanti> {
                                 onTap: () {
                                   toplantiid = toplantilar[i]["toplantiID"];
                                   print(toplantiid);
-                                  setState(() {});
+                                  if (mounted) {
+                                    setState(() {});
+                                  }
                                 },
                               ),
                           ],

@@ -5,14 +5,14 @@ import 'package:skeletons/skeletons.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:http/http.dart' as http;
 
-class Notif extends StatefulWidget {
-  const Notif({Key? key}) : super(key: key);
+class Notifications extends StatefulWidget {
+  const Notifications({Key? key}) : super(key: key);
 
   @override
-  State<Notif> createState() => _NotifState();
+  State<Notifications> createState() => _NotifState();
 }
 
-class _NotifState extends State<Notif> {
+class _NotifState extends State<Notifications> {
   Future bildirimcek() async {
     try {
       final gelen = await http.get(
@@ -23,7 +23,9 @@ class _NotifState extends State<Notif> {
     } catch (e) {
       print('Unknown exception: $e');
     }
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   arkadascevap(int index, String evethayir) async {
@@ -56,8 +58,8 @@ class _NotifState extends State<Notif> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      initialData: bildirimcek(),
       future: bildirimcek(),
+      initialData: bildirimcek(),
       builder: (context, snapshot) => RefreshIndicator(
         onRefresh: _refresh,
         child: bildirimler.isNotEmpty

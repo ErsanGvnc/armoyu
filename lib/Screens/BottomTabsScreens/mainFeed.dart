@@ -1,18 +1,18 @@
-// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, prefer_interpolation_to_compose_strings, unnecessary_null_comparison
+// ignore_for_file: file_names, unnecessary_null_comparison, avoid_print, non_constant_identifier_names, no_leading_underscores_for_local_identifiers
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 // import 'package:extended_image/extended_image.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:http/http.dart' as http;
 
-class AnaSayfa extends StatefulWidget {
-  const AnaSayfa({Key? key}) : super(key: key);
+class MainFeed extends StatefulWidget {
+  const MainFeed({Key? key}) : super(key: key);
 
   @override
   AnaSayfaState createState() => AnaSayfaState();
 }
 
-class AnaSayfaState extends State<AnaSayfa> {
+class AnaSayfaState extends State<MainFeed> {
   @override
   void initState() {
     super.initState();
@@ -31,8 +31,8 @@ class AnaSayfaState extends State<AnaSayfa> {
       if (anaSayfaScrollController.position.pixels ==
               anaSayfaScrollController.position.maxScrollExtent &&
           anaSayfaScrollController.position.pixels > 0) {
-        gondericek(dataanasayfa.length);
-        print(dataanasayfa.length);
+        gondericek(mainFeed.length);
+        print(mainFeed.length);
       }
     });
   }
@@ -54,10 +54,11 @@ class AnaSayfaState extends State<AnaSayfa> {
 
     if (gelen.statusCode == 200) {
       final List newItems = jsonDecode(gelen.body);
-
-      setState(() {
-        dataanasayfa.addAll(newItems);
-      });
+      if (mounted) {
+        setState(() {
+          mainFeed.addAll(newItems);
+        });
+      }
     }
   }
 
@@ -68,7 +69,9 @@ class AnaSayfaState extends State<AnaSayfa> {
 
     if (gelen.statusCode == 200) {
       popsiralama = jsonDecode(gelen.body);
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -79,7 +82,9 @@ class AnaSayfaState extends State<AnaSayfa> {
 
     if (gelen.statusCode == 200) {
       xpsiralama = jsonDecode(gelen.body);
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -89,9 +94,11 @@ class AnaSayfaState extends State<AnaSayfa> {
     final gelen = await http.get(url);
 
     if (gelen.statusCode == 200) {
-      setState(() {
-        kullanicilar = jsonDecode(gelen.body);
-      });
+      if (mounted) {
+        setState(() {
+          kullanicilar = jsonDecode(gelen.body);
+        });
+      }
     }
 
     for (var i = 0; i < kullanicilar.length; i++) {
@@ -730,22 +737,24 @@ class AnaSayfaState extends State<AnaSayfa> {
   }
 
   Future<bool> onLikeButtonTapped(bool isLike, int index) async {
-    setState(() {
-      dataanasayfa[index]["benbegendim"] =
-          dataanasayfa[index]["benbegendim"] == 0 ? 1 : 0;
+    if (mounted) {
+      setState(() {
+        mainFeed[index]["benbegendim"] =
+            mainFeed[index]["benbegendim"] == 0 ? 1 : 0;
 
-      isLike = !isLike;
+        isLike = !isLike;
 
-      if (isLike == true) {
-        dataanasayfa[index]["begenisay"] =
-            (int.parse(dataanasayfa[index]["begenisay"]) + 1).toString();
-      } else {
-        dataanasayfa[index]["begenisay"] =
-            (int.parse(dataanasayfa[index]["begenisay"]) - 1).toString();
-      }
-    });
+        if (isLike == true) {
+          mainFeed[index]["begenisay"] =
+              (int.parse(mainFeed[index]["begenisay"]) + 1).toString();
+        } else {
+          mainFeed[index]["begenisay"] =
+              (int.parse(mainFeed[index]["begenisay"]) - 1).toString();
+        }
+      });
+    }
     print(isLike);
-    postID = dataanasayfa[index]["postID"];
+    postID = mainFeed[index]["postID"];
     print("onLikeButtonTapped");
 
     postlike();
@@ -754,10 +763,12 @@ class AnaSayfaState extends State<AnaSayfa> {
   }
 
   Future<void> _refresh() {
-    setState(() {
-      dataanasayfa.clear();
-      gonderifotolar.clear();
-    });
+    if (mounted) {
+      setState(() {
+        mainFeed.clear();
+        gonderifotolar.clear();
+      });
+    }
     return gondericek(0);
   }
 
@@ -765,20 +776,22 @@ class AnaSayfaState extends State<AnaSayfa> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: _refresh,
-      child: dataanasayfa.isNotEmpty
+      child: mainFeed.isNotEmpty
           ? ListView.separated(
               controller: anaSayfaScrollController,
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.vertical,
               shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemCount: mainFeed.length + 1,
+              padding: const EdgeInsets.all(10),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                if (index == dataanasayfa.length) {
+                if (index == mainFeed.length) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (dataanasayfa[index]["paylasimfoto"] != null) {
-                  gonderifotolar = dataanasayfa[index]["paylasimfoto"];
+                if (mainFeed[index]["paylasimfoto"] != null) {
+                  gonderifotolar = mainFeed[index]["paylasimfoto"];
                   visible = true;
                 } else {
                   visible = false;
@@ -842,8 +855,6 @@ class AnaSayfaState extends State<AnaSayfa> {
                 }
               },
               separatorBuilder: (context, index) => const Divider(),
-              itemCount: dataanasayfa.length + 1,
-              padding: const EdgeInsets.all(10),
             )
           : SkeletonListView(
               padding: const EdgeInsets.all(10),
@@ -946,33 +957,34 @@ class AnaSayfaState extends State<AnaSayfa> {
           context,
           MaterialPageRoute(
             builder: (context) => ThemeConsumer(
-              child: AnaDetail(
-                veri1: dataanasayfa[index]["sahipavatarminnak"],
-                veri2: dataanasayfa[index]["sahipad"],
-                veri3: dataanasayfa[index]["sosyalicerik"],
-                veri4: dataanasayfa[index]["paylasimzaman"],
-                veri5: dataanasayfa[index]["begenisay"],
-                veri6: dataanasayfa[index]["yorumsay"],
-                veri7: dataanasayfa[index]["repostsay"],
-                veri8: dataanasayfa[index]["sikayetsay"],
-                veri9: dataanasayfa[index]["benbegendim"],
-                veri10: dataanasayfa[index]["postID"],
-                veri11: dataanasayfa[index]["sahipID"],
-                veri12: dataanasayfa[index]["paylasimnereden"],
-                veri13: dataanasayfa[index]["benyorumladim"],
-                veri14: dataanasayfa[index]["oyunculink"],
+              child: PostDetail(
+                veri1: mainFeed[index]["sahipavatarminnak"],
+                veri2: mainFeed[index]["sahipad"],
+                veri3: mainFeed[index]["sosyalicerik"],
+                veri4: mainFeed[index]["paylasimzaman"],
+                veri5: mainFeed[index]["begenisay"],
+                veri6: mainFeed[index]["yorumsay"],
+                veri7: mainFeed[index]["repostsay"],
+                veri8: mainFeed[index]["sikayetsay"],
+                veri9: mainFeed[index]["benbegendim"],
+                veri10: mainFeed[index]["postID"],
+                veri11: mainFeed[index]["sahipID"],
+                veri12: mainFeed[index]["paylasimnereden"],
+                veri13: mainFeed[index]["benyorumladim"],
+                veri14: mainFeed[index]["oyunculink"],
               ),
             ),
           ),
         ).whenComplete(
           () => isMusicOn = false,
         );
-
-        setState(() {
-          detayid = dataanasayfa[index]["postID"];
-          detaylink =
-              "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-        });
+        if (mounted) {
+          setState(() {
+            detayid = mainFeed[index]["postID"];
+            detaylink =
+                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+          });
+        }
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -985,7 +997,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                 MaterialPageRoute(
                   builder: (context) => ThemeConsumer(
                     child: Profile(
-                      veri1: dataanasayfa[index]["sahipID"],
+                      veri1: mainFeed[index]["sahipID"],
                     ),
                   ),
                 ),
@@ -994,7 +1006,7 @@ class AnaSayfaState extends State<AnaSayfa> {
             child: CircleAvatar(
               radius: screenWidth / 12,
               backgroundImage: CachedNetworkImageProvider(
-                dataanasayfa[index]["sahipavatarminnak"],
+                mainFeed[index]["sahipavatarminnak"],
               ),
             ),
           ),
@@ -1013,21 +1025,21 @@ class AnaSayfaState extends State<AnaSayfa> {
                           MaterialPageRoute(
                             builder: (context) => ThemeConsumer(
                               child: Profile(
-                                veri1: dataanasayfa[index]["sahipID"],
+                                veri1: mainFeed[index]["sahipID"],
                               ),
                             ),
                           ),
                         );
                       },
                       child: Text(
-                        dataanasayfa[index]["sahipad"],
+                        mainFeed[index]["sahipad"],
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     Text(
-                      "  -  " + dataanasayfa[index]["paylasimzamangecen"],
+                      "  -  ${mainFeed[index]["paylasimzamangecen"]}",
                       style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
@@ -1074,15 +1086,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: dataanasayfa[index]
-                                                    ["sahipID"] ==
+                                        visible: mainFeed[index]["sahipID"] ==
                                                 girisdata["oyuncuID"]
                                             ? true
                                             : false,
                                         child: InkWell(
                                           onTap: () {
-                                            postID =
-                                                dataanasayfa[index]["postID"];
+                                            postID = mainFeed[index]["postID"];
 
                                             Navigator.pop(context);
 
@@ -1091,9 +1101,9 @@ class AnaSayfaState extends State<AnaSayfa> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     ThemeConsumer(
-                                                  child: Post(
+                                                  child: SharePost(
                                                     veri1: "",
-                                                    veri2: dataanasayfa[index]
+                                                    veri2: mainFeed[index]
                                                         ["sosyalicerik"],
                                                   ),
                                                 ),
@@ -1108,15 +1118,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: dataanasayfa[index]
-                                                    ["sahipID"] ==
+                                        visible: mainFeed[index]["sahipID"] ==
                                                 girisdata["oyuncuID"]
                                             ? true
                                             : false,
                                         child: InkWell(
                                           onTap: () {
-                                            postID =
-                                                dataanasayfa[index]["postID"];
+                                            postID = mainFeed[index]["postID"];
                                             postsil();
                                             Navigator.pop(context);
                                             Future.delayed(
@@ -1141,8 +1149,8 @@ class AnaSayfaState extends State<AnaSayfa> {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Share.share(dataanasayfa[index]
-                                              ["oyunculink"]);
+                                          Share.share(
+                                              mainFeed[index]["oyunculink"]);
                                           Navigator.pop(context);
                                         },
                                         child: ListTile(
@@ -1155,7 +1163,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         onTap: () {
                                           Clipboard.setData(
                                             ClipboardData(
-                                              text: dataanasayfa[index]
+                                              text: mainFeed[index]
                                                   ["oyunculink"],
                                             ),
                                           );
@@ -1175,23 +1183,20 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: dataanasayfa[index]
-                                                    ["sahipID"] ==
+                                        visible: mainFeed[index]["sahipID"] ==
                                                 girisdata["oyuncuID"]
                                             ? false
                                             : true,
                                         child: const Divider(),
                                       ),
                                       Visibility(
-                                        visible: dataanasayfa[index]
-                                                    ["sahipID"] ==
+                                        visible: mainFeed[index]["sahipID"] ==
                                                 girisdata["oyuncuID"]
                                             ? false
                                             : true,
                                         child: InkWell(
                                           onTap: () {
-                                            postID =
-                                                dataanasayfa[index]["postID"];
+                                            postID = mainFeed[index]["postID"];
                                             postbildir();
                                             Navigator.pop(context);
 
@@ -1213,15 +1218,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: dataanasayfa[index]
-                                                    ["sahipID"] ==
+                                        visible: mainFeed[index]["sahipID"] ==
                                                 girisdata["oyuncuID"]
                                             ? false
                                             : true,
                                         child: InkWell(
                                           onTap: () {
-                                            postID =
-                                                dataanasayfa[index]["postID"];
+                                            postID = mainFeed[index]["postID"];
                                             postbildir();
                                             Navigator.pop(context);
 
@@ -1243,15 +1246,13 @@ class AnaSayfaState extends State<AnaSayfa> {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: dataanasayfa[index]
-                                                    ["sahipID"] ==
+                                        visible: mainFeed[index]["sahipID"] ==
                                                 girisdata["oyuncuID"]
                                             ? false
                                             : true,
                                         child: InkWell(
                                           onTap: () {
-                                            postID =
-                                                dataanasayfa[index]["postID"];
+                                            postID = mainFeed[index]["postID"];
                                             postbildir();
                                             Navigator.pop(context);
 
@@ -1295,7 +1296,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                     "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
                     multiLine: true,
                   ),
-                  text: dataanasayfa[index]["sosyalicerik"],
+                  text: mainFeed[index]["sosyalicerik"],
                   trimCollapsedText: " devamını oku",
                   trimExpandedText: " daha az göster",
                   lessStyle: const TextStyle(color: Colors.grey),
@@ -1317,7 +1318,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                   ),
                 ),
                 SimpleUrlPreview(
-                  url: dataanasayfa[index]["sosyalicerik"],
+                  url: mainFeed[index]["sosyalicerik"],
                   isClosable: true,
                   imageLoaderColor: Colors.blue,
                   titleStyle: const TextStyle(
@@ -1348,11 +1349,10 @@ class AnaSayfaState extends State<AnaSayfa> {
                           );
                         },
                         countPostion: CountPostion.right,
-                        isLiked: dataanasayfa[index]["benbegendim"] != 0
-                            ? true
-                            : false,
-                        likeCount: dataanasayfa[index]["begenisay"] != "0"
-                            ? int.parse(dataanasayfa[index]["begenisay"])
+                        isLiked:
+                            mainFeed[index]["benbegendim"] != 0 ? true : false,
+                        likeCount: mainFeed[index]["begenisay"] != "0"
+                            ? int.parse(mainFeed[index]["begenisay"])
                             : null,
                         likeBuilder: (bool isLiked) {
                           return isLiked
@@ -1376,42 +1376,41 @@ class AnaSayfaState extends State<AnaSayfa> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ThemeConsumer(
-                                child: AnaDetail(
-                                  veri1: dataanasayfa[index]
-                                      ["sahipavatarminnak"],
-                                  veri2: dataanasayfa[index]["sahipad"],
-                                  veri3: dataanasayfa[index]["sosyalicerik"],
-                                  veri4: dataanasayfa[index]["paylasimzaman"],
-                                  veri5: dataanasayfa[index]["begenisay"],
-                                  veri6: dataanasayfa[index]["yorumsay"],
-                                  veri7: dataanasayfa[index]["repostsay"],
-                                  veri8: dataanasayfa[index]["sikayetsay"],
-                                  veri9: dataanasayfa[index]["benbegendim"],
-                                  veri10: dataanasayfa[index]["postID"],
-                                  veri11: dataanasayfa[index]["sahipID"],
-                                  veri12: dataanasayfa[index]
-                                      ["paylasimnereden"],
-                                  veri13: dataanasayfa[index]["benyorumladim"],
-                                  veri14: dataanasayfa[index]["oyunculink"],
+                                child: PostDetail(
+                                  veri1: mainFeed[index]["sahipavatarminnak"],
+                                  veri2: mainFeed[index]["sahipad"],
+                                  veri3: mainFeed[index]["sosyalicerik"],
+                                  veri4: mainFeed[index]["paylasimzaman"],
+                                  veri5: mainFeed[index]["begenisay"],
+                                  veri6: mainFeed[index]["yorumsay"],
+                                  veri7: mainFeed[index]["repostsay"],
+                                  veri8: mainFeed[index]["sikayetsay"],
+                                  veri9: mainFeed[index]["benbegendim"],
+                                  veri10: mainFeed[index]["postID"],
+                                  veri11: mainFeed[index]["sahipID"],
+                                  veri12: mainFeed[index]["paylasimnereden"],
+                                  veri13: mainFeed[index]["benyorumladim"],
+                                  veri14: mainFeed[index]["oyunculink"],
                                 ),
                               ),
                             ),
                           ).whenComplete(
                             () => isMusicOn = false,
                           );
-
-                          setState(() {
-                            detayid = dataanasayfa[index]["postID"];
-                            // print(detaylink);
-                            detaylink =
-                                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
-                          });
+                          if (mounted) {
+                            setState(() {
+                              detayid = mainFeed[index]["postID"];
+                              // print(detaylink);
+                              detaylink =
+                                  "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                            });
+                          }
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              dataanasayfa[index]["benyorumladim"] == 0
+                              mainFeed[index]["benyorumladim"] == 0
                                   ? const FaIcon(
                                       FontAwesomeIcons.comment,
                                       color: Colors.grey,
@@ -1425,9 +1424,9 @@ class AnaSayfaState extends State<AnaSayfa> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              (dataanasayfa[index]["yorumsay"] != "0")
+                              (mainFeed[index]["yorumsay"] != "0")
                                   ? Text(
-                                      dataanasayfa[index]["yorumsay"],
+                                      mainFeed[index]["yorumsay"],
                                       style: const TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -1458,9 +1457,9 @@ class AnaSayfaState extends State<AnaSayfa> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              (dataanasayfa[index]["repostsay"] != "0")
+                              (mainFeed[index]["repostsay"] != "0")
                                   ? Text(
-                                      dataanasayfa[index]["repostsay"],
+                                      mainFeed[index]["repostsay"],
                                       style: const TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -1473,7 +1472,7 @@ class AnaSayfaState extends State<AnaSayfa> {
                       InkWell(
                         onTap: () {
                           Share.share(
-                            dataanasayfa[index]["sosyalicerik"],
+                            mainFeed[index]["sosyalicerik"],
                           );
                         },
                         child: const Padding(

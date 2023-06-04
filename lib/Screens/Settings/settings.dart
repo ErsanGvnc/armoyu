@@ -35,13 +35,15 @@ class _SettingsState extends State<Settings> {
                 ),
               );
               var sharedPreferences = await SharedPreferences.getInstance();
-              setState(() {
-                sharedPreferences.setString("ad", "");
-                sharedPreferences.setString("sifre", "");
-                gruplarim.clear();
-                gkontrolAd = "";
-                gkontrolSifre = "";
-              });
+              if (mounted) {
+                setState(() {
+                  sharedPreferences.setString("ad", "");
+                  sharedPreferences.setString("sifre", "");
+                  gruplarim.clear();
+                  gkontrolAd = "";
+                  gkontrolSifre = "";
+                });
+              }
               timer!.cancel();
             },
             child: Container(
@@ -745,6 +747,17 @@ class _SettingsState extends State<Settings> {
             onTap: () async {
               showRemoveAccountAlertDialog(context);
             },
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "$appVersion+ $appBuildNumber",
+                style: const TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            ],
           ),
         ],
       ),

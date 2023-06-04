@@ -1,12 +1,13 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers, avoid_print
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, file_names, avoid_print
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
-class Detail extends StatefulWidget {
-  String veri1, veri3, veri5, veri6, veri7, veri8, veri9, veri10;
-  Detail({
+class NewsDetail extends StatefulWidget {
+  String veri1, veri2, veri3, veri5, veri6, veri7, veri8, veri9, veri10;
+  NewsDetail({
     Key? key,
     required this.veri1,
+    required this.veri2,
     required this.veri3,
     required this.veri5,
     required this.veri6,
@@ -17,10 +18,10 @@ class Detail extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DetailState createState() => _DetailState();
+  _NewsDetailState createState() => _NewsDetailState();
 }
 
-class _DetailState extends State<Detail> {
+class _NewsDetailState extends State<NewsDetail> {
   @override
   Widget build(BuildContext context) {
     return ThemeConsumer(
@@ -77,10 +78,9 @@ class _DetailState extends State<Detail> {
                           ),
                         ),
                         const Spacer(),
-                        const Text(
-                          "",
-                          // widget.veri6,
-                          style: TextStyle(
+                        Text(
+                          widget.veri2,
+                          style: const TextStyle(
                             color: Colors.grey,
                           ),
                         ),

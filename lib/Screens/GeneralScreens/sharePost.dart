@@ -1,29 +1,27 @@
-// ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously, unnecessary_null_comparison
+// ignore_for_file: must_be_immutable, file_names, avoid_print, use_build_context_synchronously
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:detectable_text_field/widgets/detectable_text_field.dart';
 import 'package:intl/intl.dart';
 
-class Post extends StatefulWidget {
+class SharePost extends StatefulWidget {
   String veri1;
   String veri2;
 
-  Post({
+  SharePost({
     Key? key,
     required this.veri1,
     required this.veri2,
   }) : super(key: key);
 
   @override
-  State<Post> createState() => _PostState();
+  State<SharePost> createState() => _PostState();
 }
 
-class _PostState extends State<Post> {
+class _PostState extends State<SharePost> {
   @override
   void initState() {
     super.initState();
-    // _initSpeech();
-
     post.text = widget.veri1;
     if (widget.veri2 != "") {
       post.text = widget.veri2;
@@ -31,8 +29,6 @@ class _PostState extends State<Post> {
     } else {
       isEditPost = false;
     }
-
-    // widget.veri2 != "" ? post.text = widget.veri2 : null;
   }
 
   Future<MultipartFile> generateImageFile(XFile file) async {
@@ -69,10 +65,11 @@ class _PostState extends State<Post> {
   _imgFromGallery() async {
     final ImagePicker picker = ImagePicker();
     final List<XFile> image = await picker.pickMultiImage();
-
-    setState(() {
-      images.addAll(image);
-    });
+    if (mounted) {
+      setState(() {
+        images.addAll(image);
+      });
+    }
   }
 
   // _videoFromGallery() async {
@@ -93,9 +90,11 @@ class _PostState extends State<Post> {
                 onPressed: () {
                   post.clear();
                   images.clear();
-                  setState(() {
-                    textLength = 0;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      textLength = 0;
+                    });
+                  }
                 },
                 icon: const Icon(Icons.clear),
               ),
@@ -107,19 +106,23 @@ class _PostState extends State<Post> {
                 splashColor: Colors.transparent,
                 onTap: () async {
                   if (post.text.isNotEmpty) {
-                    isEditPost != true
-                        ? print("Paylaşıldı !")
-                        : print("Düzenlendi !");
-                    setState(() {
-                      isUpload = true;
-                    });
+                    // isEditPost != true
+                    //     ? print("Paylaşıldı !")
+                    //     : print("Düzenlendi !");
+                    if (mounted) {
+                      setState(() {
+                        isUpload = true;
+                      });
+                    }
 
                     isEditPost != true
                         ? await postGonder(images)
                         : postDuzenle(post.text);
-                    setState(() {
-                      isUpload = false;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        isUpload = false;
+                      });
+                    }
                     post.clear();
                     images.clear();
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -188,7 +191,6 @@ class _PostState extends State<Post> {
                   ],
                 ),
               ),
-
               Flexible(
                 child: DetectableTextField(
                   detectionRegExp: RegExp(
@@ -207,17 +209,6 @@ class _PostState extends State<Post> {
                   basicStyle: const TextStyle(
                     fontSize: 18,
                   ),
-                  // inputFormatters: [
-                  //   FilteringTextInputFormatter.allow(
-                  //     RegExp(
-                  //       r"[\r\n abcçdefgğhıijklmnoöprsştuüvyzwqxABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZWQXZÇŞĞÜÖİçşğüöı0-9-_@€₺¨~`;,:<>.||=)({}/&%+^^'!é)*#?]",
-                  //       caseSensitive: true,
-                  //       unicode: true,
-                  //       dotAll: true,
-                  //       multiLine: true,
-                  //     ),
-                  //   ),
-                  // ],
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(8),
                     border: InputBorder.none,
@@ -228,42 +219,15 @@ class _PostState extends State<Post> {
                     counterText: "",
                   ),
                   onChanged: (value) {
-                    setState(() {
-                      textLength = value.length;
-                    });
-                    print(textLength.toDouble());
+                    if (mounted) {
+                      setState(() {
+                        textLength = value.length;
+                      });
+                    }
+                    // print(textLength.toDouble());
                   },
                 ),
               ),
-
-              // Flexible(
-              //   child: FlutterMentions(
-              //     suggestionPosition: SuggestionPosition.Bottom,
-              //     maxLines: 5,
-              //     minLines: 1,
-              //     mentions: [
-              //       Mention(
-              //         trigger: "@",
-              //         style: const TextStyle(color: Colors.purple),
-              //         data: [
-              //           {
-              //             "id": "61as61fsa",
-              //             "display": "fayeedP",
-              //             "photo":
-              //                 "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
-              //           },
-              //           {
-              //             "id": "61asasgasgsag6a",
-              //             "display": "khaled",
-              //             "photo":
-              //                 "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
-              //           },
-              //         ],
-              //       )
-              //     ],
-              //   ),
-              // ),
-
               Visibility(
                 visible: images.isNotEmpty ? true : false,
                 child: SizedBox(
@@ -289,9 +253,11 @@ class _PostState extends State<Post> {
                             right: 5,
                             child: InkWell(
                               onTap: () {
-                                setState(() {
-                                  images.removeAt(index);
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    images.removeAt(index);
+                                  });
+                                }
                               },
                               child: const Icon(
                                 Icons.clear,
@@ -442,7 +408,9 @@ class _PostState extends State<Post> {
                                   IconButton(
                                     onPressed: () {
                                       images.clear();
-                                      setState(() {});
+                                      if (mounted) {
+                                        setState(() {});
+                                      }
                                     },
                                     icon: const Icon(Icons.clear),
                                   )
@@ -462,55 +430,4 @@ class _PostState extends State<Post> {
       ),
     );
   }
-
-  // // void _initSpeech() async {
-  // //   speechEnabled = await speechToText.initialize();
-  // //   setState(() {});
-  // // }
-
-  // void _startListening() async {
-  //   print("_startListening");
-  //   await speechToText.listen(
-  //     onResult: _onSpeechResult,
-  //     localeId: "TR",
-  //   );
-  //   setState(() {});
-  // }
-
-  // void _stopListening() async {
-  //   print("_stopListening");
-  //   await speechToText.stop();
-  //   setState(() {});
-  // }
-
-  // void _onSpeechResult(SpeechRecognitionResult result) {
-  //   setState(() {
-  //     lastWords = result.recognizedWords;
-  //     post.text = lastWords;
-  //   });
-  // }
-
-  // void _listen() async {
-  //   if (!_isListening) {
-  //     print("dinliyo");
-  //     bool available = await _speech.initialize(
-  //       onStatus: (val) => print("status: $val"),
-  //       onError: (val) => print("error: $val"),
-  //     );
-  //     if (available) {
-  //       print(available);
-  //       setState(() => _isListening = true);
-  //       _speech.listen(
-  //         onResult: (val) => setState(() {
-  //           _text = val.recognizedWords;
-  //         }),
-  //         localeId: "TR",
-  //       );
-  //     }
-  //   } else {
-  //     print("durdu");
-  //     setState(() => _isListening = false);
-  //     _speech.stop();
-  //   }
-  // }
 }

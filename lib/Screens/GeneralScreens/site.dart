@@ -1,13 +1,14 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable, library_private_types_in_public_api, unnecessary_this, no_leading_underscores_for_local_identifiers
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 class Site extends StatefulWidget {
   String verilink, veribaslik;
   Site({
+    Key? key,
     required this.verilink,
     required this.veribaslik,
-  });
+  }) : super(key: key);
   @override
   _SiteState createState() => _SiteState();
 }
@@ -24,7 +25,7 @@ class _SiteState extends State<Site> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
             ),
           ),
@@ -34,7 +35,7 @@ class _SiteState extends State<Site> {
               onPressed: () {
                 _controller.reload();
               },
-              icon: Icon(Icons.refresh),
+              icon: const Icon(Icons.refresh),
             ),
           ],
         ),

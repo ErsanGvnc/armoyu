@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously, unnecessary_statements
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 import 'package:http/http.dart' as http;
@@ -54,7 +54,9 @@ class _RegisterState extends State<Register> {
           userPhonenumber = "";
           userCountry = "";
           userState = "";
-          setState(() {});
+          if (mounted) {
+            setState(() {});
+          }
           print(response["aciklama"]);
         }
       } catch (e) {
