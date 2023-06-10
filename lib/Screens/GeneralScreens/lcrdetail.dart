@@ -171,6 +171,7 @@ class _ByrDetailState extends State<PostLCRScreen> {
               ),
             ];
           }
+
           return ListView(
             shrinkWrap: true,
             children: [
