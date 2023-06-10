@@ -74,7 +74,7 @@ String notLikedPostYet = "Henüz kimse postu beğenmedi";
 String unexpectedError = "Beklenmedik bir hata oluştu";
 
 //  int  //
-int startPage = 0;
+int mainDataLimit = 0;
 int currentIndex = 0;
 int profileCurrentIndex = 0;
 int aratildi = 0;
@@ -118,7 +118,7 @@ List postdata = [];
 List medyadata = [];
 List reactiondata = [];
 List profileFriends = [];
-List bildirimler = [];
+List myNotifications = [];
 List xpsiralama = [];
 List popsiralama = [];
 List<dynamic> kullanicilar = [];

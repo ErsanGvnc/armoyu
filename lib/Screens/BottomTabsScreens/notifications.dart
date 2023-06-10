@@ -19,7 +19,7 @@ class _NotifState extends State<Notifications> {
         Uri.parse(bildirimlink),
       );
 
-      bildirimler = jsonDecode(gelen.body);
+      myNotifications = jsonDecode(gelen.body);
     } catch (e) {
       print('Unknown exception: $e');
     }
@@ -32,7 +32,7 @@ class _NotifState extends State<Notifications> {
     var gelen = await http.post(
       Uri.parse(arkadascevaplink),
       body: {
-        "oyuncubakid": bildirimler[index]["bildirimkimID"],
+        "oyuncubakid": myNotifications[index]["bildirimkimID"],
         "cevap": evethayir,
       },
     );
@@ -51,8 +51,8 @@ class _NotifState extends State<Notifications> {
 
   Future<void> _refresh() async {
     await bildirimcek();
-    // print(bildirimler[0]["bildirimzamandetay"]);
-    // print(bildirimler[0]["bildirimzamandetay"].substring(0, 2));
+    // print(myNotifications[0]["bildirimzamandetay"]);
+    // print(myNotifications[0]["bildirimzamandetay"].substring(0, 2));
   }
 
   @override
@@ -62,51 +62,52 @@ class _NotifState extends State<Notifications> {
       initialData: bildirimcek(),
       builder: (context, snapshot) => RefreshIndicator(
         onRefresh: _refresh,
-        child: bildirimler.isNotEmpty
+        child: myNotifications.isNotEmpty
             ? ListView.separated(
                 controller: notificationScrollController,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                itemCount: bildirimler.length,
+                itemCount: myNotifications.length,
                 itemBuilder: (BuildContext context, int index) {
-                  // if (bildirimler[index]["bildirimzamandetay"]
+                  // if (myNotifications[index]["bildirimzamandetay"]
                   //         .substring(0, 2) <=
                   //     "24") {
                   //   return const Text("data");
                   // } else {
                   return InkWell(
                     onTap: () {
-                      if (bildirimler[index]["bildirimkategori"] == "post" ||
-                          bildirimler[index]["bildirimkategori"] ==
+                      if (myNotifications[index]["bildirimkategori"] ==
+                              "post" ||
+                          myNotifications[index]["bildirimkategori"] ==
                               "postyorum" ||
-                          bildirimler[index]["bildirimkategori"] ==
+                          myNotifications[index]["bildirimkategori"] ==
                               "postbildiri") {
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(
                         //     builder: (context) => ThemeConsumer(
                         //       child: Profile(
-                        //         veri1: bildirimler[index]["bildirimkimID"],
+                        //         veri1: myNotifications[index]["bildirimkimID"],
                         //       ),
                         //     ),
                         //   ),
                         // );
-                      } else if (bildirimler[index]["bildirimkategori"] ==
+                      } else if (myNotifications[index]["bildirimkategori"] ==
                               "kabul" ||
-                          bildirimler[index]["bildirimkategori"] == "ret") {
+                          myNotifications[index]["bildirimkategori"] == "ret") {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ThemeConsumer(
                               child: Profile(
-                                veri1: bildirimler[index]["bildirimkimID"],
+                                veri1: myNotifications[index]["bildirimkimID"],
                               ),
                             ),
                           ),
                         );
                       }
 
-                      print(bildirimler[index]);
+                      print(myNotifications[index]);
                     },
                     child: badge.Badge(
                       badgeStyle: const badge.BadgeStyle(
@@ -125,7 +126,7 @@ class _NotifState extends State<Notifications> {
                                 MaterialPageRoute(
                                   builder: (context) => ThemeConsumer(
                                     child: Profile(
-                                      veri1: bildirimler[index]
+                                      veri1: myNotifications[index]
                                           ["bildirimkimID"],
                                     ),
                                   ),
@@ -138,7 +139,8 @@ class _NotifState extends State<Notifications> {
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: CachedNetworkImageProvider(
-                                    bildirimler[index]["bildirimkimavatar"] ??
+                                    myNotifications[index]
+                                            ["bildirimkimavatar"] ??
                                         "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
                                   ),
                                 ),
@@ -169,15 +171,16 @@ class _NotifState extends State<Notifications> {
                                                 builder: (context) =>
                                                     ThemeConsumer(
                                                   child: Profile(
-                                                    veri1: bildirimler[index]
-                                                        ["bildirimkimID"],
+                                                    veri1:
+                                                        myNotifications[index]
+                                                            ["bildirimkimID"],
                                                   ),
                                                 ),
                                               ),
                                             );
                                           },
                                           child: Text(
-                                            bildirimler[index]
+                                            myNotifications[index]
                                                     ["bildirimkimadsoyad"] ??
                                                 "",
                                             style: const TextStyle(
@@ -187,7 +190,7 @@ class _NotifState extends State<Notifications> {
                                           ),
                                         ),
                                         Text(
-                                          bildirimler[index]
+                                          myNotifications[index]
                                               ["bildirimzamandetay"],
                                           style: const TextStyle(
                                             fontWeight: FontWeight.w600,
@@ -199,7 +202,7 @@ class _NotifState extends State<Notifications> {
                                     const SizedBox(height: 3),
                                     DetectableText(
                                       detectionRegExp: RegExp(r"@(\w+)|#(\w+)"),
-                                      text: bildirimler[index]
+                                      text: myNotifications[index]
                                           ["bildirimicerik"],
                                       detectedStyle: const TextStyle(
                                         fontWeight: FontWeight.w600,
@@ -207,10 +210,10 @@ class _NotifState extends State<Notifications> {
                                       ),
                                     ),
                                     Visibility(
-                                      visible: bildirimler[index]
+                                      visible: myNotifications[index]
                                                       ["bildirimkategori"] ==
                                                   "istek" ||
-                                              bildirimler[index]
+                                              myNotifications[index]
                                                       ["bildirimkategori"] ==
                                                   "davet"
                                           ? true
@@ -244,7 +247,7 @@ class _NotifState extends State<Notifications> {
                                                           const EdgeInsets.all(
                                                               8.0),
                                                       child: Text(
-                                                        bildirimler[index][
+                                                        myNotifications[index][
                                                                     "bildirimkategori"] ==
                                                                 "istek"
                                                             ? "Kabul Et"
@@ -279,7 +282,7 @@ class _NotifState extends State<Notifications> {
                                                           const EdgeInsets.all(
                                                               8.0),
                                                       child: Text(
-                                                        bildirimler[index][
+                                                        myNotifications[index][
                                                                     "bildirimkategori"] ==
                                                                 "istek"
                                                             ? "Reddet"

@@ -783,6 +783,20 @@ class _PostDetailState extends State<PostDetail> {
                                 });
                               },
                               child: DetectableText(
+                                onTap: (p0) {
+                                  if (p0.substring(0, 4) == "http" ||
+                                      p0.substring(0, 5) == "https") {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Site(
+                                          verilink: p0,
+                                          veribaslik: "",
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
                                 detectionRegExp: RegExp(
                                   "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
                                   multiLine: true,

@@ -171,9 +171,14 @@ class _ByrDetailState extends State<PostLCRScreen> {
               ),
             ];
           }
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: children,
+          return ListView(
+            shrinkWrap: true,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: children,
+              ),
+            ],
           );
         },
       ),

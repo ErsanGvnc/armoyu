@@ -15,7 +15,6 @@ class MainFeed extends StatefulWidget {
 class AnaSayfaState extends State<MainFeed> {
   @override
   void initState() {
-    super.initState();
     gondericek(0);
     popcek();
     xpcek();
@@ -35,6 +34,7 @@ class AnaSayfaState extends State<MainFeed> {
         print(mainFeed.length);
       }
     });
+    super.initState();
   }
 
   @override
@@ -44,9 +44,9 @@ class AnaSayfaState extends State<MainFeed> {
     super.dispose();
   }
 
-  gondericek(int startPage) async {
+  gondericek(int mainDataLimit) async {
     final url = Uri.parse(
-        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/$startPage/0/");
+        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/$mainDataLimit/0/");
 
     // print(url);
 

@@ -1014,6 +1014,12 @@ class MyHomePageState extends State<MyHomePage> {
         ),
         floatingActionButton: currentIndex == 0
             ? OpenContainer(
+                openShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                closedShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
                 openColor: Colors.transparent,
                 closedColor: Colors.transparent,
                 openElevation: 0,
