@@ -1127,18 +1127,18 @@ class AnaSayfaState extends State<MainFeed> {
                                             postID = mainFeed[index]["postID"];
                                             postsil();
                                             Navigator.pop(context);
-                                            Future.delayed(
-                                                const Duration(
-                                                  milliseconds: 100,
-                                                ), () {
-                                              _refresh();
-                                            });
                                             Fluttertoast.showToast(
                                               msg: removePostNotification,
                                               toastLength: Toast.LENGTH_SHORT,
                                               gravity: ToastGravity.CENTER,
                                               timeInSecForIosWeb: 1,
                                             );
+                                            Future.delayed(
+                                                const Duration(
+                                                  milliseconds: 100,
+                                                ), () {
+                                              _refresh();
+                                            });
                                           },
                                           child: ListTile(
                                             leading: const Icon(

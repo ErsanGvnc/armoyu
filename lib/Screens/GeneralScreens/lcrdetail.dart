@@ -29,7 +29,7 @@ class _ByrDetailState extends State<PostLCRScreen> {
     super.initState();
   }
 
-  Future getPostLCR(content) async {
+  getPostLCR(content) async {
     await http.post(
       Uri.parse(widget.veri3),
       body: {
@@ -51,10 +51,10 @@ class _ByrDetailState extends State<PostLCRScreen> {
     });
   }
 
-  final Future<String> _calculation = Future<String>.delayed(
-    const Duration(seconds: 2),
-    () => 'Data Loaded',
-  );
+  // final Future<String> _calculation = Future<String>.delayed(
+  //   const Duration(seconds: 2),
+  //   () => 'Data Loaded',
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -80,161 +80,156 @@ class _ByrDetailState extends State<PostLCRScreen> {
       }
     }
 
-    // Future<void> _refresh() {
-    //   setState(() {
-    //     postlcr.clear();
-    //   });
-    //   return getPostLCR(widget.veri1);
-    // }
+    Future<void> _refresh() {
+      setState(() {
+        postlcr.clear();
+      });
+      return getPostLCR(widget.veri1);
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(_title),
       ),
 
-      body: FutureBuilder(
-        future: _calculation,
-        initialData: getPostLCR(widget.veri1),
-        builder: (context, snapshot) {
-          List<Widget> children;
-          if (snapshot.hasData && postlcr.isNotEmpty) {
-            children = <Widget>[
-              ListView.separated(
-                controller: byrScrollController,
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemCount: postlcr.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ThemeConsumer(
-                            child: Profile(
-                              veri1: postlcr[index]["begenenID"].toString(),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    child: ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: CircleAvatar(
-                        radius: screenWidth / 20,
-                        backgroundImage: NetworkImage(
-                          postlcr[index]["begenenavatar"],
-                        ),
-                      ),
-                      title: Text(
-                        postlcr[index]["begenenadi"],
-                      ),
-                    ),
-                  );
-                },
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  left: 15,
-                  right: 10,
-                  bottom: 10,
-                ),
-                separatorBuilder: (context, index) => const Divider(),
-              )
-            ];
-          } else if (snapshot.hasError) {
-            children = <Widget>[
-              SizedBox(height: screenHeight / 3),
-              const Icon(
-                Icons.error_outline,
-                color: Colors.red,
-                size: 72,
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    unexpectedError,
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ];
-          } else {
-            children = <Widget>[
-              SizedBox(height: screenHeight / 3),
-              const Center(
-                child: CircularProgressIndicator(),
-              ),
-            ];
-          }
-
-          return ListView(
-            shrinkWrap: true,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: children,
-              ),
-            ],
-          );
-        },
-      ),
-
-      // body: RefreshIndicator(
-      //   onRefresh: _refresh,
-      //   child: ListView.separated(
-      //     controller: byrScrollController,
-      //     physics: const BouncingScrollPhysics(),
-      //     scrollDirection: Axis.vertical,
-      //     itemCount: postlcr.length,
-      //     shrinkWrap: true,
-      //     itemBuilder: (context, index) {
-      //       return InkWell(
-      //         onTap: () async {
-      //           Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //               builder: (context) => ThemeConsumer(
-      //                 child: Profile(
-      //                   veri1: postlcr[index]["begenenID"].toString(),
+      // body: FutureBuilder(
+      //   future: _calculation,
+      //   initialData: getPostLCR(widget.veri1),
+      //   builder: (context, snapshot) {
+      //     List<Widget> children;
+      //     if (snapshot.hasData && postlcr.isNotEmpty) {
+      //       children = <Widget>[
+      //         ListView.separated(
+      //           controller: byrScrollController,
+      //           physics: const BouncingScrollPhysics(),
+      //           scrollDirection: Axis.vertical,
+      //           itemCount: postlcr.length,
+      //           shrinkWrap: true,
+      //           itemBuilder: (context, index) {
+      //             return InkWell(
+      //               onTap: () async {
+      //                 Navigator.push(
+      //                   context,
+      //                   MaterialPageRoute(
+      //                     builder: (context) => ThemeConsumer(
+      //                       child: Profile(
+      //                         veri1: postlcr[index]["begenenID"].toString(),
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 );
+      //               },
+      //               child: ListTile(
+      //                 contentPadding: EdgeInsets.zero,
+      //                 leading: CircleAvatar(
+      //                   radius: screenWidth / 20,
+      //                   backgroundImage: NetworkImage(
+      //                     postlcr[index]["begenenavatar"],
+      //                   ),
+      //                 ),
+      //                 title: Text(
+      //                   postlcr[index]["begenenadi"],
       //                 ),
       //               ),
-      //             ),
-      //           );
-      //         },
-      //         child: ListTile(
-      //           contentPadding: EdgeInsets.zero,
-      //           leading: CircleAvatar(
-      //             radius: screenWidth / 20,
-      //             backgroundImage: NetworkImage(
-      //               postlcr[index]["begenenavatar"],
-      //             ),
+      //             );
+      //           },
+      //           padding: const EdgeInsets.only(
+      //             top: 10,
+      //             left: 15,
+      //             right: 10,
+      //             bottom: 10,
       //           ),
-      //           title: Text(
-      //             postlcr[index]["begenenadi"],
-      //           ),
-      //           // trailing: const Text(
-      //           //   "20 dakika önce",
-      //           //   style: TextStyle(
-      //           //     fontSize: 12,
-      //           //   ),
-      //           // ),
+      //           separatorBuilder: (context, index) => const Divider(),
+      //         )
+      //       ];
+      //     } else if (snapshot.hasError) {
+      //       children = <Widget>[
+      //         SizedBox(height: screenHeight / 3),
+      //         const Icon(
+      //           Icons.error_outline,
+      //           color: Colors.red,
+      //           size: 72,
       //         ),
-      //       );
-      //     },
-      //     padding: const EdgeInsets.only(
-      //       top: 10,
-      //       left: 15,
-      //       right: 10,
-      //       bottom: 10,
-      //     ),
-      //     separatorBuilder: (context, index) => const Divider(),
-      //   ),
+      //         const SizedBox(height: 10),
+      //         Row(
+      //           mainAxisAlignment: MainAxisAlignment.center,
+      //           children: [
+      //             Text(
+      //               unexpectedError,
+      //               style: const TextStyle(
+      //                 fontSize: 20,
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //       ];
+      //     } else {
+      //       children = <Widget>[
+      //         SizedBox(height: screenHeight / 3),
+      //         const Center(
+      //           child: CircularProgressIndicator(),
+      //         ),
+      //       ];
+      //     }
+
+      //     return ListView(
+      //       shrinkWrap: true,
+      //       children: [
+      //         Column(
+      //           mainAxisAlignment: MainAxisAlignment.start,
+      //           children: children,
+      //         ),
+      //       ],
+      //     );
+      //   },
       // ),
+
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: ListView.separated(
+          controller: byrScrollController,
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemCount: postlcr.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ThemeConsumer(
+                      child: Profile(
+                        veri1: postlcr[index]["begenenID"].toString(),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: CircleAvatar(
+                  radius: screenWidth / 20,
+                  backgroundImage: NetworkImage(
+                    postlcr[index]["begenenavatar"],
+                  ),
+                ),
+                title: Text(
+                  postlcr[index]["begenenadi"],
+                ),
+                // trailing: const Text(
+                //   "20 dakika önce",
+                //   style: TextStyle(
+                //     fontSize: 12,
+                //   ),
+                // ),
+              ),
+            );
+          },
+          padding: const EdgeInsets.all(10),
+          separatorBuilder: (context, index) => const Divider(),
+        ),
+      ),
     );
   }
 }

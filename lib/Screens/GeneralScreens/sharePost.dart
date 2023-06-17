@@ -32,8 +32,10 @@ class _PostState extends State<SharePost> {
   }
 
   Future<MultipartFile> generateImageFile(XFile file) async {
-    return await MultipartFile.fromFile(file.path,
-        contentType: MediaType("image", "jpg"));
+    return await MultipartFile.fromFile(
+      file.path,
+      contentType: MediaType("image", "jpg"),
+    );
   }
 
   Future<Response> postGonder(List<XFile> files) async {
@@ -72,10 +74,28 @@ class _PostState extends State<SharePost> {
     }
   }
 
-  // _videoFromGallery() async {
-  //   final ImagePicker picker = ImagePicker();
-  //   video = await picker.pickVideo(source: ImageSource.gallery);
-  // }
+  _imgFromCamera() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+    if (photo == null) return;
+    if (mounted) {
+      setState(() {
+        images.add(photo);
+      });
+    }
+  }
+
+  _videoFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? video = await picker.pickVideo(source: ImageSource.gallery);
+    if (video == null) return;
+    if (mounted) {
+      setState(() {
+        print(images);
+        images.add(video);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,6 +250,7 @@ class _PostState extends State<SharePost> {
               ),
               Visibility(
                 visible: images.isNotEmpty ? true : false,
+                // visible: false,
                 child: SizedBox(
                   width: screenWidth,
                   height: 150,
@@ -304,9 +325,8 @@ class _PostState extends State<SharePost> {
                           physics: const BouncingScrollPhysics(),
                           children: [
                             IconButton(
-                              onPressed: () {
-                                images.clear();
-                                _imgFromGallery();
+                              onPressed: () async {
+                                await _imgFromGallery();
                               },
                               icon: const Icon(
                                 Icons.image_outlined,
@@ -314,13 +334,8 @@ class _PostState extends State<SharePost> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    duration: Duration(seconds: 1),
-                                    content: Text("Yakında !"),
-                                  ),
-                                );
+                              onPressed: () async {
+                                await _imgFromCamera();
                               },
                               icon: const Icon(
                                 Icons.photo_camera_outlined,
@@ -328,7 +343,7 @@ class _PostState extends State<SharePost> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
@@ -336,7 +351,7 @@ class _PostState extends State<SharePost> {
                                   ),
                                 );
 
-                                // _videoFromGallery();
+                                // await _videoFromGallery();
                               },
                               icon: const Icon(
                                 Icons.video_camera_back_outlined,
@@ -344,7 +359,7 @@ class _PostState extends State<SharePost> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
@@ -358,7 +373,7 @@ class _PostState extends State<SharePost> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
@@ -372,7 +387,7 @@ class _PostState extends State<SharePost> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     duration: Duration(seconds: 1),
