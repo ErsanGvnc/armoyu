@@ -9,6 +9,7 @@ class Resiminceleme extends StatefulWidget {
     Key? key,
     required this.veri1,
   }) : super(key: key);
+
   @override
   State<Resiminceleme> createState() => _ResimincelemeState();
 }
@@ -30,27 +31,27 @@ class _ResimincelemeState extends State<Resiminceleme> {
                     : Colors.white,
           ),
         ),
-        body: InkWell(
-          child: DismissiblePage(
-            backgroundColor: Colors.transparent,
-            direction: DismissiblePageDismissDirection.vertical,
-            onDismissed: () {
-              Navigator.of(context).pop();
+        body: DismissiblePage(
+          backgroundColor: Colors.transparent,
+          direction: DismissiblePageDismissDirection.vertical,
+          onDismissed: () {
+            Navigator.of(context).pop();
+          },
+          child: PhotoViewGallery.builder(
+            backgroundDecoration:
+                const BoxDecoration(color: Colors.transparent),
+            builder: (BuildContext context, int index) {
+              return PhotoViewGalleryPageOptions(
+                maxScale: 5.0,
+                minScale: 0.3,
+                imageProvider: NetworkImage(
+                  widget.veri1[index],
+                ),
+              );
             },
-            child: PhotoViewGallery.builder(
-              backgroundDecoration:
-                  const BoxDecoration(color: Colors.transparent),
-              builder: (BuildContext context, int index) {
-                return PhotoViewGalleryPageOptions(
-                  imageProvider: NetworkImage(
-                    widget.veri1[index],
-                  ),
-                );
-              },
-              itemCount: widget.veri1.length,
-              loadingBuilder: (context, progress) => const Center(
-                child: CircularProgressIndicator(),
-              ),
+            itemCount: widget.veri1.length,
+            loadingBuilder: (context, progress) => const Center(
+              child: CircularProgressIndicator(),
             ),
           ),
         ),

@@ -839,7 +839,8 @@ class MyHomePageState extends State<MyHomePage> {
           ),
           actions: [
             Visibility(
-              visible: currentIndex == 2 ? true : false,
+              // visible: currentIndex == 2 ? true : false,
+              visible: false,
               child: IconButton(
                 onPressed: () {
                   showModalBottomSheet<void>(

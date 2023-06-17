@@ -1701,10 +1701,10 @@ class _SearchState extends State<Search> {
         child: FilterChip(
           selectedColor: Colors.blue.shade800,
           labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-          label: Text("#${name["etiketadi"]}"),
+          label: Text(name["etiketadi"]),
           onSelected: (bool value) async {
             await showSearch(
-              query: "#${name["etiketadi"]}",
+              query: name["etiketadi"],
               context: context,
               delegate: CustomSearchDelegate(),
             );

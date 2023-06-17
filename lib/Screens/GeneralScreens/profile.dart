@@ -1141,6 +1141,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                         },
                                         child: Center(
                                           child: PhotoView(
+                                            maxScale: 5.0,
+                                            minScale: 0.3,
                                             backgroundDecoration:
                                                 const BoxDecoration(
                                                     color: Colors.transparent),
@@ -1291,14 +1293,28 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 Navigator.of(context).pop();
                                               },
                                               child: Center(
-                                                child: CircleAvatar(
-                                                  radius: 100,
-                                                  backgroundImage: NetworkImage(
+                                                child: PhotoView(
+                                                  maxScale: 5.0,
+                                                  minScale: 0.3,
+                                                  backgroundDecoration:
+                                                      const BoxDecoration(
+                                                          color: Colors
+                                                              .transparent),
+                                                  imageProvider:
+                                                      CachedNetworkImageProvider(
                                                     profiledata["presimufak"],
                                                   ),
-                                                  backgroundColor:
-                                                      Colors.transparent,
+                                                  filterQuality:
+                                                      FilterQuality.high,
                                                 ),
+                                                // child: CircleAvatar(
+                                                //   radius: 100,
+                                                //   backgroundImage: NetworkImage(
+                                                //     profiledata["presimufak"],
+                                                //   ),
+                                                //   backgroundColor:
+                                                //       Colors.transparent,
+                                                // ),
                                               ),
                                             ),
                                           ),
@@ -2528,11 +2544,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             ? true
                                             : false,
                                         child: InkWell(
-                                          onTap: () {
+                                          onTap: () async {
                                             postID = postdata[index]["postID"];
-                                            postsil();
-                                            postcek();
-
+                                            await postsil();
+                                            await postcek();
                                             Navigator.pop(context);
                                           },
                                           child: ListTile(

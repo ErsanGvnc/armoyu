@@ -417,14 +417,14 @@ class _PostDetailState extends State<PostDetail> {
     }
   }
 
+  Future<void> _refresh() async {
+    postID = widget.veri10;
+    comments.clear();
+    getComments();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> _refresh() async {
-      postID = widget.veri10;
-      comments.clear();
-      getComments();
-    }
-
     return Scaffold(
       appBar: AppBar(),
       body: RefreshIndicator(
