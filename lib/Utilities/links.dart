@@ -1,5 +1,7 @@
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
+var versionControlLink =
+    "https://aramizdakioyuncu.com/botlar/$botId1/0/0/0/0/0/";
 var kayitolLink =
     "https://aramizdakioyuncu.com/botlar/$botId1/kayit-ol/0/0/0/0/";
 var sifreSifirlaLink =

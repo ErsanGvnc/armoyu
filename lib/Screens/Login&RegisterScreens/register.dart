@@ -181,7 +181,7 @@ class _RegisterState extends State<Register> {
                     controller: eposta,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
-                    autofillHints: const [AutofillHints.password],
+                    autofillHints: const [AutofillHints.email],
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -211,7 +211,7 @@ class _RegisterState extends State<Register> {
                     controller: kadi,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    autofillHints: const [AutofillHints.password],
+                    autofillHints: const [AutofillHints.username],
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -574,7 +574,11 @@ class _RegisterState extends State<Register> {
                         child: const Center(
                           child: Text(
                             "Kayıt Ol",
-                            style: TextStyle(fontSize: 20, color: Colors.black),
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

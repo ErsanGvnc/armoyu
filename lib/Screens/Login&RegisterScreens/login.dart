@@ -401,7 +401,7 @@ class _LoginState extends State<Login> {
                                                   textInputAction:
                                                       TextInputAction.next,
                                                   autofillHints: const [
-                                                    AutofillHints.password
+                                                    AutofillHints.email
                                                   ],
                                                   style: const TextStyle(
                                                     color: Colors.white,
@@ -442,7 +442,7 @@ class _LoginState extends State<Login> {
                                                   textInputAction:
                                                       TextInputAction.next,
                                                   autofillHints: const [
-                                                    AutofillHints.password
+                                                    AutofillHints.username
                                                   ],
                                                   style: const TextStyle(
                                                     color: Colors.white,

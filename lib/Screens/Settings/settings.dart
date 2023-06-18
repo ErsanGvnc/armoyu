@@ -744,7 +744,7 @@ class _SettingsState extends State<Settings> {
               "Hesabı Sil",
               style: TextStyle(color: Colors.red),
             ),
-            onTap: () async {
+            onTap: () {
               showRemoveAccountAlertDialog(context);
             },
           ),
@@ -752,7 +752,7 @@ class _SettingsState extends State<Settings> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "$appVersion+ $appBuildNumber",
+                "$appVersion+$appBuildNumber",
                 style: const TextStyle(
                   color: Colors.grey,
                 ),

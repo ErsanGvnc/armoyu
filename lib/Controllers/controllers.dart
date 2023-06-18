@@ -26,6 +26,9 @@ TextEditingController yorum = TextEditingController();
 TextEditingController toplanti = TextEditingController();
 TextEditingController searchtec = TextEditingController();
 TextEditingController hakkimda = TextEditingController();
+TextEditingController editeposta = TextEditingController();
+TextEditingController edithakkimda = TextEditingController();
+TextEditingController editvalidation = TextEditingController();
 
 // ScrollController //
 ScrollController drawerScrollController = ScrollController();

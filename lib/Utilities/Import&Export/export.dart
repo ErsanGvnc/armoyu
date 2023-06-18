@@ -107,5 +107,6 @@ export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:lottie/lottie.dart';
 export 'package:circular_countdown_timer/circular_countdown_timer.dart';
 export 'package:package_info_plus/package_info_plus.dart';
+export 'package:url_launcher/url_launcher.dart';
 // export 'package:flutter_mentions/flutter_mentions.dart';
 //?  ----------  Libraries  ----------  //

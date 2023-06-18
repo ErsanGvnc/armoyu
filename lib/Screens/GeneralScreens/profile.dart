@@ -20,6 +20,9 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   @override
   initState() {
     profiledata = null;
+    editeposta.clear();
+    edithakkimda.clear();
+    editvalidation.clear();
     postdata.clear();
     medyadata.clear();
     resimler.clear();
@@ -40,19 +43,18 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       body: {
         "oyuncubakid": widget.veri1,
       },
-    ).then((cevap) {
+    ).then((cevap) async {
+      try {
+        profiledata = jsonDecode(cevap.body);
+        profileFriends = profiledata["arkadasliste"];
+        sosyalLink();
+        editeposta.text = profiledata["eposta"];
+        edithakkimda.text = profiledata["hakkimda"];
+      } catch (e) {
+        print('Unknown exception: $e');
+      }
       if (mounted) {
-        setState(() {
-          try {
-            profiledata = jsonDecode(cevap.body);
-            profileFriends = profiledata["arkadasliste"];
-            // print(profileFriends);
-            arkadasdurum();
-            sosyalLink();
-          } catch (e) {
-            print('Unknown exception: $e');
-          }
-        });
+        setState(() {});
       }
     });
   }
@@ -668,15 +670,24 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       body: {
         "oyuncubakid": widget.veri1,
       },
-    ).then((cevap) {
-      setState(() {
-        try {
-          arkadas = jsonDecode(cevap.body);
-        } catch (e) {
-          print('Unknown exception: $e');
+    ).then((cevap) async {
+      try {
+        response = jsonDecode(cevap.body);
+        print(response["durum"]);
+
+        if (response["durum"] == 1) {
+          await profilcek();
+          if (mounted) {
+            setState(() {});
+          }
         }
-        // print(arkadas);
-      });
+
+        if (response["durum"] != 1) {
+          print(response["aciklama"]);
+        }
+      } catch (e) {
+        print(e);
+      }
     });
   }
 
@@ -686,51 +697,25 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
       body: {
         "oyuncubakid": widget.veri1,
       },
-    ).then((cevap) {
-      if (mounted) {
-        setState(() {
-          try {
-            arkadas = jsonDecode(cevap.body);
-          } catch (e) {
-            print('Unknown exception: $e');
+    ).then((cevap) async {
+      try {
+        response = jsonDecode(cevap.body);
+        print(response["durum"]);
+
+        if (response["durum"] == 1) {
+          await profilcek();
+          if (mounted) {
+            setState(() {});
           }
-          // print(arkadas);
-        });
+        }
+
+        if (response["durum"] != 1) {
+          print(response["aciklama"]);
+        }
+      } catch (e) {
+        print(e);
       }
     });
-  }
-
-  arkadasdurum() async {
-    if (profiledata["arkadasdurum"] == "0") {
-      if (mounted) {
-        setState(() {
-          arkadasText = "Arkadaş Ol";
-        });
-      }
-    } else if (profiledata["arkadasdurum"] == "1") {
-      if (mounted) {
-        setState(() {
-          arkadasText = "Mesaj Gönder";
-        });
-      }
-    } else if (profiledata["arkadasdurum"] == "2") {
-      if (mounted) {
-        setState(() {
-          arkadasText = "Bekleniyor...";
-        });
-      }
-    } else if (profiledata["arkadasdurum"] == null) {
-      if (mounted) {
-        setState(() {
-          arkadasText = "";
-        });
-      }
-    } else {
-      null;
-    }
-    if (mounted) {
-      setState(() {});
-    }
   }
 
   sosyalLink() async {
@@ -816,6 +801,116 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    showValidationAlertDialog(BuildContext context) {
+      showValidationErrorAlertDialog(BuildContext context) {
+        AlertDialog alert = const AlertDialog(
+          title: Text(
+            "Hatalı parola!",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
+      }
+
+      showValidationEmptyAlertDialog(BuildContext context) {
+        AlertDialog alert = const AlertDialog(
+          title: Text(
+            "Parola boş olmamalı!",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
+      }
+
+      AlertDialog alert = AlertDialog(
+        title: const Text(
+          "Parolanızı dogrulayın",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: TextFormField(
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: true,
+          textInputAction: TextInputAction.next,
+          autofillHints: const [AutofillHints.password],
+          controller: editvalidation,
+          onEditingComplete: () => TextInput.finishAutofillContext(),
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        actions: [
+          InkWell(
+            onTap: () {
+              editvalidation.text.isNotEmpty
+                  ? {
+                      if (gkontrolSifre == editvalidation.text ||
+                          sifre.text == editvalidation.text)
+                        {
+                          print("başarılı"),
+                          // bura
+                        }
+                      else if (gkontrolSifre != editvalidation.text ||
+                          sifre.text != editvalidation.text)
+                        {
+                          print("hatalı"),
+                          showValidationErrorAlertDialog(context),
+                        }
+                    }
+                  : {
+                      showValidationEmptyAlertDialog(context),
+                    };
+
+              // if (sifre.text == editvalidation.text) {
+              //   print("object");
+              //   Navigator.of(context).pop();
+              // } else if (sifre.text != editvalidation.text) {
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //     const SnackBar(
+              //       content: Text("Parola yanlış!"),
+              //     ),
+              //   );
+              // }
+            },
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(13),
+                child: Text(
+                  "Onayla",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+
     return profiledata != null
         ? Scaffold(
             body: DefaultTabController(
@@ -918,7 +1013,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                                 leading: const Icon(
                                                   Icons.edit_outlined,
                                                 ),
-                                                title: Text(editProfile),
+                                                title: Text(
+                                                    editProfileModalBottomSheet),
                                               ),
                                             ),
                                           ),
@@ -941,12 +1037,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                               onTap: () async {
                                                 profileID = widget.veri1;
                                                 Navigator.pop(context);
-                                                if (mounted) {
-                                                  setState(() {
-                                                    arkadasText = "Arkadaş Ol";
-                                                  });
-                                                }
-                                                // print("Arkadaş Çıkar");
+
                                                 await arkadasCikar();
                                                 Fluttertoast.showToast(
                                                   msg:
@@ -1337,52 +1428,322 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                           profiledata["oyuncuID"] ==
                                                   girisdata["oyuncuID"]
                                               ? {
+                                                  editeposta.text =
+                                                      profiledata["eposta"],
+                                                  edithakkimda.text =
+                                                      profiledata["hakkimda"],
                                                   if (mounted)
                                                     {
-                                                      setState(() {
-                                                        isEditProfileIconShow =
-                                                            true;
-                                                      }),
-                                                    }
+                                                      setState(() {}),
+                                                    },
+                                                  showModalBottomSheet<void>(
+                                                    isScrollControlled: true,
+                                                    shape:
+                                                        const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.vertical(
+                                                        top:
+                                                            Radius.circular(10),
+                                                      ),
+                                                    ),
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return FractionallySizedBox(
+                                                        heightFactor: 0.9,
+                                                        child: SafeArea(
+                                                          child: InkWell(
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            onTap: () =>
+                                                                FocusManager
+                                                                    .instance
+                                                                    .primaryFocus
+                                                                    ?.unfocus(),
+                                                            child: Column(
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          10),
+                                                                  child: Row(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      const SizedBox(
+                                                                          width:
+                                                                              20),
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          editeposta.text =
+                                                                              profiledata["eposta"];
+                                                                          edithakkimda.text =
+                                                                              profiledata["hakkimda"];
+                                                                          if (mounted) {
+                                                                            setState(() {});
+                                                                          }
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            const Text(
+                                                                          "İptal et",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                16,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      const Spacer(),
+                                                                      Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              Colors.grey[900],
+                                                                          borderRadius:
+                                                                              const BorderRadius.all(
+                                                                            Radius.circular(30),
+                                                                          ),
+                                                                        ),
+                                                                        width:
+                                                                            screenWidth /
+                                                                                4,
+                                                                        height:
+                                                                            5,
+                                                                      ),
+                                                                      const Spacer(),
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          editvalidation
+                                                                              .clear();
+                                                                          showValidationAlertDialog(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            const Text(
+                                                                          "Kaydet",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize:
+                                                                                16,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      const SizedBox(
+                                                                          width:
+                                                                              20),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Stack(
+                                                                  children: [
+                                                                    CachedNetworkImage(
+                                                                      imageUrl:
+                                                                          profiledata[
+                                                                              "parkaresimufak"],
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      filterQuality:
+                                                                          FilterQuality
+                                                                              .high,
+                                                                      height:
+                                                                          screenHeight /
+                                                                              5,
+                                                                    ),
+                                                                    Positioned(
+                                                                      right: 15,
+                                                                      bottom:
+                                                                          15,
+                                                                      child:
+                                                                          InkWell(
+                                                                        onTap:
+                                                                            () {},
+                                                                        child:
+                                                                            const Icon(
+                                                                          Icons
+                                                                              .add_a_photo_outlined,
+                                                                          size:
+                                                                              48,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .fromLTRB(
+                                                                          10,
+                                                                          15,
+                                                                          10,
+                                                                          10),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        children: [
+                                                                          Stack(
+                                                                            children: [
+                                                                              CircleAvatar(
+                                                                                radius: 45,
+                                                                                backgroundImage: NetworkImage(
+                                                                                  profiledata["presimminnak"],
+                                                                                ),
+                                                                              ),
+                                                                              Positioned(
+                                                                                right: 15,
+                                                                                bottom: 15,
+                                                                                child: InkWell(
+                                                                                  onTap: () {},
+                                                                                  child: const Icon(
+                                                                                    Icons.add_a_photo_outlined,
+                                                                                    size: 32,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      const SizedBox(
+                                                                          height:
+                                                                              10),
+                                                                      Row(
+                                                                        children: [
+                                                                          const SizedBox(
+                                                                            width:
+                                                                                100,
+                                                                            child:
+                                                                                Text(
+                                                                              "E-mail",
+                                                                              style: TextStyle(
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 16,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Flexible(
+                                                                            child:
+                                                                                TextField(
+                                                                              controller: editeposta,
+                                                                              keyboardType: TextInputType.emailAddress,
+                                                                              textInputAction: TextInputAction.next,
+                                                                              autofillHints: const [
+                                                                                AutofillHints.email
+                                                                              ],
+                                                                              decoration: const InputDecoration(
+                                                                                border: OutlineInputBorder(borderSide: BorderSide.none),
+                                                                              ),
+                                                                              onEditingComplete: () => TextInput.finishAutofillContext(),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      const Divider(),
+                                                                      Row(
+                                                                        children: [
+                                                                          const SizedBox(
+                                                                            width:
+                                                                                100,
+                                                                            child:
+                                                                                Text(
+                                                                              "Hakkımda",
+                                                                              style: TextStyle(
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 16,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Flexible(
+                                                                            child:
+                                                                                TextField(
+                                                                              controller: edithakkimda,
+                                                                              keyboardType: TextInputType.text,
+                                                                              textInputAction: TextInputAction.next,
+                                                                              decoration: const InputDecoration(
+                                                                                border: OutlineInputBorder(borderSide: BorderSide.none),
+                                                                              ),
+                                                                              onEditingComplete: () => TextInput.finishAutofillContext(),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      const Divider(),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+
+                                                  // if (mounted)
+                                                  //   {
+                                                  //     setState(() {
+                                                  //       isEditProfileIconShow =
+                                                  //           true;
+                                                  //     }),
+                                                  //   }
                                                 }
                                               : {
                                                   if (profiledata[
-                                                          "arkadasdurum"] ==
-                                                      "1")
+                                                          "arkadasdurumaciklama"] ==
+                                                      "Arkadaş ol")
                                                     {
-                                                      if (mounted)
-                                                        {
-                                                          setState(() {
-                                                            arkadasText =
-                                                                "Mesaj Gönder";
-                                                          }),
-                                                        },
-                                                      // print("Mesaj Gönder"),
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        const SnackBar(
-                                                          duration: Duration(
-                                                              seconds: 1),
-                                                          content:
-                                                              Text("Yakında !"),
-                                                        ),
-                                                      ),
-                                                    }
-                                                  else if (profiledata[
-                                                          "arkadasdurum"] ==
-                                                      "0")
-                                                    {
-                                                      if (mounted)
-                                                        {
-                                                          setState(() {
-                                                            arkadasText =
-                                                                "Bekleniyor...";
-                                                          }),
-                                                        },
-                                                      // print("Arkadaş Ol"),
                                                       await arkadasol(),
                                                     }
+
+                                                  // if (profiledata[
+                                                  //         "arkadasdurum"] ==
+                                                  //     "1")
+                                                  //   {
+                                                  //     if (mounted)
+                                                  //       {
+                                                  //         setState(() {
+                                                  //           arkadasText =
+                                                  //               "Mesaj Gönder";
+                                                  //         }),
+                                                  //       },
+                                                  //     // print("Mesaj Gönder"),
+                                                  //     ScaffoldMessenger.of(
+                                                  //             context)
+                                                  //         .showSnackBar(
+                                                  //       const SnackBar(
+                                                  //         duration: Duration(
+                                                  //             seconds: 1),
+                                                  //         content:
+                                                  //             Text("Yakında !"),
+                                                  //       ),
+                                                  //     ),
+                                                  //   }
+                                                  // else if (profiledata[
+                                                  //         "arkadasdurum"] ==
+                                                  //     "0")
+                                                  //   {
+                                                  //     if (mounted)
+                                                  //       {
+                                                  //         setState(() {
+                                                  //           arkadasText =
+                                                  //               "Bekleniyor...";
+                                                  //         }),
+                                                  //       },
+                                                  //     // print("Arkadaş Ol"),
+                                                  //     await arkadasol(),
+                                                  //   }
                                                 };
                                         },
                                         child: Container(
@@ -1400,8 +1761,9 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             child: Text(
                                               profiledata["oyuncuID"] ==
                                                       girisdata["oyuncuID"]
-                                                  ? "Profili Düzenle"
-                                                  : arkadasText,
+                                                  ? editProfile
+                                                  : profiledata[
+                                                      "arkadasdurumaciklama"],
                                               style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w600,
@@ -1476,88 +1838,88 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     : false,
                                 child: const SizedBox(height: 15),
                               ),
-                              !isEditProfileIconShow
-                                  ? Visibility(
-                                      visible: profiledata["hakkimda"] != ""
-                                          ? true
-                                          : false,
-                                      child: InkWell(
-                                        highlightColor: Colors.transparent,
-                                        splashColor: Colors.transparent,
-                                        onLongPress: () async {
-                                          Clipboard.setData(
-                                            ClipboardData(
-                                              text: profiledata["hakkimda"],
-                                            ),
-                                          ).then((_) {
-                                            Fluttertoast.showToast(
-                                              msg: "Kopyalandı !",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.CENTER,
-                                              timeInSecForIosWeb: 1,
-                                            );
-                                          });
-                                        },
-                                        child: DetectableText(
-                                          detectionRegExp: RegExp(
-                                            "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
-                                            multiLine: true,
-                                          ),
-                                          text: profiledata["hakkimda"],
-                                          trimExpandedText: " Daha Az",
-                                          trimCollapsedText: " Daha Fazla",
-                                          lessStyle: const TextStyle(
-                                              color: Colors.grey),
-                                          moreStyle: const TextStyle(
-                                              color: Colors.grey),
-                                          trimMode: TrimMode.Line,
-                                          basicStyle: const TextStyle(
-                                            fontSize: 16,
-                                          ),
-                                          detectedStyle: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.blue,
-                                          ),
-                                        ),
+                              // !isEditProfileIconShow ?
+                              Visibility(
+                                visible: profiledata["hakkimda"] != ""
+                                    ? true
+                                    : false,
+                                child: InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onLongPress: () async {
+                                    Clipboard.setData(
+                                      ClipboardData(
+                                        text: profiledata["hakkimda"],
                                       ),
-                                    )
-                                  : TextField(
-                                      controller: hakkimda,
-                                      decoration: InputDecoration(
-                                        suffixIcon: IconButton(
-                                          onPressed: () async {
-                                            await editProfie(hakkimda.text);
-                                            hakkimda.clear();
-                                            if (mounted) {
-                                              setState(() {
-                                                isEditProfileIconShow = false;
-                                              });
-                                            }
-                                            profilcek();
-                                            if (mounted) {
-                                              setState(() {});
-                                            }
-                                          },
-                                          icon: const Icon(
-                                            Icons.send,
-                                            color: Colors.blue,
-                                          ),
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            width: 3,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        focusedBorder: const OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            width: 3,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
+                                    ).then((_) {
+                                      Fluttertoast.showToast(
+                                        msg: "Kopyalandı !",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 1,
+                                      );
+                                    });
+                                  },
+                                  child: DetectableText(
+                                    detectionRegExp: RegExp(
+                                      "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",
+                                      multiLine: true,
                                     ),
+                                    text: profiledata["hakkimda"],
+                                    trimExpandedText: " Daha Az",
+                                    trimCollapsedText: " Daha Fazla",
+                                    lessStyle:
+                                        const TextStyle(color: Colors.grey),
+                                    moreStyle:
+                                        const TextStyle(color: Colors.grey),
+                                    trimMode: TrimMode.Line,
+                                    basicStyle: const TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                    detectedStyle: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              // : TextField(
+                              //     controller: hakkimda,
+                              //     decoration: InputDecoration(
+                              //       suffixIcon: IconButton(
+                              //         onPressed: () async {
+                              //           await editProfie(hakkimda.text);
+                              //           hakkimda.clear();
+                              //           if (mounted) {
+                              //             setState(() {
+                              //               isEditProfileIconShow = false;
+                              //             });
+                              //           }
+                              //           profilcek();
+                              //           if (mounted) {
+                              //             setState(() {});
+                              //           }
+                              //         },
+                              //         icon: const Icon(
+                              //           Icons.send,
+                              //           color: Colors.blue,
+                              //         ),
+                              //       ),
+                              //       enabledBorder: const OutlineInputBorder(
+                              //         borderSide: BorderSide(
+                              //           width: 3,
+                              //           color: Colors.grey,
+                              //         ),
+                              //       ),
+                              //       focusedBorder: const OutlineInputBorder(
+                              //         borderSide: BorderSide(
+                              //           width: 3,
+                              //           color: Colors.grey,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
                               const SizedBox(height: 15),
                               Row(
                                 children: [
@@ -1600,6 +1962,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                     ? true
                                     : false,
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Icon(
                                       Icons.school,
@@ -1607,10 +1970,12 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                       size: 20,
                                     ),
                                     const SizedBox(width: 3),
-                                    Text(
-                                      profiledata["isyeriadi"] ?? "",
-                                      style: const TextStyle(
-                                        color: Colors.grey,
+                                    Flexible(
+                                      child: Text(
+                                        profiledata["isyeriadi"] ?? "",
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                        ),
                                       ),
                                     ),
                                   ],

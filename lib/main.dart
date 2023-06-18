@@ -26,12 +26,12 @@ Future<void> main() async {
   // final PendingDynamicLinkData? initialLink =
   //     await FirebaseDynamicLinks.instance.getInitialLink();
   // runApp(MyApp(initialLink));
-
-  runApp(const MyApp());
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
   appVersion = packageInfo.version;
   appBuildNumber = packageInfo.buildNumber;
+
+  runApp(const MyApp());
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
