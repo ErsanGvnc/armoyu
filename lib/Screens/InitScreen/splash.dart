@@ -43,11 +43,6 @@ class SplashState extends State<Splash> with TickerProviderStateMixin {
     } catch (e) {
       print(e);
     }
-    // print("$appVersion+$appBuildNumber");
-    // if ("$appVersion+$appBuildNumber" == "1.0.3+50") {
-    // } else {
-    //   print("Güncelle");
-    // }
   }
 
   @override
