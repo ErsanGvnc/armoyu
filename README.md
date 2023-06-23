@@ -1,47 +1,38 @@
-# ARMOYU
-
-[aramizdakioyuncu.com](https://aramizdakioyuncu.com/) (ARMOYU) Social Media App.
-
-# Run
-
-In order to run your application, type:
-
-<!--START_SECTION:waka-->
-```text
-  $ cd ARMOYU
-```
-<!--END_SECTION:waka-->
-
-
-<!--START_SECTION:waka-->
-```text
-  $ flutter run
-```
-<!--END_SECTION:waka-->
-
-Your application code is in ARMOYU\lib\main.dart.
-
-# Assets/Videos
 ![armoyu](https://user-images.githubusercontent.com/57798484/180553311-522c0d21-3526-4f5c-9cc0-7b36489039a1.png)
 
+<p align="center">
+  <strong>
+    <a href="https://aramizdakioyuncu.com/">Web Site</a>
+    •
+    <a href="https://aramizdakioyuncu.com/gizlilik-politikasi">Privacy Policy</a>
+  </strong>
+</p>
 
-<div>
-  <img src="https://user-images.githubusercontent.com/57798484/180554342-26d9e461-dd50-437d-b4ca-817033a30724.png" width="410"/>
-  <img src="https://user-images.githubusercontent.com/57798484/180554432-cda8b26b-f87b-43f1-b157-2cafae85f6ba.png" width="410"/>
-</div>
+<p align="center">
+  <a href="LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/license-Mozilla Public License-blue.svg?style=flat-square">
+  </a>
+</p>
 
+<p align="left">
+  <a href="https://play.google.com/store/apps/details?id=com.ARMOYU" target="_blank">
+    <img src="assets/images/readme/playstorebadge.svg" width="200"/>
+  </a>
+  &nbsp&nbsp&nbsp&nbsp&nbsp
+  <a href="https://apps.apple.com/tr/app/armoyu/id6448871009?platform=iphone" target="_blank">
+    <img src="assets/images/readme/appstorebadge.svg" width="200"/>
+  </a>
+</p>
 
+<p align="left">
+  <a href="https://play.google.com/store/apps/details?id=com.ARMOYU" target="_blank">
+    <img src="assets/images/readme/androidqr.svg" width="200"/>
+  </a>
+  &nbsp&nbsp&nbsp&nbsp&nbsp
+  <a href="https://apps.apple.com/tr/app/armoyu/id6448871009?platform=iphone" target="_blank">
+    <img src="assets/images/readme/iosqr.svg" width="200"/>
+  </a>
+</p>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+## License
+ARMOYU is **[Mozilla Public License Version 2.0](LICENSE)** licensed. You may use, distribute and copy it under the license terms.
