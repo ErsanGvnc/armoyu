@@ -745,10 +745,14 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   Widget friendWidget() {
     if (profileFriends.isNotEmpty) {
       if (profileFriends.length == 1) {
-        return CircleAvatar(
-          backgroundImage: CachedNetworkImageProvider(
-            profileFriends[0]["oyuncuminnakavatar"],
-          ),
+        return Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
+                profileFriends[0]["oyuncuminnakavatar"],
+              ),
+            ),
+          ],
         );
       } else if (profileFriends.length == 2) {
         return Stack(
@@ -2797,7 +2801,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
             detayid = postdata[index]["postID"];
 
             detaylink =
-                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
           });
         }
       },
@@ -3134,7 +3138,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                               detayid = postdata[index]["postID"];
 
                               detaylink =
-                                  "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                                  "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
                             });
                           }
                         },

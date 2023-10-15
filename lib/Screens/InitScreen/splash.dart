@@ -20,16 +20,14 @@ class SplashState extends State<Splash> with TickerProviderStateMixin {
 
     try {
       version = jsonDecode(gelen.body);
-      print(version["versiyon"]);
-      print("$appVersion $appBuildNumber");
+      print("Web Version = ${version["versiyon"]}");
+      print("Local Version = $appVersion $appBuildNumber");
       if ("$appVersion $appBuildNumber" == version["versiyon"]) {
         Platform.isAndroid ? connectionStatus() : navigate();
       } else {
         print("Güncelle");
         final url = Uri.parse(
-          Platform.isAndroid
-              ? "https://play.google.com/store/apps/details?id=$androidID"
-              : "https://apps.apple.com/app/id$iosID",
+          Platform.isAndroid ? androidStoreLink : iosStoreLink,
         );
         try {
           await launchUrl(

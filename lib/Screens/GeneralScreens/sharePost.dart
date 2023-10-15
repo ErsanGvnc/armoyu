@@ -55,7 +55,7 @@ class _PostState extends State<SharePost> {
     print(photosCollection.runtimeType);
 
     var response = await Dio().post(
-      "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
+      "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
       data: formData,
     );
 

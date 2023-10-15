@@ -22,7 +22,7 @@ class _ToplantiState extends State<Toplanti> {
   toplantigonder() async {
     var gelen = await http.post(
       Uri.parse(
-        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/toplantilar/$toplantiid/0/",
+        "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/toplantilar/$toplantiid/0/",
       ),
       body: {
         "icerik": toplanti.text,

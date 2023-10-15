@@ -558,201 +558,207 @@ class _SearchState extends State<Search> {
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: ListView(
+        child: Scrollbar(
           controller: searchMainScrollController,
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(10),
-          // children: [
-          //   TextFormField(
-          //     controller: searchtec,
-          //     autofocus: false,
-          //     focusNode: focusNodeSearch,
-          //     onTap: () => FocusManager.instance.primaryFocus?.requestFocus(),
-          //     decoration: InputDecoration(
-          //       enabledBorder: const OutlineInputBorder(
-          //         borderRadius: BorderRadius.all(
-          //           Radius.circular(30),
-          //         ),
-          //         borderSide: BorderSide(
-          //           color: Colors.grey,
-          //           width: 1,
-          //         ),
-          //       ),
-          //       focusedBorder: const OutlineInputBorder(
-          //         borderRadius: BorderRadius.all(
-          //           Radius.circular(30),
-          //         ),
-          //         borderSide: BorderSide(
-          //           color: Colors.grey,
-          //           width: 1,
-          //         ),
-          //       ),
-          //       prefixIcon: const Icon(Icons.search),
-          //       suffixIcon: searchtec.text.isNotEmpty
-          //           ? IconButton(
-          //               onPressed: () {
-          //                 searchtec.clear();
-          //                 resimler.clear();
-          //               },
-          //               icon: const Icon(Icons.clear),
-          //             )
-          //           : null,
-          //       hintText: "Ara...",
-          //       hintStyle: const TextStyle(
-          //         fontWeight: FontWeight.bold,
-          //       ),
-          //       border: InputBorder.none,
-          //     ),
-          //     textInputAction: TextInputAction.search,
-          //     onFieldSubmitted: (String value) {
-          //       RawAutocomplete.onFieldSubmitted(autocompleteKey);
-          //     },
-          //   ),
-          //   RawAutocomplete<List<String>>(
-          //     key: autocompleteKey,
-          //     focusNode: focusNodeSearch,
-          //     textEditingController: searchtec,
-          //     optionsBuilder: (TextEditingValue textEditingValue) async {
-          //       if (textEditingValue.text.isEmpty ||
-          //           textEditingValue.text.length < 3) {
-          //         setState(() {
-          //           aratildi = 0;
-          //           resimler.clear();
-          //           searchgaleri.clear();
-          //           searchhaber.clear();
-          //         });
-          //         return const Iterable.empty();
-          //       }
-          //       var options = kullanicilar.map(
-          //         (kullanici) => [
-          //           kullanici["ID"].toString(),
-          //           kullanici["adsoyad"].toString(),
-          //         ],
-          //       );
-          //       return options.where((List<String> option) {
-          //         return option[1]
-          //             .toString()
-          //             .toLowerCase()
-          //             .contains(textEditingValue.text.toLowerCase());
-          //       });
-          //     },
-          //     onSelected: (option) {
-          //       var kulAdSoyad = option[1];
-          //       searchtec.text = kulAdSoyad;
-          //     },
-          //     optionsViewBuilder: (
-          //       BuildContext context,
-          //       AutocompleteOnSelected<List<String>> onSelected,
-          //       Iterable<List> options,
-          //     ) {
-          //       return ThemeConsumer(
-          //         child: SingleChildScrollView(
-          //           scrollDirection: Axis.vertical,
-          //           controller: searchSingleChildSVScrollController,
-          //           child: Wrap(
-          //             children: [
-          //               Material(
-          //                 color: Colors.grey[850],
-          //                 elevation: 4.0,
-          //                 child: ListView(
-          //                   scrollDirection: Axis.vertical,
-          //                   padding: EdgeInsets.zero,
-          //                   shrinkWrap: true,
-          //                   controller: searchListViewScrollController,
-          //                   children: options
-          //                       .map((dynamic option) => InkWell(
-          //                             onTap: () {
-          //                               id = option[0];
-          //                               kulAdSoyad = option[1];
-          //                               searchtec.text = kulAdSoyad;
-          //                               resimler.clear();
-          //                               searchgaleri.clear();
-          //                               searchhaber.clear();
-          //                               search(id);
-          //                               medyacek(id);
-          //                               habercek(id);
-          //                               setState(() {
-          //                                 aratildi = 1;
-          //                               });
-          //                               FocusManager.instance.primaryFocus
-          //                                   ?.unfocus();
-          //                             },
-          //                             child: ListTile(
-          //                               title: Text(option[1]),
-          //                               trailing: IconButton(
-          //                                 onPressed: () {
-          //                                   id = option[0];
-          //                                   kulAdSoyad = option[1];
-          //                                   searchtec.text = kulAdSoyad;
-          //                                   resimler.clear();
-          //                                   searchgaleri.clear();
-          //                                   searchhaber.clear();
-          //                                   search(id);
-          //                                   medyacek(id);
-          //                                   habercek(id);
-          //                                   setState(() {
-          //                                     aratildi = 1;
-          //                                   });
-          //                                   FocusManager.instance.primaryFocus
-          //                                       ?.unfocus();
-          //                                 },
-          //                                 icon: const Icon(Icons.north_west),
-          //                               ),
-          //                             ),
-          //                           ))
-          //                       .toList(),
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          //   const Divider(
-          //     color: Colors.grey,
-          //     thickness: 1,
-          //   ),
-          //   aratildi == 0
-          //       ? Column(
-          //           children: [
-          //             _carouselSlider(),
-          //             const Divider(
-          //               color: Colors.grey,
-          //             ),
-          //             _xphorizontalListView(),
-          //             const Divider(
-          //               color: Colors.grey,
-          //             ),
-          //             _chipListView(),
-          //             const Divider(
-          //               color: Colors.grey,
-          //             ),
-          //             _pophorizontalListView(),
-          //           ],
-          //         )
-          //       : searchedildi(),
-          // ],
-          children: [
-            Column(
-              children: [
-                _carouselSlider(),
-                const Divider(
-                  color: Colors.grey,
-                ),
-                _xphorizontalListView(),
-                const Divider(
-                  color: Colors.grey,
-                ),
-                _chipListView(),
-                const Divider(
-                  color: Colors.grey,
-                ),
-                _pophorizontalListView(),
-              ],
-            ),
-          ],
+          interactive: true,
+          trackVisibility: true,
+          radius: const Radius.circular(30),
+          child: ListView(
+            controller: searchMainScrollController,
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            // children: [
+            //   TextFormField(
+            //     controller: searchtec,
+            //     autofocus: false,
+            //     focusNode: focusNodeSearch,
+            //     onTap: () => FocusManager.instance.primaryFocus?.requestFocus(),
+            //     decoration: InputDecoration(
+            //       enabledBorder: const OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(
+            //           Radius.circular(30),
+            //         ),
+            //         borderSide: BorderSide(
+            //           color: Colors.grey,
+            //           width: 1,
+            //         ),
+            //       ),
+            //       focusedBorder: const OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(
+            //           Radius.circular(30),
+            //         ),
+            //         borderSide: BorderSide(
+            //           color: Colors.grey,
+            //           width: 1,
+            //         ),
+            //       ),
+            //       prefixIcon: const Icon(Icons.search),
+            //       suffixIcon: searchtec.text.isNotEmpty
+            //           ? IconButton(
+            //               onPressed: () {
+            //                 searchtec.clear();
+            //                 resimler.clear();
+            //               },
+            //               icon: const Icon(Icons.clear),
+            //             )
+            //           : null,
+            //       hintText: "Ara...",
+            //       hintStyle: const TextStyle(
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //     textInputAction: TextInputAction.search,
+            //     onFieldSubmitted: (String value) {
+            //       RawAutocomplete.onFieldSubmitted(autocompleteKey);
+            //     },
+            //   ),
+            //   RawAutocomplete<List<String>>(
+            //     key: autocompleteKey,
+            //     focusNode: focusNodeSearch,
+            //     textEditingController: searchtec,
+            //     optionsBuilder: (TextEditingValue textEditingValue) async {
+            //       if (textEditingValue.text.isEmpty ||
+            //           textEditingValue.text.length < 3) {
+            //         setState(() {
+            //           aratildi = 0;
+            //           resimler.clear();
+            //           searchgaleri.clear();
+            //           searchhaber.clear();
+            //         });
+            //         return const Iterable.empty();
+            //       }
+            //       var options = kullanicilar.map(
+            //         (kullanici) => [
+            //           kullanici["ID"].toString(),
+            //           kullanici["adsoyad"].toString(),
+            //         ],
+            //       );
+            //       return options.where((List<String> option) {
+            //         return option[1]
+            //             .toString()
+            //             .toLowerCase()
+            //             .contains(textEditingValue.text.toLowerCase());
+            //       });
+            //     },
+            //     onSelected: (option) {
+            //       var kulAdSoyad = option[1];
+            //       searchtec.text = kulAdSoyad;
+            //     },
+            //     optionsViewBuilder: (
+            //       BuildContext context,
+            //       AutocompleteOnSelected<List<String>> onSelected,
+            //       Iterable<List> options,
+            //     ) {
+            //       return ThemeConsumer(
+            //         child: SingleChildScrollView(
+            //           scrollDirection: Axis.vertical,
+            //           controller: searchSingleChildSVScrollController,
+            //           child: Wrap(
+            //             children: [
+            //               Material(
+            //                 color: Colors.grey[850],
+            //                 elevation: 4.0,
+            //                 child: ListView(
+            //                   scrollDirection: Axis.vertical,
+            //                   padding: EdgeInsets.zero,
+            //                   shrinkWrap: true,
+            //                   controller: searchListViewScrollController,
+            //                   children: options
+            //                       .map((dynamic option) => InkWell(
+            //                             onTap: () {
+            //                               id = option[0];
+            //                               kulAdSoyad = option[1];
+            //                               searchtec.text = kulAdSoyad;
+            //                               resimler.clear();
+            //                               searchgaleri.clear();
+            //                               searchhaber.clear();
+            //                               search(id);
+            //                               medyacek(id);
+            //                               habercek(id);
+            //                               setState(() {
+            //                                 aratildi = 1;
+            //                               });
+            //                               FocusManager.instance.primaryFocus
+            //                                   ?.unfocus();
+            //                             },
+            //                             child: ListTile(
+            //                               title: Text(option[1]),
+            //                               trailing: IconButton(
+            //                                 onPressed: () {
+            //                                   id = option[0];
+            //                                   kulAdSoyad = option[1];
+            //                                   searchtec.text = kulAdSoyad;
+            //                                   resimler.clear();
+            //                                   searchgaleri.clear();
+            //                                   searchhaber.clear();
+            //                                   search(id);
+            //                                   medyacek(id);
+            //                                   habercek(id);
+            //                                   setState(() {
+            //                                     aratildi = 1;
+            //                                   });
+            //                                   FocusManager.instance.primaryFocus
+            //                                       ?.unfocus();
+            //                                 },
+            //                                 icon: const Icon(Icons.north_west),
+            //                               ),
+            //                             ),
+            //                           ))
+            //                       .toList(),
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            //   const Divider(
+            //     color: Colors.grey,
+            //     thickness: 1,
+            //   ),
+            //   aratildi == 0
+            //       ? Column(
+            //           children: [
+            //             _carouselSlider(),
+            //             const Divider(
+            //               color: Colors.grey,
+            //             ),
+            //             _xphorizontalListView(),
+            //             const Divider(
+            //               color: Colors.grey,
+            //             ),
+            //             _chipListView(),
+            //             const Divider(
+            //               color: Colors.grey,
+            //             ),
+            //             _pophorizontalListView(),
+            //           ],
+            //         )
+            //       : searchedildi(),
+            // ],
+            children: [
+              Column(
+                children: [
+                  _carouselSlider(),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                  _xphorizontalListView(),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                  _chipListView(),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                  _pophorizontalListView(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -1019,7 +1025,7 @@ class _SearchState extends State<Search> {
   //             setState(() {
   //               detayid = ayinpostu[index]["postID"];
   //               detaylink =
-  //                   "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+  //                   "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
   //             });
   //           },
   //           child: Row(
@@ -1351,7 +1357,7 @@ class _SearchState extends State<Search> {
   //                                 detayid = ayinpostu[index]["postID"];
   //                                 // print(detaylink);
   //                                 detaylink =
-  //                                     "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+  //                                     "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
   //                               });
   //                             },
   //                             child: Padding(
@@ -1439,35 +1445,38 @@ class _SearchState extends State<Search> {
   Widget _carouselSlider() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              "Haberler",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 28,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "Haberler",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
+                ),
               ),
-            ),
-            InkWell(
-              borderRadius: BorderRadius.circular(30),
-              onTap: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ThemeConsumer(
-                      child: News(),
+              InkWell(
+                borderRadius: BorderRadius.circular(30),
+                onTap: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ThemeConsumer(
+                        child: News(),
+                      ),
                     ),
-                  ),
-                );
-              },
-              child: const Icon(
-                Icons.arrow_forward,
-                color: Colors.blue,
+                  );
+                },
+                child: const Icon(
+                  Icons.arrow_forward,
+                  color: Colors.blue,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         const SizedBox(height: 10),
         CarouselSlider.builder(
@@ -1714,56 +1723,61 @@ class _SearchState extends State<Search> {
     }
 
     generate_tags() {
-      return hashtagler.map((tag) => get_chip(tag));
+      return hashtagler.map(
+        (tag) => get_chip(tag),
+      );
     }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              "Konular",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 28,
-              ),
-            ),
-            InkWell(
-              borderRadius: BorderRadius.circular(30),
-              onTap: () async {
-                Fluttertoast.showToast(
-                  msg: comingSoon,
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                );
-              },
-              child: const Icon(
-                Icons.arrow_forward,
-                color: Colors.blue,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        hashtagler.isNotEmpty
-            ? SizedBox(
-                child: Wrap(
-                  // spacing: 8, // gap between adjacent chips
-                  runSpacing: 4, // gap between lines
-                  direction: Axis.horizontal,
-                  verticalDirection: VerticalDirection.down,
-                  alignment: WrapAlignment.start,
-                  runAlignment: WrapAlignment.start,
-                  children: <Widget>[...generate_tags()],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "Konular",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
                 ),
-              )
-            : const CircularProgressIndicator(),
-      ],
+              ),
+              InkWell(
+                borderRadius: BorderRadius.circular(30),
+                onTap: () async {
+                  Fluttertoast.showToast(
+                    msg: comingSoon,
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                  );
+                },
+                child: const Icon(
+                  Icons.arrow_forward,
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          hashtagler.isNotEmpty
+              ? SizedBox(
+                  child: Wrap(
+                    // spacing: 8, // gap between adjacent chips
+                    runSpacing: 4, // gap between lines
+                    direction: Axis.horizontal,
+                    verticalDirection: VerticalDirection.down,
+                    alignment: WrapAlignment.start,
+                    runAlignment: WrapAlignment.start,
+                    children: <Widget>[...generate_tags()],
+                  ),
+                )
+              : const CircularProgressIndicator(),
+        ],
+      ),
     );
   }
 

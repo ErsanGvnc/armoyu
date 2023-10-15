@@ -28,8 +28,7 @@ class AnaSayfaState extends State<MainFeed> {
 
     anaSayfaScrollController.addListener(() {
       if (anaSayfaScrollController.position.pixels ==
-              anaSayfaScrollController.position.maxScrollExtent &&
-          anaSayfaScrollController.position.pixels > 0) {
+          anaSayfaScrollController.position.maxScrollExtent) {
         gondericek(mainFeed.length);
         print(mainFeed.length);
       }
@@ -46,7 +45,7 @@ class AnaSayfaState extends State<MainFeed> {
 
   gondericek(int mainDataLimit) async {
     final url = Uri.parse(
-        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/$mainDataLimit/0/");
+        "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/$mainDataLimit/0/");
 
     // print(url);
 
@@ -982,7 +981,7 @@ class AnaSayfaState extends State<MainFeed> {
           setState(() {
             detayid = mainFeed[index]["postID"];
             detaylink =
-                "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
           });
         }
       },
@@ -1402,7 +1401,7 @@ class AnaSayfaState extends State<MainFeed> {
                               detayid = mainFeed[index]["postID"];
                               // print(detaylink);
                               detaylink =
-                                  "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                                  "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
                             });
                           }
                         },

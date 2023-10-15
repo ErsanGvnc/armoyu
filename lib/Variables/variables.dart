@@ -1,11 +1,12 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
 
 import 'package:armoyu/Utilities/Import&Export/export.dart';
 
 //  var  //
-var botId1 = dotenv.env['botId1'];
+var APIKey = dotenv.env['APIKey'];
 var androidID = dotenv.env['androidID'];
 var iosID = dotenv.env['iosID'];
+var clientID = dotenv.env['clientID'];
 var version;
 var girisdata;
 var datahaber;
@@ -74,6 +75,7 @@ String removeAccountInformation =
     "Hesap silme talebinizi aldık 30 gün içinde hesabınız silinecek.";
 String notLikedPostYet = "Henüz kimse postu beğenmedi";
 String unexpectedError = "Beklenmedik bir hata oluştu";
+String forgetPassword = "Şifremi unuttum";
 
 //  int  //
 int mainDataLimit = 0;

@@ -34,6 +34,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="signinwithapple" />
+                <data android:path="callback" />
                 <!-- <data
                     android:host="armoyu.page.link"
                     android:scheme="https"/> -->

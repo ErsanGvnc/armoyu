@@ -556,7 +556,7 @@ class _GrupState extends State<GrupFeed> {
                               //               detayid = mainFeed[index]["postID"];
                               //               // print(detaylink);
                               //               detaylink =
-                              //                   "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
+                              //                   "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/detay/$detayid/&postislem=yorumlarim";
                               //             });
                               //           }
                               //         },

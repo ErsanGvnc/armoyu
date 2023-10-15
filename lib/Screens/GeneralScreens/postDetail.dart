@@ -205,8 +205,8 @@ class _PostDetailState extends State<PostDetail> {
         postID = widget.veri10;
         comments.clear();
         getComments();
-        widget.veri13 = 0;
-        widget.veri6 = "0";
+        // widget.veri13 = 0;
+        widget.veri6 = (int.parse(widget.veri6) - 1).toString();
         if (mounted) {
           setState(() {});
         }
@@ -443,7 +443,7 @@ class _PostDetailState extends State<PostDetail> {
           child: Stack(
             children: [
               ListView(
-                controller: anaSayfaDetailScrollController,
+                // controller: anaSayfaDetailScrollController,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 children: [
@@ -520,15 +520,14 @@ class _PostDetailState extends State<PostDetail> {
                                           Column(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets
-                                                        .symmetric(
-                                                    vertical: 10),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10),
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     color: Colors.grey[900],
                                                     borderRadius:
-                                                        const BorderRadius
-                                                            .all(
+                                                        const BorderRadius.all(
                                                       Radius.circular(30),
                                                     ),
                                                   ),
@@ -543,14 +542,12 @@ class _PostDetailState extends State<PostDetail> {
                                                 child: ListTile(
                                                   leading: const Icon(
                                                       Icons.post_add),
-                                                  title:
-                                                      Text(addFavoritePost),
+                                                  title: Text(addFavoritePost),
                                                 ),
                                               ),
                                               Visibility(
                                                 visible: widget.veri11 ==
-                                                        girisdata[
-                                                            "oyuncuID"]
+                                                        girisdata["oyuncuID"]
                                                     ? true
                                                     : false,
                                                 child: InkWell(
@@ -566,8 +563,7 @@ class _PostDetailState extends State<PostDetail> {
                                                             ThemeConsumer(
                                                           child: SharePost(
                                                             veri1: "",
-                                                            veri2: widget
-                                                                .veri3,
+                                                            veri2: widget.veri3,
                                                           ),
                                                         ),
                                                       ),
@@ -582,8 +578,7 @@ class _PostDetailState extends State<PostDetail> {
                                               ),
                                               Visibility(
                                                 visible: widget.veri11 ==
-                                                        girisdata[
-                                                            "oyuncuID"]
+                                                        girisdata["oyuncuID"]
                                                     ? true
                                                     : false,
                                                 child: InkWell(
@@ -595,10 +590,10 @@ class _PostDetailState extends State<PostDetail> {
                                                     Fluttertoast.showToast(
                                                       msg:
                                                           removePostNotification,
-                                                      toastLength: Toast
-                                                          .LENGTH_SHORT,
-                                                      gravity: ToastGravity
-                                                          .CENTER,
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.CENTER,
                                                       timeInSecForIosWeb: 1,
                                                     );
                                                   },
@@ -611,8 +606,7 @@ class _PostDetailState extends State<PostDetail> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  Share.share(
-                                                      widget.veri14);
+                                                  Share.share(widget.veri14);
                                                   Navigator.pop(context);
                                                 },
                                                 child: ListTile(
@@ -649,16 +643,14 @@ class _PostDetailState extends State<PostDetail> {
                                               // buraya web de aç özelliği ekle bunun için sitede her post için ayrı sayfa yapılmalı.
                                               Visibility(
                                                 visible: widget.veri11 ==
-                                                        girisdata[
-                                                            "oyuncuID"]
+                                                        girisdata["oyuncuID"]
                                                     ? false
                                                     : true,
                                                 child: const Divider(),
                                               ),
                                               Visibility(
                                                 visible: widget.veri11 ==
-                                                        girisdata[
-                                                            "oyuncuID"]
+                                                        girisdata["oyuncuID"]
                                                     ? false
                                                     : true,
                                                 child: InkWell(
@@ -669,10 +661,10 @@ class _PostDetailState extends State<PostDetail> {
 
                                                     Fluttertoast.showToast(
                                                       msg: "Bildirildi !",
-                                                      toastLength: Toast
-                                                          .LENGTH_SHORT,
-                                                      gravity: ToastGravity
-                                                          .CENTER,
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.CENTER,
                                                       timeInSecForIosWeb: 1,
                                                     );
                                                   },
@@ -688,8 +680,7 @@ class _PostDetailState extends State<PostDetail> {
                                               ),
                                               Visibility(
                                                 visible: widget.veri11 ==
-                                                        girisdata[
-                                                            "oyuncuID"]
+                                                        girisdata["oyuncuID"]
                                                     ? false
                                                     : true,
                                                 child: InkWell(
@@ -700,18 +691,17 @@ class _PostDetailState extends State<PostDetail> {
 
                                                     Fluttertoast.showToast(
                                                       msg: "Engellendi !",
-                                                      toastLength: Toast
-                                                          .LENGTH_SHORT,
-                                                      gravity: ToastGravity
-                                                          .CENTER,
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.CENTER,
                                                       timeInSecForIosWeb: 1,
                                                     );
                                                   },
                                                   child: ListTile(
                                                     textColor: Colors.red,
                                                     leading: const Icon(
-                                                      Icons
-                                                          .person_off_outlined,
+                                                      Icons.person_off_outlined,
                                                       color: Colors.red,
                                                     ),
                                                     title: Text(blockUser),
@@ -720,8 +710,7 @@ class _PostDetailState extends State<PostDetail> {
                                               ),
                                               Visibility(
                                                 visible: widget.veri11 ==
-                                                        girisdata[
-                                                            "oyuncuID"]
+                                                        girisdata["oyuncuID"]
                                                     ? false
                                                     : true,
                                                 child: InkWell(
@@ -732,10 +721,10 @@ class _PostDetailState extends State<PostDetail> {
 
                                                     Fluttertoast.showToast(
                                                       msg: "Bildirildi !",
-                                                      toastLength: Toast
-                                                          .LENGTH_SHORT,
-                                                      gravity: ToastGravity
-                                                          .CENTER,
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.CENTER,
                                                       timeInSecForIosWeb: 1,
                                                     );
                                                   },
@@ -867,9 +856,7 @@ class _PostDetailState extends State<PostDetail> {
                             ),
                             // buraya for web ise web e basılınca sitede postu aç bunun için sitede her post için ayrı sayfa yapılması lazım.
                             Text(
-                              widget.veri12 == ""
-                                  ? "For Web"
-                                  : "For Mobile",
+                              widget.veri12 == "" ? "For Web" : "For Mobile",
                               style: const TextStyle(
                                 color: Colors.blue,
                               ),
@@ -889,8 +876,7 @@ class _PostDetailState extends State<PostDetail> {
                                     ? Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              ThemeConsumer(
+                                          builder: (context) => ThemeConsumer(
                                             child: PostLCRScreen(
                                               veri1: widget.veri10,
                                               veri2: 0,
@@ -1072,16 +1058,15 @@ class _PostDetailState extends State<PostDetail> {
                             children: [
                               ListTile(
                                 leading: InkWell(
-                                  borderRadius: BorderRadius.circular(
-                                      screenWidth / 12),
+                                  borderRadius:
+                                      BorderRadius.circular(screenWidth / 12),
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ThemeConsumer(
                                           child: Profile(
-                                            veri1: comments[index]
-                                                ["yorumcuid"],
+                                            veri1: comments[index]["yorumcuid"],
                                           ),
                                         ),
                                       ),
@@ -1089,10 +1074,8 @@ class _PostDetailState extends State<PostDetail> {
                                   },
                                   child: CircleAvatar(
                                     radius: screenWidth / 12,
-                                    backgroundImage:
-                                        CachedNetworkImageProvider(
-                                      comments[index]
-                                          ["yorumcuminnakavatar"],
+                                    backgroundImage: CachedNetworkImageProvider(
+                                      comments[index]["yorumcuminnakavatar"],
                                     ),
                                     backgroundColor: Colors.grey[700],
                                   ),
@@ -1104,8 +1087,7 @@ class _PostDetailState extends State<PostDetail> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                ThemeConsumer(
+                                            builder: (context) => ThemeConsumer(
                                               child: Profile(
                                                 veri1: comments[index]
                                                     ["yorumcuid"],
@@ -1127,10 +1109,8 @@ class _PostDetailState extends State<PostDetail> {
                                     InkWell(
                                       onTap: () {
                                         showModalBottomSheet<void>(
-                                          shape:
-                                              const RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.vertical(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
                                               top: Radius.circular(10),
                                             ),
                                           ),
@@ -1145,25 +1125,21 @@ class _PostDetailState extends State<PostDetail> {
                                                         padding:
                                                             const EdgeInsets
                                                                     .symmetric(
-                                                                vertical:
-                                                                    10),
+                                                                vertical: 10),
                                                         child: Container(
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors
-                                                                    .grey[
-                                                                900],
+                                                                .grey[900],
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .all(
-                                                              Radius
-                                                                  .circular(
-                                                                      30),
+                                                              Radius.circular(
+                                                                  30),
                                                             ),
                                                           ),
                                                           width:
-                                                              screenWidth /
-                                                                  4,
+                                                              screenWidth / 4,
                                                           height: 5,
                                                         ),
                                                       ),
@@ -1172,10 +1148,9 @@ class _PostDetailState extends State<PostDetail> {
                                                           Navigator.pop(
                                                               context);
                                                         },
-                                                        child:
-                                                            const ListTile(
-                                                          leading: Icon(Icons
-                                                              .post_add),
+                                                        child: const ListTile(
+                                                          leading: Icon(
+                                                              Icons.post_add),
                                                           title: Text(
                                                               "Yorumu favorilere ekle."),
                                                         ),
@@ -1183,27 +1158,24 @@ class _PostDetailState extends State<PostDetail> {
                                                       InkWell(
                                                         onTap: () {
                                                           Share.share(comments[
-                                                                  index][
-                                                              "oyunculink"]);
+                                                                  index]
+                                                              ["oyunculink"]);
                                                           Navigator.pop(
                                                               context);
                                                         },
                                                         child: ListTile(
-                                                          leading: const Icon(
-                                                              Icons
-                                                                  .share_outlined),
-                                                          title: Text(
-                                                              shareUser),
+                                                          leading: const Icon(Icons
+                                                              .share_outlined),
+                                                          title:
+                                                              Text(shareUser),
                                                         ),
                                                       ),
                                                       InkWell(
                                                         onTap: () {
-                                                          Clipboard
-                                                              .setData(
+                                                          Clipboard.setData(
                                                             ClipboardData(
                                                               text: comments[
-                                                                      index]
-                                                                  [
+                                                                      index][
                                                                   "oyunculink"],
                                                             ),
                                                           );
@@ -1211,8 +1183,7 @@ class _PostDetailState extends State<PostDetail> {
                                                               context);
                                                           Fluttertoast
                                                               .showToast(
-                                                            msg:
-                                                                "Kopyalandı !",
+                                                            msg: "Kopyalandı !",
                                                             toastLength: Toast
                                                                 .LENGTH_SHORT,
                                                             gravity:
@@ -1235,8 +1206,7 @@ class _PostDetailState extends State<PostDetail> {
                                                         child: Divider(),
                                                       ),
                                                       Visibility(
-                                                        visible: comments[
-                                                                        index]
+                                                        visible: comments[index]
                                                                     [
                                                                     "yorumcuid"] ==
                                                                 girisdata[
@@ -1244,26 +1214,21 @@ class _PostDetailState extends State<PostDetail> {
                                                             ? true
                                                             : false,
                                                         child: InkWell(
-                                                          onTap:
-                                                              () async {
+                                                          onTap: () async {
                                                             if (mounted) {
-                                                              setState(
-                                                                  () {
-                                                                yorumID =
-                                                                    comments[index]
-                                                                        [
-                                                                        "yorumID"];
+                                                              setState(() {
+                                                                yorumID = comments[
+                                                                        index]
+                                                                    ["yorumID"];
                                                               });
                                                             }
                                                             await postyorumsil();
                                                           },
-                                                          child:
-                                                              const ListTile(
+                                                          child: const ListTile(
                                                             leading: Icon(
                                                               Icons
                                                                   .delete_sweep_outlined,
-                                                              color: Colors
-                                                                  .red,
+                                                              color: Colors.red,
                                                             ),
                                                             title: Text(
                                                               "Yorumu kaldır.",
@@ -1275,8 +1240,7 @@ class _PostDetailState extends State<PostDetail> {
                                                         ),
                                                       ),
                                                       Visibility(
-                                                        visible: comments[
-                                                                        index]
+                                                        visible: comments[index]
                                                                     [
                                                                     "yorumcuid"] ==
                                                                 girisdata[
@@ -1288,16 +1252,13 @@ class _PostDetailState extends State<PostDetail> {
                                                             Navigator.pop(
                                                                 context);
                                                           },
-                                                          child:
-                                                              const ListTile(
+                                                          child: const ListTile(
                                                             textColor:
-                                                                Colors
-                                                                    .red,
+                                                                Colors.red,
                                                             leading: Icon(
                                                               Icons
                                                                   .flag_outlined,
-                                                              color: Colors
-                                                                  .red,
+                                                              color: Colors.red,
                                                             ),
                                                             title: Text(
                                                                 "Yorumu bildir."),
@@ -1305,8 +1266,7 @@ class _PostDetailState extends State<PostDetail> {
                                                         ),
                                                       ),
                                                       Visibility(
-                                                        visible: comments[
-                                                                        index]
+                                                        visible: comments[index]
                                                                     [
                                                                     "yorumcuid"] ==
                                                                 girisdata[
@@ -1315,8 +1275,8 @@ class _PostDetailState extends State<PostDetail> {
                                                             : true,
                                                         child: InkWell(
                                                           onTap: () {
-                                                            postID = widget
-                                                                .veri10;
+                                                            postID =
+                                                                widget.veri10;
                                                             postbildir();
                                                             Navigator.pop(
                                                                 context);
@@ -1324,9 +1284,8 @@ class _PostDetailState extends State<PostDetail> {
                                                                 .showToast(
                                                               msg:
                                                                   "Engellendi !",
-                                                              toastLength:
-                                                                  Toast
-                                                                      .LENGTH_SHORT,
+                                                              toastLength: Toast
+                                                                  .LENGTH_SHORT,
                                                               gravity:
                                                                   ToastGravity
                                                                       .CENTER,
@@ -1336,23 +1295,19 @@ class _PostDetailState extends State<PostDetail> {
                                                           },
                                                           child: ListTile(
                                                             textColor:
-                                                                Colors
-                                                                    .red,
-                                                            leading:
-                                                                const Icon(
+                                                                Colors.red,
+                                                            leading: const Icon(
                                                               Icons
                                                                   .person_off_outlined,
-                                                              color: Colors
-                                                                  .red,
+                                                              color: Colors.red,
                                                             ),
-                                                            title: Text(
-                                                                blockUser),
+                                                            title:
+                                                                Text(blockUser),
                                                           ),
                                                         ),
                                                       ),
                                                       Visibility(
-                                                        visible: comments[
-                                                                        index]
+                                                        visible: comments[index]
                                                                     [
                                                                     "yorumcuid"] ==
                                                                 girisdata[
@@ -1366,14 +1321,11 @@ class _PostDetailState extends State<PostDetail> {
                                                           },
                                                           child: ListTile(
                                                             textColor:
-                                                                Colors
-                                                                    .red,
-                                                            leading:
-                                                                const Icon(
+                                                                Colors.red,
+                                                            leading: const Icon(
                                                               Icons
                                                                   .person_outline,
-                                                              color: Colors
-                                                                  .red,
+                                                              color: Colors.red,
                                                             ),
                                                             title: Text(
                                                                 reportUser),
@@ -1429,11 +1381,10 @@ class _PostDetailState extends State<PostDetail> {
                                         );
                                       },
                                       countPostion: CountPostion.right,
-                                      isLiked: comments[index]
-                                                  ["benbegendim"] !=
-                                              0
-                                          ? true
-                                          : false,
+                                      isLiked:
+                                          comments[index]["benbegendim"] != 0
+                                              ? true
+                                              : false,
                                       likeCount: comments[index]
                                                   ["yorumbegenisayi"] !=
                                               "0"
@@ -1486,8 +1437,7 @@ class _PostDetailState extends State<PostDetail> {
                             ],
                           );
                         },
-                        separatorBuilder: (context, index) =>
-                            const Divider(),
+                        separatorBuilder: (context, index) => const Divider(),
                       ),
                     ],
                   ),
@@ -1509,8 +1459,7 @@ class _PostDetailState extends State<PostDetail> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                       child: DetectableTextField(
-                        onChanged: (value) =>
-                            mounted ? setState(() {}) : null,
+                        onChanged: (value) => mounted ? setState(() {}) : null,
                         focusNode: focusNodeAnaDetail,
                         detectionRegExp: RegExp(
                           "(?!\\n)(?:^|\\s)([#@]([$detectionContentLetters]+))|$urlRegexContent",

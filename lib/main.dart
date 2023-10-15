@@ -106,7 +106,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   girisKontrol(BuildContext context) async {
     var giris =
-        "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
+        "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/0/0/0/";
     var sharedPreferences = await SharedPreferences.getInstance();
 
     gkontrolAd = sharedPreferences.getString("ad");
@@ -167,7 +167,7 @@ class MyHomePageState extends State<MyHomePage> {
           setState(() {
             gelenID = value;
             qrlink =
-                "https://aramizdakioyuncu.com/botlar/$botId1/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
+                "https://aramizdakioyuncu.com/botlar/$APIKey/$gkontrolAd/$gkontrolSifre/oturum-ac/qr/$gelenID/";
           });
         }
 
@@ -376,7 +376,7 @@ class MyHomePageState extends State<MyHomePage> {
                                     setState(() {
                                       grupid = gruplarim[i]["grupID"];
                                       grupdetail =
-                                          "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
+                                          "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/0/0/&grupid=$grupid";
                                       print(grupdetail);
                                     });
                                   }

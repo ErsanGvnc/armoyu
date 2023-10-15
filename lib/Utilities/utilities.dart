@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 // postgonder() {
 //   http.post(
 //     Uri.parse(
-//       "https://aramizdakioyuncu.com/botlar/$botId1/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
+//       "https://aramizdakioyuncu.com/botlar/$APIKey/${beniHatirla ? gkontrolAd : ad.text}/${beniHatirla ? gkontrolSifre : sifre.text}/sosyal/olustur/0/0/",
 //     ),
 //     body: {
 //       "sosyalicerik": post.text,

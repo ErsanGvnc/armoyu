@@ -315,39 +315,1101 @@ class _LoginState extends State<Login> {
                     onEditingComplete: () => TextInput.finishAutofillContext(),
                   ),
                   SizedBox(height: screenHeight / 75),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
+                  
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     InkWell(
+                  //       onTap: () {
+                  //         if (mounted) {
+                  //           setState(() {
+                  //             beniHatirla = !beniHatirla;
+                  //           });
+                  //         }
+                  //       },
+                  //       child: Row(
+                  //         children: [
+                  //           Checkbox(
+                  //             activeColor: Colors.grey[900],
+                  //             value: beniHatirla,
+                  //             onChanged: (bool? value) {
+                  //               if (mounted) {
+                  //                 setState(() {
+                  //                   beniHatirla = value!;
+                  //                 });
+                  //               }
+                  //             },
+                  //           ),
+                  //           const Text(
+                  //             "Beni Hatırla",
+                  //             style: TextStyle(
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     InkWell(
+                  //       onTap: () async {
+                  //         await clear();
+                  //         showModalBottomSheet<void>(
+                  //           // isScrollControlled: true,
+                  //           backgroundColor: Colors.blueGrey[900],
+                  //           shape: const RoundedRectangleBorder(
+                  //             borderRadius: BorderRadius.vertical(
+                  //               top: Radius.circular(10),
+                  //             ),
+                  //           ),
+                  //           context: context,
+                  //           builder: (BuildContext context) {
+                  //             return StatefulBuilder(
+                  //               builder: (BuildContext context,
+                  //                   StateSetter setState) {
+                  //                 return SafeArea(
+                  //                   child: PageView(
+                  //                     controller:
+                  //                         forgetPasswordScrollController,
+                  //                     physics:
+                  //                         const NeverScrollableScrollPhysics(),
+                  //                     children: [
+                  //                       InkWell(
+                  //                         highlightColor: Colors.transparent,
+                  //                         splashColor: Colors.transparent,
+                  //                         onTap: () => FocusManager
+                  //                             .instance.primaryFocus
+                  //                             ?.unfocus(),
+                  //                         child: Padding(
+                  //                           padding: const EdgeInsets.fromLTRB(
+                  //                               20, 30, 20, 0),
+                  //                           child: Column(
+                  //                             crossAxisAlignment:
+                  //                                 CrossAxisAlignment.start,
+                  //                             children: [
+                  //                               const Text(
+                  //                                 "Şifremi unuttum",
+                  //                                 style: TextStyle(
+                  //                                   color: Colors.white,
+                  //                                   fontSize: 24,
+                  //                                   fontWeight: FontWeight.bold,
+                  //                                 ),
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               TextField(
+                  //                                 controller: forgeteposta,
+                  //                                 keyboardType: TextInputType
+                  //                                     .emailAddress,
+                  //                                 textInputAction:
+                  //                                     TextInputAction.next,
+                  //                                 autofillHints: const [
+                  //                                   AutofillHints.email
+                  //                                 ],
+                  //                                 style: const TextStyle(
+                  //                                   color: Colors.white,
+                  //                                 ),
+                  //                                 decoration: InputDecoration(
+                  //                                   border:
+                  //                                       const OutlineInputBorder(
+                  //                                     borderSide:
+                  //                                         BorderSide.none,
+                  //                                   ),
+                  //                                   prefixIcon:
+                  //                                       const Icon(Icons.mail),
+                  //                                   prefixIconColor:
+                  //                                       forgetError == false
+                  //                                           ? Colors.white
+                  //                                           : Colors.red,
+                  //                                   hintText: "E-posta",
+                  //                                   hintStyle: TextStyle(
+                  //                                     color:
+                  //                                         forgetError == false
+                  //                                             ? Colors.white
+                  //                                             : Colors.red,
+                  //                                   ),
+                  //                                   filled: true,
+                  //                                   fillColor:
+                  //                                       Colors.grey.shade900,
+                  //                                 ),
+                  //                                 onEditingComplete: () =>
+                  //                                     TextInput
+                  //                                         .finishAutofillContext(),
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               TextField(
+                  //                                 controller: forgetkadi,
+                  //                                 keyboardType: TextInputType
+                  //                                     .visiblePassword,
+                  //                                 textInputAction:
+                  //                                     TextInputAction.next,
+                  //                                 autofillHints: const [
+                  //                                   AutofillHints.username
+                  //                                 ],
+                  //                                 style: const TextStyle(
+                  //                                   color: Colors.white,
+                  //                                 ),
+                  //                                 decoration: InputDecoration(
+                  //                                   border:
+                  //                                       const OutlineInputBorder(
+                  //                                     borderSide:
+                  //                                         BorderSide.none,
+                  //                                   ),
+                  //                                   prefixIcon: const Icon(
+                  //                                       Icons.person),
+                  //                                   prefixIconColor:
+                  //                                       forgetError == false
+                  //                                           ? Colors.white
+                  //                                           : Colors.red,
+                  //                                   hintText: "Kullanıcı Adı",
+                  //                                   hintStyle: TextStyle(
+                  //                                     color:
+                  //                                         forgetError == false
+                  //                                             ? Colors.white
+                  //                                             : Colors.red,
+                  //                                   ),
+                  //                                   filled: true,
+                  //                                   fillColor:
+                  //                                       Colors.grey.shade900,
+                  //                                 ),
+                  //                                 onEditingComplete: () =>
+                  //                                     TextInput
+                  //                                         .finishAutofillContext(),
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               TextField(
+                  //                                 onTap: () {
+                  //                                   DatePicker.showDatePicker(
+                  //                                     context,
+                  //                                     showTitleActions: true,
+                  //                                     minTime:
+                  //                                         DateTime(1923, 0, 0),
+                  //                                     maxTime: DateTime.now(),
+                  //                                     onChanged: (date) {
+                  //                                       if (mounted) {
+                  //                                         setState(() {
+                  //                                           dogumTarihi =
+                  //                                               "${date.year}-${date.day}-${date.month}";
+                  //                                           forgetdogumtarihi
+                  //                                                   .text =
+                  //                                               dogumTarihi
+                  //                                                   .toString();
+                  //                                         });
+                  //                                       }
+                  //                                     },
+                  //                                     onConfirm: (date) {
+                  //                                       if (mounted) {
+                  //                                         setState(() {
+                  //                                           dogumTarihi =
+                  //                                               "${date.year}-${date.day}-${date.month}";
+                  //                                           forgetdogumtarihi
+                  //                                                   .text =
+                  //                                               dogumTarihi
+                  //                                                   .toString();
+                  //                                         });
+                  //                                       }
+                  //                                     },
+                  //                                     currentTime:
+                  //                                         DateTime.now(),
+                  //                                     locale: LocaleType.tr,
+                  //                                   );
+                  //                                 },
+                  //                                 controller: forgetdogumtarihi,
+                  //                                 textInputAction:
+                  //                                     TextInputAction.next,
+                  //                                 autofillHints: const [
+                  //                                   AutofillHints.birthday
+                  //                                 ],
+                  //                                 style: const TextStyle(
+                  //                                   color: Colors.white,
+                  //                                 ),
+                  //                                 decoration: InputDecoration(
+                  //                                   border:
+                  //                                       const OutlineInputBorder(
+                  //                                     borderSide:
+                  //                                         BorderSide.none,
+                  //                                   ),
+                  //                                   prefixIcon: const Icon(
+                  //                                       Icons.date_range),
+                  //                                   prefixIconColor:
+                  //                                       forgetError == false
+                  //                                           ? Colors.white
+                  //                                           : Colors.red,
+                  //                                   hintText: "Doğum Tarihi",
+                  //                                   hintStyle: TextStyle(
+                  //                                     color:
+                  //                                         forgetError == false
+                  //                                             ? Colors.white
+                  //                                             : Colors.red,
+                  //                                   ),
+                  //                                   filled: true,
+                  //                                   fillColor:
+                  //                                       Colors.grey.shade900,
+                  //                                 ),
+                  //                                 onEditingComplete: () =>
+                  //                                     TextInput
+                  //                                         .finishAutofillContext(),
+                  //                                 readOnly: true,
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               Center(
+                  //                                 child: InkWell(
+                  //                                   onTap: () async {
+                  //                                     FocusManager
+                  //                                         .instance.primaryFocus
+                  //                                         ?.unfocus();
+                  //                                     if (forgeteposta.text !=
+                  //                                             "" &&
+                  //                                         forgetkadi.text !=
+                  //                                             "" &&
+                  //                                         forgetdogumtarihi
+                  //                                                 .text !=
+                  //                                             "") {
+                  //                                       await firstResetPassword();
+                  //                                       if (mounted) {
+                  //                                         setState(() {});
+                  //                                       }
+                  //                                     } else {
+                  //                                       if (mounted) {
+                  //                                         setState(() {
+                  //                                           forgetError = true;
+                  //                                         });
+                  //                                       }
+                  //                                       await Future.delayed(
+                  //                                         const Duration(
+                  //                                             seconds: 1),
+                  //                                       );
+                  //                                       if (mounted) {
+                  //                                         setState(() {
+                  //                                           forgetError = false;
+                  //                                         });
+                  //                                       }
+                  //                                     }
+                  //                                   },
+                  //                                   child: Container(
+                  //                                     height: screenHeight / 15,
+                  //                                     width: screenWidth / 2,
+                  //                                     decoration: BoxDecoration(
+                  //                                       color: Colors.white,
+                  //                                       borderRadius:
+                  //                                           BorderRadius
+                  //                                               .circular(10),
+                  //                                     ),
+                  //                                     child: const Center(
+                  //                                       child: Text(
+                  //                                         "Devam Et",
+                  //                                         style: TextStyle(
+                  //                                           fontSize: 20,
+                  //                                           color: Colors.black,
+                  //                                           fontWeight:
+                  //                                               FontWeight.bold,
+                  //                                         ),
+                  //                                       ),
+                  //                                     ),
+                  //                                   ),
+                  //                                 ),
+                  //                               ),
+                  //                             ],
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                       Padding(
+                  //                         padding: const EdgeInsets.fromLTRB(
+                  //                             20, 30, 20, 0),
+                  //                         child: Column(
+                  //                           crossAxisAlignment:
+                  //                               CrossAxisAlignment.start,
+                  //                           children: [
+                  //                             const Text(
+                  //                               "Yenileme tercihi",
+                  //                               style: TextStyle(
+                  //                                 color: Colors.white,
+                  //                                 fontSize: 24,
+                  //                                 fontWeight: FontWeight.bold,
+                  //                               ),
+                  //                             ),
+                  //                             SizedBox(
+                  //                                 height: screenHeight / 30),
+                  //                             InkWell(
+                  //                               onTap: () async {
+                  //                                 isMobileEnable == true
+                  //                                     ? {
+                  //                                         if (mounted)
+                  //                                           {
+                  //                                             setState(() {
+                  //                                               sifirlamatercihi =
+                  //                                                   "telefon";
+                  //                                             }),
+                  //                                           },
+                  //                                         await resetPassword(),
+                  //                                       }
+                  //                                     : print("null");
+                  //                               },
+                  //                               child: Container(
+                  //                                 decoration: BoxDecoration(
+                  //                                   color: Colors.grey.shade900,
+                  //                                   borderRadius:
+                  //                                       BorderRadius.circular(
+                  //                                           5),
+                  //                                 ),
+                  //                                 child: Padding(
+                  //                                   padding:
+                  //                                       const EdgeInsets.all(
+                  //                                           20),
+                  //                                   child: Row(
+                  //                                     mainAxisAlignment:
+                  //                                         MainAxisAlignment
+                  //                                             .start,
+                  //                                     crossAxisAlignment:
+                  //                                         CrossAxisAlignment
+                  //                                             .center,
+                  //                                     children: [
+                  //                                       Icon(
+                  //                                         Icons.phone_iphone,
+                  //                                         color:
+                  //                                             isMobileEnable !=
+                  //                                                     true
+                  //                                                 ? Colors.grey
+                  //                                                 : Colors
+                  //                                                     .white,
+                  //                                         size: 64,
+                  //                                       ),
+                  //                                       const SizedBox(
+                  //                                           width: 10),
+                  //                                       Text(
+                  //                                         "SMS gönder.",
+                  //                                         style: TextStyle(
+                  //                                           color:
+                  //                                               isMobileEnable !=
+                  //                                                       true
+                  //                                                   ? Colors
+                  //                                                       .grey
+                  //                                                   : Colors
+                  //                                                       .white,
+                  //                                           fontSize: 20,
+                  //                                           fontWeight:
+                  //                                               FontWeight.bold,
+                  //                                         ),
+                  //                                       ),
+                  //                                     ],
+                  //                                   ),
+                  //                                 ),
+                  //                               ),
+                  //                             ),
+                  //                             SizedBox(
+                  //                                 height: screenHeight / 30),
+                  //                             InkWell(
+                  //                               onTap: () async {
+                  //                                 if (mounted) {
+                  //                                   setState(() {
+                  //                                     sifirlamatercihi = "mail";
+                  //                                   });
+                  //                                 }
+                  //                                 await resetPassword();
+                  //                                 // forgetPasswordScrollController
+                  //                                 //     .nextPage(
+                  //                                 //         duration: const Duration(
+                  //                                 //           milliseconds: 300,
+                  //                                 //         ),
+                  //                                 //         curve: Curves.easeIn);
+                  //                               },
+                  //                               child: Container(
+                  //                                 decoration: BoxDecoration(
+                  //                                   color: Colors.grey.shade900,
+                  //                                   borderRadius:
+                  //                                       BorderRadius.circular(
+                  //                                           5),
+                  //                                 ),
+                  //                                 child: const Padding(
+                  //                                   padding: EdgeInsets.all(20),
+                  //                                   child: Row(
+                  //                                     mainAxisAlignment:
+                  //                                         MainAxisAlignment
+                  //                                             .start,
+                  //                                     crossAxisAlignment:
+                  //                                         CrossAxisAlignment
+                  //                                             .center,
+                  //                                     children: [
+                  //                                       Icon(
+                  //                                         Icons.mail_outline,
+                  //                                         color: Colors.white,
+                  //                                         size: 64,
+                  //                                       ),
+                  //                                       SizedBox(width: 10),
+                  //                                       Text(
+                  //                                         "Mail gönder.",
+                  //                                         style: TextStyle(
+                  //                                           color: Colors.white,
+                  //                                           fontSize: 20,
+                  //                                           fontWeight:
+                  //                                               FontWeight.bold,
+                  //                                         ),
+                  //                                       ),
+                  //                                     ],
+                  //                                   ),
+                  //                                 ),
+                  //                               ),
+                  //                             ),
+                  //                             SizedBox(
+                  //                                 height: screenHeight / 30),
+                  //                           ],
+                  //                         ),
+                  //                       ),
+                  //                       InkWell(
+                  //                         highlightColor: Colors.transparent,
+                  //                         splashColor: Colors.transparent,
+                  //                         onTap: () => FocusManager
+                  //                             .instance.primaryFocus
+                  //                             ?.unfocus(),
+                  //                         child: Padding(
+                  //                           padding: const EdgeInsets.fromLTRB(
+                  //                               20, 30, 20, 0),
+                  //                           child: Column(
+                  //                             crossAxisAlignment:
+                  //                                 CrossAxisAlignment.start,
+                  //                             children: [
+                  //                               const Text(
+                  //                                 "Doğrulama kodu",
+                  //                                 style: TextStyle(
+                  //                                   color: Colors.white,
+                  //                                   fontSize: 24,
+                  //                                   fontWeight: FontWeight.bold,
+                  //                                 ),
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               Row(
+                  //                                 mainAxisAlignment:
+                  //                                     MainAxisAlignment.center,
+                  //                                 crossAxisAlignment:
+                  //                                     CrossAxisAlignment.center,
+                  //                                 children: [
+                  //                                   CircularCountDownTimer(
+                  //                                     width: 75,
+                  //                                     height: 75,
+                  //                                     duration: 120,
+                  //                                     fillColor: Colors.blue,
+                  //                                     ringColor:
+                  //                                         Colors.transparent,
+                  //                                     textStyle:
+                  //                                         const TextStyle(
+                  //                                       color: Colors.white,
+                  //                                     ),
+                  //                                     isReverse: true,
+                  //                                     isReverseAnimation: true,
+                  //                                     textFormat:
+                  //                                         CountdownTextFormat.S,
+                  //                                     onComplete: () {},
+                  //                                   ),
+                  //                                 ],
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               Row(
+                  //                                 mainAxisAlignment:
+                  //                                     MainAxisAlignment
+                  //                                         .spaceEvenly,
+                  //                                 children: [
+                  //                                   SizedBox(
+                  //                                     width: 60,
+                  //                                     height: 60,
+                  //                                     child: TextField(
+                  //                                       inputFormatters: [
+                  //                                         LengthLimitingTextInputFormatter(
+                  //                                             1),
+                  //                                         FilteringTextInputFormatter
+                  //                                             .digitsOnly,
+                  //                                       ],
+                  //                                       controller: verified1,
+                  //                                       keyboardType:
+                  //                                           TextInputType
+                  //                                               .number,
+                  //                                       textAlign:
+                  //                                           TextAlign.center,
+                  //                                       style: const TextStyle(
+                  //                                         color: Colors.white,
+                  //                                       ),
+                  //                                       decoration:
+                  //                                           InputDecoration(
+                  //                                         border:
+                  //                                             const OutlineInputBorder(
+                  //                                           borderSide:
+                  //                                               BorderSide.none,
+                  //                                         ),
+                  //                                         prefixIconColor:
+                  //                                             Colors.white,
+                  //                                         hintText: "___",
+                  //                                         hintStyle:
+                  //                                             const TextStyle(
+                  //                                           color: Colors.white,
+                  //                                         ),
+                  //                                         filled: true,
+                  //                                         fillColor: Colors
+                  //                                             .grey.shade900,
+                  //                                       ),
+                  //                                       onChanged: (value) {
+                  //                                         if (value.length ==
+                  //                                             1) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .nextFocus();
+                  //                                         } else if (value
+                  //                                             .isEmpty) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .previousFocus();
+                  //                                         }
+                  //                                       },
+                  //                                       onEditingComplete: () =>
+                  //                                           TextInput
+                  //                                               .finishAutofillContext(),
+                  //                                     ),
+                  //                                   ),
+                  //                                   SizedBox(
+                  //                                     width: 60,
+                  //                                     height: 60,
+                  //                                     child: TextField(
+                  //                                       inputFormatters: [
+                  //                                         LengthLimitingTextInputFormatter(
+                  //                                             1),
+                  //                                         FilteringTextInputFormatter
+                  //                                             .digitsOnly,
+                  //                                       ],
+                  //                                       controller: verified2,
+                  //                                       keyboardType:
+                  //                                           TextInputType
+                  //                                               .number,
+                  //                                       textAlign:
+                  //                                           TextAlign.center,
+                  //                                       style: const TextStyle(
+                  //                                         color: Colors.white,
+                  //                                       ),
+                  //                                       decoration:
+                  //                                           InputDecoration(
+                  //                                         border:
+                  //                                             const OutlineInputBorder(
+                  //                                           borderSide:
+                  //                                               BorderSide.none,
+                  //                                         ),
+                  //                                         prefixIconColor:
+                  //                                             Colors.white,
+                  //                                         hintText: "___",
+                  //                                         hintStyle:
+                  //                                             const TextStyle(
+                  //                                           color: Colors.white,
+                  //                                         ),
+                  //                                         filled: true,
+                  //                                         fillColor: Colors
+                  //                                             .grey.shade900,
+                  //                                       ),
+                  //                                       onChanged: (value) {
+                  //                                         if (value.length ==
+                  //                                             1) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .nextFocus();
+                  //                                         } else if (value
+                  //                                             .isEmpty) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .previousFocus();
+                  //                                         }
+                  //                                       },
+                  //                                       onEditingComplete: () =>
+                  //                                           TextInput
+                  //                                               .finishAutofillContext(),
+                  //                                     ),
+                  //                                   ),
+                  //                                   SizedBox(
+                  //                                     width: 60,
+                  //                                     height: 60,
+                  //                                     child: TextField(
+                  //                                       inputFormatters: [
+                  //                                         LengthLimitingTextInputFormatter(
+                  //                                             1),
+                  //                                         FilteringTextInputFormatter
+                  //                                             .digitsOnly,
+                  //                                       ],
+                  //                                       controller: verified3,
+                  //                                       keyboardType:
+                  //                                           TextInputType
+                  //                                               .number,
+                  //                                       textAlign:
+                  //                                           TextAlign.center,
+                  //                                       style: const TextStyle(
+                  //                                         color: Colors.white,
+                  //                                       ),
+                  //                                       decoration:
+                  //                                           InputDecoration(
+                  //                                         border:
+                  //                                             const OutlineInputBorder(
+                  //                                           borderSide:
+                  //                                               BorderSide.none,
+                  //                                         ),
+                  //                                         prefixIconColor:
+                  //                                             Colors.white,
+                  //                                         hintText: "___",
+                  //                                         hintStyle:
+                  //                                             const TextStyle(
+                  //                                           color: Colors.white,
+                  //                                         ),
+                  //                                         filled: true,
+                  //                                         fillColor: Colors
+                  //                                             .grey.shade900,
+                  //                                       ),
+                  //                                       onChanged: (value) {
+                  //                                         if (value.length ==
+                  //                                             1) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .nextFocus();
+                  //                                         } else if (value
+                  //                                             .isEmpty) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .previousFocus();
+                  //                                         }
+                  //                                       },
+                  //                                       onEditingComplete: () =>
+                  //                                           TextInput
+                  //                                               .finishAutofillContext(),
+                  //                                     ),
+                  //                                   ),
+                  //                                   SizedBox(
+                  //                                     width: 60,
+                  //                                     height: 60,
+                  //                                     child: TextField(
+                  //                                       inputFormatters: [
+                  //                                         LengthLimitingTextInputFormatter(
+                  //                                             1),
+                  //                                         FilteringTextInputFormatter
+                  //                                             .digitsOnly,
+                  //                                       ],
+                  //                                       controller: verified4,
+                  //                                       keyboardType:
+                  //                                           TextInputType
+                  //                                               .number,
+                  //                                       textAlign:
+                  //                                           TextAlign.center,
+                  //                                       style: const TextStyle(
+                  //                                         color: Colors.white,
+                  //                                       ),
+                  //                                       decoration:
+                  //                                           InputDecoration(
+                  //                                         border:
+                  //                                             const OutlineInputBorder(
+                  //                                           borderSide:
+                  //                                               BorderSide.none,
+                  //                                         ),
+                  //                                         prefixIconColor:
+                  //                                             Colors.white,
+                  //                                         hintText: "___",
+                  //                                         hintStyle:
+                  //                                             const TextStyle(
+                  //                                           color: Colors.white,
+                  //                                         ),
+                  //                                         filled: true,
+                  //                                         fillColor: Colors
+                  //                                             .grey.shade900,
+                  //                                       ),
+                  //                                       onChanged: (value) {
+                  //                                         if (value.length ==
+                  //                                             1) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .nextFocus();
+                  //                                         } else if (value
+                  //                                             .isEmpty) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .previousFocus();
+                  //                                         }
+                  //                                       },
+                  //                                       onEditingComplete: () =>
+                  //                                           TextInput
+                  //                                               .finishAutofillContext(),
+                  //                                     ),
+                  //                                   ),
+                  //                                   SizedBox(
+                  //                                     width: 60,
+                  //                                     height: 60,
+                  //                                     child: TextField(
+                  //                                       inputFormatters: [
+                  //                                         LengthLimitingTextInputFormatter(
+                  //                                             1),
+                  //                                         FilteringTextInputFormatter
+                  //                                             .digitsOnly,
+                  //                                       ],
+                  //                                       controller: verified5,
+                  //                                       keyboardType:
+                  //                                           TextInputType
+                  //                                               .number,
+                  //                                       textAlign:
+                  //                                           TextAlign.center,
+                  //                                       style: const TextStyle(
+                  //                                         color: Colors.white,
+                  //                                       ),
+                  //                                       decoration:
+                  //                                           InputDecoration(
+                  //                                         border:
+                  //                                             const OutlineInputBorder(
+                  //                                           borderSide:
+                  //                                               BorderSide.none,
+                  //                                         ),
+                  //                                         prefixIconColor:
+                  //                                             Colors.white,
+                  //                                         hintText: "___",
+                  //                                         hintStyle:
+                  //                                             const TextStyle(
+                  //                                           color: Colors.white,
+                  //                                         ),
+                  //                                         filled: true,
+                  //                                         fillColor: Colors
+                  //                                             .grey.shade900,
+                  //                                       ),
+                  //                                       onChanged: (value) {
+                  //                                         if (value.length ==
+                  //                                             1) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .nextFocus();
+                  //                                         } else if (value
+                  //                                             .isEmpty) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .previousFocus();
+                  //                                         }
+                  //                                       },
+                  //                                       onEditingComplete: () =>
+                  //                                           TextInput
+                  //                                               .finishAutofillContext(),
+                  //                                     ),
+                  //                                   ),
+                  //                                   SizedBox(
+                  //                                     width: 60,
+                  //                                     height: 60,
+                  //                                     child: TextField(
+                  //                                       inputFormatters: [
+                  //                                         LengthLimitingTextInputFormatter(
+                  //                                             1),
+                  //                                         FilteringTextInputFormatter
+                  //                                             .digitsOnly,
+                  //                                       ],
+                  //                                       controller: verified6,
+                  //                                       keyboardType:
+                  //                                           TextInputType
+                  //                                               .number,
+                  //                                       textAlign:
+                  //                                           TextAlign.center,
+                  //                                       style: const TextStyle(
+                  //                                         color: Colors.white,
+                  //                                       ),
+                  //                                       decoration:
+                  //                                           InputDecoration(
+                  //                                         border:
+                  //                                             const OutlineInputBorder(
+                  //                                           borderSide:
+                  //                                               BorderSide.none,
+                  //                                         ),
+                  //                                         prefixIconColor:
+                  //                                             Colors.white,
+                  //                                         hintText: "___",
+                  //                                         hintStyle:
+                  //                                             const TextStyle(
+                  //                                           color: Colors.white,
+                  //                                         ),
+                  //                                         filled: true,
+                  //                                         fillColor: Colors
+                  //                                             .grey.shade900,
+                  //                                       ),
+                  //                                       onChanged:
+                  //                                           (value) async {
+                  //                                         if (value.length ==
+                  //                                             1) {
+                  //                                           FocusManager
+                  //                                               .instance
+                  //                                               .primaryFocus
+                  //                                               ?.unfocus();
+                  //                                           await confirmCode();
+                  //                                         } else if (value
+                  //                                             .isEmpty) {
+                  //                                           FocusScope.of(
+                  //                                                   context)
+                  //                                               .previousFocus();
+                  //                                         }
+                  //                                       },
+                  //                                       onEditingComplete:
+                  //                                           () async {
+                  //                                         FocusManager.instance
+                  //                                             .primaryFocus
+                  //                                             ?.unfocus();
+                  //                                         await confirmCode();
+                  //                                       },
+                  //                                     ),
+                  //                                   ),
+                  //                                 ],
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               Center(
+                  //                                 child: InkWell(
+                  //                                   onTap: () async {
+                  //                                     FocusManager
+                  //                                         .instance.primaryFocus
+                  //                                         ?.unfocus();
+                  //                                     await confirmCode();
+                  //                                   },
+                  //                                   child: Container(
+                  //                                     height: screenHeight / 15,
+                  //                                     width: screenWidth / 2,
+                  //                                     decoration: BoxDecoration(
+                  //                                       color: Colors.white,
+                  //                                       borderRadius:
+                  //                                           BorderRadius
+                  //                                               .circular(10),
+                  //                                     ),
+                  //                                     child: const Center(
+                  //                                       child: Text(
+                  //                                         "Doğrula",
+                  //                                         style: TextStyle(
+                  //                                           fontSize: 20,
+                  //                                           color: Colors.black,
+                  //                                           fontWeight:
+                  //                                               FontWeight.bold,
+                  //                                         ),
+                  //                                       ),
+                  //                                     ),
+                  //                                   ),
+                  //                                 ),
+                  //                               ),
+                  //                             ],
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                       InkWell(
+                  //                         highlightColor: Colors.transparent,
+                  //                         splashColor: Colors.transparent,
+                  //                         onTap: () => FocusManager
+                  //                             .instance.primaryFocus
+                  //                             ?.unfocus(),
+                  //                         child: Padding(
+                  //                           padding: const EdgeInsets.fromLTRB(
+                  //                               20, 30, 20, 0),
+                  //                           child: Column(
+                  //                             crossAxisAlignment:
+                  //                                 CrossAxisAlignment.start,
+                  //                             children: [
+                  //                               const Text(
+                  //                                 "Yeni şifre",
+                  //                                 style: TextStyle(
+                  //                                   color: Colors.white,
+                  //                                   fontSize: 24,
+                  //                                   fontWeight: FontWeight.bold,
+                  //                                 ),
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               TextField(
+                  //                                 controller: forgetparola,
+                  //                                 keyboardType: TextInputType
+                  //                                     .visiblePassword,
+                  //                                 obscureText: true,
+                  //                                 textInputAction:
+                  //                                     TextInputAction.next,
+                  //                                 autofillHints: const [
+                  //                                   AutofillHints.password
+                  //                                 ],
+                  //                                 style: const TextStyle(
+                  //                                   color: Colors.white,
+                  //                                 ),
+                  //                                 decoration: InputDecoration(
+                  //                                   border:
+                  //                                       const OutlineInputBorder(
+                  //                                     borderSide:
+                  //                                         BorderSide.none,
+                  //                                   ),
+                  //                                   prefixIcon:
+                  //                                       const Icon(Icons.lock),
+                  //                                   prefixIconColor:
+                  //                                       Colors.white,
+                  //                                   hintText: "Şifre Tekrar",
+                  //                                   hintStyle: const TextStyle(
+                  //                                     color: Colors.white,
+                  //                                   ),
+                  //                                   filled: true,
+                  //                                   fillColor:
+                  //                                       Colors.grey.shade900,
+                  //                                 ),
+                  //                                 onEditingComplete: () =>
+                  //                                     TextInput
+                  //                                         .finishAutofillContext(),
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               TextField(
+                  //                                 controller:
+                  //                                     forgetparolatekrar,
+                  //                                 keyboardType: TextInputType
+                  //                                     .visiblePassword,
+                  //                                 obscureText: true,
+                  //                                 textInputAction:
+                  //                                     TextInputAction.next,
+                  //                                 autofillHints: const [
+                  //                                   AutofillHints.password
+                  //                                 ],
+                  //                                 style: const TextStyle(
+                  //                                   color: Colors.white,
+                  //                                 ),
+                  //                                 decoration: InputDecoration(
+                  //                                   border:
+                  //                                       const OutlineInputBorder(
+                  //                                     borderSide:
+                  //                                         BorderSide.none,
+                  //                                   ),
+                  //                                   prefixIcon:
+                  //                                       const Icon(Icons.lock),
+                  //                                   prefixIconColor:
+                  //                                       Colors.white,
+                  //                                   hintText: "Şifre Tekrar",
+                  //                                   hintStyle: const TextStyle(
+                  //                                     color: Colors.white,
+                  //                                   ),
+                  //                                   filled: true,
+                  //                                   fillColor:
+                  //                                       Colors.grey.shade900,
+                  //                                 ),
+                  //                                 onEditingComplete: () =>
+                  //                                     TextInput
+                  //                                         .finishAutofillContext(),
+                  //                               ),
+                  //                               SizedBox(
+                  //                                   height: screenHeight / 30),
+                  //                               Center(
+                  //                                 child: InkWell(
+                  //                                   onTap: () async {
+                  //                                     FocusManager
+                  //                                         .instance.primaryFocus
+                  //                                         ?.unfocus();
+                  //                                     await newPasspord();
+                  //                                   },
+                  //                                   child: Container(
+                  //                                     height: screenHeight / 15,
+                  //                                     width: screenWidth / 2,
+                  //                                     decoration: BoxDecoration(
+                  //                                       color: Colors.white,
+                  //                                       borderRadius:
+                  //                                           BorderRadius
+                  //                                               .circular(10),
+                  //                                     ),
+                  //                                     child: const Center(
+                  //                                       child: Text(
+                  //                                         "Sıfırla",
+                  //                                         style: TextStyle(
+                  //                                           fontSize: 20,
+                  //                                           color: Colors.black,
+                  //                                           fontWeight:
+                  //                                               FontWeight.bold,
+                  //                                         ),
+                  //                                       ),
+                  //                                     ),
+                  //                                   ),
+                  //                                 ),
+                  //                               ),
+                  //                             ],
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 );
+                  //               },
+                  //             );
+                  //           },
+                  //         );
+                  //       },
+                  //       child: const Text(
+                  //         "Şifremi Unuttum",
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  SizedBox(height: screenHeight / 30),
+                  Center(
+                    child: InkWell(
+                      onTap: () async {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        if (ad.text == "" || sifre.text == "") {
+                          const snackBar = SnackBar(
+                            content:
+                                Text('Giriş Bilgilerinizi Boş Bıraktınız!'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          if (beniHatirla == true) {
+                            var sharedPreferences =
+                                await SharedPreferences.getInstance();
+                            sharedPreferences.setString("ad", ad.text);
+                            sharedPreferences.setString("sifre", sifre.text);
+                            sharedPreferences.setBool("beniHatirla", true);
+                            if (mounted) {
+                              setState(() {
+                                gkontrolAd = sharedPreferences.getString("ad");
+                                gkontrolSifre =
+                                    sharedPreferences.getString("sifre");
+                                gkontrolHatirla =
+                                    sharedPreferences.getBool("beniHatirla");
+                              });
+                            }
+                          } else {
+                            var sharedPreferences =
+                                await SharedPreferences.getInstance();
+                            sharedPreferences.setString("ad", "");
+                            sharedPreferences.setString("sifre", "");
+                            sharedPreferences.setBool("beniHatirla", false);
+                          }
                           if (mounted) {
                             setState(() {
-                              beniHatirla = !beniHatirla;
+                              checked = true;
                             });
                           }
-                        },
-                        child: Row(
-                          children: [
-                            Checkbox(
-                              activeColor: Colors.grey[900],
-                              value: beniHatirla,
-                              onChanged: (bool? value) {
-                                if (mounted) {
-                                  setState(() {
-                                    beniHatirla = value!;
-                                  });
-                                }
-                              },
-                            ),
-                            const Text(
-                              "Beni Hatırla",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                          await MyHomePageState().girisKontrol(context);
+                          if (mounted) {
+                            setState(() {
+                              checked = false;
+                            });
+                          }
+                        }
+                      },
+                      child: Container(
+                        height: 55,
+                        // width: screenWidth / 2,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: checked
+                              ? const CircularProgressIndicator()
+                              : const Text(
+                                  "Devam Et",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                         ),
                       ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight / 25),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       InkWell(
                         onTap: () async {
                           await clear();
@@ -1327,85 +2389,46 @@ class _LoginState extends State<Login> {
                             },
                           );
                         },
-                        child: const Text(
-                          "Şifremi Unuttum",
-                          style: TextStyle(
+                        child: Text(
+                          forgetPassword,
+                          style: const TextStyle(
                             color: Colors.white,
+                            fontSize: 16,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: screenHeight / 15),
-                  Center(
-                    child: InkWell(
-                      onTap: () async {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        if (ad.text == "" || sifre.text == "") {
-                          const snackBar = SnackBar(
-                            content:
-                                Text('Giriş Bilgilerinizi Boş Bıraktınız!'),
+                  SizedBox(height: screenHeight / 25),
+                  SignInWithAppleButton(
+                    onPressed: () async {
+                      try {
+                        if (await SignInWithApple.isAvailable()) {
+                          final credential =
+                              await SignInWithApple.getAppleIDCredential(
+                            webAuthenticationOptions: WebAuthenticationOptions(
+                              clientId: clientID.toString(),
+                              redirectUri: Uri.parse(redirectUrl),
+                            ),
+                            scopes: [
+                              AppleIDAuthorizationScopes.email,
+                              AppleIDAuthorizationScopes.fullName,
+                            ],
+                            
                           );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                          print(credential);
                         } else {
-                          if (beniHatirla == true) {
-                            var sharedPreferences =
-                                await SharedPreferences.getInstance();
-                            sharedPreferences.setString("ad", ad.text);
-                            sharedPreferences.setString("sifre", sifre.text);
-                            sharedPreferences.setBool("beniHatirla", true);
-                            if (mounted) {
-                              setState(() {
-                                gkontrolAd = sharedPreferences.getString("ad");
-                                gkontrolSifre =
-                                    sharedPreferences.getString("sifre");
-                                gkontrolHatirla =
-                                    sharedPreferences.getBool("beniHatirla");
-                              });
-                            }
-                          } else {
-                            var sharedPreferences =
-                                await SharedPreferences.getInstance();
-                            sharedPreferences.setString("ad", "");
-                            sharedPreferences.setString("sifre", "");
-                            sharedPreferences.setBool("beniHatirla", false);
-                          }
-                          if (mounted) {
-                            setState(() {
-                              checked = true;
-                            });
-                          }
-                          await MyHomePageState().girisKontrol(context);
-                          if (mounted) {
-                            setState(() {
-                              checked = false;
-                            });
-                          }
+                          print(
+                              'Apple SignIn is not available for your device');
                         }
-                      },
-                      child: Container(
-                        height: screenHeight / 15,
-                        width: screenWidth / 2,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: checked
-                              ? const CircularProgressIndicator()
-                              : const Text(
-                                  "Devam Et",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                        ),
-                      ),
-                    ),
+                      } catch (e) {
+                        print("User closed the tab");
+                      }
+                    },
                   ),
-                  SizedBox(height: screenHeight / 10),
+
+                  SizedBox(height: screenHeight / 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -1429,7 +2452,7 @@ class _LoginState extends State<Login> {
                           );
                         },
                         child: const Text(
-                          "Kayıt Ol",
+                          "Kaydol",
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
